@@ -4,10 +4,11 @@ import { Pressable, StyleProp, Text, TextStyle, View, ViewStyle } from "react-na
 import { makeStyles, useTheme } from "@/src/theme";
 
 export function BrandMark({ compact = false }: { compact?: boolean }) {
+  const { colors } = useTheme();
   const styles = useStyles();
   return (
     <View style={styles.brandRow}>
-      <View style={styles.brandIcon}><Ionicons name="flash" size={compact ? 18 : 22} color="#FFFFFF" /></View>
+      <View style={styles.brandIcon}><Ionicons name="flash" size={compact ? 18 : 22} color={colors.onBrandPrimary} /></View>
       {!compact ? <Text style={styles.brandText}>MathBlitz</Text> : null}
     </View>
   );
