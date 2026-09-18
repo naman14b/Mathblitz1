@@ -17,7 +17,7 @@ export function Settings({ profile, onSave, onBack, onAge, onReset }: { profile:
 function SettingRow({ icon, title, subtitle, value, onPress }: { icon: keyof typeof Ionicons.glyphMap; title: string; subtitle: string; value: boolean; onPress: () => void }) {
   const { colors } = useTheme();
   const styles = useStyles();
-  return <Pressable onPress={onPress} style={styles.settingRow}><Ionicons name={icon} size={21} color={colors.brandPrimary} /><View style={styles.settingCopy}><Text style={styles.optionTitle}>{title}</Text><Text style={styles.optionSub}>{subtitle}</Text></View><View style={[styles.switch, { backgroundColor: value ? colors.brandPrimary : colors.border }]}><View style={[styles.knob, { alignSelf: value ? "flex-end" : "flex-start" }]} /></View></Pressable>;
+  return <Pressable testID={title === "Sound effects" ? "settings-sound" : "settings-vibration"} onPress={onPress} style={styles.settingRow}><Ionicons name={icon} size={21} color={colors.brandPrimary} /><View style={styles.settingCopy}><Text style={styles.optionTitle}>{title}</Text><Text style={styles.optionSub}>{subtitle}</Text></View><View style={[styles.switch, { backgroundColor: value ? colors.brandPrimary : colors.border }]}><View style={[styles.knob, { alignSelf: value ? "flex-end" : "flex-start" }]} /></View></Pressable>;
 }
 
 const useStyles = makeStyles((colors) => ({

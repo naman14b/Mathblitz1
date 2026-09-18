@@ -23,22 +23,22 @@ export function IconButton({ name, onPress, label }: { name: keyof typeof Ionico
   );
 }
 
-export function PrimaryButton({ children, onPress, icon, style, disabled = false }: PropsWithChildren<{ onPress: () => void; icon?: keyof typeof Ionicons.glyphMap; style?: StyleProp<ViewStyle>; disabled?: boolean }>) {
+export function PrimaryButton({ children, onPress, icon, style, disabled = false, testID }: PropsWithChildren<{ onPress: () => void; icon?: keyof typeof Ionicons.glyphMap; style?: StyleProp<ViewStyle>; disabled?: boolean; testID?: string }>) {
   const { colors } = useTheme();
   const styles = useStyles();
   return (
-    <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.brandPrimary, opacity: disabled ? 0.5 : pressed ? 0.82 : 1 }, style]}>
+    <Pressable testID={testID} onPress={onPress} disabled={disabled} accessibilityRole="button" style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.brandPrimary, opacity: disabled ? 0.5 : pressed ? 0.82 : 1 }, style]}>
       <Text style={[styles.primaryText, { color: colors.onBrandPrimary }]}>{children}</Text>
       {icon ? <Ionicons name={icon} size={20} color={colors.onBrandPrimary} /> : null}
     </Pressable>
   );
 }
 
-export function SoftButton({ children, onPress, icon, style }: PropsWithChildren<{ onPress: () => void; icon?: keyof typeof Ionicons.glyphMap; style?: StyleProp<ViewStyle> }>) {
+export function SoftButton({ children, onPress, icon, style, testID }: PropsWithChildren<{ onPress: () => void; icon?: keyof typeof Ionicons.glyphMap; style?: StyleProp<ViewStyle>; testID?: string }>) {
   const { colors } = useTheme();
   const styles = useStyles();
   return (
-    <Pressable onPress={onPress} accessibilityRole="button" style={({ pressed }) => [styles.softButton, { backgroundColor: colors.brandTertiary, opacity: pressed ? 0.72 : 1 }, style]}>
+    <Pressable testID={testID} onPress={onPress} accessibilityRole="button" style={({ pressed }) => [styles.softButton, { backgroundColor: colors.brandTertiary, opacity: pressed ? 0.72 : 1 }, style]}>
       {icon ? <Ionicons name={icon} size={18} color={colors.onBrandTertiary} /> : null}
       <Text style={[styles.softText, { color: colors.onBrandTertiary }]}>{children}</Text>
     </Pressable>

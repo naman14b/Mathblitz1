@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 import { AdminChallenge, AdminQuestion, MonetizationSettings } from "./types";
 
-const backendUrl = Constants.expoConfig?.extra?.backendUrl;
+const backendUrl = Constants.expoConfig?.extra?.backendUrl ?? process.env.EXPO_PUBLIC_BACKEND_URL;
 const API_ROOT = backendUrl ? `${backendUrl.replace(/\/$/, "")}/api` : "";
 
 async function request<T>(path: string, options: RequestInit = {}, token?: string): Promise<T> {

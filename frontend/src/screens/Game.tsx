@@ -17,6 +17,7 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
   const [timeLeft, setTimeLeft] = useState(60);
   const [question, setQuestion] = useState<Question>(() => createQuestion(age, 0, []));
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
+  const [earned, setEarned] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [level, setLevel] = useState(0);
   const [lives, setLives] = useState(3);
@@ -51,11 +52,12 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
     setFeedback(isCorrect ? "correct" : "wrong");
     if (isCorrect) {
       current.correct += 1; current.combo += 1; current.bestCombo = Math.max(current.bestCombo, current.combo);
-      current.score += scoreAnswer(current.combo, elapsed, question.benchmarkSeconds).points;
+      const scoring = scoreAnswer(current.combo, elapsed, question.benchmarkSeconds);
+      current.score += scoring.points; setEarned(scoring.points);
       setLevel((value) => Math.min(4, value + (current.combo % 3 === 0 ? 1 : 0)));
       if (profile.settings.vibration) await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else {
-      current.combo = 0; setLives((value) => Math.max(0, value - 1));
+      current.combo = 0; setEarned(0); setLives((value) => Math.max(0, value - 1));
       if (profile.settings.vibration) await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
     Animated.sequence([Animated.spring(pop, { toValue: 1.06, useNativeDriver: true }), Animated.spring(pop, { toValue: 1, useNativeDriver: true })]).start();
@@ -69,9 +71,9 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
   return <View style={[styles.root, { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 12 }]}>
     <View style={styles.topbar}><IconButton name="close" label="Exit game" onPress={onBack} /><View style={styles.timer}><Ionicons name="timer-outline" size={19} color={timeLeft <= 10 ? colors.error : colors.brandPrimary} /><Text style={[styles.timerText, { color: timeLeft <= 10 ? colors.error : colors.onSurface }]}>{timeLeft}s</Text></View><View style={styles.lives}>{[0, 1, 2].map((heart) => <Ionicons key={heart} name={heart < lives ? "heart" : "heart-outline"} size={19} color={heart < lives ? colors.error : colors.border} />)}</View></View>
     <View style={styles.scorebar}><View><Text style={styles.scoreLabel}>SCORE</Text><Text style={styles.score}>{stats.current.score}</Text></View><View style={styles.combo}><Ionicons name="flash" size={16} color={colors.onBrandSecondary} /><Text style={styles.comboText}>×{Math.max(1, stats.current.combo)}</Text><Text style={styles.comboLabel}>combo</Text></View></View>
-    <View style={styles.questionWrap}><Text style={styles.topic}>{question.topic.toUpperCase()} · {age}</Text><Animated.View style={[styles.questionCard, { transform: [{ scale: pop }] }]}><Text style={styles.question}>{question.prompt}</Text><Text style={styles.benchmark}><Ionicons name="sparkles-outline" size={14} color={colors.info} /> AI benchmark ~{question.benchmarkSeconds.toFixed(1)} sec</Text></Animated.View></View>
+    <View style={styles.questionWrap}><Text style={styles.topic}>{question.topic.toUpperCase()} · {age}</Text><Animated.View style={[styles.questionCard, { transform: [{ scale: pop }] }]}><Text style={styles.question}>{question.prompt}</Text><Text style={styles.benchmark}><Ionicons name="sparkles-outline" size={14} color={colors.info} /> Speed benchmark ~{question.benchmarkSeconds.toFixed(1)} sec</Text></Animated.View></View>
     <View style={styles.answers}>{question.options.map((option, index) => { const chosen = selected === option; const answerStyle = feedback && chosen ? (feedback === "correct" ? styles.correct : styles.wrong) : null; return <Pressable key={`${question.id}-${option}`} accessibilityRole="button" accessibilityLabel={`Answer ${option}`} onPress={() => answer(option)} style={({ pressed }) => [styles.answer, answerStyle, { opacity: pressed ? 0.72 : 1 }]}><View style={styles.optionLetter}><Text style={styles.optionLetterText}>{String.fromCharCode(65 + index)}</Text></View><Text style={styles.answerText}>{option}</Text>{feedback && chosen ? <Ionicons name={feedback === "correct" ? "checkmark-circle" : "close-circle"} size={23} color={feedback === "correct" ? colors.onSuccess : colors.onError} /> : null}</Pressable>; })}</View>
-    <View style={styles.bottomHint}><Text style={styles.hint}>{feedback === "correct" ? `Nice! +${scoreAnswer(stats.current.combo, 0, question.benchmarkSeconds).points} points` : feedback === "wrong" ? "Keep going — next one is yours." : "Choose the answer before the clock does."}</Text></View>
+    <View style={styles.bottomHint}><Text style={styles.hint}>{feedback === "correct" ? `Nice! +${earned} points` : feedback === "wrong" ? "Keep going — next one is yours." : "Choose the answer before the clock does."}</Text></View>
   </View>;
 }
 
