@@ -36,6 +36,12 @@ Build a polished, friendly Android-first maths game where a player selects an ag
 - Added tactile light visual system from the approved design guidelines, Ionicons, safe-area handling, haptics, loading state, and touch feedback.
 - Verified with TypeScript, frontend lint, Python lint, curl API checks, Expo preview screenshots, and two full mobile/backend regression passes.
 
+### 2026-09-18 — Pacing and attribution enhancement
+- Added visible 60-second starting pace and age-specific per-level time deductions across all six age cards.
+- Added actual countdown pressure on combo-based level-ups with level labels, deduction notices, and speed benchmark copy during gameplay.
+- Added “Presented by Bansal Tutorials” to the Home dashboard with the supplied Instagram link.
+- Revalidated the updated mobile flow and backend regression with a third full test pass.
+
 ## Prioritized backlog
 
 ### P0 — Before production release
