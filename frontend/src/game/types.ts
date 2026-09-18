@@ -5,6 +5,7 @@ export type AgeGroup = {
   label: string;
   topics: string;
   difficulty: string;
+  pace: string;
   accent: "teal" | "orange" | "blue" | "pink" | "yellow" | "purple";
 };
 
@@ -43,12 +44,12 @@ export type LocalProfile = {
 };
 
 export const AGE_GROUPS: AgeGroup[] = [
-  { id: "6-7", label: "6–7 years", topics: "Addition & subtraction", difficulty: "Very easy", accent: "teal" },
-  { id: "8-10", label: "8–10 years", topics: "Operations & times tables", difficulty: "Easy", accent: "orange" },
-  { id: "11-13", label: "11–13 years", topics: "Fractions & mixed maths", difficulty: "Medium", accent: "blue" },
-  { id: "14-16", label: "14–16 years", topics: "Percentages & ratios", difficulty: "Medium–hard", accent: "pink" },
-  { id: "17-20", label: "17–20 years", topics: "Mental maths & algebra", difficulty: "Hard", accent: "yellow" },
-  { id: "21+", label: "21+ years", topics: "Advanced mixed challenge", difficulty: "Advanced", accent: "purple" },
+  { id: "6-7", label: "6–7 years", topics: "Addition & subtraction", difficulty: "Very easy", pace: "60s start · −1s / level", accent: "teal" },
+  { id: "8-10", label: "8–10 years", topics: "Operations & times tables", difficulty: "Easy", pace: "60s start · −2s / level", accent: "orange" },
+  { id: "11-13", label: "11–13 years", topics: "Fractions & mixed maths", difficulty: "Medium", pace: "60s start · −3s / level", accent: "blue" },
+  { id: "14-16", label: "14–16 years", topics: "Percentages & ratios", difficulty: "Medium–hard", pace: "60s start · −4s / level", accent: "pink" },
+  { id: "17-20", label: "17–20 years", topics: "Mental maths & algebra", difficulty: "Hard", pace: "60s start · −5s / level", accent: "yellow" },
+  { id: "21+", label: "21+ years", topics: "Advanced mixed challenge", difficulty: "Advanced", pace: "60s start · −6s / level", accent: "purple" },
 ];
 
 export const DEFAULT_PROFILE: LocalProfile = {

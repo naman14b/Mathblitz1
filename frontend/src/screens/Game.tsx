@@ -9,6 +9,7 @@ import { IconButton } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
 
 type LiveStats = { score: number; correct: number; answered: number; combo: number; bestCombo: number };
+const TIME_PRESSURE: Record<AgeGroupId, number> = { "6-7": 1, "8-10": 2, "11-13": 3, "14-16": 4, "17-20": 5, "21+": 6 };
 
 export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; profile: LocalProfile; onFinish: (result: Omit<GameResult, "personalBest">) => void; onBack: () => void }) {
   const insets = useSafeAreaInsets();
@@ -20,6 +21,8 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
   const [earned, setEarned] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [level, setLevel] = useState(0);
+  const [paceDeduction, setPaceDeduction] = useState(0);
+  const [paceNotice, setPaceNotice] = useState("");
   const [lives, setLives] = useState(3);
   const stats = useRef<LiveStats>({ score: 0, correct: 0, answered: 0, combo: 0, bestCombo: 0 });
   const recentIds = useRef<string[]>([]);
@@ -47,6 +50,7 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
     const isCorrect = Number(option) === question.answer;
     const elapsed = Date.now() - questionStarted.current;
     const current = stats.current;
+    let nextLevel = level;
     current.answered += 1;
     setSelected(option);
     setFeedback(isCorrect ? "correct" : "wrong");
@@ -54,7 +58,13 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
       current.correct += 1; current.combo += 1; current.bestCombo = Math.max(current.bestCombo, current.combo);
       const scoring = scoreAnswer(current.combo, elapsed, question.benchmarkSeconds);
       current.score += scoring.points; setEarned(scoring.points);
-      setLevel((value) => Math.min(4, value + (current.combo % 3 === 0 ? 1 : 0)));
+      nextLevel = Math.min(4, current.combo % 3 === 0 ? level + 1 : level);
+      if (nextLevel > level) {
+        const deduction = TIME_PRESSURE[age] * nextLevel;
+        setLevel(nextLevel); setPaceDeduction(deduction); setTimeLeft((value) => Math.max(3, value - deduction));
+        setPaceNotice(`LEVEL UP · −${deduction}s`);
+        setTimeout(() => setPaceNotice(""), 1200);
+      }
       if (profile.settings.vibration) await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else {
       current.combo = 0; setEarned(0); setLives((value) => Math.max(0, value - 1));
@@ -64,13 +74,14 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
     setTimeout(() => {
       if (lives <= 1 && !isCorrect) { finish(); return; }
       recentIds.current = [question.id, ...recentIds.current].slice(0, 6);
-      setQuestion(createQuestion(age, level, recentIds.current)); questionStarted.current = Date.now(); setSelected(null); setFeedback(null);
+      setQuestion(createQuestion(age, nextLevel, recentIds.current)); questionStarted.current = Date.now(); setSelected(null); setFeedback(null);
     }, 560);
   };
 
   return <View style={[styles.root, { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 12 }]}>
     <View style={styles.topbar}><IconButton name="close" label="Exit game" onPress={onBack} /><View style={styles.timer}><Ionicons name="timer-outline" size={19} color={timeLeft <= 10 ? colors.error : colors.brandPrimary} /><Text style={[styles.timerText, { color: timeLeft <= 10 ? colors.error : colors.onSurface }]}>{timeLeft}s</Text></View><View style={styles.lives}>{[0, 1, 2].map((heart) => <Ionicons key={heart} name={heart < lives ? "heart" : "heart-outline"} size={19} color={heart < lives ? colors.error : colors.border} />)}</View></View>
-    <View style={styles.scorebar}><View><Text style={styles.scoreLabel}>SCORE</Text><Text style={styles.score}>{stats.current.score}</Text></View><View style={styles.combo}><Ionicons name="flash" size={16} color={colors.onBrandSecondary} /><Text style={styles.comboText}>×{Math.max(1, stats.current.combo)}</Text><Text style={styles.comboLabel}>combo</Text></View></View>
+    <View style={styles.scorebar}><View><Text style={styles.scoreLabel}>SCORE</Text><Text style={styles.score}>{stats.current.score}</Text><Text style={styles.levelText}>LEVEL {level + 1} · TIME PRESSURE −{paceDeduction}s</Text></View><View style={styles.combo}><Ionicons name="flash" size={16} color={colors.onBrandSecondary} /><Text style={styles.comboText}>×{Math.max(1, stats.current.combo)}</Text><Text style={styles.comboLabel}>combo</Text></View></View>
+    {paceNotice ? <View style={styles.paceNotice}><Ionicons name="trending-down" size={16} color={colors.onWarning} /><Text style={styles.paceNoticeText}>{paceNotice} — keep moving!</Text></View> : null}
     <View style={styles.questionWrap}><Text style={styles.topic}>{question.topic.toUpperCase()} · {age}</Text><Animated.View style={[styles.questionCard, { transform: [{ scale: pop }] }]}><Text style={styles.question}>{question.prompt}</Text><Text style={styles.benchmark}><Ionicons name="sparkles-outline" size={14} color={colors.info} /> Speed benchmark ~{question.benchmarkSeconds.toFixed(1)} sec</Text></Animated.View></View>
     <View style={styles.answers}>{question.options.map((option, index) => { const chosen = selected === option; const answerStyle = feedback && chosen ? (feedback === "correct" ? styles.correct : styles.wrong) : null; return <Pressable key={`${question.id}-${option}`} accessibilityRole="button" accessibilityLabel={`Answer ${option}`} onPress={() => answer(option)} style={({ pressed }) => [styles.answer, answerStyle, { opacity: pressed ? 0.72 : 1 }]}><View style={styles.optionLetter}><Text style={styles.optionLetterText}>{String.fromCharCode(65 + index)}</Text></View><Text style={styles.answerText}>{option}</Text>{feedback && chosen ? <Ionicons name={feedback === "correct" ? "checkmark-circle" : "close-circle"} size={23} color={feedback === "correct" ? colors.onSuccess : colors.onError} /> : null}</Pressable>; })}</View>
     <View style={styles.bottomHint}><Text style={styles.hint}>{feedback === "correct" ? `Nice! +${earned} points` : feedback === "wrong" ? "Keep going — next one is yours." : "Choose the answer before the clock does."}</Text></View>
@@ -86,9 +97,12 @@ const useStyles = makeStyles((colors) => ({
   scorebar: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 28 },
   scoreLabel: { color: colors.muted, fontSize: 11, fontWeight: "900", letterSpacing: 1.5 },
   score: { color: colors.onSurface, fontSize: 32, fontWeight: "900", marginTop: 2 },
+  levelText: { color: colors.brandPrimary, fontSize: 10, fontWeight: "900", letterSpacing: 0.5, marginTop: 3 },
   combo: { flexDirection: "row", alignItems: "center", gap: 5, backgroundColor: colors.brandSecondary, borderRadius: 15, paddingHorizontal: 12, minHeight: 39 },
   comboText: { color: colors.onBrandSecondary, fontSize: 16, fontWeight: "900" },
   comboLabel: { color: colors.onBrandSecondary, fontSize: 11, fontWeight: "800" },
+  paceNotice: { alignSelf: "center", flexDirection: "row", alignItems: "center", gap: 6, backgroundColor: colors.warning, borderRadius: 99, paddingHorizontal: 13, paddingVertical: 8, marginTop: 13 },
+  paceNoticeText: { color: colors.onWarning, fontSize: 12, fontWeight: "900" },
   questionWrap: { marginTop: 41, alignItems: "center" },
   topic: { color: colors.brandPrimary, fontSize: 11, fontWeight: "900", letterSpacing: 1.2, marginBottom: 13 },
   questionCard: { width: "100%", minHeight: 190, borderRadius: 28, backgroundColor: colors.surfaceTertiary, alignItems: "center", justifyContent: "center", padding: 20 },

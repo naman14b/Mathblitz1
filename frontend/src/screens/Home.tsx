@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Linking, Pressable, ScrollView, Text, View } from "react-native";
 import { AGE_GROUPS, LocalProfile } from "@/src/game/types";
 import { BrandMark, IconButton, ScreenTitle, SoftButton, StatTile } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
@@ -11,6 +11,7 @@ export function Home({ profile, onPlay, onSettings, onAdmin, onAge }: { profile:
   const styles = useStyles();
   const age = AGE_GROUPS.find((item) => item.id === profile.ageGroup);
   const days = Math.min(profile.streak, 7);
+  const instagramUrl = "https://www.instagram.com/bansal_tutorials25?stkn=MWNxaWJlOXVpMzNhMQ==";
   return <View style={styles.root}>
     <ScrollView contentContainerStyle={{ paddingTop: insets.top + 14, paddingBottom: insets.bottom + 28, paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
       <View style={styles.topbar}><BrandMark compact /><View style={styles.actions}><IconButton name="shield-checkmark-outline" label="Open admin" onPress={onAdmin} /><IconButton name="settings-outline" label="Open settings" onPress={onSettings} /></View></View>
@@ -20,6 +21,7 @@ export function Home({ profile, onPlay, onSettings, onAdmin, onAge }: { profile:
       <View style={styles.sectionHeading}><Text style={styles.sectionTitle}>Your progress</Text><SoftButton onPress={onAge} icon="options-outline">Change level</SoftButton></View>
       <View style={styles.stats}><StatTile icon="trophy" value={String(profile.personalBest)} label="Personal best" color={colors.surfaceTertiary} /><StatTile icon="sparkles" value={String(profile.totalXp)} label="Total XP" color={colors.surfaceSecondary} /><StatTile icon="flash" value={String(profile.streak)} label="Best streak" color={colors.brandTertiary} /></View>
       <Text style={styles.tip}><Ionicons name="bulb-outline" size={15} color={colors.brandPrimary} /> Fast answers earn a speed bonus.</Text>
+      <View style={styles.presenter}><Text style={styles.presenterText}>Presented by <Text style={styles.presenterStrong}>Bansal Tutorials</Text></Text><Pressable testID="instagram-link" accessibilityRole="link" accessibilityLabel="Open Bansal Tutorials on Instagram" onPress={() => Linking.openURL(instagramUrl)} style={({ pressed }) => [styles.instagram, { opacity: pressed ? 0.65 : 1 }]}><Ionicons name="logo-instagram" size={17} color={colors.info} /><Text style={styles.instagramText}>@bansal_tutorials25</Text></Pressable></View>
     </ScrollView>
   </View>;
 }
@@ -54,4 +56,9 @@ const useStyles = makeStyles((colors) => ({
   sectionTitle: { color: colors.onSurface, fontSize: 19, fontWeight: "900" },
   stats: { flexDirection: "row", gap: 9 },
   tip: { color: colors.muted, fontSize: 12, fontWeight: "700", textAlign: "center", marginTop: 25 },
+  presenter: { alignItems: "center", gap: 8, marginTop: 31, paddingTop: 20, borderTopWidth: 1, borderTopColor: colors.divider },
+  presenterText: { color: colors.muted, fontSize: 12, fontWeight: "700" },
+  presenterStrong: { color: colors.onSurface, fontWeight: "900" },
+  instagram: { minHeight: 44, flexDirection: "row", alignItems: "center", gap: 7, paddingHorizontal: 12 },
+  instagramText: { color: colors.info, fontSize: 12, fontWeight: "900" },
 }));

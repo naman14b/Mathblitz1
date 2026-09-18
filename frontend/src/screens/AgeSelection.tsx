@@ -18,7 +18,7 @@ export function AgeSelection({ onSelect }: { onSelect: (age: AgeGroupId) => void
         {AGE_GROUPS.map((group) => <Pressable key={group.id} testID={`age-${group.id}`} accessibilityRole="button" onPress={() => onSelect(group.id)} style={({ pressed }) => [styles.card, { borderLeftColor: accent[group.accent], opacity: pressed ? 0.78 : 1 }]}>
           <View style={[styles.ageBadge, { backgroundColor: accent[group.accent] }]}><Text style={styles.ageBadgeText}>{group.id}</Text></View>
           <View style={styles.cardCopy}><Text style={styles.cardTitle}>{group.label}</Text><Text style={styles.cardSubtitle}>{group.topics}</Text></View>
-          <View style={styles.difficulty}><Text style={styles.difficultyText}>{group.difficulty}</Text><Ionicons name="arrow-forward" size={17} color={colors.muted} /></View>
+          <View style={styles.difficulty}><Text style={styles.difficultyText}>{group.difficulty}</Text><Text style={styles.paceText}>{group.pace}</Text><Ionicons name="arrow-forward" size={17} color={colors.muted} /></View>
         </Pressable>)}
       </View>
       <Text style={styles.privacy}>No account needed · Your progress stays on this device</Text>
@@ -38,5 +38,6 @@ const useStyles = makeStyles((colors) => ({
   cardSubtitle: { color: colors.muted, fontSize: 13, fontWeight: "600" },
   difficulty: { alignItems: "flex-end", gap: 5 },
   difficultyText: { color: colors.muted, fontSize: 11, fontWeight: "800" },
+  paceText: { color: colors.brandPrimary, fontSize: 10, fontWeight: "800" },
   privacy: { color: colors.muted, fontSize: 12, textAlign: "center", marginTop: 28 },
 }));
