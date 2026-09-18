@@ -42,6 +42,12 @@ Build a polished, friendly Android-first maths game where a player selects an ag
 - Added “Presented by Bansal Tutorials” to the Home dashboard with the supplied Instagram link.
 - Revalidated the updated mobile flow and backend regression with a third full test pass.
 
+### 2026-02 — Gmail OTP admin login + gameplay audio
+- Replaced the static admin password with Gmail SMTP one-time codes to `naman14b@gmail.com`, forced first-time password creation (min 12 chars), and password login afterwards.
+- Hardened Mongo datetime handling with tz-aware clients so OTP cooldown/expiry checks no longer 500.
+- Added procedural WAV sound effects for correct answers, wrong answers, level-ups, last-6-seconds ticks, and game over, gated by the existing sound preference toggle.
+- Added stronger haptics for level-ups and the timer running out, gated by the existing vibration toggle.
+
 ## Prioritized backlog
 
 ### P0 — Before production release

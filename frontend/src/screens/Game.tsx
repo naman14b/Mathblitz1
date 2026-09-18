@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Animated, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createQuestion, scoreAnswer } from "@/src/game/engine";
+import { playSound, unloadSounds } from "@/src/game/sounds";
 import { AgeGroupId, GameResult, LocalProfile, Question } from "@/src/game/types";
 import { IconButton } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
@@ -33,17 +34,20 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
   const finish = useCallback(() => {
     if (finished.current) return;
     finished.current = true;
+    playSound("gameover", profile.settings.sound);
+    if (profile.settings.vibration) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
     const current = stats.current;
     onFinish({ ...current, accuracy: current.answered ? Math.round((current.correct / current.answered) * 100) : 0, xp: Math.max(20, current.score + current.correct * 3) });
-  }, [onFinish]);
+  }, [onFinish, profile.settings.sound, profile.settings.vibration]);
 
   useEffect(() => {
     const timer = setInterval(() => setTimeLeft((value) => {
       if (value <= 1) { clearInterval(timer); finish(); return 0; }
+      if (value <= 6) { playSound("tick", profile.settings.sound); }
       return value - 1;
     }), 1000);
-    return () => clearInterval(timer);
-  }, [finish]);
+    return () => { clearInterval(timer); unloadSounds(); };
+  }, [finish, profile.settings.sound]);
 
   const answer = async (option: string) => {
     if (feedback || finished.current) return;
@@ -64,10 +68,15 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
         setLevel(nextLevel); setPaceDeduction(deduction); setTimeLeft((value) => Math.max(3, value - deduction));
         setPaceNotice(`LEVEL UP · −${deduction}s`);
         setTimeout(() => setPaceNotice(""), 1200);
+        playSound("levelup", profile.settings.sound);
+        if (profile.settings.vibration) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+      } else {
+        playSound("correct", profile.settings.sound);
+        if (profile.settings.vibration) await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       }
-      if (profile.settings.vibration) await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else {
       current.combo = 0; setEarned(0); setLives((value) => Math.max(0, value - 1));
+      playSound("wrong", profile.settings.sound);
       if (profile.settings.vibration) await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
     Animated.sequence([Animated.spring(pop, { toValue: 1.06, useNativeDriver: true }), Animated.spring(pop, { toValue: 1, useNativeDriver: true })]).start();

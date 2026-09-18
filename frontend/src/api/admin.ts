@@ -15,6 +15,9 @@ async function request<T>(path: string, options: RequestInit = {}, token?: strin
 }
 
 export const adminApi = {
+  requestOtp: (email: string) => request<{ message: string }>("/admin/request-otp", { method: "POST", body: JSON.stringify({ email }) }),
+  verifyOtp: (email: string, otp: string) => request<{ setup_token: string; must_change_password: boolean }>("/admin/verify-otp", { method: "POST", body: JSON.stringify({ email, otp }) }),
+  setPassword: (setupToken: string, newPassword: string) => request<{ token: string }>("/admin/set-password", { method: "POST", body: JSON.stringify({ new_password: newPassword }) }, setupToken),
   login: (email: string, password: string) => request<{ token: string }>("/admin/login", { method: "POST", body: JSON.stringify({ email, password }) }),
   questions: (token: string) => request<AdminQuestion[]>("/admin/questions", {}, token),
   saveQuestion: (token: string, question: AdminQuestion) => request<AdminQuestion>("/admin/questions", { method: "POST", body: JSON.stringify(question) }, token),
