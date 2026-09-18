@@ -63,12 +63,13 @@ function questionFor(age: AgeGroupId, level: number): Omit<Question, "id"> {
   return { prompt: `If ${coefficient}x + ${constant} = ${coefficient * x + constant}, x = ?`, answer, options: choices(answer, 5), topic: "algebra", benchmarkSeconds: 3.4 };
 }
 
-export function createQuestion(age: AgeGroupId, level: number, recentIds: string[]): Question {
-  let candidate = questionFor(age, level);
+export function createQuestion(age: AgeGroupId, level: number, recentIds: string[], answeredCount = 0): Question {
+  const effectiveLevel = answeredCount < 10 ? 0 : level;
+  let candidate = questionFor(age, effectiveLevel);
   let id = `${age}-${candidate.prompt}`;
   let attempts = 0;
   while (recentIds.includes(id) && attempts < 8) {
-    candidate = questionFor(age, level);
+    candidate = questionFor(age, effectiveLevel);
     id = `${age}-${candidate.prompt}`;
     attempts += 1;
   }

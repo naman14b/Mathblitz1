@@ -5,16 +5,21 @@ from email.message import EmailMessage
 import hashlib
 import hmac
 import logging
+import mimetypes
 import os
 import secrets
 import smtplib
+import uuid
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Literal, Optional
 
+import requests
 from dotenv import load_dotenv
-from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException, status
+from fastapi import APIRouter, Depends, FastAPI, File, Header, HTTPException, Query, UploadFile, status
+from fastapi.responses import Response
+from fastapi.concurrency import run_in_threadpool
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from starlette.middleware.cors import CORSMiddleware
 
 ROOT_DIR = Path(__file__).parent
@@ -32,8 +37,64 @@ ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "naman14b@gmail.com").strip().lower()
 OTP_TTL_SECONDS = 10 * 60
 OTP_COOLDOWN_SECONDS = 60
 OTP_MAX_ATTEMPTS = 5
+FILE_TOKEN_TTL_SECONDS = 60 * 60
+
+# --- Emergent Object Storage helpers ------------------------------------------------
+STORAGE_BASE = (os.environ.get("INTEGRATION_PROXY_URL") or "").strip() or "https://integrations.emergentagent.com"
+STORAGE_URL = STORAGE_BASE.rstrip("/") + "/objstore/api/v1/storage"
+EMERGENT_KEY = os.environ.get("EMERGENT_LLM_KEY", "")
+APP_NAME = "mathblitz"
+_storage_key: Optional[str] = None
 
 
+def init_storage() -> str:
+    """Idempotent, blocking. Call from a threadpool."""
+    global _storage_key
+    if _storage_key:
+        return _storage_key
+    if not EMERGENT_KEY:
+        raise RuntimeError("EMERGENT_LLM_KEY missing")
+    resp = requests.post(f"{STORAGE_URL}/init", json={"emergent_key": EMERGENT_KEY}, timeout=30)
+    resp.raise_for_status()
+    _storage_key = resp.json()["storage_key"]
+    return _storage_key
+
+
+def put_object(path: str, data: bytes, content_type: str) -> dict:
+    key = init_storage()
+    resp = requests.put(
+        f"{STORAGE_URL}/objects/{path}",
+        headers={"X-Storage-Key": key, "Content-Type": content_type},
+        data=data,
+        timeout=120,
+    )
+    if resp.status_code == 503:
+        global _storage_key
+        _storage_key = None
+        key = init_storage()
+        resp = requests.put(
+            f"{STORAGE_URL}/objects/{path}",
+            headers={"X-Storage-Key": key, "Content-Type": content_type},
+            data=data,
+            timeout=120,
+        )
+    resp.raise_for_status()
+    return resp.json()
+
+
+def get_object(path: str) -> tuple[bytes, str]:
+    key = init_storage()
+    resp = requests.get(f"{STORAGE_URL}/objects/{path}", headers={"X-Storage-Key": key}, timeout=60)
+    if resp.status_code == 503:
+        global _storage_key
+        _storage_key = None
+        key = init_storage()
+        resp = requests.get(f"{STORAGE_URL}/objects/{path}", headers={"X-Storage-Key": key}, timeout=60)
+    resp.raise_for_status()
+    return resp.content, resp.headers.get("Content-Type", "application/octet-stream")
+
+
+# --- Pydantic models ----------------------------------------------------------------
 class AdminLogin(BaseModel):
     email: EmailStr
     password: str
@@ -62,19 +123,39 @@ class AdminQuestion(BaseModel):
     active: bool = True
 
 
-class AdminChallenge(BaseModel):
+ChallengeTier = Literal["3-day", "7-day"]
+
+
+class ChallengeQuestion(BaseModel):
     id: str = Field(default_factory=lambda: secrets.token_hex(8))
-    days: int
-    title: str
-    description: str
-    reward_xp: int = 100
+    tier: ChallengeTier
+    prompt: str = ""
+    image_path: Optional[str] = None
+    options: List[str]
+    correct_answer: str
+    time_limit_seconds: int = Field(default=15, ge=3, le=120)
     active: bool = True
+
+    @field_validator("options")
+    @classmethod
+    def _four_options(cls, value: List[str]) -> List[str]:
+        cleaned = [str(item).strip() for item in value]
+        if len(cleaned) != 4:
+            raise ValueError("Exactly 4 options are required")
+        if any(not item for item in cleaned):
+            raise ValueError("All 4 options must be non-empty")
+        return cleaned
 
 
 class MonetizationSettings(BaseModel):
     rewarded_ads_enabled: bool = False
     interstitial_frequency: int = 0
     remove_ads_price: str = ""
+
+
+class UploadResult(BaseModel):
+    path: str
+    url: str
 
 
 def utc_now() -> datetime:
@@ -224,22 +305,94 @@ async def delete_question(question_id: str, _: str = Depends(require_admin)) -> 
     return {"deleted": True}
 
 
-@api_router.get("/admin/challenges", response_model=List[AdminChallenge])
-async def list_challenges(_: str = Depends(require_admin)) -> List[AdminChallenge]:
-    docs = await db.admin_challenges.find({}, {"_id": 0}).sort("days", 1).to_list(100)
-    return [AdminChallenge(**doc) for doc in docs]
+# --- Challenge questions (admin CRUD + public read) --------------------------------
+@api_router.get("/admin/challenge-questions", response_model=List[ChallengeQuestion])
+async def list_challenge_questions(
+    tier: Optional[ChallengeTier] = Query(default=None),
+    _: str = Depends(require_admin),
+) -> List[ChallengeQuestion]:
+    query: dict = {}
+    if tier:
+        query["tier"] = tier
+    docs = await db.challenge_questions.find(query, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return [ChallengeQuestion(**doc) for doc in docs]
 
 
-@api_router.post("/admin/challenges", response_model=AdminChallenge)
-async def create_challenge(payload: AdminChallenge, _: str = Depends(require_admin)) -> AdminChallenge:
-    await db.admin_challenges.replace_one({"id": payload.id}, {**payload.model_dump(), "created_at": utc_now()}, upsert=True)
+@api_router.post("/admin/challenge-questions", response_model=ChallengeQuestion)
+async def create_challenge_question(payload: ChallengeQuestion, _: str = Depends(require_admin)) -> ChallengeQuestion:
+    if payload.correct_answer not in payload.options:
+        raise HTTPException(status_code=400, detail="Correct answer must match one of the four options")
+    doc = payload.model_dump()
+    doc["created_at"] = utc_now()
+    await db.challenge_questions.replace_one({"id": payload.id}, doc, upsert=True)
     return payload
+
+
+@api_router.put("/admin/challenge-questions/{question_id}", response_model=ChallengeQuestion)
+async def update_challenge_question(question_id: str, payload: ChallengeQuestion, _: str = Depends(require_admin)) -> ChallengeQuestion:
+    if question_id != payload.id:
+        raise HTTPException(status_code=400, detail="Question id mismatch")
+    if payload.correct_answer not in payload.options:
+        raise HTTPException(status_code=400, detail="Correct answer must match one of the four options")
+    await db.challenge_questions.replace_one({"id": question_id}, {**payload.model_dump(), "updated_at": utc_now()}, upsert=True)
+    return payload
+
+
+@api_router.delete("/admin/challenge-questions/{question_id}")
+async def delete_challenge_question(question_id: str, _: str = Depends(require_admin)) -> dict[str, bool]:
+    await db.challenge_questions.delete_one({"id": question_id})
+    return {"deleted": True}
+
+
+@api_router.get("/challenge-questions/{tier}", response_model=List[ChallengeQuestion])
+async def public_challenge_questions(tier: ChallengeTier) -> List[ChallengeQuestion]:
+    docs = await db.challenge_questions.find({"tier": tier, "active": True}, {"_id": 0}).sort("created_at", 1).to_list(500)
+    return [ChallengeQuestion(**doc) for doc in docs]
+
+
+# --- Object storage endpoints -----------------------------------------------------
+_ALLOWED_IMAGE_TYPES = {"image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif"}
+_MAX_IMAGE_BYTES = 5 * 1024 * 1024
+
+
+@api_router.post("/admin/upload", response_model=UploadResult)
+async def upload_image(file: UploadFile = File(...), _: str = Depends(require_admin)) -> UploadResult:
+    content_type = (file.content_type or mimetypes.guess_type(file.filename or "")[0] or "").lower()
+    if content_type not in _ALLOWED_IMAGE_TYPES:
+        raise HTTPException(status_code=400, detail="Only PNG, JPEG, WEBP or GIF images are supported")
+    data = await file.read()
+    if not data:
+        raise HTTPException(status_code=400, detail="Empty file")
+    if len(data) > _MAX_IMAGE_BYTES:
+        raise HTTPException(status_code=400, detail="Image too large (5MB max)")
+    extension = mimetypes.guess_extension(content_type) or ".bin"
+    if extension == ".jpe":
+        extension = ".jpg"
+    path = f"{APP_NAME}/challenges/{uuid.uuid4().hex}{extension}"
+    try:
+        await run_in_threadpool(put_object, path, data, content_type)
+    except requests.HTTPError as exc:
+        code = exc.response.status_code if exc.response is not None else 502
+        detail = "Upload failed"
+        if code == 402:
+            detail = "Storage quota exhausted"
+        raise HTTPException(status_code=code if code in {402, 403, 503} else 502, detail=detail)
+    return UploadResult(path=path, url=f"/api/files/{path}")
+
+
+@api_router.get("/files/{path:path}")
+async def download_file(path: str) -> Response:
+    try:
+        data, content_type = await run_in_threadpool(get_object, path)
+    except requests.HTTPError:
+        raise HTTPException(status_code=404, detail="File not found")
+    return Response(content=data, media_type=content_type, headers={"Cache-Control": "public, max-age=86400"})
 
 
 @api_router.get("/admin/monetization", response_model=MonetizationSettings)
 async def get_monetization(_: str = Depends(require_admin)) -> MonetizationSettings:
     doc = await db.admin_settings.find_one({"key": "monetization"}, {"_id": 0})
-    return MonetizationSettings(**(doc or {}))
+    return MonetizationSettings(**{k: v for k, v in (doc or {}).items() if k in MonetizationSettings.model_fields})
 
 
 @api_router.put("/admin/monetization", response_model=MonetizationSettings)
@@ -256,6 +409,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def startup_event() -> None:
+    try:
+        await run_in_threadpool(init_storage)
+    except Exception:
+        logger.exception("Object storage init deferred")
 
 
 @app.on_event("shutdown")

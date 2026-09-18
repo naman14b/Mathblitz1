@@ -48,6 +48,13 @@ Build a polished, friendly Android-first maths game where a player selects an ag
 - Added procedural WAV sound effects for correct answers, wrong answers, level-ups, last-6-seconds ticks, and game over, gated by the existing sound preference toggle.
 - Added stronger haptics for level-ups and the timer running out, gated by the existing vibration toggle.
 
+### 2026-02 — Challenge builder + difficulty ramp + object storage
+- Rebuilt the admin Challenges tab from two preset save rows into a full challenge-question builder: tier picker (3-day / 7-day), image upload via Emergent Object Storage, four option inputs, correct-answer chip picker, and 3–120s per-question time limit. Empty options and unset correct answers are blocked inline.
+- Added backend Object Storage plumbing: `/api/admin/upload` (multipart, admin-gated) and public `/api/files/{path}` streaming, with 5 MB / PNG-JPEG-WEBP-GIF caps.
+- Added `challenge_questions` Mongo collection with admin CRUD (`/api/admin/challenge-questions`) and a public read endpoint (`/api/challenge-questions/{tier}`) used by the mobile app.
+- Home dashboard now shows a live day-countdown ("3 days to Quickfire · 7 to Blitz master") plus two challenge unlock cards; the cards lock until the player's local streak reaches 3 or 7 days and become tappable to launch a dedicated `ChallengeGame` screen that plays through the tier's questions with per-question timers.
+- Engine now clamps difficulty to level 0 for the first 10 answered questions before the combo-based ramp kicks in, giving every age group an easy on-ramp.
+
 ## Prioritized backlog
 
 ### P0 — Before production release

@@ -9,14 +9,18 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.emergent.applaunchstage.v80bbd"
+      "bundleIdentifier": "com.emergent.applaunchstage.v80bbd",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Pick images for admin challenge questions"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FF6B35"
       },
-      "package": "com.emergent.applaunchstage.v80bbd"
+      "package": "com.emergent.applaunchstage.v80bbd",
+      "permissions": ["READ_MEDIA_IMAGES"]
     },
     "web": {
       "bundler": "metro",
@@ -38,7 +42,13 @@
       "expo-image",
       "expo-secure-store",
       "expo-web-browser",
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Pick images for admin challenge questions"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

@@ -1,0 +1,35 @@
+{
+  "summary": "Full backend + mobile-web review of MathBlitz iteration 5 (challenges v2, home countdown, difficulty ramp). Backend pytest (14/14 passing) covers admin login, monetization GET, challenge-question list/create/update/delete, Pydantic validation for 4 options + time_limit range + correct-answer-in-options, public tier read, and Emergent Object Storage upload/download of a real PNG plus auth/content-type guards. Frontend (390x844) verified: home countdown testID home-streak-countdown reads '3 days to Quickfire · 7 to Blitz master'; challenge-3day and challenge-7day render with aria-disabled=true and swallow taps while streak<3/7; admin password login (naman14b@gmail.com / NewOwnerPass2026!) reaches Admin studio; admin-tab-challenges shows tier toggle (admin-tier-3-day/-7-day), admin-new-challenge button, and full editor (admin-challenge-prompt, admin-challenge-image, admin-challenge-option-0..3, admin-challenge-correct-* chips after typing, admin-challenge-time, admin-save-challenge). Empty save surfaces 'All 4 options are required'; four options without correct pick surfaces 'Correct answer must match one of the four options'; valid submit (2+2=?, options 3/4/5/6, correct B=4, time 10s) persists and returns row with admin-edit-challenge-* / admin-delete-challenge-*. Difficulty ramp validated at engine level: createQuestion clamps level to 0 while answeredCount<10.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_challenges.py",
+    "/app/test_reports/pytest/iteration_5.xml",
+    "/app/test_reports/screens/iter5_landing.jpeg",
+    "/app/test_reports/screens/iter5_home.jpeg",
+    "/app/test_reports/screens/iter5_admin_home.jpeg",
+    "/app/test_reports/screens/iter5_admin_saved.jpeg"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py still uses in-memory admin_sessions dict — tokens (admin + setup) reset on backend restart. Fine for preview, but persist for production.",
+    "admin_login returns 403 when password is unset vs 401 for bad credentials — leaks whether the email is the valid admin. Consider unifying to 401.",
+    "Admin.tsx is ~256 lines with three inline panels; over the 200-line readability line. Splitting ChallengePanel and MonetizationPanel into their own files would help maintenance (not a blocker).",
+    "engine.ts createQuestion forces level=0 for the first 10 answered questions but the on-screen 'LEVEL 1 · TIME PRESSURE −0s' banner shows the profile level, not the effective level. Consider mirroring the ramp in the HUD so players see the difficulty is capped for the first 10 answers.",
+    "Challenge list ordering: /api/admin/challenge-questions sorts by created_at desc while /api/challenge-questions/{tier} sorts asc — could be intentional (admin newest-first, players play in creation order) but worth confirming with product."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_challenges.py (new)"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "seed_data_creation": "No seeding required — password login worked with NewOwnerPass2026! from /app/memory/test_credentials.md. Test data created via API is prefixed 'TEST-' and cleaned up in test_cleanup_created; UI test created one challenge (id c-<timestamp>) and deleted it via the trash icon.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Backend contract for challenges is stable: POST /api/admin/challenge-questions requires 4 non-empty options, correct_answer must be one of them, time_limit_seconds in [3,120]; violations return 422 (Pydantic) or 400 (correct-answer). Public GET /api/challenge-questions/{tier} returns only active tier entries. Upload endpoint returns {path, url} and the download endpoint honors the stored content-type (verified with a 1x1 PNG). Home streak progression: profile.streak drives unlock; 3-day and 7-day cards render but stay disabled — to test the unlocked flow, seed AsyncStorage key 'mathblitz.profile.v1' with streak>=3 or use publicChallengeQuestions from the API. Difficulty ramp only visible after 10 answered questions within a run; engine.ts logic verified by inspection, not a full 60s timed run.",
+  "rca_of_issue": "Not applicable — this iteration validates a new feature set (challenges v2 + home countdown + difficulty ramp) rather than a fix. All three requirements are implemented as specified and match the reviewer's testIDs."
+}

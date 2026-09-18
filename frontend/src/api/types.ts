@@ -8,12 +8,16 @@ export type AdminQuestion = {
   active: boolean;
 };
 
-export type AdminChallenge = {
+export type ChallengeTier = "3-day" | "7-day";
+
+export type ChallengeQuestion = {
   id: string;
-  days: number;
-  title: string;
-  description: string;
-  reward_xp: number;
+  tier: ChallengeTier;
+  prompt: string;
+  image_path?: string | null;
+  options: string[];
+  correct_answer: string;
+  time_limit_seconds: number;
   active: boolean;
 };
 
@@ -22,3 +26,5 @@ export type MonetizationSettings = {
   interstitial_frequency: number;
   remove_ads_price: string;
 };
+
+export type UploadResult = { path: string; url: string };

@@ -62,7 +62,8 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
       current.correct += 1; current.combo += 1; current.bestCombo = Math.max(current.bestCombo, current.combo);
       const scoring = scoreAnswer(current.combo, elapsed, question.benchmarkSeconds);
       current.score += scoring.points; setEarned(scoring.points);
-      nextLevel = Math.min(4, current.combo % 3 === 0 ? level + 1 : level);
+      const canLevelUp = current.answered >= 10;
+      nextLevel = Math.min(4, canLevelUp && current.combo > 0 && current.combo % 3 === 0 ? level + 1 : level);
       if (nextLevel > level) {
         const deduction = TIME_PRESSURE[age] * nextLevel;
         setLevel(nextLevel); setPaceDeduction(deduction); setTimeLeft((value) => Math.max(3, value - deduction));
@@ -83,7 +84,7 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
     setTimeout(() => {
       if (lives <= 1 && !isCorrect) { finish(); return; }
       recentIds.current = [question.id, ...recentIds.current].slice(0, 6);
-      setQuestion(createQuestion(age, nextLevel, recentIds.current)); questionStarted.current = Date.now(); setSelected(null); setFeedback(null);
+      setQuestion(createQuestion(age, nextLevel, recentIds.current, current.answered)); questionStarted.current = Date.now(); setSelected(null); setFeedback(null);
     }, 560);
   };
 

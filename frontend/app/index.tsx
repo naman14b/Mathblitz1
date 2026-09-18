@@ -4,21 +4,24 @@ import { ActivityIndicator, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AgeSelection } from "@/src/screens/AgeSelection";
 import { Admin } from "@/src/screens/Admin";
+import { ChallengeGame } from "@/src/screens/ChallengeGame";
 import { Game } from "@/src/screens/Game";
 import { Home } from "@/src/screens/Home";
 import { Results } from "@/src/screens/Results";
 import { Settings } from "@/src/screens/Settings";
+import { ChallengeTier } from "@/src/api/types";
 import { loadProfile, resetProfile, saveProfile } from "@/src/game/storage";
 import { AgeGroupId, AppSettings, DEFAULT_PROFILE, GameResult, LocalProfile } from "@/src/game/types";
 import { makeStyles, useTheme } from "@/src/theme";
 
-type Screen = "splash" | "age" | "home" | "game" | "results" | "settings" | "admin";
+type Screen = "splash" | "age" | "home" | "game" | "results" | "settings" | "admin" | "challenge";
 
 export default function Index() {
   const [screen, setScreen] = useState<Screen>("splash");
   const [profile, setProfile] = useState<LocalProfile>(DEFAULT_PROFILE);
   const [result, setResult] = useState<GameResult | null>(null);
   const [newBest, setNewBest] = useState(false);
+  const [challengeTier, setChallengeTier] = useState<ChallengeTier | null>(null);
   useEffect(() => {
     let active = true;
     loadProfile().then((saved) => { if (!active) return; setProfile(saved); setTimeout(() => setScreen(saved.hasOnboarded ? "home" : "age"), 650); });
@@ -44,16 +47,25 @@ export default function Index() {
     const complete = { ...gameResult, personalBest: best };
     setProfile(next); setResult(complete); setNewBest(isBest); await saveProfile(next); setScreen("results");
   };
+  const finishChallenge = async (summary: { tier: ChallengeTier; correct: number; total: number; xp: number }) => {
+    const next = { ...profile, totalXp: profile.totalXp + summary.xp };
+    setProfile(next); await saveProfile(next);
+    setResult({ score: summary.correct, correct: summary.correct, answered: summary.total, accuracy: summary.total ? Math.round((summary.correct / summary.total) * 100) : 0, bestCombo: summary.correct, xp: summary.xp, personalBest: profile.personalBest });
+    setNewBest(false); setScreen("results"); setChallengeTier(null);
+  };
   const updateSettings = async (settings: AppSettings) => { const next = { ...profile, settings }; setProfile(next); await saveProfile(next); };
   const reset = async () => { await resetProfile(); setProfile(DEFAULT_PROFILE); setScreen("age"); };
+  const openChallenge = (tier: ChallengeTier) => { setChallengeTier(tier); setScreen("challenge"); };
+
   if (screen === "splash") return <Splash />;
   if (screen === "age") return <AgeSelection onSelect={chooseAge} />;
-  if (screen === "home") return <Home profile={profile} onPlay={startGame} onSettings={() => setScreen("settings")} onAdmin={() => setScreen("admin")} onAge={() => setScreen("age")} />;
+  if (screen === "home") return <Home profile={profile} onPlay={startGame} onSettings={() => setScreen("settings")} onAdmin={() => setScreen("admin")} onAge={() => setScreen("age")} onChallenge={openChallenge} />;
   if (screen === "game" && profile.ageGroup) return <Game age={profile.ageGroup} profile={profile} onFinish={finishGame} onBack={() => setScreen("home")} />;
+  if (screen === "challenge" && challengeTier) return <ChallengeGame tier={challengeTier} profile={profile} onFinish={finishChallenge} onBack={() => { setChallengeTier(null); setScreen("home"); }} />;
   if (screen === "results" && result) return <Results result={result} isNewBest={newBest} onAgain={startGame} onHome={() => setScreen("home")} />;
   if (screen === "settings") return <Settings profile={profile} onSave={updateSettings} onBack={() => setScreen("home")} onAge={() => setScreen("age")} onReset={reset} />;
   if (screen === "admin") return <Admin onBack={() => setScreen("home")} />;
-  return <Home profile={profile} onPlay={startGame} onSettings={() => setScreen("settings")} onAdmin={() => setScreen("admin")} onAge={() => setScreen("age")} />;
+  return <Home profile={profile} onPlay={startGame} onSettings={() => setScreen("settings")} onAdmin={() => setScreen("admin")} onAge={() => setScreen("age")} onChallenge={openChallenge} />;
 }
 
 function Splash() {
