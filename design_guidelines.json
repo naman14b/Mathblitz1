@@ -1,0 +1,181 @@
+{
+  "app_name": "MathBlitz 60s",
+  "personality": "4 Tactile / Playful LIGHT",
+  "personality_one_liner": "An addictive, vibrant, friendly math game that makes arithmetic lightning-fast and fun for all ages.",
+  "color": {
+    "surface": "#FFFDF9",
+    "onSurface": "#1A1A1A",
+    "surfaceSecondary": "#FFF4EC",
+    "onSurfaceSecondary": "#2C221E",
+    "surfaceTertiary": "#FFE8D6",
+    "onSurfaceTertiary": "#3D2C24",
+    "surfaceInverse": "#1F1B18",
+    "onSurfaceInverse": "#FFFDF9",
+    "brand": "#FF6B35",
+    "brandPrimary": "#FF6B35",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#FF9F1C",
+    "onBrandSecondary": "#1A1A1A",
+    "brandTertiary": "#FFE1CC",
+    "onBrandTertiary": "#D3480C",
+    "success": "#2EC4B6",
+    "onSuccess": "#FFFFFF",
+    "warning": "#FFB703",
+    "onWarning": "#1A1A1A",
+    "error": "#E71D36",
+    "onError": "#FFFFFF",
+    "info": "#3A86FF",
+    "onInfo": "#FFFFFF",
+    "border": "#E6D7CD",
+    "borderStrong": "#FF6B35",
+    "divider": "#F0E4DC",
+    "muted": "#7A6E65",
+    "onBrand": "#FFFFFF"
+  },
+  "typography": {
+    "displayFontFamily": "Plus Jakarta Sans",
+    "textFontFamily": "Plus Jakarta Sans",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous and touch-friendly padding, rounded containers, chunky cards with clear separation and touch targets >= 44pt",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "pill": 999
+  },
+  "shadow_tier": "2",
+  "navigation": "stack_only",
+  "icon_set": "Ionicons",
+  "glassmorphism": {
+    "enabled": false,
+    "do's": [
+      "Use solid tactile cards with 24pt radius",
+      "Use chunky pill buttons with spring press feedback"
+    ],
+    "dont's": [
+      "Avoid glass blur for this high-speed gaming arcade feel",
+      "Avoid low contrast text on pastel surfaces"
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-blur",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "SplashLoading",
+      "purpose": "Animated splash screen welcoming players and checking local storage state.",
+      "states": {
+        "loading": "Checking local progress and settings...",
+        "empty": "Ready to launch",
+        "error": "Failed to load local data. Tap Retry."
+      },
+      "layout": "Centered playful brand logo with bounce animation, progress indicator, and smooth transition to Home or First Launch."
+    },
+    {
+      "name": "FirstLaunchAgeSelection",
+      "purpose": "Select player age group (6-7, 8-10, 11-13, 14-16, 17-20, 21+) to calibrate starting difficulty.",
+      "states": {
+        "loading": "Setting up your math universe...",
+        "empty": "No age groups available",
+        "error": "Could not save age preference. Tap Retry."
+      },
+      "layout": "Vertical scrollable list of vibrant age tier cards with difficulty description badges and large tap targets."
+    },
+    {
+      "name": "Home",
+      "purpose": "Central game hub showing daily streaks (3-day & 7-day), personal bests, play button, and admin access.",
+      "states": {
+        "loading": "Loading your stats and streaks...",
+        "empty": "No games played yet! Tap Play 60s Challenge to start.",
+        "error": "Failed to load profile data. Tap Retry."
+      },
+      "layout": "Top header with settings & admin button, Streak banner card (3-day / 7-day challenge progress), Hero 'Play 60-Second Challenge' banner, and personal best summary card."
+    },
+    {
+      "name": "Game",
+      "purpose": "Fast-paced 60-second timed math challenge with score, combo multiplier, lives, and 4 multiple-choice answers.",
+      "states": {
+        "loading": "Generating question...",
+        "empty": "No questions loaded",
+        "error": "Question generation error. Tap to continue."
+      },
+      "layout": "Top status bar (Timer countdown, score, combo badge, lives hearts), Question card with large arithmetic expression, 2x2 grid of chunky answer buttons, and bottom sticky area."
+    },
+    {
+      "name": "FeedbackState",
+      "purpose": "Instant correct/wrong visual and audio feedback state with floating point bonuses or life loss.",
+      "states": {
+        "loading": "Processing...",
+        "empty": "Ready",
+        "error": "Error"
+      },
+      "layout": "Overlay modal or flash banner with success/error colors, combo increment indicator, and instant auto-advance to next question."
+    },
+    {
+      "name": "Results",
+      "purpose": "Post-game breakdown showing final score, correct answers count, accuracy percentage, best combo, personal best, and prominent Play Again CTA.",
+      "states": {
+        "loading": "Calculating your results...",
+        "empty": "No game results found",
+        "error": "Failed to save score. Tap Retry."
+      },
+      "layout": "Celebration header, Score summary card with XP earned, stats breakdown grid (Accuracy, Best Combo, Correct answers), and prominent sticky Play Again & Home buttons."
+    },
+    {
+      "name": "Settings",
+      "purpose": "Local settings for sound, vibration, privacy policy links, age group switcher, and reset progress.",
+      "states": {
+        "loading": "Loading settings...",
+        "empty": "No settings available",
+        "error": "Failed to update settings. Tap Retry."
+      },
+      "layout": "Grouped setting toggles (Sound effects, Haptics), Age group picker, Data management (Reset progress), and Legal/Privacy links."
+    },
+    {
+      "name": "AdminDashboard",
+      "purpose": "Separate secure admin login and dashboard to manage age categories, questions database, streak challenges, and monetization settings.",
+      "states": {
+        "loading": "Authenticating admin session...",
+        "empty": "No questions or categories found",
+        "error": "Authentication failed. Check credentials."
+      },
+      "layout": "Tabs for Categories, Questions, Challenges, and Monetization configuration with CRUD modals and AI-assisted authoring mock."
+    }
+  ],
+  "images": {
+    "math_hero_badge": {
+      "url": "https://images.unsplash.com/photo-1585692277349-7a1b400502dc?auto=format&fit=crop&w=800&q=80",
+      "alt": "Colorful math game education toys"
+    },
+    "math_streak_icon": {
+      "url": "https://images.pexels.com/photos/311268/pexels-photo-311268.jpeg?auto=format&fit=crop&w=800&q=80",
+      "alt": "Colorful number blocks for streak challenge"
+    }
+  },
+  "instructions_to_main_agent": "Implement the Maths Game exact specification in /app/frontend. Features required: local validated question engine across 6 age groups (6-7, 8-10, 11-13, 14-16, 17-20, 21+), 60-Second Challenge with timer, live score, combo multiplier, lives, speed bonuses, correct/wrong feedback state, results screen with personal best and XP calculation, daily streaks (3-day and 7-day challenges), local settings (sound, vibration, reset progress, age switcher), and separate admin login/dashboard for question and challenge management. Use Tactile Playful design with vibrant colors, rounded cards, and 44pt+ touch targets. Fully offline capable with AsyncStorage persistence."
+}
