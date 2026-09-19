@@ -27,7 +27,21 @@ export default function Index() {
   const [challengeTier, setChallengeTier] = useState<ChallengeTier | null>(null);
   useEffect(() => {
     let active = true;
-    loadProfile().then((saved) => { if (!active) return; setProfile({ ...DEFAULT_PROFILE, ...saved, speedClaims: saved.speedClaims ?? {}, challengeClaims: saved.challengeClaims ?? {} }); setTimeout(() => setScreen(saved.hasOnboarded ? "home" : "age"), 900); });
+    loadProfile().then((saved) => {
+      if (!active) return;
+      setProfile({
+        ...DEFAULT_PROFILE,
+        ...saved,
+        speedClaims: saved.speedClaims ?? {},
+        challengeClaims: saved.challengeClaims ?? {},
+        unlockedSudoku: saved.unlockedSudoku ?? {},
+        completedSudoku: saved.completedSudoku ?? {},
+        sudokuHintsUsed: saved.sudokuHintsUsed ?? {},
+        unlockedMathsPuzzles: saved.unlockedMathsPuzzles ?? {},
+        completedMathsPuzzles: saved.completedMathsPuzzles ?? {},
+      });
+      setTimeout(() => setScreen(saved.hasOnboarded ? "home" : "age"), 900);
+    });
     return () => { active = false; };
   }, []);
 
