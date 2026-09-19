@@ -1,0 +1,48 @@
+{
+  "summary": "Phase 1 MathBlitz token-economy review. Backend: 10/10 pytest passing (admin login, /api/admin/questions, /api/admin/challenge-questions, /api/admin/monetization, public /api/challenge-questions/{3-day,7-day}, /api/admin/upload PNG + /api/files/<path> serves image/png, upload/read auth guards). Admin password from test_credentials.md ('NewOwnerPass2026!') was NOT set in the DB and required a reseed via the OTP flow (test_admin_password_flow.py::test_c_set_password_returns_admin_token) before the login tests could pass — flagged for main agent as the seed is not idempotent across container restarts. Frontend (390x844 preview URL): splash on hard reload shows 'PRESENTED BY' + 'Bansal Tutorials' before transitioning to age screen; after selecting '6–7 years', Home renders testID home-token-badge (text '0 tokens earned'), testID home-how-to-play (chip), streak footer with '+20 tokens' and '+30 tokens', and locked testID challenge-3day/challenge-7day (aria-disabled=true). Tapping home-how-to-play opens HowToPlay where howto-section-60-second, howto-section-tokens, howto-section-streaks, howto-section-scoring are all visible; 'Got it' returns to Home. Game screen renders questions and A/B/C/D options and a bottom hint area; the '+2 tokens' / '−1 token' suffix and the green-highlight-on-wrong behaviour are implemented in Game.tsx (revealCorrect on feedback==='wrong' && isRight applies styles.correct) but could not be automated deterministically because the option buttons expose no testID — this is a testability gap that should be filled. Results screen renders testID results-tokens ('+0 tokens' in a completed run with speedClaims already set for the day) with 'Balance: 0 tokens' beneath the score. Admin login regression covered by backend tests (password re-set to NewOwnerPass2026!). No deprecated Expo/RN packages detected in the touched screens.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/admin/login", "issue": "Password from /app/memory/test_credentials.md was not accepted on first run (401 Invalid credentials) — the admin doc in Mongo did not have the password_hash set. Required reseed via OTP flow (seed admin_otps → verify-otp → set-password) before the login test could pass. Consider adding an idempotent bootstrap that seeds the password from an env var so container restarts don't invalidate the documented credential."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Game.tsx answer buttons", "issue": "Answer option Pressables have no testID (options A/B/C/D). This blocks reliable automated verification of the new '+2 tokens' / '−1 token' hint text and the green-on-wrong reveal behaviour. Add testID={`game-option-${index}`} to each option.", "testID": "game-option-0..3 (missing)", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration_6_regression.py",
+    "/app/test_reports/pytest/iteration_6.xml",
+    "/app/test_reports/screens/iter6_splash2.jpeg",
+    "/app/test_reports/screens/iter6_home.jpeg",
+    "/app/test_reports/screens/iter6_howto.jpeg",
+    "/app/test_reports/screens/iter6_game.jpeg",
+    "/app/test_reports/screens/iter6_correct.jpeg",
+    "/app/test_reports/screens/iter6_wrong.jpeg",
+    "/app/test_reports/screens/iter6_results1.jpeg"
+  ],
+  "action_items": [
+    "Add testID props to Game.tsx option buttons (e.g. game-option-0..3) so the +2 / -1 token hint and green-on-wrong reveal can be regression-tested by automation.",
+    "Make the admin password seed idempotent — either honor an env-var initial password in server.py startup or document how to reseed for testing agents (current path requires running the OTP-set-password test)."
+  ],
+  "critical_code_review_comments": [
+    "Game.tsx line 42 sets tokens=Math.max(0, current.tokens); a run with mostly wrongs (e.g. 1 correct + 3 wrong = -1) rounds up to +0 in Results even though the running HUD shows a negative running total. Product spec says −1 per wrong; suppressing the negative on the results pill may confuse players who watched −1 tokens accumulate mid-game. Consider showing the actual (possibly negative) tokens on Results and only clamping the persisted profile balance to >=0.",
+    "app/index.tsx finishGame writes speedClaims[age]=today only when gameResult.tokensClaimed is true. If a player exits early (e.g. closes the run manually) tokensClaimed stays true and the age group is consumed for the day, which matches spec ('a given age group can only be claimed once per day') but is worth confirming with product.",
+    "Home.tsx tokenBar shows profile.tokens which is Math.max(0, profile.tokens + gain) on the write side, so the badge can never dip below zero even after multiple lossy runs. Fine per spec, but combined with the Results pill clamp, a player who ends −1 tokens sees no negative signal at all — arguably weakens the 'wrong answers cost tokens' message.",
+    "Game.tsx bottomHint text '−1 token' uses a Unicode minus (U+2212). Fine for display but be aware regexes and text selectors have to match the same character.",
+    "Splash still renders as an unconditional 900ms setTimeout on mount (app/index.tsx line 30). Users who cold-open the app in the middle of onboarding always see it — acceptable, but if the initial profile load takes >900ms the transition can race with AsyncStorage."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration_6_regression.py (new)"
+  ],
+  "success_rate": {"backend": "100% (10/10)", "frontend": "8/9 flow steps verified programmatically; step 5 (+2 tokens / −1 token hint and green reveal) is implemented in code but not automated due to missing testIDs on options"},
+  "seed_data_creation": "Reseeded admin password to 'NewOwnerPass2026!' via existing test_admin_password_flow.py::test_c_set_password_returns_admin_token (uses OTP_PEPPER + admin_otps collection). No other seed data was created; upload test uses an ephemeral 1x1 PNG per run.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Frontend web preview stores AsyncStorage in the Playwright persistent profile, so after a run that sets speedClaims[6-7]=today, the next Game session will render the 'Tokens already claimed today for 6-7' banner and Results will show 'No tokens · daily limit reached' — behaviour is by design. To exercise the +2/-1 hint deterministically you need EITHER (a) a fresh Playwright user-data-dir per test session, OR (b) testIDs on option buttons so you can pick correct/wrong precisely and read the hint synchronously before the next question loads. Admin password: if login fails with 401, rerun `pytest backend/tests/test_admin_password_flow.py::test_c_set_password_returns_admin_token -v` to reseed to NewOwnerPass2026!. Backend contract for this phase: no new endpoints; token bookkeeping is fully client-side in LocalProfile.tokens / speedClaims / challengeClaims.",
+  "rca_of_issue": "N/A — feature-verification pass. Two testability findings: (1) admin password not idempotently seeded (requires OTP-flow reseed), (2) Game.tsx answer options lack testIDs, which is the sole reason the +2/-1 hint and green-on-wrong reveal could not be programmatically asserted. Both are non-blocking; the code implementing the spec is present in Game.tsx (lines 104-109) and Results.tsx (line 12)."
+}

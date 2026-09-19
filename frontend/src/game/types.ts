@@ -26,6 +26,8 @@ export type GameResult = {
   bestCombo: number;
   xp: number;
   personalBest: number;
+  tokens: number;
+  tokensClaimed: boolean;
 };
 
 export type AppSettings = {
@@ -41,6 +43,9 @@ export type LocalProfile = {
   streak: number;
   lastPlayedDate: string | null;
   settings: AppSettings;
+  tokens: number;
+  speedClaims: Partial<Record<AgeGroupId, string>>;
+  challengeClaims: Partial<Record<"3-day" | "7-day", string>>;
 };
 
 export const AGE_GROUPS: AgeGroup[] = [
@@ -60,4 +65,7 @@ export const DEFAULT_PROFILE: LocalProfile = {
   streak: 0,
   lastPlayedDate: null,
   settings: { sound: true, vibration: true },
+  tokens: 0,
+  speedClaims: {},
+  challengeClaims: {},
 };

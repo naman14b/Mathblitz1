@@ -13,9 +13,10 @@ type HomeProps = {
   onAdmin: () => void;
   onAge: () => void;
   onChallenge: (tier: ChallengeTier) => void;
+  onHowToPlay: () => void;
 };
 
-export function Home({ profile, onPlay, onSettings, onAdmin, onAge, onChallenge }: HomeProps) {
+export function Home({ profile, onPlay, onSettings, onAdmin, onAge, onChallenge, onHowToPlay }: HomeProps) {
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
   const styles = useStyles();
@@ -40,7 +41,15 @@ export function Home({ profile, onPlay, onSettings, onAdmin, onAge, onChallenge 
           <Text style={styles.streakCount}>{days}/7</Text>
         </View>
         <View style={styles.progressTrack}><View style={[styles.progressFill, { width: `${Math.max(8, (days / 7) * 100)}%` }]} /></View>
-        <View style={styles.streakFoot}><Text style={styles.streakFootText}>3 days: Quickfire warm-up</Text><Text style={styles.streakFootText}>7 days: Blitz master</Text></View>
+        <View style={styles.streakFoot}><Text style={styles.streakFootText}>3 days: Quickfire · +20 tokens</Text><Text style={styles.streakFootText}>7 days: Blitz master · +30 tokens</Text></View>
+        <View testID="home-token-badge" style={styles.tokenBar}>
+          <View style={styles.tokenIcon}><Ionicons name="pricetag" size={15} color={colors.onBrandPrimary} /></View>
+          <View style={styles.tokenCopy}>
+            <Text style={styles.tokenValue}>{profile.tokens}</Text>
+            <Text style={styles.tokenLabel}>tokens earned</Text>
+          </View>
+          <Pressable testID="home-how-to-play" onPress={onHowToPlay} style={({ pressed }) => [styles.howToChip, { opacity: pressed ? 0.7 : 1 }]}><Ionicons name="help-circle-outline" size={16} color={colors.brandPrimary} /><Text style={styles.howToChipText}>How to play</Text></Pressable>
+        </View>
       </View>
       <Pressable testID="play-challenge" onPress={onPlay} style={({ pressed }) => [styles.hero, { opacity: pressed ? 0.85 : 1 }]}>
         <View style={styles.heroCopy}>
@@ -92,6 +101,13 @@ const useStyles = makeStyles((colors) => ({
   progressFill: { height: "100%", backgroundColor: colors.brandPrimary, borderRadius: 99 },
   streakFoot: { flexDirection: "row", justifyContent: "space-between", marginTop: 9 },
   streakFootText: { color: colors.muted, fontSize: 10, fontWeight: "700" },
+  tokenBar: { flexDirection: "row", alignItems: "center", gap: 12, marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.divider },
+  tokenIcon: { width: 32, height: 32, borderRadius: 12, backgroundColor: colors.brandPrimary, alignItems: "center", justifyContent: "center" },
+  tokenCopy: { flex: 1 },
+  tokenValue: { color: colors.onSurface, fontSize: 16, fontWeight: "900" },
+  tokenLabel: { color: colors.muted, fontSize: 11, fontWeight: "700" },
+  howToChip: { flexDirection: "row", alignItems: "center", gap: 5, paddingHorizontal: 10, minHeight: 32, borderRadius: 99, backgroundColor: colors.surfaceTertiary },
+  howToChipText: { color: colors.brandPrimary, fontSize: 12, fontWeight: "900" },
   hero: { backgroundColor: colors.brandPrimary, minHeight: 184, borderRadius: 26, padding: 22, flexDirection: "row", overflow: "hidden", marginBottom: 16 },
   heroCopy: { flex: 1, zIndex: 1, gap: 7 },
   heroKicker: { color: colors.brandTertiary, fontSize: 11, fontWeight: "900", letterSpacing: 1.2 },

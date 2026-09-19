@@ -55,6 +55,14 @@ Build a polished, friendly Android-first maths game where a player selects an ag
 - Home dashboard now shows a live day-countdown ("3 days to Quickfire · 7 to Blitz master") plus two challenge unlock cards; the cards lock until the player's local streak reaches 3 or 7 days and become tappable to launch a dedicated `ChallengeGame` screen that plays through the tier's questions with per-question timers.
 - Engine now clamps difficulty to level 0 for the first 10 answered questions before the combo-based ramp kicks in, giving every age group an easy on-ramp.
 
+### 2026-02 — Token economy + How to play + polish
+- Added a local token wallet on `LocalProfile` (tokens / speedClaims / challengeClaims). 60-second play grants +2 tokens per correct answer and −1 per wrong; a given age group can only be rewarded once per day (replays same day claim no tokens).
+- Challenge play grants +20 tokens on a 3-day pass and +30 on a 7-day pass (≥60% correct), once per tier per day.
+- Home dashboard shows a running token balance + a "How to play" chip; the streak footer now advertises the +20 / +30 rewards inline so players can see what winning the streak unlocks.
+- Added a full How to Play screen covering scoring, tokens, streaks and unlocks.
+- The 60-second game now also flashes the correct answer in green when the player picks wrong (previously only the challenge screens did) and surfaces the ±token hint under the question.
+- Splash screen now leads with a bigger MathBlitz mark and a "Presented by Bansal Tutorials" line.
+
 ## Prioritized backlog
 
 ### P0 — Before production release
