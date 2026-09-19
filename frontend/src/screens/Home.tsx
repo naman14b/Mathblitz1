@@ -9,6 +9,8 @@ import { makeStyles, useTheme } from "@/src/theme";
 type HomeProps = {
   profile: LocalProfile;
   onPlay: () => void;
+  onSudoku: () => void;
+  onMathsPuzzles: () => void;
   onSettings: () => void;
   onAdmin: () => void;
   onAge: () => void;
@@ -16,7 +18,17 @@ type HomeProps = {
   onHowToPlay: () => void;
 };
 
-export function Home({ profile, onPlay, onSettings, onAdmin, onAge, onChallenge, onHowToPlay }: HomeProps) {
+export function Home({
+  profile,
+  onPlay,
+  onSettings,
+  onAdmin,
+  onAge,
+  onChallenge,
+  onHowToPlay,
+  onSudoku,
+  onMathsPuzzles,
+}: HomeProps) {
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
   const styles = useStyles();
@@ -60,6 +72,29 @@ export function Home({ profile, onPlay, onSettings, onAdmin, onAge, onChallenge,
         </View>
         <View style={styles.heroOrb}><Text style={styles.heroOrbText}>60</Text><Text style={styles.heroOrbLabel}>SEC</Text></View>
       </Pressable>
+
+      <UnlockCard
+        testID="sudoku"
+        title="Sudoku"
+        description="250 puzzles across 5 difficulty levels."
+        unlocked={true}
+        onPress={onSudoku}
+        icon="grid-outline"
+        tone={colors.brandSecondary}
+        accent={colors.onBrandSecondary}
+      />
+
+      <UnlockCard
+        testID="maths-puzzles"
+        title="Maths Puzzles"
+        description="100 progressively challenging puzzles."
+        unlocked={true}
+        onPress={onMathsPuzzles}
+        icon="calculator-outline"
+        tone={colors.brandTertiary}
+        accent={colors.onBrandTertiary}
+      />
+
       <UnlockCard testID="challenge-3day" title="3-day Quickfire" description={unlocked3 ? "Timed image challenges. Tap to play." : `Play ${daysTo3} more day${daysTo3 === 1 ? "" : "s"} to unlock.`} unlocked={unlocked3} icon="ribbon" onPress={() => onChallenge("3-day")} tone={colors.brandSecondary} accent={colors.onBrandSecondary} />
       <UnlockCard testID="challenge-7day" title="7-day Blitz master" description={unlocked7 ? "Master-level image challenges. Tap to play." : `Play ${daysTo7} more day${daysTo7 === 1 ? "" : "s"} to unlock.`} unlocked={unlocked7} icon="trophy" onPress={() => onChallenge("7-day")} tone={colors.brandTertiary} accent={colors.onBrandTertiary} />
       <View style={styles.sectionHeading}><Text style={styles.sectionTitle}>Your progress</Text><SoftButton onPress={onAge} icon="options-outline">Change level</SoftButton></View>
