@@ -125,6 +125,11 @@ export type LocalProfile = {
   // Maths Puzzles progression
   unlockedMathsPuzzles: Record<number, boolean>;
   completedMathsPuzzles: Record<number, boolean>;
+
+  // Daily Challenge
+  dailyChallengeDate: string | null;
+  dailyChallengeScore: number;
+  dailyChallengeCompleted: boolean;
 };
 
 export const AGE_GROUPS: AgeGroup[] = [
@@ -154,4 +159,9 @@ export const DEFAULT_PROFILE: LocalProfile = {
   sudokuHintsUsed: {},
   unlockedMathsPuzzles: {},
   completedMathsPuzzles: {},
+
+  // Daily Challenge
+  dailyChallengeDate: null,
+  dailyChallengeScore: 0,
+  dailyChallengeCompleted: false,
 };

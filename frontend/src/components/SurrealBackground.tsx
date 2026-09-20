@@ -23,7 +23,7 @@ const Particle = ({ index }: { index: number }) => {
   const opacity = 0.5 + Math.random() * 0.4;
   const duration = 15000 + Math.random() * 25000;
   const delay = Math.random() * 8000;
-  
+
   const symbol = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
   const color = COLORS[Math.floor(Math.random() * COLORS.length)];
 
@@ -39,7 +39,7 @@ const Particle = ({ index }: { index: number }) => {
         false
       )
     );
-    
+
     rotation.value = withDelay(
       delay,
       withRepeat(
@@ -103,7 +103,7 @@ export function SurrealBackground() {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     zIndex: -1,
   },
   particle: {

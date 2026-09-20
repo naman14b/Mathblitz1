@@ -5,6 +5,7 @@ export type MathsCell = {
     type: CellType;
     value?: string;
     isBlank?: boolean;
+    isGiven?: boolean;
 };
 
 export type MathsGrid = MathsCell[][];

@@ -33,6 +33,9 @@ export function migrateProfile(raw: unknown): LocalProfile {
     sudokuHintsUsed: saved.sudokuHintsUsed && typeof saved.sudokuHintsUsed === "object" ? { ...saved.sudokuHintsUsed } : {},
     unlockedMathsPuzzles: saved.unlockedMathsPuzzles && typeof saved.unlockedMathsPuzzles === "object" ? { ...saved.unlockedMathsPuzzles } : {},
     completedMathsPuzzles: saved.completedMathsPuzzles && typeof saved.completedMathsPuzzles === "object" ? { ...saved.completedMathsPuzzles } : {},
+    dailyChallengeDate: typeof saved.dailyChallengeDate === "string" ? saved.dailyChallengeDate : null,
+    dailyChallengeScore: typeof saved.dailyChallengeScore === "number" ? Math.max(0, saved.dailyChallengeScore) : 0,
+    dailyChallengeCompleted: Boolean(saved.dailyChallengeCompleted),
   };
 }
 
@@ -68,4 +71,4 @@ export function isMathsPuzzleCompleted(profile: LocalProfile, id: number): boole
 
 export function getSudokuHintsUsed(profile: LocalProfile, id: string): number {
   return profile.sudokuHintsUsed?.[id] ?? 0;
-}
+}
