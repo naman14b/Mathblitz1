@@ -6,7 +6,10 @@ import { AgeSelection } from "@/src/screens/AgeSelection";
 import { Admin } from "@/src/screens/Admin";
 import { SudokuHub } from "@/src/game/sudoku/SudokuHub";
 import { SudokuGame } from "@/src/game/sudoku/SudokuGame";
+import { MathsPuzzlesHub } from "@/src/game/mathspuzzles/MathsPuzzlesHub";
+import { MathsPuzzleGame } from "@/src/game/mathspuzzles/MathsPuzzleGame";
 import { isSudokuUnlocked } from "@/src/game/storage";
+import { MATHS_CATALOGUE } from "@/src/game/mathspuzzles/catalogue";
 import { SUDOKU_TIERS } from "@/src/game/sudoku/types";
 import { ChallengeGame } from "@/src/screens/ChallengeGame";
 import { Game } from "@/src/screens/Game";
@@ -128,6 +131,9 @@ export default function Index() {
   const [challengeTier, setChallengeTier] = useState<ChallengeTier | null>(null);
   const [selectedSudokuDifficulty, setSelectedSudokuDifficulty] =
     useState<SudokuDifficulty | null>(null);
+  const [selectedSudokuLevel, setSelectedSudokuLevel] = useState<number | null>(null);
+  const [selectedMathsPuzzle, setSelectedMathsPuzzle] = useState<number | null>(null);
+  
   useEffect(() => {
     let active = true;
     loadProfile().then((saved) => {
@@ -236,14 +242,15 @@ export default function Index() {
       <SudokuHub
         profile={profile}
         onBack={() => setScreen("home")}
-        onPlay={async (difficulty) => {
+        onPlay={async (difficulty, level) => {
           const tier = SUDOKU_TIERS.find(
             (item) => item.difficulty === difficulty,
           );
 
           if (!tier) return;
 
-          const unlocked = isSudokuUnlocked(profile, difficulty);
+          const id = `sudoku-${difficulty}-${level}`;
+          const unlocked = level === 1 || isSudokuUnlocked(profile, id);
 
           if (!unlocked) {
             if (profile.tokens < tier.unlockCost) {
@@ -255,7 +262,7 @@ export default function Index() {
               tokens: profile.tokens - tier.unlockCost,
               unlockedSudoku: {
                 ...profile.unlockedSudoku,
-                [difficulty]: true,
+                [id]: true,
               },
             };
 
@@ -264,6 +271,7 @@ export default function Index() {
           }
 
           setSelectedSudokuDifficulty(difficulty);
+          setSelectedSudokuLevel(level);
           setScreen("sudoku-game");
         }}
       />
@@ -272,20 +280,14 @@ export default function Index() {
   if (
     screen === "sudoku-game" &&
     selectedSudokuDifficulty &&
+    selectedSudokuLevel &&
     profile.ageGroup
   ) {
     return (
       <SudokuGame
         profile={profile}
         difficulty={selectedSudokuDifficulty}
-        gameNumber={
-          Array.from({ length: 50 }, (_, index) => index + 1).find(
-            (number) =>
-              !profile.completedSudoku[
-              `sudoku-${selectedSudokuDifficulty}-${number}`
-              ],
-          ) ?? 50
-        }
+        gameNumber={selectedSudokuLevel}
         onBack={() => setScreen("sudoku-hub")}
         onComplete={(puzzleId) => {
           if (profile.completedSudoku[puzzleId]) {
@@ -308,6 +310,67 @@ export default function Index() {
         }}
       />
     );
+  }
+
+  if (screen === "puzzles-hub") {
+    return (
+      <MathsPuzzlesHub
+        profile={profile}
+        onBack={() => setScreen("home")}
+        onPlay={async (level, unlockCost) => {
+          const unlocked = level === 1 || profile.unlockedMathsPuzzles?.[level];
+          
+          if (!unlocked) {
+            if (profile.tokens < unlockCost) return;
+            const next = {
+              ...profile,
+              tokens: profile.tokens - unlockCost,
+              unlockedMathsPuzzles: {
+                ...profile.unlockedMathsPuzzles,
+                [level]: true,
+              }
+            };
+            setProfile(next);
+            await saveProfile(next);
+          }
+          
+          setSelectedMathsPuzzle(level);
+          setScreen("puzzle-game");
+        }}
+      />
+    );
+  }
+
+  if (screen === "puzzle-game" && selectedMathsPuzzle) {
+    const puzzle = MATHS_CATALOGUE.find(p => p.level === selectedMathsPuzzle);
+    if (puzzle) {
+      return (
+        <MathsPuzzleGame
+          profile={profile}
+          puzzle={puzzle}
+          onBack={() => setScreen("puzzles-hub")}
+          onComplete={(level) => {
+            if (profile.completedMathsPuzzles?.[level]) {
+              setScreen("puzzles-hub");
+              return;
+            }
+
+            const next = {
+              ...profile,
+              tokens: profile.tokens + 5,
+              completedMathsPuzzles: {
+                ...profile.completedMathsPuzzles,
+                [level]: true,
+              }
+            };
+
+            setProfile(next);
+            void saveProfile(next);
+            setScreen("puzzles-hub");
+          }}
+        />
+      );
+    }
   }
 
   if (screen === "results" && result) {

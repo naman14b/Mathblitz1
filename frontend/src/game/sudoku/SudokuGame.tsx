@@ -1,5 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import Animated, {
+    useSharedValue,
+    useAnimatedStyle,
+    withTiming,
+    withSequence,
+} from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
+import { playSound } from "@/src/game/sounds";
 
 import type { LocalProfile } from "@/src/game/types";
 import { getSudokuPuzzleId } from "@/src/game/sudoku/types";
@@ -10,6 +18,10 @@ import type {
 } from "@/src/game/sudoku/types";
 import { generateSudokuSet } from "@/src/game/sudoku/engine";
 import { makeStyles, useTheme } from "@/src/theme";
+import { SurrealBackground } from "@/src/components/SurrealBackground";
+import { TokenFlyAnimation, TokenFlyRef } from "@/src/components/TokenFlyAnimation";
+import { ComboDisplay } from "@/src/components/ComboDisplay";
+import { BlitzEnergyBar } from "@/src/components/BlitzEnergyBar";
 
 type SudokuGameProps = {
     profile: LocalProfile;
@@ -45,6 +57,31 @@ export function SudokuGame({
     const [mistakes, setMistakes] = useState(0);
     const [hintsUsed, setHintsUsed] = useState(0);
     const [secondsLeft, setSecondsLeft] = useState(0);
+    const [mistakeCell, setMistakeCell] = useState<[number, number] | null>(null);
+    const [paceNotice, setPaceNotice] = useState("");
+
+    // Effects State
+    const [combo, setCombo] = useState(0);
+    const [blitzEnergy, setBlitzEnergy] = useState(0);
+    const isBlitzMode = blitzEnergy >= 100;
+    const tokenFlyRef = useRef<TokenFlyRef>(null);
+
+    const shakeTranslateX = useSharedValue(0);
+
+    const triggerShake = () => {
+        shakeTranslateX.value = withSequence(
+            withTiming(10, { duration: 50 }),
+            withTiming(-10, { duration: 50 }),
+            withTiming(10, { duration: 50 }),
+            withTiming(0, { duration: 50 })
+        );
+    };
+
+    const boardAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{ translateX: shakeTranslateX.value }]
+        };
+    });
 
     const timeLimit = useMemo(() => {
         switch (difficulty) {
@@ -97,7 +134,7 @@ export function SudokuGame({
         }
     }, [isComplete, onComplete, puzzle.id]);
 
-    const handleNumberPress = (number: number) => {
+    const handleNumberPress = (number: number, event: any) => {
         if (!selected || secondsLeft === 0) return;
 
         const [row, column] = selected;
@@ -106,6 +143,21 @@ export function SudokuGame({
 
         if (puzzle.solution[row][column] !== number) {
             setMistakes((current) => current + 1);
+            setSecondsLeft((current) => Math.max(0, current - 60));
+            setPaceNotice("−60s");
+            setTimeout(() => setPaceNotice(""), 1200);
+
+            setMistakeCell([row, column]);
+            setTimeout(() => setMistakeCell(null), 1000);
+
+            setCombo(0);
+            if (!isBlitzMode) setBlitzEnergy(0);
+            triggerShake();
+
+            playSound("wrong", profile.settings.sound);
+            if (profile.settings.vibration) {
+                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => { });
+            }
             return;
         }
 
@@ -114,19 +166,49 @@ export function SudokuGame({
             next[row][column] = number;
             return next;
         });
+
+        // Effects
+        setCombo(c => c + 1);
+        if (!isBlitzMode) {
+            setBlitzEnergy(e => Math.min(100, e + 25)); // 4 correct answers = blitz
+        }
+
+        const tokensToAward = isBlitzMode ? 4 : 2;
+        if (tokenFlyRef.current && event?.nativeEvent) {
+            const { pageX, pageY } = event.nativeEvent;
+            tokenFlyRef.current.trigger(pageX || 200, pageY || 400, tokensToAward);
+        }
+
+        playSound("correct", profile.settings.sound);
+        if (profile.settings.vibration) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => { });
+        }
     };
 
     const handleHint = () => {
-        if (!selected || hintsUsed >= 4 || secondsLeft === 0) return;
+        if (hintsUsed >= 4 || secondsLeft === 0) return;
 
-        const [row, column] = selected;
+        const emptyCells: [number, number][] = [];
+        grid.forEach((row, r) => {
+            row.forEach((value, c) => {
+                if (value === 0) emptyCells.push([r, c]);
+            });
+        });
 
-        if (puzzle.puzzle[row][column] !== 0) return;
-        if (grid[row][column] !== 0) return;
+        if (emptyCells.length === 0) return;
+
+        for (let i = emptyCells.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [emptyCells[i], emptyCells[j]] = [emptyCells[j], emptyCells[i]];
+        }
+
+        const toFill = emptyCells.slice(0, 2);
 
         setGrid((current) => {
             const next = current.map((item) => [...item]);
-            next[row][column] = puzzle.solution[row][column];
+            toFill.forEach(([r, c]) => {
+                next[r][c] = puzzle.solution[r][c];
+            });
             return next;
         });
 
@@ -135,6 +217,10 @@ export function SudokuGame({
 
     return (
         <View style={styles.container}>
+            <SurrealBackground />
+            <TokenFlyAnimation ref={tokenFlyRef} />
+            <ComboDisplay combo={combo} />
+
             <View style={styles.header}>
                 <Pressable
                     onPress={onBack}
@@ -152,100 +238,131 @@ export function SudokuGame({
                 </View>
 
                 <View style={styles.timer}>
-                    <Text style={styles.timerText}>{formatTime(secondsLeft)}</Text>
+                    <Text style={[styles.timerText, secondsLeft < 60 && { color: colors.error }]}>{formatTime(secondsLeft)}</Text>
                 </View>
             </View>
 
-            <ScrollView
-                contentContainerStyle={styles.content}
-                showsVerticalScrollIndicator={false}
-            >
-                <View style={styles.statusRow}>
-                    <View style={styles.statusCard}>
-                        <Text style={styles.statusLabel}>Hints</Text>
-                        <Text style={styles.statusValue}>{4 - hintsUsed}/4</Text>
-                    </View>
-
-                    <View style={styles.statusCard}>
-                        <Text style={styles.statusLabel}>Mistakes</Text>
-                        <Text style={styles.statusValue}>{mistakes}</Text>
-                    </View>
+            {paceNotice ? (
+                <View style={styles.paceNoticeContainer}>
+                    <Text style={styles.paceNoticeText}>Penalty {paceNotice}</Text>
                 </View>
+            ) : null}
 
-                <View style={styles.board}>
-                    {grid.map((row, rowIndex) =>
-                        row.map((value, columnIndex) => {
-                            const original = puzzle.puzzle[rowIndex][columnIndex];
-                            const isSelected =
-                                selected?.[0] === rowIndex &&
-                                selected?.[1] === columnIndex;
-
-                            return (
-                                <Pressable
-                                    key={`${rowIndex}-${columnIndex}`}
-                                    onPress={() => setSelected([rowIndex, columnIndex])}
-                                    style={[
-                                        styles.cell,
-                                        columnIndex === 2 && styles.rightBorder,
-                                        columnIndex === 5 && styles.rightBorder,
-                                        rowIndex === 2 && styles.bottomBorder,
-                                        rowIndex === 5 && styles.bottomBorder,
-                                        isSelected && styles.selectedCell,
-                                    ]}
-                                >
-                                    <Text
-                                        style={[
-                                            styles.cellText,
-                                            original !== 0 && styles.givenText,
-                                            original === 0 && styles.playerText,
-                                        ]}
-                                    >
-                                        {value === 0 ? "" : value}
-                                    </Text>
-                                </Pressable>
-                            );
-                        }),
-                    )}
-                </View>
-
-                <View style={styles.controls}>
+            {secondsLeft === 0 && !isComplete ? (
+                <View style={[styles.content, { justifyContent: 'center', flex: 1 }]}>
+                    <Text style={{ fontSize: 32, fontWeight: '900', color: colors.error, marginBottom: 20 }}>Time's Up!</Text>
                     <Pressable
-                        onPress={handleHint}
-                        style={styles.hintButton}
-                        disabled={!selected || hintsUsed >= 4}
+                        onPress={() => {
+                            setGrid(puzzle.puzzle.map(row => [...row]));
+                            setSelected(null);
+                            setMistakes(0);
+                            setHintsUsed(0);
+                            setSecondsLeft(timeLimit);
+                            setMistakeCell(null);
+                            setPaceNotice("");
+                            setCombo(0);
+                            setBlitzEnergy(0);
+                        }}
+                        style={[styles.hintButton, { backgroundColor: colors.brandPrimary, paddingHorizontal: 40, marginBottom: 12, width: '100%', maxWidth: 300 }]}
                     >
-                        <Text style={styles.hintText}>Use Hint</Text>
+                        <Text style={styles.hintText}>Try Again</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => setSecondsLeft(60)}
+                        style={[styles.hintButton, { backgroundColor: colors.brandSecondary, paddingHorizontal: 40, width: '100%', maxWidth: 300 }]}
+                    >
+                        <Text style={[styles.hintText, { color: colors.brandPrimary }]}>Watch Ad to Continue (+60s)</Text>
                     </Pressable>
                 </View>
+            ) : (
+                <ScrollView
+                    contentContainerStyle={styles.content}
+                    showsVerticalScrollIndicator={false}
+                >
+                    <BlitzEnergyBar energy={blitzEnergy} isBlitzMode={isBlitzMode} />
 
-                <View style={styles.numberPad}>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => (
+                    <View style={styles.statusRow}>
+                        <View style={styles.statusCard}>
+                            <Text style={styles.statusLabel}>Hints</Text>
+                            <Text style={styles.statusValue}>{4 - hintsUsed}/4</Text>
+                        </View>
+
+                        <View style={styles.statusCard}>
+                            <Text style={styles.statusLabel}>Mistakes</Text>
+                            <Text style={styles.statusValue}>{mistakes}</Text>
+                        </View>
+                    </View>
+
+                    <Animated.View style={[styles.board, boardAnimatedStyle, isBlitzMode && { borderColor: colors.brandSecondary, shadowColor: colors.brandSecondary, shadowOpacity: 0.5, shadowRadius: 10 }]}>
+                        {grid.map((row, rowIndex) =>
+                            row.map((value, columnIndex) => {
+                                const original = puzzle.puzzle[rowIndex][columnIndex];
+                                const isSelected =
+                                    selected?.[0] === rowIndex &&
+                                    selected?.[1] === columnIndex;
+                                const isMistake = mistakeCell?.[0] === rowIndex && mistakeCell?.[1] === columnIndex;
+
+                                return (
+                                    <Pressable
+                                        key={`${rowIndex}-${columnIndex}`}
+                                        onPress={() => setSelected([rowIndex, columnIndex])}
+                                        style={[
+                                            styles.cell,
+                                            columnIndex === 2 && styles.rightBorder,
+                                            columnIndex === 5 && styles.rightBorder,
+                                            rowIndex === 2 && styles.bottomBorder,
+                                            rowIndex === 5 && styles.bottomBorder,
+                                            isSelected && styles.selectedCell,
+                                            isMistake && styles.mistakeCell,
+                                            original === 0 && value !== 0 && { backgroundColor: (colors as any).glowCorrect }
+                                        ]}
+                                    >
+                                        <Text
+                                            style={[
+                                                styles.cellText,
+                                                original !== 0 && styles.givenText,
+                                                original === 0 && styles.playerText,
+                                            ]}
+                                        >
+                                            {value === 0 ? "" : value}
+                                        </Text>
+                                    </Pressable>
+                                );
+                            }),
+                        )}
+                    </Animated.View>
+
+                    <View style={styles.controls}>
                         <Pressable
-                            key={number}
-                            onPress={() => handleNumberPress(number)}
-                            style={styles.numberButton}
+                            onPress={handleHint}
+                            style={[styles.hintButton, { backgroundColor: (hintsUsed >= 4 || secondsLeft === 0) ? colors.surfaceTertiary : colors.brandPrimary }]}
+                            disabled={hintsUsed >= 4 || secondsLeft === 0}
                         >
-                            <Text style={styles.numberText}>{number}</Text>
+                            <Text style={[styles.hintText, { color: (hintsUsed >= 4 || secondsLeft === 0) ? colors.muted : colors.onBrandPrimary }]}>Use Hint</Text>
                         </Pressable>
-                    ))}
-                </View>
+                    </View>
 
-                <Text style={styles.helper}>
-                    Select an empty square, then choose a number.
-                </Text>
-
-                <Text style={styles.tokenText}>
-                    Current tokens: {profile.tokens}
-                </Text>
-            </ScrollView>
+                    <View style={styles.numberPad}>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => (
+                            <Pressable
+                                key={number}
+                                onPress={(e) => handleNumberPress(number, e)}
+                                style={styles.numberButton}
+                            >
+                                <Text style={styles.numberText}>{number}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
+                </ScrollView>
+            )}
         </View>
     );
 }
 
-const useStyles = makeStyles((colors) => ({
+const useStyles = makeStyles((colors: any) => ({
     container: {
         flex: 1,
-        backgroundColor: colors.surface,
+        backgroundColor: 'transparent',
     },
     header: {
         paddingHorizontal: 16,
@@ -255,6 +372,7 @@ const useStyles = makeStyles((colors) => ({
         alignItems: "center",
         borderBottomWidth: 1,
         borderBottomColor: colors.divider,
+        backgroundColor: 'rgba(0,0,0,0.4)',
     },
     backButton: {
         minWidth: 60,
@@ -273,6 +391,9 @@ const useStyles = makeStyles((colors) => ({
         color: colors.onSurface,
         fontSize: 21,
         fontWeight: "900",
+        textShadowColor: colors.brandPrimary,
+        textShadowOffset: { width: 0, height: 0 },
+        textShadowRadius: 8
     },
     subtitle: {
         color: colors.muted,
@@ -287,6 +408,21 @@ const useStyles = makeStyles((colors) => ({
     timerText: {
         color: colors.brandPrimary,
         fontSize: 17,
+        fontWeight: "900",
+    },
+    paceNoticeContainer: {
+        position: "absolute",
+        top: 60,
+        right: 16,
+        backgroundColor: colors.error,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 12,
+        zIndex: 10,
+    },
+    paceNoticeText: {
+        color: colors.onError,
+        fontSize: 14,
         fontWeight: "900",
     },
     content: {
@@ -306,6 +442,8 @@ const useStyles = makeStyles((colors) => ({
         borderRadius: 14,
         padding: 12,
         alignItems: "center",
+        borderWidth: 1,
+        borderColor: colors.border
     },
     statusLabel: {
         color: colors.muted,
@@ -325,7 +463,10 @@ const useStyles = makeStyles((colors) => ({
         flexDirection: "row",
         flexWrap: "wrap",
         borderWidth: 2,
-        borderColor: colors.onSurface,
+        borderColor: colors.borderStrong,
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        borderRadius: 8,
+        overflow: 'hidden'
     },
     cell: {
         width: "11.111%",
@@ -334,19 +475,28 @@ const useStyles = makeStyles((colors) => ({
         justifyContent: "center",
         borderRightWidth: 1,
         borderBottomWidth: 1,
-        borderColor: colors.divider,
-        backgroundColor: colors.surface,
+        borderColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: 'transparent',
     },
     rightBorder: {
         borderRightWidth: 2,
-        borderRightColor: colors.onSurface,
+        borderRightColor: colors.borderStrong,
     },
     bottomBorder: {
         borderBottomWidth: 2,
-        borderBottomColor: colors.onSurface,
+        borderBottomColor: colors.borderStrong,
     },
     selectedCell: {
         backgroundColor: colors.brandSecondary,
+        shadowColor: colors.brandPrimary,
+        shadowOpacity: 0.8,
+        shadowRadius: 10
+    },
+    mistakeCell: {
+        backgroundColor: colors.error,
+        shadowColor: colors.error,
+        shadowOpacity: 1,
+        shadowRadius: 15
     },
     cellText: {
         fontSize: 20,
@@ -387,25 +537,17 @@ const useStyles = makeStyles((colors) => ({
         width: "30%",
         minHeight: 52,
         borderRadius: 14,
-        backgroundColor: colors.surfaceSecondary,
+        backgroundColor: colors.surfaceTertiary,
         alignItems: "center",
         justifyContent: "center",
+        borderWidth: 1,
+        borderColor: colors.border
     },
     numberText: {
-        color: colors.onSurface,
-        fontSize: 20,
+        color: colors.brandPrimary,
+        fontSize: 24,
         fontWeight: "900",
-    },
-    helper: {
-        color: colors.muted,
-        textAlign: "center",
-        fontSize: 12,
-        marginTop: 14,
-    },
-    tokenText: {
-        color: colors.onSurfaceSecondary,
-        fontSize: 13,
-        fontWeight: "800",
-        marginTop: 8,
+        textShadowColor: 'rgba(0,0,0,0.5)',
+        textShadowRadius: 2
     },
 }));

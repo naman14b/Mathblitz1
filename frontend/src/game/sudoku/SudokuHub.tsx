@@ -1,9 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import type { LocalProfile } from "@/src/game/types";
-import { isSudokuUnlocked } from "@/src/game/storage";
+import { isSudokuUnlocked, isSudokuCompleted } from "@/src/game/storage";
 import {
     SUDOKU_TIERS,
     type SudokuDifficulty,
@@ -13,7 +14,7 @@ import { makeStyles, useTheme } from "@/src/theme";
 type SudokuHubProps = {
     profile: LocalProfile;
     onBack: () => void;
-    onPlay: (difficulty: SudokuDifficulty) => void;
+    onPlay: (difficulty: SudokuDifficulty, level: number) => void;
 };
 
 export function SudokuHub({
@@ -94,11 +95,6 @@ export function SudokuHub({
                 </View>
 
                 {SUDOKU_TIERS.map((tier) => {
-                    const unlocked = isSudokuUnlocked(
-                        profile,
-                        tier.difficulty,
-                    );
-
                     const completedCount = getCompletedCount(
                         profile,
                         tier.difficulty,
@@ -109,18 +105,12 @@ export function SudokuHub({
                             key={tier.difficulty}
                             title={tier.title}
                             description={tier.description}
+                            difficulty={tier.difficulty}
                             gameCount={tier.gameCount}
                             completedCount={completedCount}
                             unlockCost={tier.unlockCost}
-                            unlocked={unlocked}
-                            tokens={profile.tokens}
-                            onPress={() => {
-                                if (!unlocked && profile.tokens < tier.unlockCost) {
-                                    return;
-                                }
-
-                                onPlay(tier.difficulty);
-                            }}
+                            profile={profile}
+                            onPress={(level) => onPlay(tier.difficulty, level)}
                         />
                     );
                 })}
@@ -144,46 +134,36 @@ function getCompletedCount(
 type SudokuTierCardProps = {
     title: string;
     description: string;
+    difficulty: SudokuDifficulty;
     gameCount: number;
     completedCount: number;
     unlockCost: number;
-    unlocked: boolean;
-    tokens: number;
-    onPress: () => void;
+    profile: LocalProfile;
+    onPress: (level: number) => void;
 };
 
 function SudokuTierCard({
     title,
     description,
+    difficulty,
     gameCount,
     completedCount,
     unlockCost,
-    unlocked,
-    tokens,
+    profile,
     onPress,
 }: SudokuTierCardProps) {
     const { colors } = useTheme();
     const styles = useStyles();
-
-    const canUnlock = tokens >= unlockCost;
-    const canPlay = unlocked || canUnlock;
+    const [expanded, setExpanded] = useState(false);
 
     return (
         <View style={styles.tierCard}>
             <View style={styles.tierHeader}>
                 <View style={styles.tierIcon}>
                     <Ionicons
-                        name={
-                            unlocked
-                                ? "grid-outline"
-                                : "lock-closed-outline"
-                        }
+                        name="grid-outline"
                         size={23}
-                        color={
-                            unlocked
-                                ? colors.brandPrimary
-                                : colors.muted
-                        }
+                        color={colors.brandPrimary}
                     />
                 </View>
 
@@ -212,61 +192,68 @@ function SudokuTierCard({
                                     width: `${Math.min(
                                         100,
                                         (completedCount / gameCount) * 100,
-                                    )
-                                        }%`,
+                                    )}%`,
                                 },
                             ]}
                         />
                     </View>
                 </View>
-
-                {!unlocked && (
-                    <View style={styles.costBadge}>
-                        <Ionicons
-                            name="pricetag"
-                            size={14}
-                            color={colors.brandPrimary}
-                        />
-
-                        <Text style={styles.costText}>
-                            {unlockCost}
-                        </Text>
-                    </View>
-                )}
             </View>
 
             <Pressable
-                onPress={onPress}
-                disabled={!canPlay}
+                onPress={() => setExpanded(!expanded)}
                 style={({ pressed }) => [
                     styles.playButton,
-                    !canPlay && styles.playButtonDisabled,
-                    {
-                        opacity:
-                            pressed && canPlay
-                                ? 0.82
-                                : 1,
-                    },
+                    { opacity: pressed ? 0.82 : 1 },
                 ]}
             >
                 <Ionicons
-                    name={
-                        unlocked
-                            ? "play"
-                            : "lock-open-outline"
-                    }
+                    name={expanded ? "chevron-up" : "chevron-down"}
                     size={18}
                     color={colors.onBrandPrimary}
                 />
-
                 <Text style={styles.playButtonText}>
-                    {unlocked
-                        ? "Play"
-                        : canUnlock
-                            ? `Unlock for ${unlockCost} tokens`
-                            : `Need ${unlockCost - tokens} more tokens`}
+                    {expanded ? "Hide Levels" : "View Levels"}
                 </Text>
             </Pressable>
+
+            {expanded && (
+                <View style={styles.levelsGrid}>
+                    {Array.from({ length: gameCount }).map((_, i) => {
+                        const level = i + 1;
+                        const id = `sudoku-${difficulty}-${level}`;
+                        const unlocked = level === 1 || isSudokuUnlocked(profile, id);
+                        const completed = isSudokuCompleted(profile, id);
+                        const canUnlock = profile.tokens >= unlockCost;
+                        const canPlay = unlocked || canUnlock;
+
+                        return (
+                            <Pressable
+                                key={level}
+                                disabled={!canPlay}
+                                onPress={() => onPress(level)}
+                                style={[
+                                    styles.levelButton,
+                                    completed && styles.levelButtonCompleted,
+                                    !unlocked && styles.levelButtonLocked,
+                                    !canPlay && { opacity: 0.5 }
+                                ]}
+                            >
+                                {unlocked ? (
+                                    <Text style={[styles.levelButtonText, completed && { color: colors.onSuccess }]}>
+                                        {level}
+                                    </Text>
+                                ) : (
+                                    <View style={styles.lockedLevel}>
+                                        <Ionicons name="lock-closed" size={12} color={colors.muted} />
+                                        <Text style={styles.lockedLevelCost}>{unlockCost}</Text>
+                                    </View>
+                                )}
+                            </Pressable>
+                        );
+                    })}
+                </View>
+            )}
         </View>
     );
 }
@@ -472,5 +459,43 @@ const useStyles = makeStyles((colors) => ({
         color: colors.onBrandPrimary,
         fontSize: 13,
         fontWeight: "900",
+    },
+    levelsGrid: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 8,
+        marginTop: 8,
+    },
+    levelButton: {
+        width: "18%",
+        aspectRatio: 1,
+        borderRadius: 12,
+        backgroundColor: colors.surfaceTertiary,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    levelButtonCompleted: {
+        backgroundColor: colors.success + "20",
+        borderWidth: 1,
+        borderColor: colors.success,
+    },
+    levelButtonLocked: {
+        backgroundColor: colors.surface,
+        borderWidth: 1,
+        borderColor: colors.divider,
+    },
+    levelButtonText: {
+        color: colors.onSurface,
+        fontSize: 16,
+        fontWeight: "800",
+    },
+    lockedLevel: {
+        alignItems: "center",
+        gap: 2,
+    },
+    lockedLevelCost: {
+        color: colors.muted,
+        fontSize: 10,
+        fontWeight: "800",
     },
 }));

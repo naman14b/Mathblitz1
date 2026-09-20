@@ -1,10 +1,20 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Linking, Pressable, ScrollView, Text, View } from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  withSequence,
+  Easing
+} from "react-native-reanimated";
+import { useEffect } from "react";
 import { AGE_GROUPS, LocalProfile } from "@/src/game/types";
 import { ChallengeTier } from "@/src/api/types";
 import { BrandMark, IconButton, ScreenTitle, SoftButton, StatTile } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
+import { SurrealBackground } from "@/src/components/SurrealBackground";
 
 type HomeProps = {
   profile: LocalProfile;
@@ -39,13 +49,52 @@ export function Home({
   const unlocked3 = profile.streak >= 3;
   const unlocked7 = profile.streak >= 7;
   const instagramUrl = "https://www.instagram.com/bansal_tutorials25?stkn=MWNxaWJlOXVpMzNhMQ==";
+
+  // Pulse animation for flame
+  const flameScale = useSharedValue(1);
+  useEffect(() => {
+    flameScale.value = withRepeat(
+      withSequence(
+        withTiming(1.2, { duration: 1000, easing: Easing.inOut(Easing.ease) }),
+        withTiming(1, { duration: 1000, easing: Easing.inOut(Easing.ease) })
+      ),
+      -1,
+      true
+    );
+  }, []);
+
+  const flameAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: flameScale.value }]
+  }));
+
+  // Floating animation for CTA orb
+  const orbTranslateY = useSharedValue(0);
+  useEffect(() => {
+    orbTranslateY.value = withRepeat(
+      withSequence(
+        withTiming(-5, { duration: 1500, easing: Easing.inOut(Easing.sine) }),
+        withTiming(5, { duration: 1500, easing: Easing.inOut(Easing.sine) })
+      ),
+      -1,
+      true
+    );
+  }, []);
+
+  const orbAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: orbTranslateY.value }]
+  }));
+
   return <View style={styles.root}>
+    <SurrealBackground />
     <ScrollView contentContainerStyle={{ paddingTop: insets.top + 14, paddingBottom: insets.bottom + 28, paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
       <View style={styles.topbar}><BrandMark compact /><View style={styles.actions}><IconButton name="shield-checkmark-outline" label="Open admin" onPress={onAdmin} /><IconButton name="settings-outline" label="Open settings" onPress={onSettings} /></View></View>
       <View style={styles.greeting}><ScreenTitle eyebrow="Ready when you are" title="Make your brain spark." subtitle={`${age?.label ?? "Your pace"} · ${age?.topics ?? "Choose your level in settings"}`} /></View>
+      
       <View style={styles.streakCard}>
         <View style={styles.streakHeader}>
-          <View style={styles.streakIcon}><Ionicons name="flame" size={22} color={colors.onBrandSecondary} /></View>
+          <Animated.View style={[styles.streakIcon, flameAnimatedStyle]}>
+            <Ionicons name="flame" size={24} color={colors.warning} />
+          </Animated.View>
           <View style={styles.streakCopy}>
             <Text style={styles.streakTitle}>{profile.streak > 0 ? `${profile.streak}-day streak` : "Start your streak"}</Text>
             <Text testID="home-streak-countdown" style={styles.streakSub}>{unlocked7 ? "Blitz master unlocked!" : unlocked3 ? `3-day unlocked · ${daysTo7} day${daysTo7 === 1 ? "" : "s"} to Blitz master` : `${daysTo3} day${daysTo3 === 1 ? "" : "s"} to Quickfire · ${daysTo7} to Blitz master`}</Text>
@@ -63,6 +112,7 @@ export function Home({
           <Pressable testID="home-how-to-play" onPress={onHowToPlay} style={({ pressed }) => [styles.howToChip, { opacity: pressed ? 0.7 : 1 }]}><Ionicons name="help-circle-outline" size={16} color={colors.brandPrimary} /><Text style={styles.howToChipText}>How to play</Text></Pressable>
         </View>
       </View>
+
       <Pressable testID="play-challenge" onPress={onPlay} style={({ pressed }) => [styles.hero, { opacity: pressed ? 0.85 : 1 }]}>
         <View style={styles.heroCopy}>
           <Text style={styles.heroKicker}>60-SECOND CHALLENGE</Text>
@@ -70,7 +120,10 @@ export function Home({
           <Text style={styles.heroSub}>Answer as many as you can before time runs out.</Text>
           <View style={styles.heroCta}><Text style={styles.heroCtaText}>Play now</Text><Ionicons name="arrow-forward" size={18} color={colors.onBrandPrimary} /></View>
         </View>
-        <View style={styles.heroOrb}><Text style={styles.heroOrbText}>60</Text><Text style={styles.heroOrbLabel}>SEC</Text></View>
+        <Animated.View style={[styles.heroOrb, orbAnimatedStyle]}>
+          <Text style={styles.heroOrbText}>60</Text>
+          <Text style={styles.heroOrbLabel}>SEC</Text>
+        </Animated.View>
       </Pressable>
 
       <UnlockCard
@@ -97,9 +150,11 @@ export function Home({
 
       <UnlockCard testID="challenge-3day" title="3-day Quickfire" description={unlocked3 ? "Timed image challenges. Tap to play." : `Play ${daysTo3} more day${daysTo3 === 1 ? "" : "s"} to unlock.`} unlocked={unlocked3} icon="ribbon" onPress={() => onChallenge("3-day")} tone={colors.brandSecondary} accent={colors.onBrandSecondary} />
       <UnlockCard testID="challenge-7day" title="7-day Blitz master" description={unlocked7 ? "Master-level image challenges. Tap to play." : `Play ${daysTo7} more day${daysTo7 === 1 ? "" : "s"} to unlock.`} unlocked={unlocked7} icon="trophy" onPress={() => onChallenge("7-day")} tone={colors.brandTertiary} accent={colors.onBrandTertiary} />
+      
       <View style={styles.sectionHeading}><Text style={styles.sectionTitle}>Your progress</Text><SoftButton onPress={onAge} icon="options-outline">Change level</SoftButton></View>
       <View style={styles.stats}><StatTile icon="trophy" value={String(profile.personalBest)} label="Personal best" color={colors.surfaceTertiary} /><StatTile icon="sparkles" value={String(profile.totalXp)} label="Total XP" color={colors.surfaceSecondary} /><StatTile icon="flash" value={String(profile.streak)} label="Best streak" color={colors.brandTertiary} /></View>
       <Text style={styles.tip}><Ionicons name="bulb-outline" size={15} color={colors.brandPrimary} /> Fast answers earn a speed bonus.</Text>
+      
       <View style={styles.presenter}><Text style={styles.presenterText}>Presented by <Text style={styles.presenterStrong}>Bansal Tutorials</Text></Text><Pressable testID="instagram-link" accessibilityRole="link" accessibilityLabel="Open Bansal Tutorials on Instagram" onPress={() => Linking.openURL(instagramUrl)} style={({ pressed }) => [styles.instagram, { opacity: pressed ? 0.65 : 1 }]}><Ionicons name="logo-instagram" size={17} color={colors.info} /><Text style={styles.instagramText}>@bansal_tutorials25</Text></Pressable></View>
     </ScrollView>
   </View>;
@@ -120,37 +175,37 @@ function UnlockCard({ testID, title, description, unlocked, onPress, icon, tone,
   </Pressable>;
 }
 
-const useStyles = makeStyles((colors) => ({
-  root: { flex: 1, backgroundColor: colors.surface },
+const useStyles = makeStyles((colors: any) => ({
+  root: { flex: 1, backgroundColor: 'transparent' },
   topbar: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   actions: { flexDirection: "row", gap: 8 },
   greeting: { marginTop: 34, marginBottom: 23 },
-  streakCard: { backgroundColor: colors.surfaceSecondary, borderRadius: 24, padding: 17, marginBottom: 16 },
+  streakCard: { backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 24, padding: 17, marginBottom: 16, borderWidth: 1, borderColor: colors.borderStrong },
   streakHeader: { flexDirection: "row", alignItems: "center", gap: 11 },
-  streakIcon: { width: 44, height: 44, borderRadius: 15, backgroundColor: colors.brandSecondary, alignItems: "center", justifyContent: "center" },
+  streakIcon: { width: 44, height: 44, borderRadius: 15, backgroundColor: 'rgba(255,183,3,0.1)', alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: colors.warning, shadowColor: colors.warning, shadowOpacity: 0.6, shadowRadius: 10 },
   streakCopy: { flex: 1, gap: 3 },
   streakTitle: { color: colors.onSurface, fontSize: 16, fontWeight: "800" },
   streakSub: { color: colors.muted, fontSize: 12, fontWeight: "600" },
   streakCount: { color: colors.brandPrimary, fontSize: 17, fontWeight: "900" },
-  progressTrack: { height: 9, borderRadius: 99, backgroundColor: colors.surfaceTertiary, marginTop: 17, overflow: "hidden" },
-  progressFill: { height: "100%", backgroundColor: colors.brandPrimary, borderRadius: 99 },
+  progressTrack: { height: 9, borderRadius: 99, backgroundColor: 'rgba(0,0,0,0.5)', marginTop: 17, overflow: "hidden" },
+  progressFill: { height: "100%", backgroundColor: colors.warning, borderRadius: 99, shadowColor: colors.warning, shadowOpacity: 1, shadowRadius: 5 },
   streakFoot: { flexDirection: "row", justifyContent: "space-between", marginTop: 9 },
   streakFootText: { color: colors.muted, fontSize: 10, fontWeight: "700" },
-  tokenBar: { flexDirection: "row", alignItems: "center", gap: 12, marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.divider },
+  tokenBar: { flexDirection: "row", alignItems: "center", gap: 12, marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)' },
   tokenIcon: { width: 32, height: 32, borderRadius: 12, backgroundColor: colors.brandPrimary, alignItems: "center", justifyContent: "center" },
   tokenCopy: { flex: 1 },
   tokenValue: { color: colors.onSurface, fontSize: 16, fontWeight: "900" },
   tokenLabel: { color: colors.muted, fontSize: 11, fontWeight: "700" },
   howToChip: { flexDirection: "row", alignItems: "center", gap: 5, paddingHorizontal: 10, minHeight: 32, borderRadius: 99, backgroundColor: colors.surfaceTertiary },
   howToChipText: { color: colors.brandPrimary, fontSize: 12, fontWeight: "900" },
-  hero: { backgroundColor: colors.brandPrimary, minHeight: 184, borderRadius: 26, padding: 22, flexDirection: "row", overflow: "hidden", marginBottom: 16 },
+  hero: { backgroundColor: colors.brandPrimary, minHeight: 184, borderRadius: 26, padding: 22, flexDirection: "row", overflow: "hidden", marginBottom: 16, shadowColor: colors.brandPrimary, shadowOpacity: 0.5, shadowRadius: 15 },
   heroCopy: { flex: 1, zIndex: 1, gap: 7 },
   heroKicker: { color: colors.brandTertiary, fontSize: 11, fontWeight: "900", letterSpacing: 1.2 },
   heroTitle: { color: colors.onBrandPrimary, fontSize: 24, lineHeight: 29, fontWeight: "900", maxWidth: 215 },
   heroSub: { color: colors.brandTertiary, fontSize: 12, lineHeight: 17, maxWidth: 210 },
   heroCta: { flexDirection: "row", alignItems: "center", gap: 8, marginTop: 8 },
   heroCtaText: { color: colors.onBrandPrimary, fontSize: 14, fontWeight: "900" },
-  heroOrb: { width: 110, height: 110, borderRadius: 55, backgroundColor: colors.brandSecondary, alignItems: "center", justifyContent: "center", marginTop: 11, marginRight: -24 },
+  heroOrb: { width: 110, height: 110, borderRadius: 55, backgroundColor: colors.brandSecondary, alignItems: "center", justifyContent: "center", marginTop: 11, marginRight: -24, shadowColor: colors.brandSecondary, shadowOpacity: 0.8, shadowRadius: 20 },
   heroOrbText: { color: colors.onBrandSecondary, fontSize: 40, lineHeight: 42, fontWeight: "900" },
   heroOrbLabel: { color: colors.onBrandSecondary, fontSize: 12, fontWeight: "900", letterSpacing: 2 },
   unlockCard: { minHeight: 92, borderRadius: 22, padding: 15, marginBottom: 12, flexDirection: "row", alignItems: "center", gap: 12 },
@@ -164,7 +219,7 @@ const useStyles = makeStyles((colors) => ({
   sectionTitle: { color: colors.onSurface, fontSize: 19, fontWeight: "900" },
   stats: { flexDirection: "row", gap: 9 },
   tip: { color: colors.muted, fontSize: 12, fontWeight: "700", textAlign: "center", marginTop: 25 },
-  presenter: { alignItems: "center", gap: 8, marginTop: 31, paddingTop: 20, borderTopWidth: 1, borderTopColor: colors.divider },
+  presenter: { alignItems: "center", gap: 8, marginTop: 31, paddingTop: 20, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)' },
   presenterText: { color: colors.muted, fontSize: 12, fontWeight: "700" },
   presenterStrong: { color: colors.onSurface, fontWeight: "900" },
   instagram: { minHeight: 44, flexDirection: "row", alignItems: "center", gap: 7, paddingHorizontal: 12 },
