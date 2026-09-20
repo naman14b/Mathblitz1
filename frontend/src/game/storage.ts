@@ -29,6 +29,7 @@ export function migrateProfile(raw: unknown): LocalProfile {
     challengeClaims: saved.challengeClaims && typeof saved.challengeClaims === "object" ? { ...saved.challengeClaims } : {},
     unlockedSudoku: saved.unlockedSudoku && typeof saved.unlockedSudoku === "object" ? { ...saved.unlockedSudoku } : {},
     completedSudoku: saved.completedSudoku && typeof saved.completedSudoku === "object" ? { ...saved.completedSudoku } : {},
+    sudokuStars: saved.sudokuStars && typeof saved.sudokuStars === "object" ? { ...saved.sudokuStars } : {},
     sudokuHintsUsed: saved.sudokuHintsUsed && typeof saved.sudokuHintsUsed === "object" ? { ...saved.sudokuHintsUsed } : {},
     unlockedMathsPuzzles: saved.unlockedMathsPuzzles && typeof saved.unlockedMathsPuzzles === "object" ? { ...saved.unlockedMathsPuzzles } : {},
     completedMathsPuzzles: saved.completedMathsPuzzles && typeof saved.completedMathsPuzzles === "object" ? { ...saved.completedMathsPuzzles } : {},

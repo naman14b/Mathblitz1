@@ -55,8 +55,8 @@ export function Home({
   useEffect(() => {
     flameScale.value = withRepeat(
       withSequence(
-        withTiming(1.2, { duration: 1000, easing: Easing.inOut(Easing.ease) }),
-        withTiming(1, { duration: 1000, easing: Easing.inOut(Easing.ease) })
+        withTiming(1.2, { duration: 1000, easing: Easing.inOut(Easing.quad) }),
+        withTiming(1, { duration: 1000, easing: Easing.inOut(Easing.quad) })
       ),
       -1,
       true
@@ -72,8 +72,8 @@ export function Home({
   useEffect(() => {
     orbTranslateY.value = withRepeat(
       withSequence(
-        withTiming(-5, { duration: 1500, easing: Easing.inOut(Easing.sine) }),
-        withTiming(5, { duration: 1500, easing: Easing.inOut(Easing.sine) })
+        withTiming(-5, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
+        withTiming(5, { duration: 1500, easing: Easing.inOut(Easing.sin) })
       ),
       -1,
       true
@@ -88,7 +88,7 @@ export function Home({
     <SurrealBackground />
     <ScrollView contentContainerStyle={{ paddingTop: insets.top + 14, paddingBottom: insets.bottom + 28, paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
       <View style={styles.topbar}><BrandMark compact /><View style={styles.actions}><IconButton name="shield-checkmark-outline" label="Open admin" onPress={onAdmin} /><IconButton name="settings-outline" label="Open settings" onPress={onSettings} /></View></View>
-      <View style={styles.greeting}><ScreenTitle eyebrow="Ready when you are" title="Make your brain spark." subtitle={`${age?.label ?? "Your pace"} · ${age?.topics ?? "Choose your level in settings"}`} /></View>
+      <View style={styles.greeting}><ScreenTitle eyebrow="Ready when you are" title={`Hello, ${profile.playerName || "Player"}!`} subtitle={`${age?.label ?? "Your pace"} · ${age?.topics ?? "Choose your level in settings"}`} /></View>
       
       <View style={styles.streakCard}>
         <View style={styles.streakHeader}>

@@ -67,8 +67,8 @@ const TokenParticle = ({ token, onComplete, colors }: { token: any, onComplete: 
     const targetY = 50;
 
     setTimeout(() => {
-      translateX.value = withTiming(targetX, { duration: 600, easing: Easing.inOut(Easing.cubic) });
-      translateY.value = withTiming(targetY, { duration: 600, easing: Easing.inOut(Easing.cubic) });
+      translateX.value = withTiming(targetX, { duration: 600, easing: Easing.inOut(Easing.quad) });
+      translateY.value = withTiming(targetY, { duration: 600, easing: Easing.inOut(Easing.quad) });
       scale.value = withTiming(0.2, { duration: 600 });
       opacity.value = withTiming(0, { duration: 600 }, (finished) => {
         if (finished) {

@@ -92,8 +92,8 @@ export const TOKEN_REWARDS = {
 } as const;
 
 export const SUDOKU_HINT_RULES = {
-  FREE_HINTS: 2,
-  AD_REWARD_HINTS: 2,
+  FREE_HINTS: 1,
+  AD_REWARD_HINTS: 99,
 } as const;
 
 export const SUDOKU_TIERS: SudokuTierInfo[] = [
@@ -106,6 +106,7 @@ export const SUDOKU_TIERS: SudokuTierInfo[] = [
 
 // --- Player Profile -----------------------------------------------------------
 export type LocalProfile = {
+  playerName?: string;
   hasOnboarded: boolean;
   ageGroup: AgeGroupId | null;
   personalBest: number;
@@ -119,6 +120,7 @@ export type LocalProfile = {
   // Sudoku progression & hints
   unlockedSudoku: Record<string, boolean>;
   completedSudoku: Record<string, boolean>;
+  sudokuStars: Record<string, number>;
   sudokuHintsUsed: Record<string, number>;
   // Maths Puzzles progression
   unlockedMathsPuzzles: Record<number, boolean>;
@@ -135,6 +137,7 @@ export const AGE_GROUPS: AgeGroup[] = [
 ];
 
 export const DEFAULT_PROFILE: LocalProfile = {
+  playerName: undefined,
   hasOnboarded: false,
   ageGroup: null,
   personalBest: 0,
@@ -147,6 +150,7 @@ export const DEFAULT_PROFILE: LocalProfile = {
   challengeClaims: {},
   unlockedSudoku: {},
   completedSudoku: {},
+  sudokuStars: {},
   sudokuHintsUsed: {},
   unlockedMathsPuzzles: {},
   completedMathsPuzzles: {},

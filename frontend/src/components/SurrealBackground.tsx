@@ -1,37 +1,34 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, Text } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withRepeat,
   withTiming,
-  withSequence,
   Easing,
   withDelay,
 } from "react-native-reanimated";
 import { useTheme } from "@/src/theme";
-import { Ionicons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
-const NUM_PARTICLES = 15;
-const ICONS = ["close", "add", "remove", "medical", "square", "ellipse", "triangle"];
+const NUM_PARTICLES = 30; // More particles for math symbols
+const SYMBOLS = ["+", "-", "×", "÷", "π", "√", "1", "2", "3", "4", "5", "7", "8", "9"];
+const COLORS = ["#4FC3F7", "#81C784", "#FFCA28", "#FF8A65", "#BA68C8", "#F06292", "#64B5F6"];
 
 const Particle = ({ index }: { index: number }) => {
-  const { colors } = useTheme();
-  
-  // Random starting positions and properties
   const startX = Math.random() * width;
   const startY = height + Math.random() * 400;
-  const size = 10 + Math.random() * 30;
-  const opacity = 0.1 + Math.random() * 0.3;
-  const duration = 10000 + Math.random() * 20000;
-  const delay = Math.random() * 5000;
+  const size = 30 + Math.random() * 60; // Font size variation
+  const opacity = 0.5 + Math.random() * 0.4;
+  const duration = 15000 + Math.random() * 25000;
+  const delay = Math.random() * 8000;
   
-  const iconName = ICONS[Math.floor(Math.random() * ICONS.length)] as any;
+  const symbol = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+  const color = COLORS[Math.floor(Math.random() * COLORS.length)];
 
   const translateY = useSharedValue(startY);
-  const rotation = useSharedValue(0);
+  const rotation = useSharedValue(Math.random() * 360);
 
   useEffect(() => {
     translateY.value = withDelay(
@@ -46,7 +43,7 @@ const Particle = ({ index }: { index: number }) => {
     rotation.value = withDelay(
       delay,
       withRepeat(
-        withTiming(360, { duration: duration * 1.5, easing: Easing.linear }),
+        withTiming(rotation.value + 360, { duration: duration * 1.5, easing: Easing.linear }),
         -1,
         false
       )
@@ -66,17 +63,34 @@ const Particle = ({ index }: { index: number }) => {
     <Animated.View
       style={[
         styles.particle,
-        { left: startX, opacity, width: size, height: size },
+        { left: startX, opacity },
         animatedStyle,
       ]}
     >
-      <Ionicons name={iconName} size={size} color={colors.brandPrimary} />
+      <Text style={{ fontSize: size, color, fontWeight: '900', textShadowColor: 'rgba(255,255,255,0.7)', textShadowRadius: 10 }}>{symbol}</Text>
     </Animated.View>
   );
 };
 
+import { LinearGradient } from "expo-linear-gradient";
+
 export function SurrealBackground() {
-  const { colors } = useTheme();
+  const { scheme, colors } = useTheme();
+
+  if (scheme === 'light') {
+    return (
+      <LinearGradient
+        colors={['#E1F5FE', '#FFFFFF', '#B3E5FC']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.container}
+      >
+        {Array.from({ length: NUM_PARTICLES }).map((_, i) => (
+          <Particle key={i} index={i} />
+        ))}
+      </LinearGradient>
+    );
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: colors.darkBackground }]}>

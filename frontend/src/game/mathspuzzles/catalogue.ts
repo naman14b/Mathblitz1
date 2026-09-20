@@ -7,291 +7,202 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "18",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "8",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "16",
           "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
           "type": "number",
-          "value": "1",
+          "value": "9",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "3",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "12",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "2",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "10",
           "isBlank": true
         }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
       ]
     ],
     "bank": [
+      "16",
       "10",
-      "8",
-      "1",
-      "18",
-      "8",
-      "7"
+      "2",
+      "4",
+      "9",
+      "12"
     ],
-    "timeLimitSeconds": 610
+    "timeLimitSeconds": 120
   },
   {
     "id": 2,
@@ -299,143 +210,35 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "10",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "7",
+          "value": "13",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": true
+          "value": "23",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -443,17 +246,54 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "operator",
-          "value": "+"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "32",
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -474,17 +314,17 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "3",
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -505,85 +345,67 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "44",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "5",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "49",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "14",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "35",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "7",
-      "7",
-      "7",
-      "14",
-      "16",
-      "9"
+      "44",
+      "49",
+      "9",
+      "5",
+      "35",
+      "13"
     ],
-    "timeLimitSeconds": 620
+    "timeLimitSeconds": 120
   },
   {
     "id": 3,
@@ -591,25 +413,25 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "1",
-          "isBlank": true
+          "value": "2",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "4",
+          "value": "3",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -617,43 +439,23 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "12",
+          "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
           "isBlank": true
         }
       ],
@@ -684,7 +486,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "+",
+          "isBlank": false
         }
       ],
       [
@@ -714,7 +517,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "10",
+          "value": "7",
           "isBlank": true
         }
       ],
@@ -745,137 +548,67 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "5",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "2",
+          "value": "5",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "0",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
           "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "13",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "10",
-      "1",
-      "2",
-      "12",
-      "4",
+      "13",
+      "3",
+      "7",
+      "6",
+      "13",
       "5"
     ],
-    "timeLimitSeconds": 630
+    "timeLimitSeconds": 120
   },
   {
     "id": 4,
@@ -883,86 +616,155 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "3",
-          "isBlank": true
+          "value": "6",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "9",
+          "value": "2",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "13",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -970,204 +772,46 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "8",
+          "value": "1",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "14",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "isBlank": false
         }
       ]
     ],
     "bank": [
       "12",
-      "3",
-      "6",
-      "9",
-      "8",
-      "14"
+      "13",
+      "1",
+      "2",
+      "16",
+      "13"
     ],
-    "timeLimitSeconds": 640
+    "timeLimitSeconds": 120
   },
   {
     "id": 5,
@@ -1175,7 +819,197 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
+          "type": "number",
+          "value": "9",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        }
+      ],
+      [
+        {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -1205,7 +1039,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "7",
+          "value": "12",
           "isBlank": true
         },
         {
@@ -1235,8 +1069,1582 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ]
+    ],
+    "bank": [
+      "17",
+      "12",
+      "17",
+      "8",
+      "9",
+      "10"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 6,
+    "level": 6,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "25",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": true
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ]
+    ],
+    "bank": [
+      "9",
+      "16",
+      "10",
+      "7",
+      "3",
+      "12"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 7,
+    "level": 7,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "25",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "34",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ]
+    ],
+    "bank": [
+      "5",
+      "16",
+      "25",
+      "4",
+      "9",
+      "6"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 8,
+    "level": 8,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": true
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ]
+    ],
+    "bank": [
+      "15",
+      "20",
+      "8",
+      "18",
+      "8",
+      "12"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 9,
+    "level": 9,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "33",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "31",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ]
+    ],
+    "bank": [
+      "3",
+      "1",
+      "4",
+      "8",
+      "2",
+      "2"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 10,
+    "level": 10,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -1297,7 +2705,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -1327,407 +2736,28 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
+          "value": "20",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "2",
-      "7",
-      "10",
-      "12",
-      "12",
-      "5"
-    ],
-    "timeLimitSeconds": 650
-  },
-  {
-    "id": 6,
-    "level": 6,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "34",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -1744,1182 +2774,15 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ]
     ],
     "bank": [
-      "9",
-      "18",
-      "7",
-      "14",
-      "7",
-      "9"
-    ],
-    "timeLimitSeconds": 660
-  },
-  {
-    "id": 7,
-    "level": 7,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "6",
-      "8",
       "15",
-      "2",
-      "7",
-      "8"
-    ],
-    "timeLimitSeconds": 670
-  },
-  {
-    "id": 8,
-    "level": 8,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "8",
+      "5",
       "9",
-      "11",
-      "2",
-      "7",
-      "15"
+      "20",
+      "15",
+      "13",
+      "11"
     ],
-    "timeLimitSeconds": 680
-  },
-  {
-    "id": 9,
-    "level": 9,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "17",
-      "8",
-      "9",
-      "4",
-      "8",
-      "12"
-    ],
-    "timeLimitSeconds": 690
-  },
-  {
-    "id": 10,
-    "level": 10,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "2",
-      "8",
-      "6",
-      "8",
-      "4",
-      "12"
-    ],
-    "timeLimitSeconds": 700
+    "timeLimitSeconds": 120
   },
   {
     "id": 11,
@@ -2927,31 +2790,50 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "7",
+          "isBlank": false,
+          "isGiven": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "2",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "9",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "8",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "1",
+          "isBlank": false
         }
       ],
       [
@@ -2980,7 +2862,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         }
       ],
       [
@@ -3009,7 +2893,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "10",
+          "isBlank": false
         }
       ],
       [
@@ -3038,21 +2924,21 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "3",
+          "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -3061,136 +2947,156 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "3",
-          "isBlank": true
+          "value": "15",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "9",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
+          "value": "4",
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "1",
+          "value": "11",
           "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": true
+          "value": "16",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -3206,12 +3112,13 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "bank": [
       "8",
       "3",
-      "1",
-      "7",
       "9",
-      "12"
+      "2",
+      "12",
+      "2",
+      "11"
     ],
-    "timeLimitSeconds": 710
+    "timeLimitSeconds": 120
   },
   {
     "id": 12,
@@ -3219,276 +3126,319 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "8",
-          "isBlank": true
+          "value": "5",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "8",
+          "value": "11",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "4",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "29",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "10",
+          "value": "5",
           "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "34",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "42",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "27",
+          "isBlank": true
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -3496,14 +3446,15 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ]
     ],
     "bank": [
-      "8",
-      "16",
-      "8",
-      "14",
-      "4",
-      "10"
+      "11",
+      "42",
+      "28",
+      "5",
+      "29",
+      "27",
+      "34"
     ],
-    "timeLimitSeconds": 720
+    "timeLimitSeconds": 120
   },
   {
     "id": 13,
@@ -3511,519 +3462,155 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "18",
-          "isBlank": true
+          "value": "1",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "27",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "37",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "number",
           "value": "8",
           "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "equals",
-          "value": "="
-        },
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
         {
           "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "6",
+          "value": "279",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "10",
-      "6",
-      "12",
-      "18",
-      "18",
-      "8"
-    ],
-    "timeLimitSeconds": 730
-  },
-  {
-    "id": 14,
-    "level": 14,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -4032,268 +3619,18 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "2",
-          "isBlank": true
+          "value": "290",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "13",
-      "14",
-      "12",
-      "2",
-      "11",
-      "2"
-    ],
-    "timeLimitSeconds": 740
-  },
-  {
-    "id": 15,
-    "level": 15,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -4301,279 +3638,119 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
           "type": "empty"
         }
       ],
       [
         {
           "type": "number",
-          "value": "14",
-          "isBlank": true
+          "value": "18",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "261",
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "2",
-      "1",
-      "12",
-      "14",
-      "10",
-      "13"
-    ],
-    "timeLimitSeconds": 750
-  },
-  {
-    "id": 16,
-    "level": 16,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -4581,7 +3758,14 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "246",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -4595,16 +3779,34 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         }
-      ],
+      ]
+    ],
+    "bank": [
+      "27",
+      "279",
+      "10",
+      "9",
+      "11",
+      "15",
+      "8"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 14,
+    "level": 14,
+    "grid": [
       [
         {
           "type": "number",
-          "value": "10",
-          "isBlank": true
+          "value": "16",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -4613,24 +3815,33 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "17",
+          "value": "9",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "20",
+          "isBlank": true
         }
       ],
       [
@@ -4659,19 +3870,951 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "25",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "34",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "42",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "126",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
           "type": "empty"
         }
       ]
     ],
     "bank": [
+      "20",
+      "34",
+      "11",
       "7",
-      "5",
-      "15",
-      "17",
-      "10",
-      "10"
+      "3",
+      "11",
+      "9"
     ],
-    "timeLimitSeconds": 760
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 15,
+    "level": 15,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "33",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "60",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "60",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "42",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "69",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "83",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "249",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "83",
+      "14",
+      "1",
+      "3",
+      "19",
+      "60",
+      "42"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 16,
+    "level": 16,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "30",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "47",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "376",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "15400",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3080",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "385",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "15429",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15458",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "24",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15434",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "29",
+      "24",
+      "8",
+      "8",
+      "376",
+      "30",
+      "47"
+    ],
+    "timeLimitSeconds": 120
   },
   {
     "id": 17,
@@ -4680,201 +4823,201 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "8",
-          "isBlank": true
+          "value": "6",
+          "isBlank": false,
+          "isGiven": true
         },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "11",
+          "value": "9",
           "isBlank": true
         },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "number",
           "value": "15",
           "isBlank": true
         },
         {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
           "type": "number",
-          "value": "2",
-          "isBlank": true
+          "value": "7",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "22",
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "13",
+          "value": "82",
           "isBlank": true
         },
         {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "65",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "51",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
           "type": "empty"
         },
         {
@@ -4898,7 +5041,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "1",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -4927,7 +5072,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -4952,18 +5099,66 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "82",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "574",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "565",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
+      "9",
       "15",
-      "2",
-      "8",
-      "11",
-      "7",
-      "13"
+      "51",
+      "82",
+      "14",
+      "565",
+      "9"
     ],
-    "timeLimitSeconds": 770
+    "timeLimitSeconds": 120
   },
   {
     "id": 18,
@@ -4971,6 +5166,63 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
+          "type": "number",
+          "value": "10",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "50",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "500",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
           "type": "empty"
         },
         {
@@ -4984,6 +5236,225 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "17604",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1956",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "489",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "140832",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -4991,271 +5462,47 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "281664",
+          "isBlank": true
         },
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "3",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "281661",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "7",
-      "6",
-      "8",
+      "4",
+      "489",
+      "50",
       "2",
-      "1",
-      "6"
+      "500",
+      "281664",
+      "10"
     ],
-    "timeLimitSeconds": 780
+    "timeLimitSeconds": 120
   },
   {
     "id": 19,
@@ -5263,155 +5510,50 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
           "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "value": "27",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "10",
+          "value": "39",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "30",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "69",
+          "isBlank": false
         }
       ],
       [
@@ -5419,34 +5561,48 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
         },
         {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+",
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -5458,26 +5614,26 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "13",
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -5489,7 +5645,71 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "49",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "54",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "82",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -5509,17 +5729,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "8",
+          "value": "24",
           "isBlank": true
         },
         {
@@ -5536,18 +5747,106 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "25",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "24",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "10",
-      "2",
-      "2",
-      "14",
-      "12",
-      "8"
+      "5",
+      "39",
+      "82",
+      "28",
+      "1",
+      "49",
+      "24"
     ],
-    "timeLimitSeconds": 790
+    "timeLimitSeconds": 120
   },
   {
     "id": 20,
@@ -5555,68 +5854,50 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "9",
+          "isBlank": false,
+          "isGiven": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "21",
+          "value": "14",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "23",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "9",
+          "value": "28",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "12",
+          "value": "51",
           "isBlank": true
-        },
-        {
-          "type": "empty"
         }
       ],
       [
@@ -5645,7 +5926,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         }
       ],
       [
@@ -5670,34 +5953,56 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "empty"
         },
         {
           "type": "number",
           "value": "10",
-          "isBlank": true
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
         },
         {
-          "type": "operator",
-          "value": "+"
+          "type": "empty"
         },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
         {
           "type": "number",
-          "value": "11",
+          "value": "469",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -5705,66 +6010,71 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
           "type": "operator",
-          "value": "+"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "12",
+          "value": "490",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "25",
+          "value": "20",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "510",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "8",
           "isBlank": true
         },
         {
@@ -5778,23 +6088,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "empty"
@@ -5811,7 +6104,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -5836,21 +6131,67 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "3752",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7504",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "52528",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "11",
-      "25",
+      "23",
+      "3752",
+      "8",
       "21",
-      "21",
-      "13",
-      "10",
-      "9",
-      "12",
-      "12"
+      "490",
+      "28",
+      "51",
+      "469"
     ],
-    "timeLimitSeconds": 800
+    "timeLimitSeconds": 120
   },
   {
     "id": 21,
@@ -5858,232 +6199,35 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
           "type": "number",
-          "value": "10",
-          "isBlank": true
+          "value": "13",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "11",
+          "value": "6",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "22",
+          "value": "78",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -6091,25 +6235,14 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "105",
+          "isBlank": true
         }
       ],
       [
@@ -6138,22 +6271,272 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        }
+      ],
+      [
+        {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "714",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "102",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "102",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "708",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "687",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "708",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "3",
-      "21",
-      "14",
-      "22",
+      "78",
       "27",
-      "11",
-      "8",
-      "9",
-      "10"
+      "708",
+      "3",
+      "105",
+      "102",
+      "21",
+      "6"
     ],
-    "timeLimitSeconds": 810
+    "timeLimitSeconds": 120
   },
   {
     "id": 22,
@@ -6162,130 +6545,34 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "6",
+          "value": "20",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "33",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "42",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -6293,21 +6580,191 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "operator",
-          "value": "*"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "3",
+          "value": "165",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "137",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "15",
+          "value": "29",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "166",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "27",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "193",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "4",
           "isBlank": true
         },
         {
@@ -6318,20 +6775,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "empty"
@@ -6351,7 +6794,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -6379,95 +6824,15 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
         {
           "type": "number",
-          "value": "3",
+          "value": "141",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "3",
-      "15",
-      "7",
-      "12",
-      "6",
-      "3",
-      "15",
-      "5",
-      "42"
-    ],
-    "timeLimitSeconds": 820
-  },
-  {
-    "id": 23,
-    "level": 23,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -6475,28 +6840,444 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "987",
+          "isBlank": false
+        },
+        {
           "type": "operator",
-          "value": "*"
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "992",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "33",
+      "7",
+      "4",
+      "165",
+      "137",
+      "5",
+      "970",
+      "141"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 23,
+    "level": 23,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "0",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "520",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "52",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "56",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "503",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "490",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1960",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "1960",
+      "503",
+      "28",
+      "2",
+      "1958",
+      "28",
+      "490",
+      "52"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 24,
+    "level": 24,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "25",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "6",
-          "isBlank": true
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "42",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "150",
+          "isBlank": false
         }
       ],
       [
@@ -6518,106 +7299,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "empty"
         },
@@ -6626,25 +7307,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "-",
+          "isBlank": false
         }
       ],
       [
@@ -6655,11 +7319,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
           "type": "empty"
         },
         {
@@ -6673,21 +7332,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
         },
         {
           "type": "empty"
@@ -6696,24 +7340,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "number",
           "value": "19",
           "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
         }
       ],
       [
@@ -6724,12 +7350,81 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
           "type": "number",
-          "value": "14",
+          "value": "568",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "142",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "131",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -6745,53 +7440,189 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "568",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3976",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3976",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
+      "35784",
       "19",
-      "14",
-      "5",
-      "14",
-      "7",
-      "11",
-      "3",
-      "42",
-      "6"
+      "131",
+      "4",
+      "9",
+      "3976",
+      "1",
+      "11"
     ],
-    "timeLimitSeconds": 830
+    "timeLimitSeconds": 120
   },
   {
-    "id": 24,
-    "level": 24,
+    "id": 25,
+    "level": 25,
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "8",
+          "isBlank": false,
+          "isGiven": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "3",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "24",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "20",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "4",
+          "isBlank": true
         }
       ],
       [
@@ -6820,7 +7651,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         }
       ],
       [
@@ -6849,7 +7682,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "29",
+          "isBlank": true
         }
       ],
       [
@@ -6878,44 +7713,63 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
           "type": "number",
-          "value": "7",
+          "value": "55",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "55",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "22",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "33",
+          "isBlank": false
         }
       ],
       [
         {
           "type": "operator",
-          "value": "*"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -6945,8 +7799,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "7",
-          "isBlank": true
+          "value": "27",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -6976,7 +7830,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -6987,14 +7842,97 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
         {
           "type": "number",
-          "value": "16",
+          "value": "28",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "44",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "24",
+      "22",
+      "8",
+      "6",
+      "36",
+      "28",
+      "4",
+      "29"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 26,
+    "level": 26,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -7003,106 +7941,33 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "49",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "11",
+          "value": "189",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "11",
+          "value": "45",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "49",
-      "22",
-      "11",
-      "9",
-      "11",
-      "16",
-      "7",
-      "7",
-      "7"
-    ],
-    "timeLimitSeconds": 840
-  },
-  {
-    "id": 25,
-    "level": 25,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "60",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "1170",
+          "isBlank": false
         }
       ],
       [
@@ -7118,418 +7983,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "23",
-      "6",
-      "6",
-      "10",
-      "13",
-      "13",
-      "10",
-      "7",
-      "60"
-    ],
-    "timeLimitSeconds": 850
-  },
-  {
-    "id": 26,
-    "level": 26,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
         {
           "type": "empty"
         },
@@ -7544,21 +7997,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
+          "value": "/",
+          "isBlank": false
         }
       ],
       [
@@ -7575,106 +8015,11 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
           "type": "empty"
         },
         {
           "type": "empty"
         },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "12",
-      "2",
-      "14",
-      "4",
-      "4",
-      "14",
-      "7",
-      "16",
-      "2"
-    ],
-    "timeLimitSeconds": 860
-  },
-  {
-    "id": 27,
-    "level": 27,
-    "grid": [
-      [
         {
           "type": "empty"
         },
@@ -7685,20 +8030,118 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "number",
           "value": "5",
           "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
         },
         {
-          "type": "operator",
-          "value": "*"
+          "type": "empty"
         },
         {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "243",
+          "isBlank": false
         },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "230",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "234",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
         {
           "type": "number",
           "value": "15",
@@ -7709,17 +8152,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "empty"
@@ -7742,7 +8174,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -7770,208 +8204,409 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
         {
           "type": "number",
-          "value": "5",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
+          "value": "3645",
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "3",
-          "isBlank": true
+          "value": "9",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "10",
-          "isBlank": true
+          "value": "32805",
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "*"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "4",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "9",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "20",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "295245",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "10",
-      "7",
-      "4",
-      "5",
       "15",
       "5",
-      "20",
-      "3",
-      "3"
+      "13",
+      "295273",
+      "9",
+      "45",
+      "4",
+      "189"
     ],
-    "timeLimitSeconds": 870
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 27,
+    "level": 27,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "435",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "82",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "33",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "41",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "25",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "-66",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-6",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "26",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "41",
+      "26",
+      "62",
+      "11",
+      "41",
+      "12",
+      "64",
+      "15"
+    ],
+    "timeLimitSeconds": 120
   },
   {
     "id": 28,
@@ -7979,31 +8614,50 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "24",
+          "isBlank": false,
+          "isGiven": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "39",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "-225",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "15",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "-15",
+          "isBlank": true
         }
       ],
       [
@@ -8014,19 +8668,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
           "type": "empty"
         },
         {
@@ -8037,9 +8678,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
-        }
-      ],
-      [
+        },
         {
           "type": "empty"
         },
@@ -8048,14 +8687,25 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
         },
         {
-          "type": "operator",
-          "value": "*"
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -8068,8 +8718,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "13",
-          "isBlank": true
+          "value": "18",
+          "isBlank": false
         }
       ],
       [
@@ -8079,18 +8729,113 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "24",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "33",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-9",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
         {
           "type": "number",
           "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -8102,27 +8847,26 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "operator",
-          "value": "+"
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -8132,11 +8876,133 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "144",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "10",
           "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "134",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "42",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "528",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "10",
+      "24",
+      "33",
+      "134",
+      "144",
+      "-15",
+      "176",
+      "3"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 29,
+    "level": 29,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "390",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "60",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "30",
+          "isBlank": false
         }
       ],
       [
@@ -8147,9 +9013,50 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -8158,6 +9065,23 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "number",
           "value": "25",
           "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -8170,217 +9094,62 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
         {
           "type": "number",
-          "value": "23",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "13",
-      "6",
-      "10",
-      "5",
-      "14",
-      "20",
-      "5",
-      "23",
-      "25"
-    ],
-    "timeLimitSeconds": 880
-  },
-  {
-    "id": 29,
-    "level": 29,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
+          "value": "2475",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "50",
+          "value": "15",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "number",
-          "value": "9",
+          "value": "15",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "40",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "55",
+          "isBlank": false
         }
       ],
       [
         {
           "type": "operator",
-          "value": "+"
+          "value": "/",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -8396,6 +9165,89 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "225",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -8403,181 +9255,48 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "675",
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "7",
-          "isBlank": true
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "682",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "9",
-      "4",
-      "3",
-      "10",
-      "5",
-      "7",
-      "21",
-      "50",
-      "12"
+      "30",
+      "25",
+      "40",
+      "11",
+      "15",
+      "2",
+      "13",
+      "3"
     ],
-    "timeLimitSeconds": 890
+    "timeLimitSeconds": 120
   },
   {
     "id": 30,
@@ -8585,302 +9304,345 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "25",
+          "isBlank": false,
+          "isGiven": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "1",
+          "value": "26",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "51",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "9",
+          "value": "31",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "220",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "87",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "9",
-          "isBlank": true
+          "value": "24",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "number",
-          "value": "2",
+          "value": "63",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "43",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "83",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "26",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "285",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "5",
-          "isBlank": true
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "57",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "7",
-      "9",
-      "5",
-      "1",
-      "28",
-      "7",
-      "4",
-      "9",
-      "2"
+      "57",
+      "87",
+      "74",
+      "44",
+      "51",
+      "30",
+      "17",
+      "20",
+      "43"
     ],
-    "timeLimitSeconds": 900
+    "timeLimitSeconds": 120
   },
   {
     "id": 31,
@@ -8889,153 +9651,154 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "3",
-          "isBlank": true
+          "value": "24",
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "7",
+          "value": "6",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "144",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "41",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1665",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "162",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -9043,19 +9806,41 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "2268",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "23",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "185",
+          "isBlank": false
         }
       ],
       [
         {
-          "type": "equals",
-          "value": "="
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -9085,105 +9870,125 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "15",
+          "value": "27",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "135",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "135",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "38",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "173",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "2",
-      "3",
-      "3",
+      "185",
       "14",
-      "21",
-      "17",
-      "13",
-      "15",
-      "7"
+      "1",
+      "736",
+      "173",
+      "162",
+      "23",
+      "184",
+      "1"
     ],
-    "timeLimitSeconds": 910
+    "timeLimitSeconds": 120
   },
   {
     "id": 32,
@@ -9191,100 +9996,50 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "11",
+          "isBlank": false,
+          "isGiven": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "5",
-          "isBlank": true
+          "value": "15",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "10",
+          "value": "165",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "8",
+          "value": "17",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "18",
+          "value": "182",
           "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
@@ -9310,12 +10065,12 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
+          "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
         }
       ],
       [
@@ -9326,22 +10081,70 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
+          "type": "empty"
         },
         {
-          "type": "operator",
-          "value": "-"
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "number",
-          "value": "16",
+          "value": "1",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "168",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -9349,76 +10152,41 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "40",
+          "value": "182",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "364",
+          "isBlank": false
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -9447,7 +10215,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "18",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -9472,21 +10242,99 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "150",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "132",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "264",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "18",
-      "30",
-      "5",
       "14",
-      "8",
-      "8",
-      "16",
-      "40",
-      "10"
+      "182",
+      "17",
+      "2",
+      "165",
+      "182",
+      "35",
+      "563",
+      "168"
     ],
-    "timeLimitSeconds": 920
+    "timeLimitSeconds": 120
   },
   {
     "id": 33,
@@ -9494,3382 +10342,15 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "18",
-      "20",
-      "2",
-      "10",
-      "10",
-      "8",
-      "10",
-      "8",
-      "18"
-    ],
-    "timeLimitSeconds": 930
-  },
-  {
-    "id": 34,
-    "level": 34,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "15",
-      "3",
-      "6",
-      "9",
-      "2",
-      "18",
-      "2",
-      "9",
-      "17"
-    ],
-    "timeLimitSeconds": 940
-  },
-  {
-    "id": 35,
-    "level": 35,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "32",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "2",
-      "10",
-      "32",
-      "14",
-      "4",
-      "20",
-      "12",
-      "10",
-      "8"
-    ],
-    "timeLimitSeconds": 950
-  },
-  {
-    "id": 36,
-    "level": 36,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
           "type": "number",
           "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "isBlank": false,
+          "isGiven": true
         },
         {
           "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "50",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "10",
-      "22",
-      "11",
-      "10",
-      "17",
-      "5",
-      "50",
-      "1",
-      "5"
-    ],
-    "timeLimitSeconds": 960
-  },
-  {
-    "id": 37,
-    "level": 37,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "36",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "36",
-      "6",
-      "14",
-      "7",
-      "1",
-      "5",
-      "4",
-      "19",
-      "9"
-    ],
-    "timeLimitSeconds": 970
-  },
-  {
-    "id": 38,
-    "level": 38,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "30",
-      "4",
-      "14",
-      "16",
-      "28",
-      "17",
-      "7",
-      "9",
-      "26"
-    ],
-    "timeLimitSeconds": 980
-  },
-  {
-    "id": 39,
-    "level": 39,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "2",
-      "14",
-      "13",
-      "15",
-      "13",
-      "1",
-      "2",
-      "14",
-      "7"
-    ],
-    "timeLimitSeconds": 990
-  },
-  {
-    "id": 40,
-    "level": 40,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
+          "value": "-",
           "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "4",
-      "9",
-      "6",
-      "1",
-      "8",
-      "4",
-      "15",
-      "4",
-      "5",
-      "6"
-    ],
-    "timeLimitSeconds": 1000
-  },
-  {
-    "id": 41,
-    "level": 41,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "3",
-      "11",
-      "4",
-      "24",
-      "2",
-      "1",
-      "3",
-      "12",
-      "12",
-      "8"
-    ],
-    "timeLimitSeconds": 1010
-  },
-  {
-    "id": 42,
-    "level": 42,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "45",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "30",
-      "6",
-      "12",
-      "9",
-      "17",
-      "17",
-      "9",
-      "8",
-      "13",
-      "45"
-    ],
-    "timeLimitSeconds": 1020
-  },
-  {
-    "id": 43,
-    "level": 43,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "1",
-      "27",
-      "7",
-      "11",
-      "17",
-      "20",
-      "6",
-      "26",
-      "9",
-      "16"
-    ],
-    "timeLimitSeconds": 1030
-  },
-  {
-    "id": 44,
-    "level": 44,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "number",
@@ -12877,22 +10358,52 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "-10",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "39",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "435",
+          "isBlank": true
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -12904,29 +10415,26 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
+          "value": "/",
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -12940,26 +10448,24 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "number",
           "value": "15",
           "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -12971,11 +10477,61 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "203",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "14",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1015",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
           "isBlank": false
         },
         {
@@ -12985,9 +10541,19 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -12995,6 +10561,14 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
           "type": "empty"
         },
         {
@@ -13002,6 +10576,61 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "2639",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -13010,77 +10639,2349 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "31",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
+          "value": "158340",
           "isBlank": false
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "/",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "9",
+          "value": "10",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15834",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "15",
+      "-10",
+      "5",
+      "34",
+      "203",
+      "203",
+      "6",
+      "29",
+      "21"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 34,
+    "level": 34,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
+        {
+          "type": "number",
+          "value": "-9",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-16",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "33",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "539",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "32",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "136",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "49",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "50",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "37",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "1",
+      "13",
+      "33",
+      "39",
+      "17",
+      "10",
+      "44",
+      "32",
+      "17"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 35,
+    "level": 35,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "180",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "39",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "522",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "517",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "507",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "35",
+          "isBlank": true
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "487",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "466",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1864",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "1864",
+      "522",
+      "21",
+      "13",
+      "2",
+      "10",
+      "35",
+      "4",
+      "16776"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 36,
+    "level": 36,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "30",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "24",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "11424",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "476",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "34",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "1428",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1440",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8640",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "2",
+      "12",
+      "8",
+      "3",
+      "10",
+      "476",
+      "1428",
+      "34",
+      "14"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 37,
+    "level": 37,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "24",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "638",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "321",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "341",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "319",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "38",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "3396",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2264",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "283",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "11",
+      "293",
+      "283",
+      "3516",
+      "29",
+      "283",
+      "319",
+      "34",
+      "341"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 38,
+    "level": 38,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "319",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "312",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "2444",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "52",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2496",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "624",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "30",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "16898",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2414",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "2430",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "7",
+      "624",
+      "312",
+      "4",
+      "40",
+      "3",
+      "2414",
+      "7440",
+      "319"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 39,
+    "level": 39,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "132",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "924",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "18404",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9187",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "53",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9240",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "9202",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "60",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "137130",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "9142",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "132",
+      "9146",
+      "15",
+      "9187",
+      "11",
+      "12",
+      "9240",
+      "9146",
+      "9142"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 40,
+    "level": 40,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "187",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "23",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "40",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "52",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "17940",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1196",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "92",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
         {
           "type": "number",
           "value": "36",
@@ -13094,20 +12995,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "empty"
@@ -13127,7 +13014,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -13152,57 +13041,169 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "17904",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "17904",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "143256",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
+      "17950",
       "15",
+      "17935",
+      "17907",
+      "17904",
+      "11",
+      "17904",
       "36",
-      "9",
-      "17",
-      "31",
-      "21",
-      "10",
-      "27",
-      "17",
-      "6"
+      "17935",
+      "1196"
     ],
-    "timeLimitSeconds": 1040
+    "timeLimitSeconds": 120
   },
   {
-    "id": 45,
-    "level": 45,
+    "id": 41,
+    "level": 41,
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "210",
+          "isBlank": false,
+          "isGiven": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "15",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "14",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "43",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "-580",
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -13215,7 +13216,340 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "number",
           "value": "20",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "-550",
           "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "57",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-493",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-29",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "-570",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "41",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-611",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-617",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "-654",
+      "-570",
+      "14",
+      "-493",
+      "4",
+      "-3893",
+      "-550",
+      "-654",
+      "-29",
+      "41"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 42,
+    "level": 42,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "338",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "26",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "44",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-18",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -13228,53 +13562,71 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "5",
+          "value": "33",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "252",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
           "isBlank": false
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "17",
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "-",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "45",
+          "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
@@ -13282,21 +13634,221 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": true
+          "value": "15",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "39",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "67",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "83",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "44",
+      "13",
+      "28",
+      "3",
+      "16",
+      "20",
+      "118",
+      "-18",
+      "49",
+      "45"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 43,
+    "level": 43,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false
         }
       ],
       [
@@ -13310,10 +13862,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "equals",
-          "value": "="
-        },
-        {
           "type": "empty"
         },
         {
@@ -13323,11 +13871,15 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "equals",
-          "value": "="
+          "type": "empty"
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         }
       ],
       [
@@ -13341,9 +13893,1051 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
           "type": "number",
-          "value": "17",
+          "value": "16",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "140",
           "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "52",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "192",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "48",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "1120",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "24",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1096",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "57",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6918",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "1096",
+      "1203",
+      "192",
+      "1120",
+      "97280",
+      "48",
+      "1",
+      "4",
+      "140",
+      "18"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 44,
+    "level": 44,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "44",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "52",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "54",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "64",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "768",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "64",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "45",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "109",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "12",
+      "64",
+      "5",
+      "12",
+      "42",
+      "8",
+      "44",
+      "64",
+      "6",
+      "64"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 45,
+    "level": 45,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "580",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "62",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "33",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "592",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "74",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "82",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "29",
+      "984",
+      "21",
+      "82",
+      "12",
+      "62",
+      "29",
+      "74",
+      "74",
+      "1968"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 46,
+    "level": 46,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "47",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "376",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -13358,9 +14952,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "number",
           "value": "35",
           "isBlank": true
-        },
-        {
-          "type": "empty"
         }
       ],
       [
@@ -13375,34 +14966,108 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "444",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "18",
-          "isBlank": true
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "1",
+          "value": "426",
           "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "19",
+          "value": "15",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "411",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "50",
           "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
         },
         {
           "type": "empty"
@@ -13431,6 +15096,17 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
           "type": "empty"
         },
         {
@@ -13442,356 +15118,74 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
         {
           "type": "number",
-          "value": "6",
+          "value": "394",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "1",
+          "value": "2",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "788",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "6",
           "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "4728",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
-      "3",
-      "6",
-      "18",
-      "1",
-      "6",
-      "20",
-      "19",
       "7",
+      "6",
+      "50",
+      "4782",
+      "444",
+      "535534",
+      "2",
+      "33474",
       "35",
-      "17"
+      "394"
     ],
-    "timeLimitSeconds": 1050
-  },
-  {
-    "id": 46,
-    "level": 46,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "5",
-      "11",
-      "28",
-      "20",
-      "18",
-      "4",
-      "2",
-      "18",
-      "2",
-      "16"
-    ],
-    "timeLimitSeconds": 1060
+    "timeLimitSeconds": 120
   },
   {
     "id": 47,
@@ -13799,8 +15193,53 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "9",
+          "isBlank": false,
+          "isGiven": true
         },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-6",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-2280",
+          "isBlank": true
+        }
+      ],
+      [
         {
           "type": "empty"
         },
@@ -13824,67 +15263,126 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
           "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
+          "value": "-120",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "11",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-1320",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-120",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
+          "value": "*",
           "isBlank": false
         },
         {
@@ -13895,136 +15393,49 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         }
       ],
       [
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
         {
           "type": "number",
           "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "32",
           "isBlank": false
         },
         {
           "type": "empty"
         },
         {
-          "type": "equals",
-          "value": "="
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -14032,7 +15443,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -14051,59 +15464,75 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "-960",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "16",
+          "value": "34",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "-994",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
           "isBlank": true
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "-34790",
+          "isBlank": false
         }
       ]
     ],
     "bank": [
+      "17",
+      "-6",
+      "6",
       "13",
-      "11",
-      "8",
-      "8",
-      "2",
-      "16",
-      "24",
-      "13",
-      "9",
-      "22"
+      "5",
+      "-120",
+      "-90454",
+      "7",
+      "-120",
+      "13"
     ],
-    "timeLimitSeconds": 1070
+    "timeLimitSeconds": 120
   },
   {
     "id": 48,
@@ -14112,150 +15541,208 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "22",
+          "value": "84",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "6",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "42",
+          "isBlank": true
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+",
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "number",
           "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
+          "isBlank": false
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
           "type": "number",
-          "value": "9",
+          "value": "8250",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "55",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "275",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "/",
           "isBlank": false
         },
         {
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
+          "type": "empty"
         },
         {
-          "type": "operator",
-          "value": "*"
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -14266,10 +15753,36 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         },
+        {
+          "type": "empty"
+        }
+      ],
+      [
         {
           "type": "number",
           "value": "10",
-          "isBlank": true
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -14277,19 +15790,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -14301,8 +15804,16 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "equals",
-          "value": "="
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -14310,112 +15821,65 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "825",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "24",
+          "value": "28",
           "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "4",
-          "isBlank": true
+          "value": "853",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "24",
+          "value": "38",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "815",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "3",
-      "10",
-      "14",
-      "10",
-      "8",
-      "22",
-      "13",
-      "14",
-      "24",
-      "4"
+      "42",
+      "7",
+      "839",
+      "6",
+      "826",
+      "815",
+      "11",
+      "809",
+      "15",
+      "5"
     ],
-    "timeLimitSeconds": 1080
+    "timeLimitSeconds": 120
   },
   {
     "id": 49,
@@ -14423,65 +15887,62 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "132",
+          "isBlank": false,
+          "isGiven": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "12",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "11",
+          "isBlank": false
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
         },
         {
           "type": "number",
           "value": "1",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "11",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
         {
           "type": "empty"
         },
@@ -14499,7 +15960,19 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "+",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "empty"
@@ -14509,96 +15982,101 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "54",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
         }
       ],
       [
         {
           "type": "number",
-          "value": "17",
+          "value": "8352",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "58",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "7",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "-",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "13",
+          "value": "65",
           "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "16",
+          "type": "operator",
+          "value": "/",
           "isBlank": false
         },
         {
@@ -14609,10 +16087,33 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
         }
       ],
       [
         {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "empty"
+        },
+        {
           "type": "empty"
         },
         {
@@ -14621,113 +16122,111 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "empty"
         },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
         {
           "type": "number",
-          "value": "10",
+          "value": "696",
           "isBlank": false
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "/",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "14",
-          "isBlank": true
+          "value": "1",
+          "isBlank": false
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
+          "value": "696",
+          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "3",
+          "value": "47",
           "isBlank": true
         },
         {
           "type": "equals",
-          "value": "="
+          "value": "=",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "6",
+          "value": "743",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "4",
-      "6",
-      "13",
-      "14",
-      "17",
-      "3",
-      "24",
-      "15",
-      "2",
-      "1"
+      "11684",
+      "47",
+      "7",
+      "58",
+      "151892",
+      "12",
+      "11",
+      "65",
+      "727",
+      "743"
     ],
-    "timeLimitSeconds": 1090
+    "timeLimitSeconds": 120
   },
   {
     "id": 50,
@@ -14735,7 +16234,197 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
+          "type": "number",
+          "value": "12",
+          "isBlank": false,
+          "isGiven": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "45",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "57",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "372",
+          "isBlank": true
+        }
+      ],
+      [
+        {
           "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "225",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "*",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "75",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "62",
+          "isBlank": false
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+",
+          "isBlank": false
         },
         {
           "type": "empty"
@@ -14764,24 +16453,146 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
+          "type": "number",
+          "value": "53",
+          "isBlank": false
+        },
+        {
           "type": "empty"
         },
         {
           "type": "empty"
         },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "empty"
+        }
+      ],
+      [
         {
           "type": "number",
-          "value": "8",
+          "value": "1390",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "/",
+          "isBlank": false
         },
         {
           "type": "number",
-          "value": "1",
+          "value": "5",
           "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "278",
+          "isBlank": false
+        },
+        {
+          "type": "operator",
+          "value": "-",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "50",
+          "isBlank": false
+        },
+        {
+          "type": "equals",
+          "value": "=",
+          "isBlank": false
+        },
+        {
+          "type": "number",
+          "value": "228",
+          "isBlank": false
+        }
+      ]
+    ],
+    "bank": [
+      "205",
+      "23",
+      "278",
+      "45",
+      "153",
+      "52",
+      "8",
+      "57",
+      "13",
+      "6",
+      "62"
+    ],
+    "timeLimitSeconds": 120
+  },
+  {
+    "id": 51,
+    "level": 51,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "3"
         },
         {
           "type": "equals",
@@ -14789,68 +16600,43 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "8",
+          "value": "5",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
         {
           "type": "number",
-          "value": "21",
+          "value": "10",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "9",
-          "isBlank": true
+          "value": "2"
         },
         {
           "type": "equals",
@@ -14860,454 +16646,36 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "number",
           "value": "12",
           "isBlank": true
-        },
-        {
-          "type": "empty"
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
         {
           "type": "number",
-          "value": "17",
-          "isBlank": true
+          "value": "12"
         },
         {
           "type": "operator",
           "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "17",
-      "2",
-      "8",
-      "12",
-      "21",
-      "1",
-      "18",
-      "4",
-      "9",
-      "8"
-    ],
-    "timeLimitSeconds": 1100
-  },
-  {
-    "id": 51,
-    "level": 51,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "number",
@@ -15315,43 +16683,25 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "number",
-          "value": "18",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
           "type": "equals",
           "value": "="
         },
         {
           "type": "number",
-          "value": "25",
+          "value": "17",
           "isBlank": true
         }
       ]
     ],
     "bank": [
       "10",
-      "7",
+      "17",
       "5",
-      "15",
-      "10",
-      "8",
-      "19",
-      "1",
-      "3",
-      "25"
+      "12",
+      "5",
+      "2"
     ],
-    "timeLimitSeconds": 1110
+    "timeLimitSeconds": 180
   },
   {
     "id": 52,
@@ -15359,47 +16709,16 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
           "type": "number",
-          "value": "11",
-          "isBlank": true
+          "value": "9"
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "-"
         },
         {
           "type": "number",
-          "value": "15",
-          "isBlank": true
+          "value": "4"
         },
         {
           "type": "equals",
@@ -15407,51 +16726,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "26",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "5"
         }
       ],
       [
@@ -15463,207 +16738,97 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "29",
-          "isBlank": true
+          "value": "-"
         }
       ],
       [
         {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "10",
+          "value": "2",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "-"
         },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "70",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
         {
           "type": "number",
           "value": "1",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "1",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "7",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "3",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "4",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "70",
-      "7",
-      "11",
-      "10",
       "1",
-      "16",
-      "15",
-      "17",
-      "29",
-      "26"
+      "3",
+      "4",
+      "2",
+      "7",
+      "1"
     ],
-    "timeLimitSeconds": 1120
+    "timeLimitSeconds": 180
   },
   {
     "id": 53,
@@ -15671,460 +16836,12 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
+          "value": "7"
         },
         {
           "type": "operator",
           "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "34",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "18",
-      "13",
-      "11",
-      "21",
-      "13",
-      "34",
-      "24",
-      "15",
-      "15",
-      "8"
-    ],
-    "timeLimitSeconds": 1130
-  },
-  {
-    "id": 54,
-    "level": 54,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "number",
@@ -16132,293 +16849,13 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
           "type": "equals",
           "value": "="
         },
         {
           "type": "number",
-          "value": "63",
+          "value": "14",
           "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        }
-      ]
-    ],
-    "bank": [
-      "18",
-      "18",
-      "9",
-      "9",
-      "17",
-      "63",
-      "28",
-      "7",
-      "9",
-      "1"
-    ],
-    "timeLimitSeconds": 1140
-  },
-  {
-    "id": 55,
-    "level": 55,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "38",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
         }
       ],
       [
@@ -16430,59 +16867,38 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "empty"
         },
         {
           "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
+          "value": "-"
         }
       ],
       [
         {
           "type": "number",
-          "value": "14",
+          "value": "5",
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "2",
-          "isBlank": true
+          "value": "3"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "8"
         }
       ],
       [
@@ -16491,29 +16907,6 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "value": "="
         },
         {
-          "type": "number",
-          "value": "99",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
           "type": "empty"
         },
         {
@@ -16522,6 +16915,10 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
         }
       ],
       [
@@ -16531,167 +16928,81 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "18",
+          "value": "4",
           "isBlank": true
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "6",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "9",
       "2",
-      "18",
-      "14",
-      "2",
-      "11",
-      "19",
-      "16",
-      "38",
-      "99"
+      "4",
+      "5",
+      "6",
+      "7",
+      "14"
     ],
-    "timeLimitSeconds": 1150
+    "timeLimitSeconds": 180
   },
   {
-    "id": 56,
-    "level": 56,
+    "id": 54,
+    "level": 54,
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "10"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "number",
-          "value": "2",
-          "isBlank": false
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
         }
       ],
       [
@@ -16701,180 +17012,12 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "operator",
           "value": "-"
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "40",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "3",
+          "value": "1",
           "isBlank": true
         },
         {
@@ -16885,33 +17028,315 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "number",
           "value": "9",
           "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
           "type": "number",
-          "value": "17",
+          "value": "20",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "2"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "18"
         }
       ]
     ],
     "bank": [
-      "6",
-      "3",
-      "3",
-      "4",
       "10",
-      "17",
-      "6",
-      "40",
+      "1",
+      "1",
       "9",
-      "3"
+      "20",
+      "9"
     ],
-    "timeLimitSeconds": 1160
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 55,
+    "level": 55,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "6"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "8",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "1"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "14"
+        }
+      ]
+    ],
+    "bank": [
+      "7",
+      "8",
+      "13",
+      "15",
+      "1",
+      "5"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 56,
+    "level": 56,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "10"
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "4"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "1"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "13",
+      "14",
+      "3",
+      "6",
+      "2",
+      "7"
+    ],
+    "timeLimitSeconds": 180
   },
   {
     "id": 57,
@@ -16920,83 +17345,32 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       [
         {
           "type": "number",
-          "value": "6",
+          "value": "9",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "35",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "operator",
           "value": "-"
         },
         {
-          "type": "operator",
-          "value": "/"
+          "type": "number",
+          "value": "3",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "empty"
@@ -17009,64 +17383,38 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
           "type": "number",
-          "value": "13",
-          "isBlank": true
+          "value": "6"
+        },
+        {
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "number",
-          "value": "5",
+          "value": "3",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
         }
       ],
       [
         {
           "type": "equals",
           "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "empty"
@@ -17079,151 +17427,43 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
           "type": "number",
-          "value": "10",
-          "isBlank": false
+          "value": "3"
+        },
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "7",
+          "value": "6"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "9",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "15",
+      "9",
+      "3",
+      "3",
       "6",
-      "35",
-      "19",
-      "13",
-      "7",
-      "4",
-      "16",
-      "5",
-      "22"
+      "9",
+      "3"
     ],
-    "timeLimitSeconds": 1170
+    "timeLimitSeconds": 180
   },
   {
     "id": 58,
@@ -17231,83 +17471,101 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
           "value": "5",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "1"
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "4"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "number",
@@ -17320,222 +17578,19 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "5",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "42",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "5"
         }
       ]
     ],
     "bank": [
-      "42",
-      "7",
+      "5",
+      "4",
       "1",
-      "5",
-      "22",
-      "13",
-      "27",
-      "5",
-      "14",
-      "7"
+      "1",
+      "6",
+      "3"
     ],
-    "timeLimitSeconds": 1180
+    "timeLimitSeconds": 180
   },
   {
     "id": 59,
@@ -17543,89 +17598,36 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "12",
+          "value": "1",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+"
         },
         {
           "type": "number",
           "value": "4",
           "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "operator",
@@ -17635,118 +17637,40 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
           "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+"
         }
       ],
       [
         {
           "type": "number",
-          "value": "5",
-          "isBlank": true
+          "value": "5"
         },
         {
           "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
+          "value": "-"
         },
         {
           "type": "number",
           "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "3"
         }
       ],
       [
         {
-          "type": "number",
-          "value": "25",
-          "isBlank": false
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "equals",
@@ -17756,98 +17680,44 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "6"
+        },
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "20",
+          "value": "2",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "8",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "1",
       "4",
-      "20",
+      "8",
+      "2",
+      "2",
       "5",
-      "15",
-      "10",
-      "16",
-      "5",
-      "12",
-      "3"
+      "1"
     ],
-    "timeLimitSeconds": 1190
+    "timeLimitSeconds": 180
   },
   {
     "id": 60,
@@ -17855,182 +17725,77 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
           "value": "6",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "1",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "1",
+          "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "8",
-          "isBlank": false
+          "value": "3"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "4",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
@@ -18043,17 +17808,15 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         }
       ],
       [
         {
           "type": "number",
-          "value": "13",
-          "isBlank": false
+          "value": "7",
+          "isBlank": true
         },
         {
           "type": "operator",
@@ -18061,7 +17824,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "10",
+          "value": "4",
           "isBlank": true
         },
         {
@@ -18070,104 +17833,20 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "48",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "3"
         }
       ]
     ],
     "bank": [
-      "17",
-      "48",
-      "21",
-      "14",
-      "11",
-      "10",
-      "3",
+      "7",
+      "4",
+      "7",
+      "1",
       "6",
-      "12",
-      "7"
+      "4",
+      "1"
     ],
-    "timeLimitSeconds": 1200
+    "timeLimitSeconds": 180
   },
   {
     "id": 61,
@@ -18175,274 +17854,101 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
           "type": "number",
           "value": "3",
           "isBlank": true
         },
         {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "36",
+          "value": "9",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "12",
           "isBlank": true
         }
       ],
       [
         {
-          "type": "number",
-          "value": "21",
-          "isBlank": false
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "10"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "5"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "15",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
@@ -18450,44 +17956,26 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": false
-        },
-        {
           "type": "equals",
           "value": "="
         },
         {
           "type": "number",
-          "value": "32",
+          "value": "27",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "3",
-      "16",
-      "21",
-      "32",
+      "13",
+      "9",
       "15",
-      "14",
-      "8",
-      "36",
-      "16",
-      "6"
+      "27",
+      "3",
+      "12",
+      "14"
     ],
-    "timeLimitSeconds": 1210
+    "timeLimitSeconds": 180
   },
   {
     "id": 62,
@@ -18495,157 +17983,13 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "23",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "32",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
+          "value": "8",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "90",
-          "isBlank": false
+          "value": "+"
         },
         {
           "type": "number",
@@ -18653,6 +17997,72 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "8"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
           "type": "empty"
         },
         {
@@ -18662,24 +18072,17 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "18",
+          "value": "0",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "/"
+          "value": "-"
         },
         {
           "type": "number",
-          "value": "2",
-          "isBlank": true
+          "value": "0"
         },
         {
           "type": "equals",
@@ -18687,127 +18090,21 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "9",
+          "value": "0",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "18",
-      "4",
-      "23",
-      "17",
+      "8",
+      "14",
+      "14",
       "6",
-      "10",
-      "20",
-      "12",
-      "9",
-      "2"
+      "0",
+      "0",
+      "6"
     ],
-    "timeLimitSeconds": 1220
+    "timeLimitSeconds": 180
   },
   {
     "id": 63,
@@ -18815,44 +18112,33 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "14",
+          "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": false
+          "value": "9",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "126",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "empty"
@@ -18865,226 +18151,15 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "49",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "39",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
+          "value": "*"
         }
       ],
       [
         {
           "type": "number",
-          "value": "18",
+          "value": "9",
           "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
         },
         {
           "type": "operator",
@@ -19092,8 +18167,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": false
+          "value": "4",
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -19101,33 +18176,64 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "35",
+          "value": "36",
           "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "126"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "36"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "4536",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "35",
-      "7",
-      "7",
-      "19",
-      "1",
-      "6",
-      "8",
-      "49",
-      "20",
-      "18"
+      "9",
+      "14",
+      "36",
+      "4",
+      "126",
+      "9",
+      "4536"
     ],
-    "timeLimitSeconds": 1230
+    "timeLimitSeconds": 180
   },
   {
     "id": 64,
@@ -19135,52 +18241,17 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
           "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "54",
+          "value": "11",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "/"
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "6",
-          "isBlank": true
+          "value": "19"
         },
         {
           "type": "equals",
@@ -19188,39 +18259,14 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "30",
+          "isBlank": true
         }
       ],
       [
         {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
+          "value": "+"
         },
         {
           "type": "empty"
@@ -19233,116 +18279,40 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
           "type": "operator",
           "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
         {
           "type": "number",
           "value": "7",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "25",
+          "isBlank": true
         }
       ],
       [
+        {
+          "type": "equals",
+          "value": "="
+        },
         {
           "type": "empty"
         },
@@ -19354,100 +18324,45 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "18"
+        },
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "31",
+          "value": "37",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "55",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "3",
-      "54",
-      "31",
-      "6",
-      "8",
-      "21",
-      "24",
-      "24",
+      "11",
+      "30",
       "7",
-      "10"
+      "18",
+      "55",
+      "37",
+      "25"
     ],
-    "timeLimitSeconds": 1240
+    "timeLimitSeconds": 180
   },
   {
     "id": 65,
@@ -19455,58 +18370,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "7",
+          "value": "3",
           "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": false
         },
         {
           "type": "operator",
@@ -19514,7 +18380,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "21",
+          "value": "6",
           "isBlank": true
         },
         {
@@ -19523,251 +18389,109 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "40",
-          "isBlank": true
+          "value": "9"
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "40",
-          "isBlank": false
-        },
         {
           "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
           "type": "operator",
-          "value": "/"
+          "value": "+"
         },
         {
           "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "54",
-          "isBlank": false
         },
         {
           "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
+          "value": "*"
+        }
+      ],
+      [
         {
           "type": "number",
           "value": "6",
           "isBlank": true
         },
         {
+          "type": "operator",
+          "value": "+"
+        },
+        {
           "type": "number",
-          "value": "10",
+          "value": "17",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "23",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "9"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "23",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "207",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "9",
-      "7",
-      "5",
+      "17",
       "6",
-      "10",
-      "8",
-      "40",
+      "207",
+      "23",
+      "23",
       "3",
-      "30",
-      "21"
+      "6"
     ],
-    "timeLimitSeconds": 1250
+    "timeLimitSeconds": 180
   },
   {
     "id": 66,
@@ -19775,14 +18499,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "9",
+          "value": "2",
           "isBlank": true
         },
         {
@@ -19791,7 +18509,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "6",
+          "value": "14",
           "isBlank": true
         },
         {
@@ -19800,138 +18518,35 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "54",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "28",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "number",
-          "value": "42",
-          "isBlank": true
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
+          "value": "+"
         },
         {
           "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
         },
         {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+"
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "7",
+          "value": "14",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
         },
         {
           "type": "operator",
@@ -19939,8 +18554,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "22",
-          "isBlank": false
+          "value": "11"
         },
         {
           "type": "equals",
@@ -19948,146 +18562,65 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "23",
-          "isBlank": true
+          "value": "25"
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": true
         },
         {
           "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "5",
+          "value": "25",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "equals",
           "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "35",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "53",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "2",
-      "5",
-      "9",
-      "7",
-      "5",
-      "23",
-      "3",
-      "7",
-      "6",
-      "42"
+      "53",
+      "28",
+      "14",
+      "28",
+      "25",
+      "14",
+      "2"
     ],
-    "timeLimitSeconds": 1260
+    "timeLimitSeconds": 180
   },
   {
     "id": 67,
@@ -20095,59 +18628,16 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "10",
-          "isBlank": true
+          "value": "3"
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "-"
         },
         {
           "type": "number",
-          "value": "5",
-          "isBlank": true
+          "value": "2"
         },
         {
           "type": "equals",
@@ -20155,93 +18645,35 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "50",
+          "value": "1",
           "isBlank": true
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
         {
           "type": "operator",
           "value": "*"
         },
         {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
+          "type": "empty"
         },
         {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "50",
-          "isBlank": true
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "4",
-          "isBlank": false
+          "value": "2",
+          "isBlank": true
         },
         {
           "type": "operator",
@@ -20249,7 +18681,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "2",
+          "value": "1",
           "isBlank": true
         },
         {
@@ -20258,17 +18690,34 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "6",
-          "isBlank": false
+          "value": "3",
+          "isBlank": true
         }
       ],
       [
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
           "type": "number",
-          "value": "43",
+          "value": "6",
           "isBlank": true
         },
         {
@@ -20277,105 +18726,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "7",
+          "value": "3",
           "isBlank": true
         },
         {
@@ -20384,30 +18735,21 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "2",
+          "value": "3",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "10",
-      "43",
-      "10",
-      "50",
-      "50",
-      "2",
-      "7",
-      "5",
-      "2",
-      "20"
+      "3",
+      "1",
+      "3",
+      "1",
+      "6",
+      "3",
+      "2"
     ],
-    "timeLimitSeconds": 1270
+    "timeLimitSeconds": 180
   },
   {
     "id": 68,
@@ -20415,26 +18757,16 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "6",
-          "isBlank": true
+          "value": "13"
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "7",
+          "value": "9",
           "isBlank": true
         },
         {
@@ -20443,291 +18775,110 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "42",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "8",
+          "value": "22",
           "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "number",
-          "value": "44",
-          "isBlank": false
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "3"
         },
         {
           "type": "operator",
           "value": "+"
-        }
-      ],
-      [
-        {
-          "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "13",
+          "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "number",
           "value": "16",
           "isBlank": true
         }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "33",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
       ]
     ],
     "bank": [
-      "33",
-      "42",
-      "24",
+      "9",
+      "10",
       "6",
-      "21",
-      "7",
-      "1",
-      "7",
-      "8",
+      "4",
+      "22",
+      "13",
       "16"
     ],
-    "timeLimitSeconds": 1280
+    "timeLimitSeconds": 180
   },
   {
     "id": 69,
@@ -20735,84 +18886,9 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "50",
+          "value": "19",
           "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
         },
         {
           "type": "operator",
@@ -20820,39 +18896,51 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
+          "value": "18"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "37",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        }
+      ],
+      [
+        {
+          "type": "number",
           "value": "13",
           "isBlank": true
         },
         {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
           "type": "operator",
           "value": "-"
         },
         {
           "type": "number",
-          "value": "5",
-          "isBlank": true
+          "value": "10"
         },
         {
           "type": "equals",
@@ -20860,101 +18948,43 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "5",
+          "value": "3",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": false
         },
         {
           "type": "equals",
           "value": "="
         },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
         {
           "type": "number",
           "value": "6",
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
           "type": "operator",
-          "value": "/"
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "2",
+          "value": "28",
           "isBlank": true
         },
         {
@@ -20963,91 +18993,21 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "5",
+          "value": "34",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "5",
-      "2",
+      "19",
+      "6",
+      "3",
       "13",
-      "10",
-      "5",
-      "5",
-      "10",
-      "14",
-      "50",
-      "6"
+      "37",
+      "28",
+      "34"
     ],
-    "timeLimitSeconds": 1290
+    "timeLimitSeconds": 180
   },
   {
     "id": 70,
@@ -21055,1401 +19015,13 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "66",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "40",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "12",
-      "6",
-      "66",
-      "3",
-      "5",
-      "18",
-      "12",
-      "6",
-      "1",
-      "8"
-    ],
-    "timeLimitSeconds": 1300
-  },
-  {
-    "id": 71,
-    "level": 71,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "96",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "108",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "32",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "37",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
           "type": "number",
           "value": "14",
           "isBlank": true
         },
         {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "96",
-      "9",
-      "3",
-      "6",
-      "108",
-      "12",
-      "12",
-      "2",
-      "9",
-      "14"
-    ],
-    "timeLimitSeconds": 1310
-  },
-  {
-    "id": 72,
-    "level": 72,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
           "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "63",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "55",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "50",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "10",
-      "30",
-      "1",
-      "9",
-      "7",
-      "63",
-      "15",
-      "5",
-      "5",
-      "15"
-    ],
-    "timeLimitSeconds": 1320
-  },
-  {
-    "id": 73,
-    "level": 73,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "41",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "32",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        }
-      ]
-    ],
-    "bank": [
-      "8",
-      "2",
-      "4",
-      "23",
-      "6",
-      "32",
-      "18",
-      "18",
-      "9",
-      "2"
-    ],
-    "timeLimitSeconds": 1330
-  },
-  {
-    "id": 74,
-    "level": 74,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "29",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
+          "value": "+"
         },
         {
           "type": "number",
@@ -22457,667 +19029,18 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "number",
-          "value": "63",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
+          "value": "25"
+        }
+      ],
+      [
         {
           "type": "operator",
           "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "3",
-      "10",
-      "11",
-      "11",
-      "63",
-      "12",
-      "16",
-      "21",
-      "9",
-      "6"
-    ],
-    "timeLimitSeconds": 1340
-  },
-  {
-    "id": 75,
-    "level": 75,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "25",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "4",
-      "2",
-      "9",
-      "13",
-      "6",
-      "15",
-      "9",
-      "3",
-      "4",
-      "6"
-    ],
-    "timeLimitSeconds": 1350
-  },
-  {
-    "id": 76,
-    "level": 76,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "33",
-          "isBlank": true
         },
         {
           "type": "empty"
@@ -23130,2038 +19053,11 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        }
-      ]
-    ],
-    "bank": [
-      "24",
-      "33",
-      "27",
-      "3",
-      "19",
-      "3",
-      "23",
-      "8",
-      "4",
-      "17"
-    ],
-    "timeLimitSeconds": 1360
-  },
-  {
-    "id": 77,
-    "level": 77,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "32",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "48",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "72",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "80",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "32",
-      "8",
-      "48",
-      "9",
-      "72",
-      "15",
-      "8",
-      "12",
-      "4",
-      "80"
-    ],
-    "timeLimitSeconds": 1370
-  },
-  {
-    "id": 78,
-    "level": 78,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "25",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "8",
-      "3",
-      "24",
-      "8",
-      "12",
-      "20",
-      "1",
-      "10",
-      "1",
-      "24"
-    ],
-    "timeLimitSeconds": 1380
-  },
-  {
-    "id": 79,
-    "level": 79,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "46",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "25",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "24",
-      "22",
-      "46",
-      "16",
-      "21",
-      "1",
-      "25",
-      "22",
-      "19",
-      "3"
-    ],
-    "timeLimitSeconds": 1390
-  },
-  {
-    "id": 80,
-    "level": 80,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "40",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "45",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "25",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "operator",
           "value": "+"
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "40",
-          "isBlank": false
-        }
-      ]
-    ],
-    "bank": [
-      "5",
-      "25",
-      "5",
-      "5",
-      "40",
-      "30",
-      "10",
-      "5",
-      "12",
-      "2"
-    ],
-    "timeLimitSeconds": 1400
-  },
-  {
-    "id": 81,
-    "level": 81,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "31",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "72",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "56",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "45",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "72",
-      "1",
-      "10",
-      "23",
-      "31",
-      "12",
-      "7",
-      "3",
-      "9",
-      "8"
-    ],
-    "timeLimitSeconds": 1410
-  },
-  {
-    "id": 82,
-    "level": 82,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "34",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "90",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "88",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
         {
           "type": "number",
           "value": "18",
@@ -25173,3862 +19069,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "13",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "31",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "1",
-      "20",
-      "14",
-      "88",
-      "11",
-      "90",
-      "6",
-      "5",
-      "3",
-      "18"
-    ],
-    "timeLimitSeconds": 1420
-  },
-  {
-    "id": 83,
-    "level": 83,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "46",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "37",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "120",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
           "value": "20",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "35",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "12",
-      "23",
-      "3",
-      "120",
-      "9",
-      "26",
-      "12",
-      "9",
-      "18",
-      "3"
-    ],
-    "timeLimitSeconds": 1430
-  },
-  {
-    "id": 84,
-    "level": 84,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "3",
-      "2",
-      "1",
-      "3",
-      "17",
-      "15",
-      "10",
-      "4",
-      "6",
-      "9"
-    ],
-    "timeLimitSeconds": 1440
-  },
-  {
-    "id": 85,
-    "level": 85,
-    "grid": [
-      [
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "25",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "54",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "39",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "3",
-      "9",
-      "4",
-      "19",
-      "5",
-      "9",
-      "14",
-      "1",
-      "25",
-      "23"
-    ],
-    "timeLimitSeconds": 1450
-  },
-  {
-    "id": 86,
-    "level": 86,
-    "grid": [
-      [
-        {
-          "type": "number",
-          "value": "35",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "29",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "32",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "104",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "53",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "9",
-      "1",
-      "53",
-      "9",
-      "27",
-      "13",
-      "104",
-      "18",
-      "29",
-      "32"
-    ],
-    "timeLimitSeconds": 1460
-  },
-  {
-    "id": 87,
-    "level": 87,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "36",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "35",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "45",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "8",
-      "17",
-      "19",
-      "3",
-      "22",
-      "27",
-      "9",
-      "28",
-      "45",
-      "18"
-    ],
-    "timeLimitSeconds": 1470
-  },
-  {
-    "id": 88,
-    "level": 88,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "50",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "43",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "47",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "80",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "50",
-      "8",
-      "47",
-      "24",
-      "43",
-      "14",
-      "23",
-      "17",
-      "5",
-      "80"
-    ],
-    "timeLimitSeconds": 1480
-  },
-  {
-    "id": 89,
-    "level": 89,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "15",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "34",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "35",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "34",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "36",
-          "isBlank": true
-        }
-      ]
-    ],
-    "bank": [
-      "36",
-      "3",
-      "19",
-      "14",
-      "21",
-      "26",
-      "12",
-      "35",
-      "9",
-      "15"
-    ],
-    "timeLimitSeconds": 1490
-  },
-  {
-    "id": 90,
-    "level": 90,
-    "grid": [
-      [
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "90",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "44",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "24",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "27",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "47",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "9",
-      "27",
-      "11",
-      "6",
-      "4",
-      "3",
-      "8",
-      "44",
-      "26",
-      "47"
-    ],
-    "timeLimitSeconds": 1500
-  },
-  {
-    "id": 91,
-    "level": 91,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "32",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "47",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "56",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "37",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        }
-      ]
-    ],
-    "bank": [
-      "5",
-      "21",
-      "12",
-      "26",
-      "20",
-      "2",
-      "28",
-      "37",
-      "32",
-      "14"
-    ],
-    "timeLimitSeconds": 1510
-  },
-  {
-    "id": 92,
-    "level": 92,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "5",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "25",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "70",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "25",
-      "12",
-      "12",
-      "6",
-      "30",
-      "13",
-      "5",
-      "4",
-      "14",
-      "30"
-    ],
-    "timeLimitSeconds": 1520
-  },
-  {
-    "id": 93,
-    "level": 93,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "63",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "36",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "13",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "23",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "7",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "40",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "80",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "21",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "18",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "7",
-      "8",
-      "80",
-      "40",
-      "7",
-      "18",
-      "22",
-      "63",
-      "36",
-      "18"
-    ],
-    "timeLimitSeconds": 1530
-  },
-  {
-    "id": 94,
-    "level": 94,
-    "grid": [
-      [
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "16",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "28",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "14",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "24",
           "isBlank": true
         },
         {
@@ -29038,71 +19079,13 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "number",
           "value": "38",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "empty"
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
@@ -29113,24 +19096,25 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "23",
+          "value": "32",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "-"
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "22",
+          "value": "31",
           "isBlank": true
         },
         {
@@ -29139,54 +19123,41 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "14",
+          "value": "63",
           "isBlank": true
-        },
-        {
-          "type": "empty"
         }
       ]
     ],
     "bank": [
-      "3",
-      "24",
+      "31",
+      "63",
+      "32",
+      "11",
+      "38",
+      "20",
       "14",
-      "22",
-      "12",
-      "4",
-      "16",
-      "14",
-      "3",
-      "23"
+      "18"
     ],
-    "timeLimitSeconds": 1540
+    "timeLimitSeconds": 180
   },
   {
-    "id": 95,
-    "level": 95,
+    "id": 71,
+    "level": 71,
     "grid": [
       [
         {
           "type": "number",
-          "value": "12",
+          "value": "1",
           "isBlank": true
         },
         {
           "type": "operator",
-          "value": "/"
+          "value": "*"
         },
         {
           "type": "number",
-          "value": "3",
-          "isBlank": false
+          "value": "2",
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -29194,126 +19165,14 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "28",
+          "value": "2",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
         {
-          "type": "number",
-          "value": "22",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "empty"
@@ -29326,30 +19185,64 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         }
       ],
       [
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        },
         {
           "type": "operator",
           "value": "+"
         },
         {
-          "type": "operator",
-          "value": "/"
+          "type": "number",
+          "value": "17",
+          "isBlank": true
         },
         {
-          "type": "operator",
-          "value": "/"
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "35",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
@@ -29357,111 +19250,211 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "37"
+        }
+      ]
+    ],
+    "bank": [
+      "1",
+      "35",
+      "19",
+      "18",
+      "2",
+      "17",
+      "2",
+      "18"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 72,
+    "level": 72,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "11"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "19",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "209",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "empty"
         },
         {
-          "type": "equals",
-          "value": "="
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         }
       ],
       [
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "47",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "42",
-          "isBlank": true
-        },
         {
           "type": "number",
           "value": "4",
-          "isBlank": false
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "number",
-          "value": "10",
-          "isBlank": false
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "48",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "44",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "228",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "10032",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "44",
+      "12",
+      "4",
+      "209",
+      "228",
+      "10032",
+      "48",
+      "19"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 73,
+    "level": 73,
+    "grid": [
+      [
+        {
           "type": "number",
           "value": "10",
-          "isBlank": false
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "160",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "16"
         },
         {
           "type": "operator",
@@ -29469,8 +19462,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "10",
-          "isBlank": false
+          "value": "18",
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -29478,91 +19471,34 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "20",
-          "isBlank": false
-        }
-      ]
-    ],
-    "bank": [
-      "1",
-      "19",
-      "42",
-      "20",
-      "1",
-      "28",
-      "10",
-      "22",
-      "12",
-      "47"
-    ],
-    "timeLimitSeconds": 1550
-  },
-  {
-    "id": 96,
-    "level": 96,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "34",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         }
       ],
       [
         {
           "type": "number",
-          "value": "40",
+          "value": "160",
           "isBlank": true
         },
         {
@@ -29571,8 +19507,8 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "12",
-          "isBlank": false
+          "value": "34",
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -29580,28 +19516,379 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "28",
+          "value": "126",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "126",
+      "34",
+      "18",
+      "10",
+      "34",
+      "160",
+      "16",
+      "160"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 74,
+    "level": 74,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "7",
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "number",
-          "value": "8",
+          "value": "2",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "5"
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "0",
           "isBlank": true
         }
       ],
       [
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
           "type": "empty"
         },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "7",
+      "9",
+      "7",
+      "14",
+      "2",
+      "0",
+      "7",
+      "5"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 75,
+    "level": 75,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "9"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "551",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "9",
+      "551",
+      "19",
+      "19",
+      "29",
+      "10",
+      "29",
+      "20"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 76,
+    "level": 76,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "2"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "/"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
         {
           "type": "number",
           "value": "1",
@@ -29613,8 +19900,356 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "29",
-          "isBlank": false
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "5",
+      "5",
+      "10",
+      "2",
+      "5",
+      "1",
+      "1",
+      "1"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 77,
+    "level": 77,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "3"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "13",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "17",
+      "10",
+      "4",
+      "1",
+      "10",
+      "13",
+      "14",
+      "17"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 78,
+    "level": 78,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "7"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "147",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "24",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "288",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "504",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "84",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "42336",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "147",
+      "21",
+      "288",
+      "12",
+      "84",
+      "42336",
+      "24",
+      "504"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 79,
+    "level": 79,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "10"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "26",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "36",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -29624,143 +20259,12 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "number",
           "value": "30",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
         }
       ],
       [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "45",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
         {
           "type": "equals",
           "value": "="
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "17",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "empty"
@@ -29770,110 +20274,59 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "value": "="
         },
         {
-          "type": "equals",
-          "value": "="
+          "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "22",
+          "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "27",
-          "isBlank": false
+          "value": "44",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "number",
-          "value": "28",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
+          "value": "66",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "1",
-      "1",
+      "18",
+      "66",
+      "44",
+      "12",
       "30",
-      "2",
-      "28",
-      "8",
-      "4",
-      "40",
-      "3",
-      "1"
+      "26",
+      "36",
+      "22"
     ],
-    "timeLimitSeconds": 1560
+    "timeLimitSeconds": 180
   },
   {
-    "id": 97,
-    "level": 97,
+    "id": 80,
+    "level": 80,
     "grid": [
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "12",
+          "value": "2",
           "isBlank": true
         },
         {
@@ -29882,7 +20335,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "1",
+          "value": "12",
           "isBlank": true
         },
         {
@@ -29891,22 +20344,39 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "12",
+          "value": "24",
           "isBlank": true
         }
       ],
       [
         {
+          "type": "operator",
+          "value": "*"
+        },
+        {
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "11",
-          "isBlank": false
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "operator",
-          "value": "*"
+          "value": "-"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
@@ -29919,56 +20389,34 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "55",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "22",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "54",
-          "isBlank": true
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "23",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         }
       ],
       [
         {
           "type": "number",
-          "value": "6",
+          "value": "34",
           "isBlank": true
         },
         {
@@ -29976,10 +20424,196 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "value": "/"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "2"
+        }
+      ]
+    ],
+    "bank": [
+      "24",
+      "12",
+      "17",
+      "5",
+      "34",
+      "22",
+      "2",
+      "17"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 81,
+    "level": 81,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "88"
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "88",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "22",
+      "1",
+      "88",
+      "1",
+      "4",
+      "1",
+      "4",
+      "22"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 82,
+    "level": 82,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "27",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "30",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
@@ -29989,36 +20623,189 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "value": "+"
         },
         {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
           "type": "number",
           "value": "4",
-          "isBlank": false
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "31"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "41",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "3",
+      "30",
+      "41",
+      "10",
+      "4",
+      "11",
+      "27",
+      "7"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 83,
+    "level": 83,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "1"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "19",
+          "isBlank": true
         }
       ],
       [
         {
           "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
           "value": "/"
         },
         {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
           "type": "number",
-          "value": "6",
+          "value": "8",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
           "type": "empty"
         },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
         {
           "type": "number",
           "value": "26",
@@ -30029,17 +20816,113 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "value": "*"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "26",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "8",
+      "1",
+      "26",
+      "7",
+      "1",
+      "18",
+      "26",
+      "19"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 84,
+    "level": 84,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "23",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "115",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
         }
       ],
       [
         {
           "type": "number",
-          "value": "2",
-          "isBlank": false
+          "value": "7",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "17"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "119",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
         },
         {
           "type": "equals",
@@ -30049,10 +20932,197 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "35",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "391",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "13685",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "7",
+      "13685",
+      "23",
+      "35",
+      "119",
+      "391",
+      "5",
+      "115"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 85,
+    "level": 85,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "2"
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "27",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "20",
+      "5",
+      "9",
+      "27",
+      "22",
+      "16",
+      "11",
+      "4"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 86,
+    "level": 86,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -30061,158 +21131,289 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "number",
           "value": "10",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
-          "type": "number",
-          "value": "49",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
         }
       ],
       [
         {
           "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "40",
+          "value": "10",
           "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "0",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "38"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "28",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "40",
-      "6",
-      "1",
-      "6",
-      "23",
-      "54",
-      "26",
-      "12",
-      "12",
-      "5"
+      "10",
+      "0",
+      "28",
+      "10",
+      "10",
+      "18",
+      "28",
+      "10"
     ],
-    "timeLimitSeconds": 1570
+    "timeLimitSeconds": 180
   },
   {
-    "id": 98,
-    "level": 98,
+    "id": 87,
+    "level": 87,
     "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "12",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "28",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "336",
+          "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "21",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "63"
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "252",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "84",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "21168",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "252",
+      "84",
+      "21",
+      "28",
+      "3",
+      "12",
+      "336",
+      "21168"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 88,
+    "level": 88,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "36",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
         }
       ],
       [
@@ -30228,7 +21429,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "number",
           "value": "17",
-          "isBlank": false
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -30236,70 +21437,165 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "13",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "value": "13"
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
           "type": "empty"
         },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
         {
           "type": "number",
-          "value": "12",
+          "value": "66",
           "isBlank": true
         },
         {
+          "type": "operator",
+          "value": "-"
+        },
+        {
           "type": "number",
-          "value": "1",
+          "value": "35",
           "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "number",
-          "value": "29",
+          "value": "31",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "30",
+      "18",
+      "31",
+      "36",
+      "17",
+      "18",
+      "35",
+      "66"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 89,
+    "level": 89,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "34",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "44",
           "isBlank": true
         }
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "empty"
         },
         {
           "type": "operator",
-          "value": "/"
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "10",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "22"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "32",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "44",
+          "isBlank": true
         },
         {
           "type": "operator",
@@ -30307,73 +21603,89 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "45",
+          "value": "32",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "-"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "26",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "equals",
           "value": "="
         },
         {
+          "type": "number",
+          "value": "1408",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "34",
+      "32",
+      "10",
+      "1408",
+      "44",
+      "44",
+      "32",
+      "10"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 90,
+    "level": 90,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "7",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "25",
+          "isBlank": true
+        },
+        {
           "type": "equals",
           "value": "="
+        },
+        {
+          "type": "number",
+          "value": "175",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "33"
+        },
+        {
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "number",
@@ -30381,7 +21693,26 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "isBlank": true
         },
         {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "693",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
           "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
@@ -30393,38 +21724,89 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "231",
+          "isBlank": true
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "*"
         },
         {
           "type": "number",
-          "value": "2",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "2",
-          "isBlank": false
+          "value": "525",
+          "isBlank": true
         },
         {
           "type": "equals",
           "value": "="
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "121275",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "175",
+      "25",
+      "21",
+      "693",
+      "525",
+      "231",
+      "7",
+      "121275"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 91,
+    "level": 91,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "3",
-          "isBlank": false
+          "value": "40",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "56",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
         }
       ],
       [
@@ -30435,11 +21817,11 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "operator",
-          "value": "/"
+          "value": "*"
         },
         {
           "type": "number",
-          "value": "8",
+          "value": "1",
           "isBlank": true
         },
         {
@@ -30448,441 +21830,103 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "2",
-          "isBlank": false
+          "value": "16",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "32",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "24",
-          "isBlank": false
+          "value": "40",
+          "isBlank": true
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "number",
+          "value": "72"
         }
       ]
     ],
     "bank": [
-      "13",
-      "29",
-      "1",
-      "2",
       "16",
-      "12",
-      "30",
-      "21",
-      "8",
-      "45"
-    ],
-    "timeLimitSeconds": 1580
-  },
-  {
-    "id": 99,
-    "level": 99,
-    "grid": [
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "9",
-          "isBlank": true
-        },
-        {
-          "type": "number",
-          "value": "29",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "10",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "96",
-          "isBlank": false
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "6",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "11",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "54",
-          "isBlank": false
-        },
-        {
-          "type": "number",
-          "value": "30",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "40",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "+"
-        },
-        {
-          "type": "number",
-          "value": "1",
-          "isBlank": true
-        },
-        {
-          "type": "operator",
-          "value": "*"
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "3",
-          "isBlank": false
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "12",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "29",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "40",
-          "isBlank": false
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ]
-    ],
-    "bank": [
-      "11",
-      "4",
-      "40",
-      "10",
-      "30",
-      "9",
-      "29",
-      "29",
+      "32",
+      "16",
       "1",
-      "1"
+      "16",
+      "56",
+      "40",
+      "40"
     ],
-    "timeLimitSeconds": 1590
+    "timeLimitSeconds": 180
   },
   {
-    "id": 100,
-    "level": 100,
+    "id": 92,
+    "level": 92,
     "grid": [
       [
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "31",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
         {
           "type": "number",
           "value": "60",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         }
       ],
       [
         {
           "type": "operator",
-          "value": "/"
-        },
-        {
-          "type": "number",
-          "value": "56",
-          "isBlank": true
+          "value": "-"
         },
         {
           "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "number",
-          "value": "19",
-          "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        }
-      ],
-      [
-        {
-          "type": "number",
-          "value": "4",
-          "isBlank": true
         },
         {
           "type": "operator",
@@ -30892,20 +21936,27 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "-"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
         },
         {
           "type": "operator",
-          "value": "+"
+          "value": "/"
         },
         {
-          "type": "empty"
+          "type": "number",
+          "value": "1"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "number",
@@ -30919,95 +21970,142 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
           "value": "="
         },
         {
-          "type": "number",
-          "value": "8",
-          "isBlank": false
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
         {
           "type": "number",
-          "value": "30",
+          "value": "24",
           "isBlank": true
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
         },
         {
           "type": "operator",
           "value": "+"
-        }
-      ],
-      [
+        },
         {
           "type": "number",
-          "value": "15",
-          "isBlank": false
+          "value": "31",
+          "isBlank": true
         },
         {
           "type": "equals",
           "value": "="
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "12",
+          "value": "55",
           "isBlank": true
         }
-      ],
+      ]
+    ],
+    "bank": [
+      "31",
+      "5",
+      "29",
+      "5",
+      "55",
+      "24",
+      "31",
+      "60"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 93,
+    "level": 93,
+    "grid": [
       [
         {
-          "type": "empty"
+          "type": "number",
+          "value": "31",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
         },
         {
           "type": "number",
-          "value": "7",
-          "isBlank": false
+          "value": "18"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "number",
           "value": "49",
           "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "empty"
         },
         {
+          "type": "operator",
+          "value": "-"
+        },
+        {
           "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "27",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "18",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "45",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
@@ -31019,27 +22117,542 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
       ],
       [
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
-        },
-        {
           "type": "number",
-          "value": "14",
-          "isBlank": false
+          "value": "4",
+          "isBlank": true
         },
         {
           "type": "operator",
           "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "0",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "4",
+      "49",
+      "45",
+      "0",
+      "31",
+      "4",
+      "27",
+      "18"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 94,
+    "level": 94,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "32",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "24"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "56",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "35",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "23",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "67",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "79",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "67",
+      "35",
+      "79",
+      "12",
+      "12",
+      "23",
+      "56",
+      "32"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 95,
+    "level": 95,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "16",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "37",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "53",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "22",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "34",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "56"
+        }
+      ]
+    ],
+    "bank": [
+      "34",
+      "6",
+      "53",
+      "37",
+      "22",
+      "16",
+      "3",
+      "3"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 96,
+    "level": 96,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "238",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "*"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "10"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "68",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "17",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "238",
+      "14",
+      "17",
+      "4",
+      "68",
+      "4",
+      "14",
+      "17"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 97,
+    "level": 97,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "36",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "12",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "24",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "14",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "number",
           "value": "15",
           "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "65"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "26",
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -31047,57 +22660,76 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "29",
-          "isBlank": false
+          "value": "39",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "36",
+      "26",
+      "24",
+      "14",
+      "15",
+      "39",
+      "29",
+      "12"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 98,
+    "level": 98,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "35",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
         },
         {
           "type": "number",
-          "value": "17",
-          "isBlank": false
+          "value": "18",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "17"
         }
       ],
       [
         {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         },
         {
-          "type": "number",
-          "value": "11",
-          "isBlank": false
+          "type": "empty"
         },
         {
           "type": "operator",
           "value": "+"
         },
         {
-          "type": "number",
-          "value": "9",
-          "isBlank": false
-        },
-        {
-          "type": "equals",
-          "value": "="
-        },
-        {
-          "type": "number",
-          "value": "20",
-          "isBlank": true
-        },
-        {
           "type": "empty"
         },
         {
-          "type": "empty"
-        },
-        {
-          "type": "empty"
+          "type": "operator",
+          "value": "+"
         }
       ],
       [
         {
           "type": "number",
-          "value": "29",
-          "isBlank": false
+          "value": "37",
+          "isBlank": true
         },
         {
           "type": "operator",
@@ -31106,7 +22738,7 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         {
           "type": "number",
           "value": "8",
-          "isBlank": false
+          "isBlank": true
         },
         {
           "type": "equals",
@@ -31114,35 +22746,328 @@ export const MATHS_CATALOGUE: MathsPuzzle[] = [
         },
         {
           "type": "number",
-          "value": "21",
-          "isBlank": false
+          "value": "29",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
         },
         {
           "type": "empty"
         },
         {
-          "type": "empty"
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "72",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "26",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "46",
+          "isBlank": true
         }
       ]
     ],
     "bank": [
-      "19",
-      "15",
-      "49",
-      "5",
-      "20",
-      "4",
-      "60",
-      "12",
-      "30",
-      "56"
+      "26",
+      "29",
+      "72",
+      "35",
+      "18",
+      "46",
+      "8",
+      "37"
     ],
-    "timeLimitSeconds": 1600
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 99,
+    "level": 99,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "26",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "37",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "/"
+        },
+        {
+          "type": "number",
+          "value": "6",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "1",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "32",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "37"
+        }
+      ]
+    ],
+    "bank": [
+      "1",
+      "11",
+      "6",
+      "6",
+      "37",
+      "32",
+      "5",
+      "26"
+    ],
+    "timeLimitSeconds": 180
+  },
+  {
+    "id": 100,
+    "level": 100,
+    "grid": [
+      [
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "11",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "9"
+        }
+      ],
+      [
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "operator",
+          "value": "+"
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "38",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "9",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "29",
+          "isBlank": true
+        }
+      ],
+      [
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "empty"
+        },
+        {
+          "type": "equals",
+          "value": "="
+        }
+      ],
+      [
+        {
+          "type": "number",
+          "value": "58",
+          "isBlank": true
+        },
+        {
+          "type": "operator",
+          "value": "-"
+        },
+        {
+          "type": "number",
+          "value": "20",
+          "isBlank": true
+        },
+        {
+          "type": "equals",
+          "value": "="
+        },
+        {
+          "type": "number",
+          "value": "38",
+          "isBlank": true
+        }
+      ]
+    ],
+    "bank": [
+      "9",
+      "20",
+      "29",
+      "38",
+      "38",
+      "58",
+      "20",
+      "11"
+    ],
+    "timeLimitSeconds": 180
   }
 ];

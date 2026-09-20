@@ -28,7 +28,7 @@ type SudokuGameProps = {
     difficulty: SudokuDifficulty;
     gameNumber: number;
     onBack: () => void;
-    onComplete: (puzzleId: string) => void;
+    onComplete: (puzzleId: string, mistakes: number) => void;
 };
 
 export function SudokuGame({
@@ -130,9 +130,9 @@ export function SudokuGame({
 
     useEffect(() => {
         if (isComplete) {
-            onComplete(puzzle.id);
+            onComplete(puzzle.id, mistakes);
         }
-    }, [isComplete, onComplete, puzzle.id]);
+    }, [isComplete, onComplete, puzzle.id, mistakes]);
 
     const handleNumberPress = (number: number, event: any) => {
         if (!selected || secondsLeft === 0) return;
@@ -186,7 +186,7 @@ export function SudokuGame({
     };
 
     const handleHint = () => {
-        if (hintsUsed >= 4 || secondsLeft === 0) return;
+        if (secondsLeft === 0) return;
 
         const emptyCells: [number, number][] = [];
         grid.forEach((row, r) => {
@@ -283,8 +283,8 @@ export function SudokuGame({
 
                     <View style={styles.statusRow}>
                         <View style={styles.statusCard}>
-                            <Text style={styles.statusLabel}>Hints</Text>
-                            <Text style={styles.statusValue}>{4 - hintsUsed}/4</Text>
+                            <Text style={styles.statusLabel}>Free Hints</Text>
+                            <Text style={styles.statusValue}>{1 - Math.min(1, hintsUsed)}/1</Text>
                         </View>
 
                         <View style={styles.statusCard}>
@@ -335,10 +335,12 @@ export function SudokuGame({
                     <View style={styles.controls}>
                         <Pressable
                             onPress={handleHint}
-                            style={[styles.hintButton, { backgroundColor: (hintsUsed >= 4 || secondsLeft === 0) ? colors.surfaceTertiary : colors.brandPrimary }]}
-                            disabled={hintsUsed >= 4 || secondsLeft === 0}
+                            style={[styles.hintButton, { backgroundColor: (secondsLeft === 0) ? colors.surfaceTertiary : colors.brandPrimary }]}
+                            disabled={secondsLeft === 0}
                         >
-                            <Text style={[styles.hintText, { color: (hintsUsed >= 4 || secondsLeft === 0) ? colors.muted : colors.onBrandPrimary }]}>Use Hint</Text>
+                            <Text style={[styles.hintText, { color: (secondsLeft === 0) ? colors.muted : colors.onBrandPrimary }]}>
+                                {hintsUsed >= 1 ? "Watch Ad for Hint" : "Use Hint"}
+                            </Text>
                         </Pressable>
                     </View>
 
@@ -479,12 +481,12 @@ const useStyles = makeStyles((colors: any) => ({
         backgroundColor: 'transparent',
     },
     rightBorder: {
-        borderRightWidth: 2,
-        borderRightColor: colors.borderStrong,
+        borderRightWidth: 3,
+        borderRightColor: colors.onSurface,
     },
     bottomBorder: {
-        borderBottomWidth: 2,
-        borderBottomColor: colors.borderStrong,
+        borderBottomWidth: 3,
+        borderBottomColor: colors.onSurface,
     },
     selectedCell: {
         backgroundColor: colors.brandSecondary,

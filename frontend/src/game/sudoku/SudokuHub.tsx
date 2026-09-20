@@ -240,13 +240,30 @@ function SudokuTierCard({
                                 ]}
                             >
                                 {unlocked ? (
-                                    <Text style={[styles.levelButtonText, completed && { color: colors.onSuccess }]}>
-                                        {level}
-                                    </Text>
+                                    <View style={{ alignItems: "center", gap: 2 }}>
+                                        <Text style={[styles.levelButtonText, completed && { color: colors.onSuccess }]}>
+                                            {level}
+                                        </Text>
+                                        {completed && (
+                                            <View style={{ flexDirection: "row", gap: 1 }}>
+                                                {Array.from({ length: 3 }).map((_, starIdx) => (
+                                                    <Ionicons 
+                                                        key={starIdx} 
+                                                        name={starIdx < (profile.sudokuStars?.[id] || 0) ? "star" : "star-outline"} 
+                                                        size={10} 
+                                                        color={colors.onSuccess} 
+                                                    />
+                                                ))}
+                                            </View>
+                                        )}
+                                    </View>
                                 ) : (
                                     <View style={styles.lockedLevel}>
-                                        <Ionicons name="lock-closed" size={12} color={colors.muted} />
-                                        <Text style={styles.lockedLevelCost}>{unlockCost}</Text>
+                                        <Text style={[styles.levelButtonText, { color: colors.muted, fontSize: 14 }]}>{level}</Text>
+                                        <View style={{ flexDirection: "row", alignItems: "center", gap: 2 }}>
+                                            <Ionicons name="lock-closed" size={10} color={colors.muted} />
+                                            <Text style={styles.lockedLevelCost}>{unlockCost}</Text>
+                                        </View>
                                     </View>
                                 )}
                             </Pressable>
@@ -467,7 +484,7 @@ const useStyles = makeStyles((colors) => ({
         marginTop: 8,
     },
     levelButton: {
-        width: "18%",
+        width: "23%",
         aspectRatio: 1,
         borderRadius: 12,
         backgroundColor: colors.surfaceTertiary,

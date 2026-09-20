@@ -68,12 +68,12 @@ export const SUDOKU_TIERS: SudokuTier[] = [
 ];
 
 export const SUDOKU_HINT_RULES = {
-    freeHints: 2,
-    rewardedAdHints: 2,
+    freeHints: 1,
+    rewardedAdHints: 99,
 };
 export function getSudokuPuzzleId(
     difficulty: SudokuDifficulty,
     gameNumber: number,
 ): string {
-    return `${difficulty}-${gameNumber}`;
+    return `sudoku-${difficulty}-${gameNumber}`;
 }

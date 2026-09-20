@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AgeSelection } from "@/src/screens/AgeSelection";
+import { NameEntry } from "@/src/screens/NameEntry";
 import { Admin } from "@/src/screens/Admin";
 import { SudokuHub } from "@/src/game/sudoku/SudokuHub";
 import { SudokuGame } from "@/src/game/sudoku/SudokuGame";
@@ -23,7 +24,7 @@ import { loadProfile, resetProfile, saveProfile } from "@/src/game/storage";
 import { AgeGroupId, AppSettings, DEFAULT_PROFILE, GameResult, LocalProfile } from "@/src/game/types";
 import { makeStyles, useTheme } from "@/src/theme";
 
-type Screen = "splash" | "age" | "home" | "game" | "results" | "settings" | "admin" | "challenge" | "howto" | "sudoku-hub" | "sudoku-game" | "puzzles-hub" | "puzzle-game";
+type Screen = "splash" | "name" | "age" | "home" | "game" | "results" | "settings" | "admin" | "challenge" | "howto" | "sudoku-hub" | "sudoku-game" | "puzzles-hub" | "puzzle-game";
 
 const CHALLENGE_TOKEN_REWARD: Record<ChallengeTier, number> = { "3-day": 20, "7-day": 30 };
 function Splash() {
@@ -149,10 +150,23 @@ export default function Index() {
         unlockedMathsPuzzles: saved.unlockedMathsPuzzles ?? {},
         completedMathsPuzzles: saved.completedMathsPuzzles ?? {},
       });
-      setTimeout(() => setScreen(saved.hasOnboarded ? "home" : "age"), 900);
+      setTimeout(() => {
+        if (!saved.playerName) {
+          setScreen("name");
+        } else {
+          setScreen(saved.hasOnboarded ? "home" : "age");
+        }
+      }, 900);
     });
     return () => { active = false; };
   }, []);
+
+  const saveName = async (name: string) => {
+    const next = { ...profile, playerName: name };
+    setProfile(next); 
+    await saveProfile(next);
+    setScreen(next.hasOnboarded ? "home" : "age");
+  };
 
   const chooseAge = async (ageGroup: AgeGroupId) => {
     const next = { ...profile, hasOnboarded: true, ageGroup };
@@ -195,6 +209,7 @@ export default function Index() {
   const openChallenge = (tier: ChallengeTier) => { setChallengeTier(tier); setScreen("challenge"); };
 
   if (screen === "splash") return <Splash />;
+  if (screen === "name") return <NameEntry onSave={saveName} />;
   if (screen === "age") return <AgeSelection onSelect={chooseAge} />;
   if (screen === "home") {
     return (
@@ -289,8 +304,19 @@ export default function Index() {
         difficulty={selectedSudokuDifficulty}
         gameNumber={selectedSudokuLevel}
         onBack={() => setScreen("sudoku-hub")}
-        onComplete={(puzzleId) => {
+        onComplete={(puzzleId, mistakes) => {
+          const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
+
           if (profile.completedSudoku[puzzleId]) {
+            const currentStars = profile.sudokuStars?.[puzzleId] || 0;
+            if (stars > currentStars) {
+              const next = {
+                ...profile,
+                sudokuStars: { ...profile.sudokuStars, [puzzleId]: stars },
+              };
+              setProfile(next);
+              void saveProfile(next);
+            }
             setScreen("sudoku-hub");
             return;
           }
@@ -302,6 +328,10 @@ export default function Index() {
               ...profile.completedSudoku,
               [puzzleId]: true,
             },
+            sudokuStars: {
+              ...profile.sudokuStars,
+              [puzzleId]: stars,
+            }
           };
 
           setProfile(next);

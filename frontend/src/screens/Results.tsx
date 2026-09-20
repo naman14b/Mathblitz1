@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ScrollView, Text, View } from "react-native";
@@ -5,14 +6,36 @@ import { GameResult } from "@/src/game/types";
 import { BrandMark, PrimaryButton, ScreenTitle, SoftButton, StatTile } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
 
+const SARCASM_BEST = [
+  "Look at you breaking records! The calculator is shaking.",
+  "New personal best! Are you secretly a math genius?",
+  "Wow, you actually did it. I'm slightly impressed!",
+  "A new high score! Don't let it go to your head now.",
+  "Incredible! I'd clap, but I don't have hands.",
+];
+
+const SARCASM_NORMAL = [
+  "Not bad! For a human, at least.",
+  "Great blitz! Practice makes perfect... eventually.",
+  "Solid effort! Let's see if you can go even faster.",
+  "You survived! But I know you can do better.",
+  "Math is easy, right? Prove it by playing again!",
+];
+
 export function Results({ result, isNewBest, tokenBalance, onAgain, onHome }: { result: GameResult; isNewBest: boolean; tokenBalance: number; onAgain: () => void; onHome: () => void }) {
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
   const styles = useStyles();
   const tokensLabel = result.tokensClaimed ? (result.tokens >= 0 ? `+${result.tokens} tokens` : `${result.tokens} tokens`) : "No tokens · daily limit reached";
+  
+  const titleText = useMemo(() => {
+    const array = isNewBest ? SARCASM_BEST : SARCASM_NORMAL;
+    return array[Math.floor(Math.random() * array.length)];
+  }, [isNewBest]);
+
   return <View style={styles.root}><ScrollView contentContainerStyle={{ paddingTop: insets.top + 18, paddingBottom: insets.bottom + 25, paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
     <BrandMark />
-    <View style={styles.header}><View style={styles.celebrate}><Ionicons name={isNewBest ? "trophy" : "sparkles"} size={25} color={colors.onBrandSecondary} /></View><ScreenTitle eyebrow={isNewBest ? "New personal best" : "Time well spent"} title={isNewBest ? "You crushed it!" : "Great blitz."} subtitle="Every question makes your thinking faster." /></View>
+    <View style={styles.header}><View style={styles.celebrate}><Ionicons name={isNewBest ? "trophy" : "sparkles"} size={25} color={colors.onBrandSecondary} /></View><ScreenTitle eyebrow={isNewBest ? "New personal best" : "Time well spent"} title={titleText} subtitle="Every question makes your thinking faster." /></View>
     <View style={styles.scoreCard}>
       <Text style={styles.scoreLabel}>FINAL SCORE</Text>
       <Text style={styles.score}>{result.score}</Text>
