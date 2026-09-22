@@ -31,7 +31,7 @@ export function MathsPuzzleGame({
     onBack,
     onComplete,
 }: MathsPuzzleGameProps) {
-    const { colors } = useTheme();
+    const { colors, isNight } = useTheme();
     const styles = useStyles();
 
     const [grid, setGrid] = useState<MathsGrid>(() => {
