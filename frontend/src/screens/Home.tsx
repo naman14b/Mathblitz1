@@ -274,8 +274,11 @@ export function Home({
           </View>
         </View>
 
+        {/* Space revealing character artwork (Astronaut / Boy) */}
+        <View style={{ height: 105 }} pointerEvents="none" />
+
         {/* Greetings Header with Equipped Badges (Up to 2) */}
-        <View style={styles.greeting}>
+        <View style={[styles.greetingCard, isNight ? styles.greetingCardNight : styles.greetingCardDay]}>
           <View style={styles.playerCardRow}>
             <View
               style={[
@@ -330,7 +333,7 @@ export function Home({
         </View>
 
         {/* Streak System Card with 3-Day & 7-Day Interactive Challenges */}
-        <View style={styles.streakCard}>
+        <View style={[styles.streakCard, isNight ? styles.streakCardNight : styles.streakCardDay]}>
           <View style={styles.streakHeader}>
             <Animated.View style={[styles.streakIcon, flameAnimatedStyle]}>
               <Ionicons name="flame" size={24} color={colors.warning} />
@@ -357,7 +360,9 @@ export function Home({
           </View>
 
           <View style={styles.progressTrack}>
-            <View style={[styles.progressFill, { width: `${Math.max(8, milestoneProgress * 100)}%` }]} />
+            <View style={[styles.progressFill, { width: `${Math.max(8, milestoneProgress * 100)}%` }]}>
+              <Text style={styles.rocketOnTrack}>🚀</Text>
+            </View>
           </View>
 
           {/* Milestone label */}
@@ -375,7 +380,7 @@ export function Home({
             <Text style={styles.streakChallengesTitle}>STREAK CHALLENGES</Text>
 
             {/* 3-Day Streak Challenge Card */}
-            <View style={styles.streakChallengeCard}>
+            <View style={[styles.streakChallengeCard, isNight ? styles.streakChallengeCardNight : styles.streakChallengeCardDay]}>
               <View style={styles.streakChallengeBadge}>
                 <Text style={styles.streakChallengeBadgeText}>⚡</Text>
               </View>
@@ -413,8 +418,8 @@ export function Home({
               )}
             </View>
 
-            {/* 7-Day Streak Challenge Card */}
-            <View style={styles.streakChallengeCard}>
+            {/* 7-Day Blitz Master Challenge Card */}
+            <View style={[styles.streakChallengeCard, isNight ? styles.streakChallengeCardNight : styles.streakChallengeCardDay]}>
               <View style={styles.streakChallengeBadge}>
                 <Text style={styles.streakChallengeBadgeText}>👑</Text>
               </View>
@@ -477,7 +482,7 @@ export function Home({
         <AnimatedPressableCard
           testID="home-daily-challenge"
           onPress={onDailyChallenge}
-          style={styles.dailyCard}
+          style={[styles.dailyCard, isNight ? styles.dailyCardNight : styles.dailyCardDay]}
         >
           <View style={styles.dailyHeaderRow}>
             <View style={styles.dailyTag}>
@@ -617,7 +622,28 @@ const useStyles = makeStyles((colors: any) => ({
   root: { flex: 1, backgroundColor: "transparent" },
   topbar: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   actions: { flexDirection: "row", gap: 8 },
-  greeting: { marginTop: 20, marginBottom: 18 },
+  greetingCard: {
+    borderRadius: 22,
+    padding: 14,
+    marginBottom: 14,
+    borderWidth: 1.5,
+  },
+  greetingCardNight: {
+    backgroundColor: "rgba(12, 18, 42, 0.78)",
+    borderColor: "rgba(59, 130, 246, 0.32)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
+    shadowRadius: 12,
+  },
+  greetingCardDay: {
+    backgroundColor: "rgba(255, 255, 255, 0.92)",
+    borderColor: "rgba(0, 0, 0, 0.06)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+  },
   playerCardRow: { flexDirection: "row", alignItems: "center", gap: 14 },
   playerAvatarContainer: {
     width: 52,
@@ -649,12 +675,18 @@ const useStyles = makeStyles((colors: any) => ({
   },
   equippedFrameText: { color: "#FFFFFF", fontSize: 11, fontWeight: "900" },
   streakCard: {
-    backgroundColor: colors.surfaceSecondary,
     borderRadius: 24,
     padding: 17,
     marginBottom: 16,
     borderWidth: 1.5,
-    borderColor: colors.divider,
+  },
+  streakCardNight: {
+    backgroundColor: "rgba(12, 17, 38, 0.82)",
+    borderColor: "rgba(59, 130, 246, 0.28)",
+  },
+  streakCardDay: {
+    backgroundColor: "rgba(255, 255, 255, 0.90)",
+    borderColor: "rgba(0, 0, 0, 0.06)",
   },
   streakHeader: { flexDirection: "row", alignItems: "center", gap: 11 },
   streakIcon: {
@@ -676,12 +708,20 @@ const useStyles = makeStyles((colors: any) => ({
     borderRadius: 99,
     backgroundColor: colors.surfaceTertiary,
     marginTop: 17,
-    overflow: "hidden",
+    overflow: "visible",
+    position: "relative",
   },
   progressFill: {
     height: "100%",
     backgroundColor: colors.warning,
     borderRadius: 99,
+    position: "relative",
+  },
+  rocketOnTrack: {
+    position: "absolute",
+    right: -10,
+    top: -7,
+    fontSize: 16,
   },
   streakFoot: { flexDirection: "row", justifyContent: "space-between", marginTop: 9 },
   streakFootText: { color: colors.muted, fontSize: 10, fontWeight: "700" },
@@ -703,10 +743,18 @@ const useStyles = makeStyles((colors: any) => ({
   streakChallengeCard: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.surfaceTertiary,
     borderRadius: 16,
     padding: 10,
     gap: 10,
+    borderWidth: 1,
+  },
+  streakChallengeCardNight: {
+    backgroundColor: "rgba(18, 24, 52, 0.78)",
+    borderColor: "rgba(59, 130, 246, 0.22)",
+  },
+  streakChallengeCardDay: {
+    backgroundColor: "rgba(255, 255, 255, 0.82)",
+    borderColor: "rgba(0, 0, 0, 0.06)",
   },
   streakChallengeBadge: {
     width: 36,
@@ -788,13 +836,19 @@ const useStyles = makeStyles((colors: any) => ({
 
   // Daily Challenge Card styling
   dailyCard: {
-    backgroundColor: colors.surfaceSecondary,
     borderRadius: 24,
     padding: 18,
     marginBottom: 16,
     borderWidth: 1.5,
-    borderColor: colors.brandPrimary + "44",
     gap: 12,
+  },
+  dailyCardNight: {
+    backgroundColor: "rgba(12, 17, 38, 0.82)",
+    borderColor: "rgba(59, 130, 246, 0.28)",
+  },
+  dailyCardDay: {
+    backgroundColor: "rgba(255, 255, 255, 0.90)",
+    borderColor: "rgba(0, 0, 0, 0.06)",
   },
   dailyHeaderRow: {
     flexDirection: "row",

@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, Alert, Text, View, useColorScheme } from "react-native";
+import { ActivityIndicator, Alert, Platform, Text, View, useColorScheme, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AgeSelection } from "@/src/screens/AgeSelection";
 import { NameEntry } from "@/src/screens/NameEntry";
@@ -150,6 +150,114 @@ const useStyles = makeStyles((colors) => ({
     marginTop: 18,
   },
 }));
+
+function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; isNight: boolean }) {
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const isDesktopWeb = Platform.OS === "web" && windowWidth > 500;
+
+  // Exact iPhone screen aspect ratio from reference images: 470 x 1024 = 0.45898
+  const PHONE_ASPECT_RATIO = 470 / 1024;
+
+  const maxAvailableHeight = windowHeight * 0.95;
+  const maxAvailableWidth = windowWidth * 0.92;
+
+  let phoneHeight = Math.min(maxAvailableHeight, 940);
+  let phoneWidth = phoneHeight * PHONE_ASPECT_RATIO;
+
+  if (phoneWidth > maxAvailableWidth || phoneWidth > 440) {
+    phoneWidth = Math.min(maxAvailableWidth, 440);
+    phoneHeight = phoneWidth / PHONE_ASPECT_RATIO;
+  }
+
+  if (!isDesktopWeb) {
+    return (
+      <View style={{ flex: 1, width: "100%", height: "100%", backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+        {children}
+      </View>
+    );
+  }
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        width: "100%",
+        height: "100%",
+        backgroundColor: isNight ? "#060812" : "#E2E8F0",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {/* Phone Screen Container with exact 470 : 1024 aspect ratio */}
+      <View
+        style={{
+          width: phoneWidth,
+          height: phoneHeight,
+          borderRadius: 44,
+          overflow: "hidden",
+          backgroundColor: isNight ? "#090A14" : "#F0F8FF",
+          borderWidth: 6,
+          borderColor: isNight ? "#1C233D" : "#D2D9E2",
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 20 },
+          shadowOpacity: isNight ? 0.65 : 0.22,
+          shadowRadius: 40,
+          elevation: 24,
+          position: "relative",
+        }}
+      >
+        {/* Dynamic Island / Notch */}
+        <View
+          style={{
+            position: "absolute",
+            top: 10,
+            alignSelf: "center",
+            width: 108,
+            height: 24,
+            borderRadius: 12,
+            backgroundColor: isNight ? "#000000" : "#111827",
+            zIndex: 9999,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          pointerEvents="none"
+        >
+          <View
+            style={{
+              position: "absolute",
+              right: 12,
+              width: 9,
+              height: 9,
+              borderRadius: 5,
+              backgroundColor: isNight ? "#0C1425" : "#1F2937",
+            }}
+          />
+        </View>
+
+        {/* Content */}
+        <View style={{ flex: 1, position: "relative" }}>
+          {children}
+        </View>
+
+        {/* Home Indicator */}
+        <View
+          style={{
+            position: "absolute",
+            bottom: 8,
+            alignSelf: "center",
+            width: 130,
+            height: 4,
+            borderRadius: 2,
+            backgroundColor: isNight ? "rgba(255, 255, 255, 0.35)" : "rgba(0, 0, 0, 0.3)",
+            zIndex: 9999,
+          }}
+          pointerEvents="none"
+        />
+      </View>
+    </View>
+  );
+}
+
 export default function Index() {
   // Wrap the whole app in ThemeContext so every screen reacts to theme changes
   const [screen, setScreen] = useState<Screen>("splash");
@@ -460,76 +568,78 @@ export default function Index() {
   if (screen === "splash") {
     return (
       <ThemeContext.Provider value={themeContextValue}>
-        <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+        <PhoneScreenWrapper isNight={isNight}>
           <SurrealBackground />
           <Splash />
-        </View>
+        </PhoneScreenWrapper>
       </ThemeContext.Provider>
     );
   }
   if (screen === "name") {
     return (
       <ThemeContext.Provider value={themeContextValue}>
-        <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+        <PhoneScreenWrapper isNight={isNight}>
           <SurrealBackground />
           <NameEntry onSave={saveName} />
-        </View>
+        </PhoneScreenWrapper>
       </ThemeContext.Provider>
     );
   }
   if (screen === "age") {
     return (
       <ThemeContext.Provider value={themeContextValue}>
-        <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+        <PhoneScreenWrapper isNight={isNight}>
           <SurrealBackground />
           <AgeSelection onSelect={chooseAge} />
-        </View>
+        </PhoneScreenWrapper>
       </ThemeContext.Provider>
     );
   }
   // All themed screens are wrapped in ThemeContext.Provider
   return (
     <ThemeContext.Provider value={themeContextValue}>
-      <AppShell
-        screen={screen}
-        profile={profile}
-        result={result}
-        newBest={newBest}
-        challengeTier={challengeTier}
-        selectedSudokuDifficulty={selectedSudokuDifficulty}
-        selectedSudokuLevel={selectedSudokuLevel}
-        selectedMathsPuzzle={selectedMathsPuzzle}
-        setScreen={setScreen}
-        setProfile={setProfile}
-        setResult={setResult}
-        setNewBest={setNewBest}
-        setChallengeTier={setChallengeTier}
-        setSelectedSudokuDifficulty={setSelectedSudokuDifficulty}
-        setSelectedSudokuLevel={setSelectedSudokuLevel}
-        setSelectedMathsPuzzle={setSelectedMathsPuzzle}
-        startGame={startGame}
-        finishGame={finishGame}
-        finishChallenge={finishChallenge}
-        finishDailyChallenge={finishDailyChallenge}
-        openDailyChallenge={openDailyChallenge}
-        openLeaderboards={openLeaderboards}
-        updateSettings={updateSettings}
-        reset={reset}
-        openChallenge={openChallenge}
-        challengeRapidFire={challengeRapidFire}
-        setChallengeRapidFire={setChallengeRapidFire}
-        equipAchievementBadge={equipAchievementBadge}
-        equipPremiumBadge={equipPremiumBadge}
-        toggleEquipBadge={toggleEquipBadge}
-        purchasePremiumBadge={purchasePremiumBadge}
-        activateTheme={activateTheme}
-        purchaseTheme={purchaseTheme}
-        saveName={saveName}
-        changeAvatar={changeAvatar}
-        chooseAge={chooseAge}
-        processWinAndNavigate={processWinAndNavigate}
-        onMathBossComplete={handleMathBossComplete}
-      />
+      <PhoneScreenWrapper isNight={isNight}>
+        <AppShell
+          screen={screen}
+          profile={profile}
+          result={result}
+          newBest={newBest}
+          challengeTier={challengeTier}
+          selectedSudokuDifficulty={selectedSudokuDifficulty}
+          selectedSudokuLevel={selectedSudokuLevel}
+          selectedMathsPuzzle={selectedMathsPuzzle}
+          setScreen={setScreen}
+          setProfile={setProfile}
+          setResult={setResult}
+          setNewBest={setNewBest}
+          setChallengeTier={setChallengeTier}
+          setSelectedSudokuDifficulty={setSelectedSudokuDifficulty}
+          setSelectedSudokuLevel={setSelectedSudokuLevel}
+          setSelectedMathsPuzzle={setSelectedMathsPuzzle}
+          startGame={startGame}
+          finishGame={finishGame}
+          finishChallenge={finishChallenge}
+          finishDailyChallenge={finishDailyChallenge}
+          openDailyChallenge={openDailyChallenge}
+          openLeaderboards={openLeaderboards}
+          updateSettings={updateSettings}
+          reset={reset}
+          openChallenge={openChallenge}
+          challengeRapidFire={challengeRapidFire}
+          setChallengeRapidFire={setChallengeRapidFire}
+          equipAchievementBadge={equipAchievementBadge}
+          equipPremiumBadge={equipPremiumBadge}
+          toggleEquipBadge={toggleEquipBadge}
+          purchasePremiumBadge={purchasePremiumBadge}
+          activateTheme={activateTheme}
+          purchaseTheme={purchaseTheme}
+          saveName={saveName}
+          changeAvatar={changeAvatar}
+          chooseAge={chooseAge}
+          processWinAndNavigate={processWinAndNavigate}
+          onMathBossComplete={handleMathBossComplete}
+        />
+      </PhoneScreenWrapper>
     </ThemeContext.Provider>
   );
 }

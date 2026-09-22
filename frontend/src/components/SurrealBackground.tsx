@@ -131,10 +131,10 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   scrimDay: {
-    backgroundColor: "rgba(255, 255, 255, 0.12)",
+    backgroundColor: "rgba(255, 255, 255, 0.04)",
   },
   scrimNight: {
-    backgroundColor: "rgba(10, 14, 28, 0.38)",
+    backgroundColor: "rgba(10, 14, 28, 0.22)",
   },
   particle: {
     position: "absolute",
