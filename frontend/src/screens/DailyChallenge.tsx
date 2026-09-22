@@ -66,7 +66,7 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
   const [score, setScore] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(DURATION_SECONDS);
-  const [gameStatus, setGameStatus] = useState<"playing" | "won" | "lost">("playing");
+  const [gameStatus, setGameStatus] = useState<"playing" | "cinematic_win" | "cinematic_loss" | "won" | "lost">("playing");
   const [animationState, setAnimationState] = useState<AnimationState>("chase");
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
@@ -87,9 +87,9 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
     if (secondsLeft <= 0) {
       // If time runs out, evaluate win/loss based on score
       if (score >= 5) {
-        handleWin();
+        handleWin(score);
       } else {
-        handleLoss("Time's up! You couldn't outrun the snake.");
+        handleLoss("Time's up! You couldn't outrun the snake.", score);
       }
       return;
     }
@@ -107,18 +107,30 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   }, [secondsLeft]);
 
-  const handleWin = () => {
-    setGameStatus("won");
+  const handleWin = (finalScore: number = score) => {
+    // 1. Immediately hide questions & answers, switch video to Win (Boy jumping to other side of path)
+    setGameStatus("cinematic_win");
     setAnimationState("win");
-    onComplete(score);
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+
+    // 2. Play 3.8s of the full-screen cinematic video before revealing victory results
+    setTimeout(() => {
+      setGameStatus("won");
+      onComplete(finalScore);
+    }, 3800);
   };
 
-  const handleLoss = (reason?: string) => {
-    setGameStatus("lost");
+  const handleLoss = (reason?: string, finalScore: number = score) => {
+    // 1. Immediately hide questions & answers, switch video to Jail (Snake directing boy into jail)
+    setGameStatus("cinematic_loss");
     setAnimationState("jail");
-    onComplete(score);
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+
+    // 2. Play 3.8s of the full-screen cinematic video before revealing jail results
+    setTimeout(() => {
+      setGameStatus("lost");
+      onComplete(finalScore);
+    }, 3800);
   };
 
   const answerQuestion = (selected: number) => {
@@ -142,11 +154,11 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
         withSpring(1, { damping: 12 })
       );
 
-      // Check win condition
+      // Check win condition (Target score reached -> boy escapes)
       if (nextScore >= TARGET_WIN_SCORE) {
         setTimeout(() => {
-          handleWin();
-        }, 500);
+          handleWin(nextScore);
+        }, 300);
         return;
       }
 
@@ -173,8 +185,8 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
       // If player gets 4 questions wrong -> Loss & Jail animation!
       if (nextWrong >= MAX_WRONG_ALLOWED) {
         setTimeout(() => {
-          handleLoss("You got 4 questions wrong! The snake captured you.");
-        }, 500);
+          handleLoss("You got 4 questions wrong! The snake captured you.", score);
+        }, 300);
         return;
       }
 
@@ -347,7 +359,25 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
           </View>
         )}
 
-        {/* Win Screen Overlay */}
+        {/* Cinematic Win View: Questions disappear, video of boy jumping across path plays full screen */}
+        {gameStatus === "cinematic_win" && (
+          <View style={styles.cinematicBannerContainer}>
+            <View style={styles.cinematicBadgeWin}>
+              <Text style={styles.cinematicBadgeText}>🏃‍♂️ Jumping across the path to safety...</Text>
+            </View>
+          </View>
+        )}
+
+        {/* Cinematic Loss View: Questions disappear, video of snake chasing boy into jail plays full screen */}
+        {gameStatus === "cinematic_loss" && (
+          <View style={styles.cinematicBannerContainer}>
+            <View style={styles.cinematicBadgeLoss}>
+              <Text style={styles.cinematicBadgeText}>🐍 Directed into the jail cell...</Text>
+            </View>
+          </View>
+        )}
+
+        {/* Win Screen Overlay (revealed after cinematic video) */}
         {gameStatus === "won" && (
           <View style={styles.resultContainer}>
             <View style={styles.resultCardWin}>
@@ -501,6 +531,46 @@ const styles = StyleSheet.create({
     color: "#FDE68A",
     fontSize: 15,
     fontWeight: "900",
+  },
+
+  cinematicBannerContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingBottom: 40,
+    zIndex: 20,
+  },
+  cinematicBadgeWin: {
+    backgroundColor: "rgba(16, 185, 129, 0.92)",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 99,
+    borderWidth: 1.5,
+    borderColor: "#A7F3D0",
+    shadowColor: "#10B981",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 8,
+  },
+  cinematicBadgeLoss: {
+    backgroundColor: "rgba(239, 68, 68, 0.92)",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 99,
+    borderWidth: 1.5,
+    borderColor: "#FECACA",
+    shadowColor: "#EF4444",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 8,
+  },
+  cinematicBadgeText: {
+    color: "#FFFFFF",
+    fontSize: 15,
+    fontWeight: "900",
+    letterSpacing: 0.3,
   },
 
   content: {

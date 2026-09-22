@@ -111,8 +111,13 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
           }}
         />
 
-        {/* Darkening tint scrim to make question cards & options pop clearly */}
-        <View style={styles.overlayScrim} />
+        {/* Darkening tint scrim during gameplay; fades to 0 during win / jail animation */}
+        <View
+          style={[
+            styles.overlayScrim,
+            (state === "win" || state === "jail") && { opacity: 0 },
+          ]}
+        />
       </View>
     );
   }
@@ -120,7 +125,12 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
   // Native fallback (using expo-video when available or native video container)
   return (
     <View style={styles.container} pointerEvents="none">
-      <View style={styles.overlayScrim} />
+      <View
+        style={[
+          styles.overlayScrim,
+          (state === "win" || state === "jail") && { opacity: 0 },
+        ]}
+      />
     </View>
   );
 }
@@ -142,6 +152,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(8, 12, 24, 0.28)",
+    transition: "opacity 0.4s ease" as any,
     zIndex: 4,
   },
 });
