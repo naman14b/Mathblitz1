@@ -155,17 +155,17 @@ function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; 
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const isDesktopWeb = Platform.OS === "web" && windowWidth > 500;
 
-  // Exact iPhone screen aspect ratio from reference images: 470 x 1024 = 0.45898
-  const PHONE_ASPECT_RATIO = 470 / 1024;
+  // 9:16 aspect ratio as requested: 9 / 16 = 0.5625
+  const PHONE_ASPECT_RATIO = 9 / 16;
 
-  const maxAvailableHeight = windowHeight * 0.95;
-  const maxAvailableWidth = windowWidth * 0.92;
+  const maxAvailableHeight = windowHeight * 0.97;
+  const maxAvailableWidth = windowWidth * 0.95;
 
-  let phoneHeight = Math.min(maxAvailableHeight, 940);
+  let phoneHeight = Math.min(maxAvailableHeight, 1080);
   let phoneWidth = phoneHeight * PHONE_ASPECT_RATIO;
 
-  if (phoneWidth > maxAvailableWidth || phoneWidth > 440) {
-    phoneWidth = Math.min(maxAvailableWidth, 440);
+  if (phoneWidth > maxAvailableWidth || phoneWidth > 480) {
+    phoneWidth = Math.min(maxAvailableWidth, 480);
     phoneHeight = phoneWidth / PHONE_ASPECT_RATIO;
   }
 
@@ -188,15 +188,15 @@ function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; 
         alignItems: "center",
       }}
     >
-      {/* Phone Screen Container with exact 470 : 1024 aspect ratio */}
+      {/* Phone Screen Container — iPhone 14 Pro aspect ratio */}
       <View
         style={{
           width: phoneWidth,
           height: phoneHeight,
-          borderRadius: 44,
+          borderRadius: 48,
           overflow: "hidden",
           backgroundColor: isNight ? "#090A14" : "#F0F8FF",
-          borderWidth: 6,
+          borderWidth: 3,
           borderColor: isNight ? "#1C233D" : "#D2D9E2",
           shadowColor: "#000",
           shadowOffset: { width: 0, height: 20 },
@@ -206,15 +206,15 @@ function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; 
           position: "relative",
         }}
       >
-        {/* Dynamic Island / Notch */}
+        {/* Dynamic Island */}
         <View
           style={{
             position: "absolute",
-            top: 10,
+            top: 8,
             alignSelf: "center",
-            width: 108,
-            height: 24,
-            borderRadius: 12,
+            width: 96,
+            height: 22,
+            borderRadius: 11,
             backgroundColor: isNight ? "#000000" : "#111827",
             zIndex: 9999,
             alignItems: "center",
@@ -225,10 +225,10 @@ function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; 
           <View
             style={{
               position: "absolute",
-              right: 12,
-              width: 9,
-              height: 9,
-              borderRadius: 5,
+              right: 10,
+              width: 8,
+              height: 8,
+              borderRadius: 4,
               backgroundColor: isNight ? "#0C1425" : "#1F2937",
             }}
           />
@@ -243,9 +243,9 @@ function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; 
         <View
           style={{
             position: "absolute",
-            bottom: 8,
+            bottom: 6,
             alignSelf: "center",
-            width: 130,
+            width: 120,
             height: 4,
             borderRadius: 2,
             backgroundColor: isNight ? "rgba(255, 255, 255, 0.35)" : "rgba(0, 0, 0, 0.3)",

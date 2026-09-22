@@ -254,9 +254,9 @@ export function Home({
     <View style={styles.root}>
       <ScrollView
         contentContainerStyle={{
-          paddingTop: insets.top + 14,
-          paddingBottom: insets.bottom + 90,
-          paddingHorizontal: 20,
+          paddingTop: insets.top + 10,
+          paddingBottom: insets.bottom + 80,
+          paddingHorizontal: 16,
         }}
         showsVerticalScrollIndicator={false}
       >
@@ -275,7 +275,7 @@ export function Home({
         </View>
 
         {/* Space revealing character artwork (Astronaut / Boy) */}
-        <View style={{ height: 105 }} pointerEvents="none" />
+        <View style={{ height: 80 }} pointerEvents="none" />
 
         {/* Greetings Header with Equipped Badges (Up to 2) */}
         <View style={[styles.greetingCard, isNight ? styles.greetingCardNight : styles.greetingCardDay]}>
@@ -623,9 +623,9 @@ const useStyles = makeStyles((colors: any) => ({
   topbar: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   actions: { flexDirection: "row", gap: 8 },
   greetingCard: {
-    borderRadius: 22,
-    padding: 14,
-    marginBottom: 14,
+    borderRadius: 20,
+    padding: 12,
+    marginBottom: 12,
     borderWidth: 1.5,
   },
   greetingCardNight: {
@@ -675,9 +675,9 @@ const useStyles = makeStyles((colors: any) => ({
   },
   equippedFrameText: { color: "#FFFFFF", fontSize: 11, fontWeight: "900" },
   streakCard: {
-    borderRadius: 24,
-    padding: 17,
-    marginBottom: 16,
+    borderRadius: 22,
+    padding: 14,
+    marginBottom: 14,
     borderWidth: 1.5,
   },
   streakCardNight: {
@@ -836,11 +836,11 @@ const useStyles = makeStyles((colors: any) => ({
 
   // Daily Challenge Card styling
   dailyCard: {
-    borderRadius: 24,
-    padding: 18,
-    marginBottom: 16,
+    borderRadius: 22,
+    padding: 14,
+    marginBottom: 14,
     borderWidth: 1.5,
-    gap: 12,
+    gap: 10,
   },
   dailyCardNight: {
     backgroundColor: "rgba(12, 17, 38, 0.82)",

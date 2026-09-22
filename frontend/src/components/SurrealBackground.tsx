@@ -97,7 +97,7 @@ export const SurrealBackground = React.memo(function SurrealBackground() {
       <ImageBackground
         source={isNight ? BG_NIGHT : BG_DAY}
         style={StyleSheet.absoluteFill}
-        resizeMode="cover"
+        resizeMode="stretch"
       >
         {/* Subtle readability scrim: keeps artwork visible while ensuring text contrast */}
         <View
