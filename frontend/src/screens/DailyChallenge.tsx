@@ -23,7 +23,7 @@ type Question = {
   answer: number;
 };
 
-const DURATION_SECONDS = 120;
+const DURATION_SECONDS = 60;
 const MAX_WRONG_ALLOWED = 4;
 const TARGET_WIN_SCORE = 10;
 
@@ -241,7 +241,7 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
             <View style={styles.instructionBanner}>
               <Text style={styles.eyebrow}>TODAY'S CHALLENGE</Text>
               <Text style={styles.instruction}>
-                Solve as many as you can in 2 minutes.
+                Solve as many as you can in 1 minute.
               </Text>
             </View>
 

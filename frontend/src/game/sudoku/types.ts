@@ -30,7 +30,7 @@ export const SUDOKU_TIERS: SudokuTier[] = [
         title: "Easy",
         description: "Basic scanning, naked singles and hidden singles.",
         gameCount: 50,
-        unlockCost: 10,
+        unlockCost: 20,
         timeLimitSeconds: 600,
     },
     {
@@ -38,7 +38,7 @@ export const SUDOKU_TIERS: SudokuTier[] = [
         title: "Medium",
         description: "Box-line eliminations, early pairs and candidate tracking.",
         gameCount: 50,
-        unlockCost: 25,
+        unlockCost: 35,
         timeLimitSeconds: 720,
     },
     {
@@ -46,7 +46,7 @@ export const SUDOKU_TIERS: SudokuTier[] = [
         title: "Hard",
         description: "Strict candidate tracking, naked/hidden pairs and pointing pairs.",
         gameCount: 50,
-        unlockCost: 50,
+        unlockCost: 60,
         timeLimitSeconds: 900,
     },
     {
@@ -54,7 +54,7 @@ export const SUDOKU_TIERS: SudokuTier[] = [
         title: "Expert / Extreme",
         description: "X-Wings, Swordfish and coloring chains.",
         gameCount: 50,
-        unlockCost: 80,
+        unlockCost: 90,
         timeLimitSeconds: 1080,
     },
     {
@@ -62,7 +62,7 @@ export const SUDOKU_TIERS: SudokuTier[] = [
         title: "Evil / Master",
         description: "Forcing chains, advanced fish patterns and minimal clues.",
         gameCount: 50,
-        unlockCost: 120,
+        unlockCost: 130,
         timeLimitSeconds: 1200,
     },
 ];

@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { useMemo, useState } from "react";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import type { LocalProfile } from "@/src/game/types";
@@ -8,8 +8,10 @@ import { isSudokuUnlocked, isSudokuCompleted } from "@/src/game/storage";
 import {
     SUDOKU_TIERS,
     type SudokuDifficulty,
+    type SudokuTier,
 } from "@/src/game/sudoku/types";
 import { makeStyles, useTheme } from "@/src/theme";
+import { ASTRONAUT_HEADER, formatSecondsToTime, getLevelImage } from "@/src/game/levelAssets";
 
 type SudokuHubProps = {
     profile: LocalProfile;
@@ -17,103 +19,256 @@ type SudokuHubProps = {
     onPlay: (difficulty: SudokuDifficulty, level: number) => void;
 };
 
+const DIFFICULTY_TABS: Array<{
+    id: SudokuDifficulty;
+    label: string;
+    icon: string;
+    activeColor: string;
+    badgeIconColor: string;
+}> = [
+    { id: "easy", label: "Easy", icon: "star", activeColor: "#FBBF24", badgeIconColor: "#FBBF24" },
+    { id: "medium", label: "Medium", icon: "sparkles", activeColor: "#34D399", badgeIconColor: "#34D399" },
+    { id: "hard", label: "Hard", icon: "flame", activeColor: "#FB923C", badgeIconColor: "#FB923C" },
+    { id: "expert", label: "Expert", icon: "flash", activeColor: "#C084FC", badgeIconColor: "#C084FC" },
+    { id: "evil", label: "Master", icon: "ribbon", activeColor: "#818CF8", badgeIconColor: "#818CF8" },
+];
+
 export function SudokuHub({
     profile,
     onBack,
     onPlay,
 }: SudokuHubProps) {
     const insets = useSafeAreaInsets();
-    const { colors } = useTheme();
+    const { colors, isNight } = useTheme();
     const styles = useStyles();
+
+    const [selectedDifficulty, setSelectedDifficulty] = useState<SudokuDifficulty>("easy");
+
+    const currentTier = useMemo(() => {
+        return SUDOKU_TIERS.find((t) => t.difficulty === selectedDifficulty) || SUDOKU_TIERS[0];
+    }, [selectedDifficulty]);
+
+    const completedInCurrentTier = useMemo(() => {
+        return getCompletedCount(profile, selectedDifficulty);
+    }, [profile, selectedDifficulty]);
 
     return (
         <View
             style={[
                 styles.root,
                 {
-                    paddingTop: insets.top,
-                    paddingBottom: insets.bottom,
+                    paddingTop: Math.max(insets.top, 12),
+                    paddingBottom: Math.max(insets.bottom, 12),
                 },
             ]}
         >
-            <View style={styles.header}>
-                <Pressable
-                    onPress={onBack}
-                    style={styles.backButton}
-                    accessibilityRole="button"
-                    accessibilityLabel="Back"
-                >
-                    <Ionicons
-                        name="arrow-back"
-                        size={24}
-                        color={colors.onSurface}
-                    />
-                </Pressable>
+            {/* Top Bar with Back, Title & Astronaut Illustration */}
+            <View style={styles.headerContainer}>
+                <View style={styles.topRow}>
+                    <Pressable
+                        onPress={onBack}
+                        style={styles.backButton}
+                        accessibilityRole="button"
+                        accessibilityLabel="Back"
+                    >
+                        <Ionicons
+                            name="arrow-back"
+                            size={22}
+                            color="#FFFFFF"
+                        />
+                    </Pressable>
 
-                <View style={styles.headerCopy}>
-                    <Text style={styles.title}>Sudoku</Text>
-                    <Text style={styles.subtitle}>
-                        250 puzzles · 5 difficulty levels
-                    </Text>
+                    {/* Token balance pill badge */}
+                    <View style={styles.tokenPill}>
+                        <View style={styles.tokenGem}>
+                            <Ionicons name="diamond" size={14} color="#FBBF24" />
+                        </View>
+                        <Text style={styles.tokenPillText}>{profile.tokens}</Text>
+                    </View>
                 </View>
 
-                <View style={styles.tokenBadge}>
-                    <Ionicons
-                        name="pricetag"
-                        size={16}
-                        color={colors.onBrandPrimary}
-                    />
-                    <Text style={styles.tokenValue}>
-                        {profile.tokens}
-                    </Text>
+                <View style={styles.heroRow}>
+                    <View style={styles.heroCopy}>
+                        <View style={styles.titleRow}>
+                            <Text style={styles.crownEmoji}>👑</Text>
+                            <Text style={styles.title}>Sudoku</Text>
+                        </View>
+                        <Text style={styles.subtitle}>250 puzzles • 5 difficulty levels</Text>
+                    </View>
+
+                    {/* Astronaut boy mascot */}
+                    <View style={styles.mascotWrapper}>
+                        <Image
+                            source={ASTRONAUT_HEADER}
+                            style={styles.mascotImage}
+                            resizeMode="cover"
+                        />
+                    </View>
                 </View>
             </View>
 
+            {/* Progress Section */}
+            <View style={styles.progressContainer}>
+                <View style={styles.progressInfoRow}>
+                    <Ionicons name="star" size={15} color="#FBBF24" />
+                    <Text style={styles.progressInfoText}>
+                        {completedInCurrentTier}/{currentTier.gameCount} completed
+                    </Text>
+                </View>
+                <View style={styles.progressTrackWrapper}>
+                    <View style={styles.progressTrack}>
+                        <View
+                            style={[
+                                styles.progressFill,
+                                {
+                                    width: `${Math.max(
+                                        4,
+                                        (completedInCurrentTier / currentTier.gameCount) * 100,
+                                    )}%`,
+                                },
+                            ]}
+                        />
+                    </View>
+                    <Text style={styles.trophyIcon}>🏆</Text>
+                </View>
+            </View>
+
+            {/* Difficulty Tabs Navigation Bar */}
+            <View style={styles.navBarWrapper}>
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.navBarScroll}
+                >
+                    {DIFFICULTY_TABS.map((tab) => {
+                        const isActive = tab.id === selectedDifficulty;
+                        return (
+                            <Pressable
+                                key={tab.id}
+                                onPress={() => setSelectedDifficulty(tab.id)}
+                                style={[
+                                    styles.navTab,
+                                    isActive && styles.navTabActive,
+                                ]}
+                            >
+                                <Ionicons
+                                    name={tab.icon as any}
+                                    size={14}
+                                    color={isActive ? "#0F172A" : tab.badgeIconColor}
+                                />
+                                <Text
+                                    style={[
+                                        styles.navTabLabel,
+                                        isActive && styles.navTabLabelActive,
+                                    ]}
+                                >
+                                    {tab.label}
+                                </Text>
+                            </Pressable>
+                        );
+                    })}
+                </ScrollView>
+            </View>
+
+            {/* 4-Column Levels Grid */}
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.content}
+                contentContainerStyle={styles.scrollContent}
             >
-                <View style={styles.infoCard}>
-                    <View style={styles.infoIcon}>
-                        <Ionicons
-                            name="bulb-outline"
-                            size={22}
-                            color={colors.brandPrimary}
-                        />
-                    </View>
+                <View style={styles.levelsGrid}>
+                    {Array.from({ length: currentTier.gameCount }).map((_, i) => {
+                        const level = i + 1;
+                        const id = `sudoku-${selectedDifficulty}-${level}`;
+                        const unlocked = level === 1 || isSudokuUnlocked(profile, id);
+                        const completed = isSudokuCompleted(profile, id);
+                        const canUnlock = profile.tokens >= currentTier.unlockCost;
+                        const canPlay = unlocked || canUnlock;
+                        const earnedStars = profile.sudokuStars?.[id] || 0;
+                        const bestTime = profile.sudokuBestTime?.[id];
 
-                    <View style={styles.infoCopy}>
-                        <Text style={styles.infoTitle}>
-                            2 free hints every game
-                        </Text>
+                        // Determine if current level is the latest playable active level
+                        const isActiveLevel = unlocked && !completed;
 
-                        <Text style={styles.infoText}>
-                            Use your free hints first. Watch a rewarded video for 2
-                            additional hints.
-                        </Text>
-                    </View>
+                        return (
+                            <Pressable
+                                key={level}
+                                disabled={!canPlay}
+                                onPress={() => onPlay(selectedDifficulty, level)}
+                                style={[
+                                    styles.levelCard,
+                                    isActiveLevel && styles.levelCardActiveGlow,
+                                    completed && styles.levelCardCompleted,
+                                    !unlocked && styles.levelCardLocked,
+                                    !canPlay && { opacity: 0.45 },
+                                ]}
+                            >
+                                {/* Top: Image & Badge */}
+                                <View style={styles.cardImageContainer}>
+                                    <Image
+                                        source={getLevelImage(level)}
+                                        style={styles.cardImage}
+                                        resizeMode="cover"
+                                    />
+                                    {/* Level Number Pill */}
+                                    <View style={styles.levelBadge}>
+                                        <Text style={styles.levelBadgeText}>{level}</Text>
+                                    </View>
+                                </View>
+
+                                {/* Bottom Info Base */}
+                                <View style={styles.cardBottom}>
+                                    {/* 3 Stars */}
+                                    <View style={styles.starsRow}>
+                                        {Array.from({ length: 3 }).map((_, sIdx) => (
+                                            <Ionicons
+                                                key={sIdx}
+                                                name={sIdx < earnedStars ? "star" : "star"}
+                                                size={10}
+                                                color={sIdx < earnedStars ? "#FBBF24" : "rgba(255,255,255,0.18)"}
+                                            />
+                                        ))}
+                                    </View>
+
+                                    {/* Best time (if completed) */}
+                                    {completed && typeof bestTime === "number" && bestTime > 0 ? (
+                                        <Text style={styles.bestTimeText}>
+                                            ⏱ {formatSecondsToTime(bestTime)}
+                                        </Text>
+                                    ) : null}
+
+                                    {/* Action row */}
+                                    {unlocked ? (
+                                        <View style={[styles.playPill, completed && styles.playPillCompleted]}>
+                                            <Ionicons
+                                                name={completed ? "play" : "play"}
+                                                size={9}
+                                                color={completed ? "#94A3B8" : "#0F172A"}
+                                            />
+                                            <Text
+                                                style={[
+                                                    styles.playPillText,
+                                                    completed && styles.playPillTextCompleted,
+                                                ]}
+                                            >
+                                                Play
+                                            </Text>
+                                        </View>
+                                    ) : (
+                                        <View style={styles.lockedRow}>
+                                            <Ionicons name="lock-closed" size={10} color="#94A3B8" />
+                                            <View style={styles.lockedToken}>
+                                                <Ionicons name="diamond" size={9} color="#FBBF24" />
+                                                <Text style={styles.lockedCostText}>
+                                                    {currentTier.unlockCost}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    )}
+                                </View>
+                            </Pressable>
+                        );
+                    })}
                 </View>
-
-                {SUDOKU_TIERS.map((tier) => {
-                    const completedCount = getCompletedCount(
-                        profile,
-                        tier.difficulty,
-                    );
-
-                    return (
-                        <SudokuTierCard
-                            key={tier.difficulty}
-                            title={tier.title}
-                            description={tier.description}
-                            difficulty={tier.difficulty}
-                            gameCount={tier.gameCount}
-                            completedCount={completedCount}
-                            unlockCost={tier.unlockCost}
-                            profile={profile}
-                            onPress={(level) => onPlay(tier.difficulty, level)}
-                        />
-                    );
-                })}
             </ScrollView>
         </View>
     );
@@ -124,155 +279,9 @@ function getCompletedCount(
     difficulty: SudokuDifficulty,
 ): number {
     const prefix = `sudoku-${difficulty}-`;
-
-    return Object.entries(profile.completedSudoku).filter(
-        ([key, completed]) =>
-            key.startsWith(prefix) && completed === true,
+    return Object.entries(profile.completedSudoku || {}).filter(
+        ([key, completed]) => key.startsWith(prefix) && completed === true,
     ).length;
-}
-
-type SudokuTierCardProps = {
-    title: string;
-    description: string;
-    difficulty: SudokuDifficulty;
-    gameCount: number;
-    completedCount: number;
-    unlockCost: number;
-    profile: LocalProfile;
-    onPress: (level: number) => void;
-};
-
-function SudokuTierCard({
-    title,
-    description,
-    difficulty,
-    gameCount,
-    completedCount,
-    unlockCost,
-    profile,
-    onPress,
-}: SudokuTierCardProps) {
-    const { colors } = useTheme();
-    const styles = useStyles();
-    const [expanded, setExpanded] = useState(false);
-
-    return (
-        <View style={styles.tierCard}>
-            <View style={styles.tierHeader}>
-                <View style={styles.tierIcon}>
-                    <Ionicons
-                        name="grid-outline"
-                        size={23}
-                        color={colors.brandPrimary}
-                    />
-                </View>
-
-                <View style={styles.tierCopy}>
-                    <Text style={styles.tierTitle}>
-                        {title}
-                    </Text>
-
-                    <Text style={styles.tierDescription}>
-                        {description}
-                    </Text>
-                </View>
-            </View>
-
-            <View style={styles.progressRow}>
-                <View style={styles.progressCopy}>
-                    <Text style={styles.progressText}>
-                        {completedCount}/{gameCount} completed
-                    </Text>
-
-                    <View style={styles.progressTrack}>
-                        <View
-                            style={[
-                                styles.progressFill,
-                                {
-                                    width: `${Math.min(
-                                        100,
-                                        (completedCount / gameCount) * 100,
-                                    )}%`,
-                                },
-                            ]}
-                        />
-                    </View>
-                </View>
-            </View>
-
-            <Pressable
-                onPress={() => setExpanded(!expanded)}
-                style={({ pressed }) => [
-                    styles.playButton,
-                    { opacity: pressed ? 0.82 : 1 },
-                ]}
-            >
-                <Ionicons
-                    name={expanded ? "chevron-up" : "chevron-down"}
-                    size={18}
-                    color={colors.onBrandPrimary}
-                />
-                <Text style={styles.playButtonText}>
-                    {expanded ? "Hide Levels" : "View Levels"}
-                </Text>
-            </Pressable>
-
-            {expanded && (
-                <View style={styles.levelsGrid}>
-                    {Array.from({ length: gameCount }).map((_, i) => {
-                        const level = i + 1;
-                        const id = `sudoku-${difficulty}-${level}`;
-                        const unlocked = level === 1 || isSudokuUnlocked(profile, id);
-                        const completed = isSudokuCompleted(profile, id);
-                        const canUnlock = profile.tokens >= unlockCost;
-                        const canPlay = unlocked || canUnlock;
-
-                        return (
-                            <Pressable
-                                key={level}
-                                disabled={!canPlay}
-                                onPress={() => onPress(level)}
-                                style={[
-                                    styles.levelButton,
-                                    completed && styles.levelButtonCompleted,
-                                    !unlocked && styles.levelButtonLocked,
-                                    !canPlay && { opacity: 0.5 }
-                                ]}
-                            >
-                                {unlocked ? (
-                                    <View style={{ alignItems: "center", gap: 2 }}>
-                                        <Text style={[styles.levelButtonText, completed && { color: colors.onSuccess }]}>
-                                            {level}
-                                        </Text>
-                                        {completed && (
-                                            <View style={{ flexDirection: "row", gap: 1 }}>
-                                                {Array.from({ length: 3 }).map((_, starIdx) => (
-                                                    <Ionicons 
-                                                        key={starIdx} 
-                                                        name={starIdx < (profile.sudokuStars?.[id] || 0) ? "star" : "star-outline"} 
-                                                        size={10} 
-                                                        color={colors.onSuccess} 
-                                                    />
-                                                ))}
-                                            </View>
-                                        )}
-                                    </View>
-                                ) : (
-                                    <View style={styles.lockedLevel}>
-                                        <Text style={[styles.levelButtonText, { color: colors.muted, fontSize: 14 }]}>{level}</Text>
-                                        <View style={{ flexDirection: "row", alignItems: "center", gap: 2 }}>
-                                            <Ionicons name="lock-closed" size={10} color={colors.muted} />
-                                            <Text style={styles.lockedLevelCost}>{unlockCost}</Text>
-                                        </View>
-                                    </View>
-                                )}
-                            </Pressable>
-                        );
-                    })}
-                </View>
-            )}
-        </View>
-    );
 }
 
 const useStyles = makeStyles((colors) => ({
@@ -280,239 +289,297 @@ const useStyles = makeStyles((colors) => ({
         flex: 1,
         backgroundColor: "transparent",
     },
-
-    header: {
+    headerContainer: {
+        paddingHorizontal: 16,
+        paddingTop: 6,
+        paddingBottom: 8,
+    },
+    topRow: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 11,
-        paddingHorizontal: 20,
-        paddingVertical: 14,
+        justifyContent: "space-between",
+        marginBottom: 8,
     },
-
     backButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 14,
-        backgroundColor: colors.surfaceSecondary,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-
-    headerCopy: {
-        flex: 1,
-        gap: 2,
-    },
-
-    title: {
-        color: colors.onSurface,
-        fontSize: 25,
-        fontWeight: "900",
-    },
-
-    subtitle: {
-        color: colors.muted,
-        fontSize: 12,
-        fontWeight: "600",
-    },
-
-    tokenBadge: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 5,
-        minHeight: 36,
-        paddingHorizontal: 11,
-        borderRadius: 99,
-        backgroundColor: colors.brandPrimary,
-    },
-
-    tokenValue: {
-        color: colors.onBrandPrimary,
-        fontSize: 13,
-        fontWeight: "900",
-    },
-
-    content: {
-        paddingHorizontal: 20,
-        paddingBottom: 95,
-        gap: 13,
-    },
-
-    infoCard: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 12,
-        padding: 15,
+        width: 40,
+        height: 40,
         borderRadius: 20,
-        backgroundColor: colors.surfaceSecondary,
-    },
-
-    infoIcon: {
-        width: 42,
-        height: 42,
-        borderRadius: 14,
+        backgroundColor: "rgba(30, 41, 59, 0.8)",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: colors.surfaceTertiary,
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.12)",
     },
-
-    infoCopy: {
-        flex: 1,
-        gap: 3,
+    tokenPill: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+        backgroundColor: "rgba(30, 41, 59, 0.9)",
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 99,
+        borderWidth: 1,
+        borderColor: "rgba(251, 191, 36, 0.35)",
     },
-
-    infoTitle: {
-        color: colors.onSurface,
+    tokenGem: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        backgroundColor: "rgba(251, 191, 36, 0.15)",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    tokenPillText: {
+        color: "#FBBF24",
         fontSize: 14,
         fontWeight: "900",
     },
-
-    infoText: {
-        color: colors.muted,
-        fontSize: 11,
-        lineHeight: 16,
-        fontWeight: "600",
-    },
-
-    tierCard: {
-        padding: 16,
-        borderRadius: 22,
-        backgroundColor: colors.surfaceSecondary,
-        gap: 14,
-    },
-
-    tierHeader: {
+    heroRow: {
         flexDirection: "row",
-        gap: 12,
-    },
-
-    tierIcon: {
-        width: 46,
-        height: 46,
-        borderRadius: 15,
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: colors.surfaceTertiary,
+        justifyContent: "space-between",
+        marginTop: 2,
     },
-
-    tierCopy: {
+    heroCopy: {
         flex: 1,
         gap: 4,
     },
-
-    tierTitle: {
-        color: colors.onSurface,
-        fontSize: 17,
-        fontWeight: "900",
-    },
-
-    tierDescription: {
-        color: colors.muted,
-        fontSize: 11,
-        lineHeight: 16,
-        fontWeight: "600",
-    },
-
-    progressRow: {
+    titleRow: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 12,
+        gap: 6,
     },
-
-    progressCopy: {
-        flex: 1,
+    crownEmoji: {
+        fontSize: 22,
     },
-
-    progressText: {
-        color: colors.muted,
-        fontSize: 11,
-        fontWeight: "800",
-        marginBottom: 6,
+    title: {
+        color: "#FFFFFF",
+        fontSize: 32,
+        fontWeight: "900",
+        letterSpacing: -0.5,
     },
-
-    progressTrack: {
-        height: 7,
-        borderRadius: 99,
+    subtitle: {
+        color: "rgba(255, 255, 255, 0.65)",
+        fontSize: 12,
+        fontWeight: "600",
+    },
+    mascotWrapper: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
         overflow: "hidden",
-        backgroundColor: colors.surfaceTertiary,
+        borderWidth: 2,
+        borderColor: "rgba(99, 102, 241, 0.4)",
+        backgroundColor: "#0B1120",
+        shadowColor: "#6366F1",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.4,
+        shadowRadius: 10,
+        elevation: 6,
+    },
+    mascotImage: {
+        width: "100%",
+        height: "100%",
     },
 
+    // Progress
+    progressContainer: {
+        paddingHorizontal: 16,
+        marginBottom: 12,
+        gap: 6,
+    },
+    progressInfoRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+    },
+    progressInfoText: {
+        color: "#FFFFFF",
+        fontSize: 12,
+        fontWeight: "800",
+    },
+    progressTrackWrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+    },
+    progressTrack: {
+        flex: 1,
+        height: 10,
+        borderRadius: 99,
+        backgroundColor: "rgba(30, 41, 59, 0.8)",
+        overflow: "hidden",
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.08)",
+    },
     progressFill: {
         height: "100%",
         borderRadius: 99,
-        backgroundColor: colors.brandPrimary,
+        backgroundColor: "#38BDF8",
+    },
+    trophyIcon: {
+        fontSize: 18,
     },
 
-    costBadge: {
+    // Nav Bar
+    navBarWrapper: {
+        marginBottom: 12,
+        paddingHorizontal: 12,
+    },
+    navBarScroll: {
         flexDirection: "row",
-        alignItems: "center",
-        gap: 4,
-        minHeight: 30,
-        paddingHorizontal: 9,
-        borderRadius: 99,
-        backgroundColor: colors.surfaceTertiary,
-    },
-
-    costText: {
-        color: colors.onSurface,
-        fontSize: 12,
-        fontWeight: "900",
-    },
-
-    playButton: {
-        minHeight: 46,
-        borderRadius: 14,
-        backgroundColor: colors.brandPrimary,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
         gap: 8,
+        paddingHorizontal: 4,
     },
-
-    playButtonDisabled: {
-        opacity: 0.45,
+    navTab: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+        paddingHorizontal: 14,
+        paddingVertical: 8,
+        borderRadius: 99,
+        backgroundColor: "rgba(15, 23, 42, 0.75)",
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.1)",
     },
-
-    playButtonText: {
-        color: colors.onBrandPrimary,
+    navTabActive: {
+        backgroundColor: "#FBBF24",
+        borderColor: "#F59E0B",
+        shadowColor: "#F59E0B",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.4,
+        shadowRadius: 6,
+        elevation: 4,
+    },
+    navTabLabel: {
+        color: "#94A3B8",
         fontSize: 13,
+        fontWeight: "800",
+    },
+    navTabLabelActive: {
+        color: "#0F172A",
         fontWeight: "900",
+    },
+
+    // Grid
+    scrollContent: {
+        paddingHorizontal: 12,
+        paddingBottom: 95,
     },
     levelsGrid: {
         flexDirection: "row",
         flexWrap: "wrap",
+        justifyContent: "space-between",
         gap: 8,
-        marginTop: 8,
     },
-    levelButton: {
+    levelCard: {
         width: "23%",
-        aspectRatio: 1,
-        borderRadius: 12,
-        backgroundColor: colors.surfaceTertiary,
+        borderRadius: 14,
+        backgroundColor: "rgba(15, 23, 42, 0.9)",
+        borderWidth: 1.5,
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        overflow: "hidden",
+        marginBottom: 8,
+    },
+    levelCardActiveGlow: {
+        borderColor: "#FBBF24",
+        borderWidth: 2,
+        shadowColor: "#F59E0B",
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
+        elevation: 6,
+    },
+    levelCardCompleted: {
+        borderColor: "rgba(52, 211, 153, 0.4)",
+    },
+    levelCardLocked: {
+        borderColor: "rgba(255, 255, 255, 0.06)",
+        backgroundColor: "rgba(10, 15, 29, 0.85)",
+    },
+    cardImageContainer: {
+        width: "100%",
+        aspectRatio: 1.15,
+        position: "relative",
+        backgroundColor: "#0B1120",
+    },
+    cardImage: {
+        width: "100%",
+        height: "100%",
+    },
+    levelBadge: {
+        position: "absolute",
+        top: 4,
+        left: 4,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        backgroundColor: "rgba(15, 23, 42, 0.85)",
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.2)",
         alignItems: "center",
         justifyContent: "center",
     },
-    levelButtonCompleted: {
-        backgroundColor: colors.success + "20",
-        borderWidth: 1,
-        borderColor: colors.success,
+    levelBadgeText: {
+        color: "#FFFFFF",
+        fontSize: 10,
+        fontWeight: "900",
     },
-    levelButtonLocked: {
-        backgroundColor: colors.surface,
-        borderWidth: 1,
-        borderColor: colors.divider,
+    cardBottom: {
+        paddingVertical: 5,
+        paddingHorizontal: 2,
+        alignItems: "center",
+        gap: 3,
+        backgroundColor: "rgba(11, 17, 32, 0.95)",
     },
-    levelButtonText: {
-        color: colors.onSurface,
-        fontSize: 16,
+    starsRow: {
+        flexDirection: "row",
+        gap: 2,
+    },
+    bestTimeText: {
+        color: "#38BDF8",
+        fontSize: 8.5,
         fontWeight: "800",
     },
-    lockedLevel: {
+    playPill: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 2,
+        backgroundColor: "#FBBF24",
+        paddingHorizontal: 7,
+        paddingVertical: 2,
+        borderRadius: 99,
+        marginTop: 1,
+    },
+    playPillCompleted: {
+        backgroundColor: "rgba(30, 41, 59, 0.9)",
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.12)",
+    },
+    playPillText: {
+        color: "#0F172A",
+        fontSize: 9.5,
+        fontWeight: "900",
+    },
+    playPillTextCompleted: {
+        color: "#94A3B8",
+        fontSize: 9.5,
+        fontWeight: "800",
+    },
+    lockedRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 3,
+        marginTop: 1,
+    },
+    lockedToken: {
+        flexDirection: "row",
         alignItems: "center",
         gap: 2,
     },
-    lockedLevelCost: {
-        color: colors.muted,
-        fontSize: 10,
-        fontWeight: "800",
+    lockedCostText: {
+        color: "#FBBF24",
+        fontSize: 9.5,
+        fontWeight: "900",
     },
 }));

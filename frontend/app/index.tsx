@@ -299,9 +299,13 @@ export default function Index() {
         challengeClaims: saved.challengeClaims ?? {},
         unlockedSudoku: saved.unlockedSudoku ?? {},
         completedSudoku: saved.completedSudoku ?? {},
+        sudokuStars: saved.sudokuStars ?? {},
+        sudokuBestTime: saved.sudokuBestTime ?? {},
         sudokuHintsUsed: saved.sudokuHintsUsed ?? {},
         unlockedMathsPuzzles: saved.unlockedMathsPuzzles ?? {},
         completedMathsPuzzles: saved.completedMathsPuzzles ?? {},
+        mathsPuzzleStars: saved.mathsPuzzleStars ?? {},
+        mathsPuzzleBestTime: saved.mathsPuzzleBestTime ?? {},
         streakMilestone: saved.streakMilestone ?? 3,
         avatar: saved.avatar,
       });
@@ -311,7 +315,7 @@ export default function Index() {
         } else {
           setScreen(saved.hasOnboarded ? "home" : "age");
         }
-      }, 5000);
+      }, 3000);
 
     });
     return () => { active = false; };
@@ -750,19 +754,21 @@ function AppShell({
           difficulty={selectedSudokuDifficulty}
           gameNumber={selectedSudokuLevel}
           onBack={() => setScreen("sudoku-hub")}
-          onComplete={(puzzleId, mistakes) => {
+          onComplete={(puzzleId, mistakes, elapsedSeconds) => {
             const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
+            const currentBestTime = profile.sudokuBestTime?.[puzzleId];
+            const newBestTime = (!currentBestTime || elapsedSeconds < currentBestTime) ? elapsedSeconds : currentBestTime;
 
             if (profile.completedSudoku[puzzleId]) {
               const currentStars = profile.sudokuStars?.[puzzleId] || 0;
-              if (stars > currentStars) {
-                const next = {
-                  ...profile,
-                  sudokuStars: { ...profile.sudokuStars, [puzzleId]: stars },
-                };
-                setProfile(next);
-                void saveProfile(next);
-              }
+              const nextStars = Math.max(currentStars, stars);
+              const next = {
+                ...profile,
+                sudokuStars: { ...profile.sudokuStars, [puzzleId]: nextStars },
+                sudokuBestTime: { ...profile.sudokuBestTime, [puzzleId]: newBestTime },
+              };
+              setProfile(next);
+              void saveProfile(next);
               setScreen("sudoku-hub");
               return;
             }
@@ -777,7 +783,11 @@ function AppShell({
               sudokuStars: {
                 ...profile.sudokuStars,
                 [puzzleId]: stars,
-              }
+              },
+              sudokuBestTime: {
+                ...profile.sudokuBestTime,
+                [puzzleId]: newBestTime,
+              },
             };
 
             void processWinAndNavigate(next, "sudoku-hub");
@@ -823,8 +833,27 @@ function AppShell({
             profile={profile}
             puzzle={puzzle}
             onBack={() => setScreen("puzzles-hub")}
-            onComplete={(level) => {
+            onComplete={(level, mistakes, elapsedSeconds) => {
+              const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
+              const currentBestTime = profile.mathsPuzzleBestTime?.[level];
+              const newBestTime = (!currentBestTime || elapsedSeconds < currentBestTime) ? elapsedSeconds : currentBestTime;
+
               if (profile.completedMathsPuzzles?.[level]) {
+                const currentStars = profile.mathsPuzzleStars?.[level] || 0;
+                const nextStars = Math.max(currentStars, stars);
+                const next = {
+                  ...profile,
+                  mathsPuzzleStars: {
+                    ...profile.mathsPuzzleStars,
+                    [level]: nextStars,
+                  },
+                  mathsPuzzleBestTime: {
+                    ...profile.mathsPuzzleBestTime,
+                    [level]: newBestTime,
+                  },
+                };
+                setProfile(next);
+                void saveProfile(next);
                 setScreen("puzzles-hub");
                 return;
               }
@@ -835,7 +864,15 @@ function AppShell({
                 completedMathsPuzzles: {
                   ...profile.completedMathsPuzzles,
                   [level]: true,
-                }
+                },
+                mathsPuzzleStars: {
+                  ...profile.mathsPuzzleStars,
+                  [level]: stars,
+                },
+                mathsPuzzleBestTime: {
+                  ...profile.mathsPuzzleBestTime,
+                  [level]: newBestTime,
+                },
               };
 
               void processWinAndNavigate(next, "puzzles-hub");

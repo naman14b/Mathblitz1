@@ -28,7 +28,7 @@ type SudokuGameProps = {
     difficulty: SudokuDifficulty;
     gameNumber: number;
     onBack: () => void;
-    onComplete: (puzzleId: string, mistakes: number) => void;
+    onComplete: (puzzleId: string, mistakes: number, elapsedSeconds: number) => void;
 };
 
 export function SudokuGame({
@@ -130,9 +130,10 @@ export function SudokuGame({
 
     useEffect(() => {
         if (isComplete) {
-            onComplete(puzzle.id, mistakes);
+            const elapsed = Math.max(1, timeLimit - secondsLeft);
+            onComplete(puzzle.id, mistakes, elapsed);
         }
-    }, [isComplete, onComplete, puzzle.id, mistakes]);
+    }, [isComplete, onComplete, puzzle.id, mistakes, timeLimit, secondsLeft]);
 
     const handleNumberPress = (number: number, event: any) => {
         if (!selected || secondsLeft === 0) return;

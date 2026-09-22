@@ -131,11 +131,11 @@ export const SUDOKU_HINT_RULES = {
 } as const;
 
 export const SUDOKU_TIERS: SudokuTierInfo[] = [
-  { id: "easy", name: "Easy", subtitle: "Friendly warmups", timerSeconds: 600, baseUnlockCost: 10, gameCount: 50 },
-  { id: "medium", name: "Medium", subtitle: "Balanced logic", timerSeconds: 720, baseUnlockCost: 25, gameCount: 50 },
-  { id: "hard", name: "Hard", subtitle: "Advanced deduction", timerSeconds: 900, baseUnlockCost: 50, gameCount: 50 },
-  { id: "expert", name: "Expert / Extreme", subtitle: "Masterful techniques", timerSeconds: 1080, baseUnlockCost: 80, gameCount: 50 },
-  { id: "evil", name: "Evil / Master", subtitle: "Uncompromising depth", timerSeconds: 1200, baseUnlockCost: 120, gameCount: 50 },
+  { id: "easy", name: "Easy", subtitle: "Friendly warmups", timerSeconds: 600, baseUnlockCost: 20, gameCount: 50 },
+  { id: "medium", name: "Medium", subtitle: "Balanced logic", timerSeconds: 720, baseUnlockCost: 35, gameCount: 50 },
+  { id: "hard", name: "Hard", subtitle: "Advanced deduction", timerSeconds: 900, baseUnlockCost: 60, gameCount: 50 },
+  { id: "expert", name: "Expert / Extreme", subtitle: "Masterful techniques", timerSeconds: 1080, baseUnlockCost: 90, gameCount: 50 },
+  { id: "evil", name: "Evil / Master", subtitle: "Uncompromising depth", timerSeconds: 1200, baseUnlockCost: 130, gameCount: 50 },
 ];
 
 // --- Player Profile -----------------------------------------------------------
@@ -157,10 +157,13 @@ export type LocalProfile = {
   unlockedSudoku: Record<string, boolean>;
   completedSudoku: Record<string, boolean>;
   sudokuStars: Record<string, number>;
+  sudokuBestTime: Record<string, number>; // puzzleId -> best time in seconds
   sudokuHintsUsed: Record<string, number>;
   // Maths Puzzles progression
   unlockedMathsPuzzles: Record<number, boolean>;
   completedMathsPuzzles: Record<number, boolean>;
+  mathsPuzzleStars: Record<number, number>;
+  mathsPuzzleBestTime: Record<number, number>; // level -> best time in seconds
 
   // Daily Challenge
   dailyChallengeDate: string | null;
@@ -214,9 +217,12 @@ export const DEFAULT_PROFILE: LocalProfile = {
   unlockedSudoku: {},
   completedSudoku: {},
   sudokuStars: {},
+  sudokuBestTime: {},
   sudokuHintsUsed: {},
   unlockedMathsPuzzles: {},
   completedMathsPuzzles: {},
+  mathsPuzzleStars: {},
+  mathsPuzzleBestTime: {},
 
   // Daily Challenge
   dailyChallengeDate: null,

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -23,7 +23,7 @@ type MathsPuzzleGameProps = {
     profile: LocalProfile;
     puzzle: MathsPuzzle;
     onBack: () => void;
-    onComplete: (level: number) => void;
+    onComplete: (level: number, mistakes: number, elapsedSeconds: number) => void;
 };
 
 export function MathsPuzzleGame({
@@ -85,7 +85,7 @@ export function MathsPuzzleGame({
         return `${String(minutes).padStart(2, "0")}:${String(remaining).padStart(2, "0")}`;
     };
 
-    const isComplete = bank.length === 0 && grid.every((row, r) =>
+    const isComplete = grid.every((row, r) =>
         row.every((cell, c) => {
             if (cell.isBlank) {
                 return cell.value === puzzle.grid[r][c].value;
@@ -96,9 +96,10 @@ export function MathsPuzzleGame({
 
     useEffect(() => {
         if (isComplete) {
-            onComplete(puzzle.level);
+            const elapsed = Math.max(1, puzzle.timeLimitSeconds - secondsLeft);
+            onComplete(puzzle.level, mistakes, elapsed);
         }
-    }, [isComplete, onComplete, puzzle.level]);
+    }, [isComplete, onComplete, puzzle.level, mistakes, puzzle.timeLimitSeconds, secondsLeft]);
 
     const handleBankPress = (bankIndex: number, value: string, event: any) => {
         if (!selectedCell || secondsLeft === 0) return;
@@ -534,7 +535,11 @@ const useStyles = makeStyles((colors: any) => ({
         elevation: 8
     },
     watermarkLayer: {
-        ...StyleSheet.absoluteFillObject,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         zIndex: 0
     },
     watermarkText: {
@@ -581,7 +586,11 @@ const useStyles = makeStyles((colors: any) => ({
     blankCellDay: { backgroundColor: "#059669", borderColor: "#34D399", borderStyle: "dashed" },
     blankCellNight: { backgroundColor: "#065F46", borderColor: "#10B981", borderStyle: "dashed" },
     blankInnerBorder: { 
-        ...StyleSheet.absoluteFillObject, 
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         margin: 2, 
         borderRadius: 6, 
         borderWidth: 1, 

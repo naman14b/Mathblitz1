@@ -524,7 +524,7 @@ export function Home({
               <Text style={styles.dailySub}>
                 {dailyDone
                   ? `Completed today! Your score was ${profile.dailyChallengeScore || 35} pts. Tap to play again.`
-                  : "Solve rapid arithmetic problems in 2 mins. Keep your brain razor sharp!"}
+                  : "Solve rapid arithmetic problems in 1 min. Keep your brain razor sharp!"}
               </Text>
             </View>
 

@@ -24,7 +24,7 @@ type MathBossProps = {
 
 // Fallback local boss profiles & generator for offline play
 const LOCAL_BOSSES = [
-  { name: "Count Calculo", avatar: "🤖", title: "The Formula Fiend", quote: "Ah, 10 wins? How adorable. Let's see if your CPU can handle 20 questions in 2 minutes!" },
+  { name: "Count Calculo", avatar: "🤖", title: "The Formula Fiend", quote: "Ah, 10 wins? How adorable. Let's see if your CPU can handle 20 questions in 1 minute!" },
   { name: "The Divisor", avatar: "👹", title: "Lord of Remainder", quote: "You think you're fast? I divide legends into zero! Face me if you dare!" },
   { name: "Professor Primus", avatar: "🧙‍♂️", title: "Master of Primes", quote: "Fascinating... A challenger! Let us test your numerical endurance under pressure." },
   { name: "Mathemagician X", avatar: "🎩", title: "Grand Illusionist", quote: "Now you see your streak... now you don't! Solve 20 questions or lose 10 tokens!" },
@@ -94,7 +94,7 @@ export function MathBossScreen({ profile, onComplete }: MathBossProps) {
   const [phase, setPhase] = useState<"intro" | "battle" | "victory" | "defeat">("intro");
   const [challenge, setChallenge] = useState<BossChallenge | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(120);
+  const [timeLeft, setTimeLeft] = useState(60);
   const [score, setScore] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isCorrectFeedback, setIsCorrectFeedback] = useState<boolean | null>(null);
@@ -296,14 +296,14 @@ export function MathBossScreen({ profile, onComplete }: MathBossProps) {
           <View style={styles.quoteCard}>
             <Ionicons name="chatbubble-ellipses-outline" size={24} color="#FFE600" style={{ marginBottom: 6 }} />
             <Text style={styles.quoteText}>
-              "{challenge?.challenge_quote || challenge?.taunt || "Think you're fast? Solve 20 questions in 2 minutes!"}"
+              "{challenge?.challenge_quote || challenge?.taunt || "Think you're fast? Solve 20 questions in 1 minute!"}"
             </Text>
           </View>
 
           <View style={styles.rulesCard}>
             <View style={styles.ruleItem}>
               <Ionicons name="stopwatch-outline" size={20} color="#00E5FF" />
-              <Text style={styles.ruleText}>2 Minutes Time Limit</Text>
+              <Text style={styles.ruleText}>1 Minute Time Limit</Text>
             </View>
             <View style={styles.ruleItem}>
               <Ionicons name="help-circle-outline" size={20} color="#00E5FF" />
