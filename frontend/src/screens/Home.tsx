@@ -262,7 +262,7 @@ export function Home({
       >
         {/* Top Header Bar */}
         <View style={styles.topbar}>
-          <BrandMark compact />
+          <View />
           <View style={styles.actions}>
             <IconButton
               name={isNight ? "moon" : "sunny"}
@@ -275,7 +275,7 @@ export function Home({
         </View>
 
         {/* Space revealing character artwork (Astronaut / Boy) */}
-        <View style={{ height: 80 }} pointerEvents="none" />
+        <View style={{ height: 130 }} pointerEvents="none" />
 
         {/* Greetings Header with Equipped Badges (Up to 2) */}
         <View style={[styles.greetingCard, isNight ? styles.greetingCardNight : styles.greetingCardDay]}>
@@ -414,6 +414,7 @@ export function Home({
               ) : (
                 <View style={styles.challengeLockedPill}>
                   <Text style={styles.challengeLockedText}>🔒 {daysTo3}d</Text>
+                  <Ionicons name="chevron-forward" size={13} color={colors.muted} />
                 </View>
               )}
             </View>
@@ -453,6 +454,7 @@ export function Home({
               ) : (
                 <View style={styles.challengeLockedPill}>
                   <Text style={styles.challengeLockedText}>🔒 {daysTo7}d</Text>
+                  <Ionicons name="chevron-forward" size={13} color={colors.muted} />
                 </View>
               )}
             </View>
@@ -461,7 +463,7 @@ export function Home({
           {/* Tokens & How to Play Chip */}
           <View testID="home-token-badge" style={styles.tokenBar}>
             <Animated.View style={[styles.tokenIcon, tokenAnimatedStyle]}>
-              <Ionicons name="pricetag" size={15} color={colors.onBrandPrimary} />
+              <Ionicons name="star" size={15} color="#FFFFFF" />
             </Animated.View>
             <View style={styles.tokenCopy}>
               <Text style={styles.tokenValue}>{profile.tokens}</Text>
@@ -472,8 +474,9 @@ export function Home({
               onPress={onHowToPlay}
               style={({ pressed }) => [styles.howToChip, { opacity: pressed ? 0.7 : 1 }]}
             >
-              <Ionicons name="help-circle-outline" size={16} color={colors.brandPrimary} />
+              <Ionicons name="help-circle" size={15} color={colors.brandPrimary} />
               <Text style={styles.howToChipText}>How to play</Text>
+              <Ionicons name="chevron-forward" size={13} color={colors.brandPrimary} />
             </Pressable>
           </View>
         </View>
@@ -823,6 +826,9 @@ const useStyles = makeStyles((colors: any) => ({
     fontWeight: "900",
   },
   challengeLockedPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
     backgroundColor: colors.surfaceSecondary,
     paddingHorizontal: 9,
     paddingVertical: 6,
