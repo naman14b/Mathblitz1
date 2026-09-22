@@ -61,9 +61,12 @@ export type GameResult = {
   tokensClaimed: boolean;
 };
 
+export type ThemeMode = "auto" | "day" | "night";
+
 export type AppSettings = {
   sound: boolean;
   vibration: boolean;
+  themeMode?: ThemeMode;
 };
 
 // --- Sudoku Types -------------------------------------------------------------
@@ -204,7 +207,7 @@ export const DEFAULT_PROFILE: LocalProfile = {
   streak: 0,
   streakMilestone: 3,
   lastPlayedDate: null,
-  settings: { sound: true, vibration: true },
+  settings: { sound: true, vibration: true, themeMode: "auto" },
   tokens: 0,
   speedClaims: {},
   challengeClaims: {},

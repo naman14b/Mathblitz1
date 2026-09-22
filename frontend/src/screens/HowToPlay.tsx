@@ -73,7 +73,7 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
 }
 
 const useStyles = makeStyles((colors) => ({
-  root: { flex: 1, backgroundColor: colors.surface },
+  root: { flex: 1, backgroundColor: "transparent" },
   topbar: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   topTitle: { color: colors.onSurface, fontSize: 17, fontWeight: "900" },
   spacer: { width: 44 },

@@ -14,7 +14,6 @@ import { playSound, unloadSounds } from "@/src/game/sounds";
 import { AgeGroupId, GameResult, LocalProfile, Question } from "@/src/game/types";
 import { IconButton } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
-import { SurrealBackground } from "@/src/components/SurrealBackground";
 import { TokenFlyAnimation, TokenFlyRef } from "@/src/components/TokenFlyAnimation";
 import { ComboDisplay } from "@/src/components/ComboDisplay";
 import { showInterstitialAd } from "@/src/services/ads";
@@ -136,7 +135,6 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
 
   const answerOf = String(question.answer);
   return <View style={[styles.root, { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 12 }]}>
-    <SurrealBackground />
     <TokenFlyAnimation ref={tokenFlyRef} />
     <ComboDisplay combo={currentCombo} />
 

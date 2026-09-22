@@ -278,7 +278,7 @@ function SudokuTierCard({
 const useStyles = makeStyles((colors) => ({
     root: {
         flex: 1,
-        backgroundColor: colors.surface,
+        backgroundColor: "transparent",
     },
 
     header: {

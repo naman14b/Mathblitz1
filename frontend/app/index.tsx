@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, Alert, Text, View } from "react-native";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, Alert, Text, View, useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AgeSelection } from "@/src/screens/AgeSelection";
 import { NameEntry } from "@/src/screens/NameEntry";
@@ -28,8 +28,9 @@ import { loadProfile, resetProfile, saveProfile } from "@/src/game/storage";
 import { checkAchievements, applyAchievements } from "@/src/game/achievements";
 import { MathBossScreen } from "@/src/screens/MathBoss";
 import { BottomNavBar, NavTab } from "@/src/components/BottomNavBar";
-import { AgeGroupId, AchievementId, ACHIEVEMENTS, AppSettings, AvatarId, AVATARS, DEFAULT_PROFILE, GameResult, LocalProfile, PremiumBadgeId, PREMIUM_BADGES, STREAK_MILESTONES, ThemeId } from "@/src/game/types";
-import { ThemeContext, getThemeColors, makeStyles, useTheme } from "@/src/theme";
+import { AgeGroupId, AchievementId, ACHIEVEMENTS, AppSettings, AvatarId, AVATARS, DEFAULT_PROFILE, GameResult, LocalProfile, PremiumBadgeId, PREMIUM_BADGES, STREAK_MILESTONES, ThemeId, ThemeMode } from "@/src/game/types";
+import { ThemeContext, getThemeColors, isNightTime, makeStyles, useTheme } from "@/src/theme";
+import { SurrealBackground } from "@/src/components/SurrealBackground";
 
 type Screen =
   | "splash"
@@ -202,11 +203,53 @@ export default function Index() {
     setScreen(pendingBossNextScreen);
   };
 
-  // Theme context value — recomputed whenever activeTheme changes
+  const systemColorScheme = useColorScheme();
+  const themeMode: ThemeMode = profile.settings?.themeMode ?? "auto";
+
+  const isNight = useMemo(() => {
+    if (themeMode === "night") return true;
+    if (themeMode === "day") return false;
+    // Auto: Follow phone light and dark mode first
+    if (systemColorScheme === "dark") return true;
+    if (systemColorScheme === "light") return false;
+    // Fallback: Clock day/night (6am - 6pm day, 6pm - 6am night)
+    return isNightTime();
+  }, [themeMode, systemColorScheme]);
+
+  const toggleThemeMode = useCallback(async () => {
+    const nextMode: ThemeMode = isNight ? "day" : "night";
+    const next = {
+      ...profile,
+      settings: {
+        ...profile.settings,
+        themeMode: nextMode,
+      },
+    };
+    setProfile(next);
+    await saveProfile(next);
+  }, [isNight, profile]);
+
+  const handleSetThemeMode = useCallback(async (mode: ThemeMode) => {
+    const next = {
+      ...profile,
+      settings: {
+        ...profile.settings,
+        themeMode: mode,
+      },
+    };
+    setProfile(next);
+    await saveProfile(next);
+  }, [profile]);
+
+  // Theme context value — recomputed whenever activeTheme, isNight, or themeMode changes
   const themeContextValue = useMemo(() => ({
     themeId: profile.activeTheme ?? "classic",
-    colors: getThemeColors(profile.activeTheme ?? "classic"),
-  }), [profile.activeTheme]);
+    colors: getThemeColors(profile.activeTheme ?? "classic", isNight),
+    themeMode,
+    isNight,
+    toggleThemeMode,
+    setThemeMode: handleSetThemeMode,
+  }), [profile.activeTheme, isNight, themeMode, toggleThemeMode, handleSetThemeMode]);
 
   useEffect(() => {
     let active = true;
@@ -414,9 +457,36 @@ export default function Index() {
     await saveProfile(next);
   };
 
-  if (screen === "splash") return <ThemeContext.Provider value={themeContextValue}><Splash /></ThemeContext.Provider>;
-  if (screen === "name") return <ThemeContext.Provider value={themeContextValue}><NameEntry onSave={saveName} /></ThemeContext.Provider>;
-  if (screen === "age") return <ThemeContext.Provider value={themeContextValue}><AgeSelection onSelect={chooseAge} /></ThemeContext.Provider>;
+  if (screen === "splash") {
+    return (
+      <ThemeContext.Provider value={themeContextValue}>
+        <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+          <SurrealBackground />
+          <Splash />
+        </View>
+      </ThemeContext.Provider>
+    );
+  }
+  if (screen === "name") {
+    return (
+      <ThemeContext.Provider value={themeContextValue}>
+        <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+          <SurrealBackground />
+          <NameEntry onSave={saveName} />
+        </View>
+      </ThemeContext.Provider>
+    );
+  }
+  if (screen === "age") {
+    return (
+      <ThemeContext.Provider value={themeContextValue}>
+        <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+          <SurrealBackground />
+          <AgeSelection onSelect={chooseAge} />
+        </View>
+      </ThemeContext.Provider>
+    );
+  }
   // All themed screens are wrapped in ThemeContext.Provider
   return (
     <ThemeContext.Provider value={themeContextValue}>
@@ -515,6 +585,7 @@ function AppShell({
   equipAchievementBadge, equipPremiumBadge, toggleEquipBadge, purchasePremiumBadge, activateTheme, purchaseTheme,
   processWinAndNavigate, onMathBossComplete, changeAvatar, setChallengeRapidFire,
 }: AppShellProps) {
+  const { isNight } = useTheme();
   const showNavBar =
     screen === "home" ||
     screen === "sudoku-hub" ||
@@ -818,10 +889,9 @@ function AppShell({
     );
   };
 
-  const { colors } = useTheme();
-
   return (
-    <View style={{ flex: 1, backgroundColor: colors.surface }}>
+    <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+      <SurrealBackground />
       {renderContent()}
       {showNavBar && (
         <BottomNavBar

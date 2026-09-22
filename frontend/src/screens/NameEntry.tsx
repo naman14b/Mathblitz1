@@ -232,7 +232,7 @@ function AvatarOption({
 }
 
 const useStyles = makeStyles((colors) => ({
-  root: { flex: 1, backgroundColor: colors.surface },
+  root: { flex: 1, backgroundColor: "transparent" },
   header: { marginTop: 38, marginBottom: 24 },
   inputContainer: { marginBottom: 24 },
   input: {

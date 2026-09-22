@@ -27,7 +27,7 @@ export function AgeSelection({ onSelect }: { onSelect: (age: AgeGroupId) => void
 }
 
 const useStyles = makeStyles((colors) => ({
-  root: { flex: 1, backgroundColor: colors.surface },
+  root: { flex: 1, backgroundColor: "transparent" },
   header: { marginTop: 38, marginBottom: 24 },
   list: { gap: 12 },
   card: { minHeight: 82, borderRadius: 20, borderLeftWidth: 6, backgroundColor: colors.surfaceSecondary, padding: 14, flexDirection: "row", alignItems: "center", gap: 12 },

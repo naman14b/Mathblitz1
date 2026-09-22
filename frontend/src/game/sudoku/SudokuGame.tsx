@@ -18,7 +18,6 @@ import type {
 } from "@/src/game/sudoku/types";
 import { generateSudokuSet } from "@/src/game/sudoku/engine";
 import { makeStyles, useTheme } from "@/src/theme";
-import { SurrealBackground } from "@/src/components/SurrealBackground";
 import { TokenFlyAnimation, TokenFlyRef } from "@/src/components/TokenFlyAnimation";
 import { ComboDisplay } from "@/src/components/ComboDisplay";
 import { BlitzEnergyBar } from "@/src/components/BlitzEnergyBar";
@@ -230,7 +229,6 @@ export function SudokuGame({
 
     return (
         <View style={styles.container}>
-            <SurrealBackground />
             <TokenFlyAnimation ref={tokenFlyRef} />
             <ComboDisplay combo={combo} />
 

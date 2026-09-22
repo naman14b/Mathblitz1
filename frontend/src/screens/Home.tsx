@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { AGE_GROUPS, AVATARS, LocalProfile, ACHIEVEMENTS, PREMIUM_BADGES, STREAK_MILESTONES } from "@/src/game/types";
 import { BrandMark, IconButton, ScreenTitle, SoftButton, StatTile } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
-import { SurrealBackground } from "@/src/components/SurrealBackground";
 import { AdBanner } from "@/src/components/AdBanner";
 
 type HomeProps = {
@@ -123,7 +122,7 @@ export function Home({
   onHowToPlay,
 }: HomeProps) {
   const insets = useSafeAreaInsets();
-  const { colors } = useTheme();
+  const { colors, isNight, toggleThemeMode } = useTheme();
   const styles = useStyles();
 
   const today = new Date().toISOString().slice(0, 10);
@@ -253,8 +252,6 @@ export function Home({
 
   return (
     <View style={styles.root}>
-      <SurrealBackground />
-
       <ScrollView
         contentContainerStyle={{
           paddingTop: insets.top + 14,
@@ -267,6 +264,12 @@ export function Home({
         <View style={styles.topbar}>
           <BrandMark compact />
           <View style={styles.actions}>
+            <IconButton
+              name={isNight ? "moon" : "sunny"}
+              label={isNight ? "Switch to Day Mode" : "Switch to Night Mode"}
+              color={isNight ? "#FBBF24" : "#F59E0B"}
+              onPress={() => toggleThemeMode?.()}
+            />
             <IconButton name="settings-outline" label="Open settings" onPress={onSettings} />
           </View>
         </View>

@@ -162,7 +162,7 @@ export function Results({
 }
 
 const useStyles = makeStyles((colors) => ({
-  root: { flex: 1, backgroundColor: colors.surface },
+  root: { flex: 1, backgroundColor: "transparent" },
   header: { flexDirection: "row", alignItems: "center", gap: 14, marginTop: 40, marginBottom: 22 },
   celebrate: { width: 55, height: 55, borderRadius: 19, backgroundColor: colors.brandSecondary, alignItems: "center", justifyContent: "center" },
   scoreCard: { backgroundColor: colors.brandPrimary, borderRadius: 26, minHeight: 210, alignItems: "center", justifyContent: "center", gap: 7, paddingHorizontal: 20 },

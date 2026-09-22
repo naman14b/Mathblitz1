@@ -14,12 +14,12 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function IconButton({ name, onPress, label }: { name: keyof typeof Ionicons.glyphMap; onPress: () => void; label: string }) {
+export function IconButton({ name, onPress, label, color, style }: { name: keyof typeof Ionicons.glyphMap; onPress: () => void; label: string; color?: string; style?: StyleProp<ViewStyle> }) {
   const { colors } = useTheme();
   const styles = useStyles();
   return (
-    <Pressable onPress={onPress} accessibilityRole="button" accessibilityLabel={label} style={({ pressed }) => [{ backgroundColor: colors.surfaceSecondary, opacity: pressed ? 0.7 : 1 }, styles.iconButton]}>
-      <Ionicons name={name} size={21} color={colors.onSurfaceSecondary} />
+    <Pressable onPress={onPress} accessibilityRole="button" accessibilityLabel={label} style={({ pressed }) => [{ backgroundColor: colors.surfaceSecondary, opacity: pressed ? 0.7 : 1 }, styles.iconButton, style]}>
+      <Ionicons name={name} size={21} color={color ?? colors.onSurfaceSecondary} />
     </Pressable>
   );
 }

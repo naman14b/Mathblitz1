@@ -57,6 +57,109 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
           <SettingRow icon="phone-portrait-outline" title="Vibration" subtitle="Haptic feedback on every answer" value={profile.settings.vibration} onPress={() => toggle("vibration")} />
         </View>
 
+        <Text style={styles.section}>APPEARANCE & WALLPAPER</Text>
+        <View style={styles.card}>
+          <Pressable
+            testID="theme-mode-auto"
+            onPress={() => onSave({ ...profile.settings, themeMode: "auto" })}
+            style={styles.settingRow}
+          >
+            <View style={[styles.modeIconCircle, { backgroundColor: colors.brandTertiary }]}>
+              <Ionicons
+                name="phone-portrait-outline"
+                size={20}
+                color={colors.brandPrimary}
+              />
+            </View>
+            <View style={styles.settingCopy}>
+              <View style={styles.modeTitleRow}>
+                <Text style={styles.optionTitle}>Automatic (Phone & Time)</Text>
+                {(profile.settings.themeMode ?? "auto") === "auto" && (
+                  <View style={styles.activePill}>
+                    <Text style={styles.activePillText}>ACTIVE</Text>
+                  </View>
+                )}
+              </View>
+              <Text style={styles.optionSub}>
+                Follows phone dark mode and day/night time (6 AM - 6 PM)
+              </Text>
+            </View>
+            <Ionicons
+              name={(profile.settings.themeMode ?? "auto") === "auto" ? "radio-button-on" : "radio-button-off"}
+              size={22}
+              color={(profile.settings.themeMode ?? "auto") === "auto" ? colors.brandPrimary : colors.muted}
+            />
+          </Pressable>
+
+          <View style={styles.divider} />
+
+          <Pressable
+            testID="theme-mode-day"
+            onPress={() => onSave({ ...profile.settings, themeMode: "day" })}
+            style={styles.settingRow}
+          >
+            <View style={[styles.modeIconCircle, { backgroundColor: "rgba(245, 158, 11, 0.16)" }]}>
+              <Ionicons
+                name="sunny"
+                size={20}
+                color="#F59E0B"
+              />
+            </View>
+            <View style={styles.settingCopy}>
+              <View style={styles.modeTitleRow}>
+                <Text style={styles.optionTitle}>Day Mode</Text>
+                {profile.settings.themeMode === "day" && (
+                  <View style={styles.activePill}>
+                    <Text style={styles.activePillText}>ACTIVE</Text>
+                  </View>
+                )}
+              </View>
+              <Text style={styles.optionSub}>
+                Mountain math adventure wallpaper & bright day style
+              </Text>
+            </View>
+            <Ionicons
+              name={profile.settings.themeMode === "day" ? "radio-button-on" : "radio-button-off"}
+              size={22}
+              color={profile.settings.themeMode === "day" ? colors.brandPrimary : colors.muted}
+            />
+          </Pressable>
+
+          <View style={styles.divider} />
+
+          <Pressable
+            testID="theme-mode-night"
+            onPress={() => onSave({ ...profile.settings, themeMode: "night" })}
+            style={styles.settingRow}
+          >
+            <View style={[styles.modeIconCircle, { backgroundColor: "rgba(139, 92, 246, 0.16)" }]}>
+              <Ionicons
+                name="moon"
+                size={20}
+                color="#A78BFA"
+              />
+            </View>
+            <View style={styles.settingCopy}>
+              <View style={styles.modeTitleRow}>
+                <Text style={styles.optionTitle}>Night Mode</Text>
+                {profile.settings.themeMode === "night" && (
+                  <View style={styles.activePill}>
+                    <Text style={styles.activePillText}>ACTIVE</Text>
+                  </View>
+                )}
+              </View>
+              <Text style={styles.optionSub}>
+                Cosmic astronaut space wallpaper & dark mode style
+              </Text>
+            </View>
+            <Ionicons
+              name={profile.settings.themeMode === "night" ? "radio-button-on" : "radio-button-off"}
+              size={22}
+              color={profile.settings.themeMode === "night" ? colors.brandPrimary : colors.muted}
+            />
+          </Pressable>
+        </View>
+
         <Text style={styles.section}>PLAYER PROFILE</Text>
 
         {/* Avatar Change Option */}
@@ -215,7 +318,7 @@ function SettingRow({ icon, title, subtitle, value, onPress }: { icon: keyof typ
 }
 
 const useStyles = makeStyles((colors) => ({
-  root: { flex: 1, backgroundColor: colors.surface },
+  root: { flex: 1, backgroundColor: "transparent" },
   topbar: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   topTitle: { color: colors.onSurface, fontSize: 17, fontWeight: "900" },
   spacer: { width: 44 },
@@ -235,6 +338,12 @@ const useStyles = makeStyles((colors) => ({
   linkRow: { minHeight: 60, flexDirection: "row", alignItems: "center", gap: 12 },
   linkText: { color: colors.onSurface, flex: 1, fontSize: 15, fontWeight: "800" },
   reset: { marginTop: 26 },
+
+  // Mode option styles
+  modeIconCircle: { width: 38, height: 38, borderRadius: 13, alignItems: "center", justifyContent: "center" },
+  modeTitleRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  activePill: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 99, backgroundColor: colors.brandPrimary },
+  activePillText: { color: colors.onBrandPrimary, fontSize: 9, fontWeight: "900", letterSpacing: 0.8 },
 
   // Avatar preview in settings
   avatarPreview: {

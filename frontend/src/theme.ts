@@ -177,19 +177,123 @@ const THEME_PALETTES: Record<ThemeId, ReturnType<typeof palette>> = {
 
 export type ThemeColors = ReturnType<typeof palette>;
 
-// ─── React Context ────────────────────────────────────────────────────────────
-export const ThemeContext = createContext<{
+// Night / Dark mode variants for themes to match the cosmic astronaut wallpaper
+const THEME_NIGHT_PALETTES: Partial<Record<ThemeId, ThemeColors>> = {
+  classic: palette({
+    surface: "rgba(10, 14, 26, 0.90)", surface2: "rgba(22, 29, 49, 0.90)", surface3: "rgba(33, 43, 70, 0.90)",
+    onSurface: "#F8FAFC", muted: "#94A3B8",
+    primary: "#FF6B35", onPrimary: "#FFFFFF",
+    secondary: "#FF9F1C", onSecondary: "#0A0E1A",
+    tertiary: "#2D1B36", onTertiary: "#FF8C5A",
+    success: "#2EC4B6", warning: "#FFB703", error: "#E71D36", info: "#3A86FF",
+    border: "rgba(255, 255, 255, 0.14)", divider: "rgba(255, 255, 255, 0.08)",
+  }),
+  ocean: palette({
+    surface: "rgba(8, 20, 38, 0.90)", surface2: "rgba(14, 34, 62, 0.90)", surface3: "rgba(22, 48, 86, 0.90)",
+    onSurface: "#F0F9FF", muted: "#7DD3FC",
+    primary: "#38BDF8", onPrimary: "#081426",
+    secondary: "#0EA5E9", onSecondary: "#FFFFFF",
+    tertiary: "#1E3A5F", onTertiary: "#BAE6FD",
+    success: "#10B981", warning: "#F59E0B", error: "#EF4444", info: "#60A5FA",
+    border: "rgba(56, 189, 248, 0.22)", divider: "rgba(56, 189, 248, 0.12)",
+  }),
+  forest: palette({
+    surface: "rgba(6, 24, 16, 0.90)", surface2: "rgba(12, 40, 28, 0.90)", surface3: "rgba(20, 58, 42, 0.90)",
+    onSurface: "#F0FDF4", muted: "#86EFAC",
+    primary: "#22C55E", onPrimary: "#061810",
+    secondary: "#4ADE80", onSecondary: "#061810",
+    tertiary: "#144832", onTertiary: "#BBF7D0",
+    success: "#10B981", warning: "#F59E0B", error: "#EF4444", info: "#38BDF8",
+    border: "rgba(34, 197, 94, 0.22)", divider: "rgba(34, 197, 94, 0.12)",
+  }),
+  candy: palette({
+    surface: "rgba(28, 10, 24, 0.90)", surface2: "rgba(46, 18, 40, 0.90)", surface3: "rgba(66, 26, 58, 0.90)",
+    onSurface: "#FDF2F8", muted: "#F472B6",
+    primary: "#EC4899", onPrimary: "#FFFFFF",
+    secondary: "#F472B6", onSecondary: "#1C0A18",
+    tertiary: "#4A1840", onTertiary: "#FBCFE8",
+    success: "#10B981", warning: "#F59E0B", error: "#EF4444", info: "#818CF8",
+    border: "rgba(236, 72, 153, 0.22)", divider: "rgba(236, 72, 153, 0.12)",
+  }),
+  holi: palette({
+    surface: "rgba(20, 10, 36, 0.90)", surface2: "rgba(36, 18, 62, 0.90)", surface3: "rgba(54, 28, 90, 0.90)",
+    onSurface: "#FAF5FF", muted: "#C084FC",
+    primary: "#A855F7", onPrimary: "#FFFFFF",
+    secondary: "#F97316", onSecondary: "#140A24",
+    tertiary: "#441D6E", onTertiary: "#E9D5FF",
+    success: "#10B981", warning: "#F59E0B", error: "#EF4444", info: "#38BDF8",
+    border: "rgba(168, 85, 247, 0.22)", divider: "rgba(168, 85, 247, 0.12)",
+  }),
+  christmas: palette({
+    surface: "rgba(10, 24, 16, 0.90)", surface2: "rgba(18, 42, 28, 0.90)", surface3: "rgba(28, 60, 42, 0.90)",
+    onSurface: "#F0FFF4", muted: "#86EFAC",
+    primary: "#22C55E", onPrimary: "#FFFFFF",
+    secondary: "#EF4444", onSecondary: "#FFFFFF",
+    tertiary: "#204632", onTertiary: "#BBF7D0",
+    success: "#10B981", warning: "#F59E0B", error: "#EF4444", info: "#38BDF8",
+    border: "rgba(34, 197, 94, 0.22)", divider: "rgba(34, 197, 94, 0.12)",
+  }),
+  eid: palette({
+    surface: "rgba(8, 20, 38, 0.90)", surface2: "rgba(14, 34, 62, 0.90)", surface3: "rgba(22, 48, 86, 0.90)",
+    onSurface: "#F0F9FF", muted: "#7DD3FC",
+    primary: "#38BDF8", onPrimary: "#081426",
+    secondary: "#F59E0B", onSecondary: "#081426",
+    tertiary: "#1E3A5F", onTertiary: "#BAE6FD",
+    success: "#10B981", warning: "#F59E0B", error: "#EF4444", info: "#60A5FA",
+    border: "rgba(56, 189, 248, 0.22)", divider: "rgba(56, 189, 248, 0.12)",
+  }),
+};
+
+import type { ThemeMode } from "@/src/game/types";
+
+export function isNightTime(): boolean {
+  const hour = new Date().getHours();
+  return hour < 6 || hour >= 18; // 6 PM to 6 AM is night
+}
+
+export type ThemeContextType = {
   themeId: ThemeId;
   colors: ThemeColors;
-}>({ themeId: "classic", colors: THEME_PALETTES.classic });
+  themeMode: ThemeMode;
+  isNight: boolean;
+  toggleThemeMode?: () => void;
+  setThemeMode?: (mode: ThemeMode) => void;
+};
 
-export function getThemeColors(themeId: ThemeId): ThemeColors {
+// ─── React Context ────────────────────────────────────────────────────────────
+export const ThemeContext = createContext<ThemeContextType>({
+  themeId: "classic",
+  colors: THEME_PALETTES.classic,
+  themeMode: "auto",
+  isNight: false,
+});
+
+export function getThemeColors(themeId: ThemeId, isNight: boolean = false): ThemeColors {
+  if (isNight && THEME_NIGHT_PALETTES[themeId]) {
+    return THEME_NIGHT_PALETTES[themeId]!;
+  }
   return THEME_PALETTES[themeId] ?? THEME_PALETTES.classic;
 }
 
-export function useTheme(): { scheme: ColorScheme; colors: ThemeColors; themeId: ThemeId } {
+export function useTheme(): {
+  scheme: ColorScheme;
+  colors: ThemeColors;
+  themeId: ThemeId;
+  themeMode: ThemeMode;
+  isNight: boolean;
+  toggleThemeMode?: () => void;
+  setThemeMode?: (mode: ThemeMode) => void;
+} {
   const ctx = useContext(ThemeContext);
-  return { scheme: "light", colors: ctx.colors, themeId: ctx.themeId };
+  return {
+    scheme: ctx.isNight ? "dark" : "light",
+    colors: ctx.colors,
+    themeId: ctx.themeId,
+    themeMode: ctx.themeMode,
+    isNight: ctx.isNight,
+    toggleThemeMode: ctx.toggleThemeMode,
+    setThemeMode: ctx.setThemeMode,
+  };
 }
 
 export function makeStyles<T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<any>>(

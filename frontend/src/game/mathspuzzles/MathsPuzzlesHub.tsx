@@ -89,7 +89,7 @@ export function MathsPuzzlesHub({
 }
 
 const useStyles = makeStyles((colors) => ({
-    root: { flex: 1, backgroundColor: colors.surface },
+    root: { flex: 1, backgroundColor: "transparent" },
     header: { flexDirection: "row", alignItems: "center", gap: 11, paddingHorizontal: 20, paddingVertical: 14 },
     backButton: { width: 44, height: 44, borderRadius: 14, backgroundColor: colors.surfaceSecondary, alignItems: "center", justifyContent: "center" },
     headerCopy: { flex: 1, gap: 2 },

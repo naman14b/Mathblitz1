@@ -191,7 +191,7 @@ export default function DailyChallenge({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F5F8FF",
+        backgroundColor: "transparent",
         paddingHorizontal: 20,
         paddingTop: 48,
     },

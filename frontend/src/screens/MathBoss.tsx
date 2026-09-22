@@ -16,7 +16,6 @@ import { IconButton, PrimaryButton } from "@/src/components/ui";
 import { playSound } from "@/src/game/sounds";
 import { LocalProfile } from "@/src/game/types";
 import { makeStyles, useTheme } from "@/src/theme";
-import { SurrealBackground } from "@/src/components/SurrealBackground";
 
 type MathBossProps = {
   profile: LocalProfile;
@@ -271,8 +270,6 @@ export function MathBossScreen({ profile, onComplete }: MathBossProps) {
 
   return (
     <View style={styles.container}>
-      <SurrealBackground />
-
       {/* Top Banner */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <View style={styles.badgeRow}>
@@ -465,7 +462,7 @@ export function MathBossScreen({ profile, onComplete }: MathBossProps) {
 const useStyles = makeStyles((colors) => ({
   container: {
     flex: 1,
-    backgroundColor: colors.surface,
+    backgroundColor: "transparent",
   },
   header: {
     paddingHorizontal: 20,
