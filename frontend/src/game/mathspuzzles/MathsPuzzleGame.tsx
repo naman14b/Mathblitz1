@@ -17,6 +17,7 @@ import { makeStyles, useTheme } from "@/src/theme";
 import { TokenFlyAnimation, TokenFlyRef } from "@/src/components/TokenFlyAnimation";
 import { ComboDisplay } from "@/src/components/ComboDisplay";
 import { BlitzEnergyBar } from "@/src/components/BlitzEnergyBar";
+import { showRewardedAd } from "@/src/services/ads";
 
 type MathsPuzzleGameProps = {
     profile: LocalProfile;
@@ -245,7 +246,11 @@ export function MathsPuzzleGame({
                         <Text style={[styles.hintText, styles.hintTextDay]}>Try Again</Text>
                     </Pressable>
                     <Pressable 
-                        onPress={() => setSecondsLeft(60)} 
+                        onPress={async () => {
+                            await showRewardedAd(() => {
+                                setSecondsLeft(60);
+                            });
+                        }} 
                         style={[styles.hintButton, styles.hintButtonNight, { paddingHorizontal: 40, width: '100%', maxWidth: 300 }]}
                     >
                         <Text style={[styles.hintText, styles.hintTextNight]}>Watch Ad to Continue (+60s)</Text>

@@ -19,12 +19,13 @@ export function AdBanner({ style }: AdBannerProps) {
     const {
       BannerAd,
       BannerAdSize,
+      TestIds,
     } = require("react-native-google-mobile-ads");
 
     return (
       <View style={[styles.container, style]}>
         <BannerAd
-          unitId={TEST_AD_UNITS.BANNER}
+          unitId={TestIds?.BANNER || TEST_AD_UNITS.BANNER}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,

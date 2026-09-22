@@ -7,9 +7,20 @@ export const TEST_AD_UNITS = {
   REWARDED_INTERSTITIAL: "ca-app-pub-3940256099942544/5354046379",
 };
 
+let isInitialized = false;
+
 function getAdMob(): AdMobModule | null {
   try {
-    return require("react-native-google-mobile-ads");
+    const ads = require("react-native-google-mobile-ads");
+    if (ads && !isInitialized) {
+      if (typeof ads.default === "function") {
+        ads.default().initialize().catch((err: unknown) => {
+          console.log("[AdMob] SDK initialization error:", err);
+        });
+      }
+      isInitialized = true;
+    }
+    return ads;
   } catch (error) {
     console.log("[AdMob] Native module unavailable. Skipping ad.");
     return null;
@@ -29,8 +40,9 @@ export function showInterstitialAd(): Promise<boolean> {
     }
 
     try {
+      const adUnitId = ads.TestIds?.INTERSTITIAL || TEST_AD_UNITS.INTERSTITIAL;
       const interstitial = ads.InterstitialAd.createForAdRequest(
-        TEST_AD_UNITS.INTERSTITIAL,
+        adUnitId,
         { requestNonPersonalizedAdsOnly: true }
       );
 
@@ -86,8 +98,9 @@ export function showRewardedAd(onReward: () => void): Promise<boolean> {
     }
 
     try {
+      const adUnitId = ads.TestIds?.REWARDED || TEST_AD_UNITS.REWARDED;
       const rewarded = ads.RewardedAd.createForAdRequest(
-        TEST_AD_UNITS.REWARDED,
+        adUnitId,
         { requestNonPersonalizedAdsOnly: true }
       );
 
@@ -157,9 +170,10 @@ export function showRewardedInterstitialAd(
     }
 
     try {
+      const adUnitId = ads.TestIds?.REWARDED_INTERSTITIAL || TEST_AD_UNITS.REWARDED_INTERSTITIAL;
       const rewardedInterstitial =
         ads.RewardedInterstitialAd.createForAdRequest(
-          TEST_AD_UNITS.REWARDED_INTERSTITIAL,
+          adUnitId,
           { requestNonPersonalizedAdsOnly: true }
         );
 
