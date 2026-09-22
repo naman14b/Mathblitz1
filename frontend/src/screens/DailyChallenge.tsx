@@ -113,11 +113,11 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
     setAnimationState("win");
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
 
-    // 2. Play 3.8s of the full-screen cinematic video before revealing victory results
+    // 2. Play 5.2s of the full-screen cinematic video before revealing victory results
     setTimeout(() => {
       setGameStatus("won");
       onComplete(finalScore);
-    }, 3800);
+    }, 5200);
   };
 
   const handleLoss = (reason?: string, finalScore: number = score) => {
@@ -126,11 +126,11 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
     setAnimationState("jail");
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
 
-    // 2. Play 3.8s of the full-screen cinematic video before revealing jail results
+    // 2. Play 5.2s of the full-screen cinematic video before revealing jail results
     setTimeout(() => {
       setGameStatus("lost");
       onComplete(finalScore);
-    }, 3800);
+    }, 5200);
   };
 
   const answerQuestion = (selected: number) => {

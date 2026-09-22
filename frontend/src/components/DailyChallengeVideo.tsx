@@ -33,17 +33,29 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
         if (jailRef.current) jailRef.current.pause();
       } else if (state === "win") {
         if (winRef.current) {
-          winRef.current.currentTime = 0;
+          const currentPos = chaseRef.current ? chaseRef.current.currentTime : 0;
+          // Synchronize with already playing chase video to transition smoothly to trick & jump ending
+          winRef.current.currentTime = currentPos < 4.5 ? currentPos : 4.5;
           winRef.current.play().catch(() => {});
         }
-        if (chaseRef.current) chaseRef.current.pause();
+        if (chaseRef.current) {
+          setTimeout(() => {
+            chaseRef.current?.pause();
+          }, 300);
+        }
         if (jailRef.current) jailRef.current.pause();
       } else if (state === "jail") {
         if (jailRef.current) {
-          jailRef.current.currentTime = 0;
+          const currentPos = chaseRef.current ? chaseRef.current.currentTime : 0;
+          // Synchronize with already playing chase video to transition smoothly to cage/jail ending
+          jailRef.current.currentTime = currentPos < 4.5 ? currentPos : 4.5;
           jailRef.current.play().catch(() => {});
         }
-        if (chaseRef.current) chaseRef.current.pause();
+        if (chaseRef.current) {
+          setTimeout(() => {
+            chaseRef.current?.pause();
+          }, 300);
+        }
         if (winRef.current) winRef.current.pause();
       }
     }, [state]);
