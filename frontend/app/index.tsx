@@ -151,7 +151,7 @@ const useStyles = makeStyles((colors) => ({
   },
 }));
 
-function ScreenContainer({ children, isNight }: { children: React.ReactNode; isNight: boolean }) {
+function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; isNight: boolean }) {
   const { width: windowWidth } = useWindowDimensions();
   const isWidescreen = Platform.OS === "web" && windowWidth > 640;
 
@@ -181,6 +181,8 @@ function ScreenContainer({ children, isNight }: { children: React.ReactNode; isN
     </View>
   );
 }
+
+const ScreenContainer = PhoneScreenWrapper;
 
 export default function Index() {
   // Wrap the whole app in ThemeContext so every screen reacts to theme changes
