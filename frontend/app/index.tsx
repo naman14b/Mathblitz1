@@ -155,8 +155,8 @@ function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; 
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const isDesktopWeb = Platform.OS === "web" && windowWidth > 500;
 
-  // 9:16 aspect ratio as requested: 9 / 16 = 0.5625
-  const PHONE_ASPECT_RATIO = 9 / 16;
+  // Exact wallpaper ratio matching reference phone layouts: 1263 / 2752 ≈ 470 / 1024
+  const PHONE_ASPECT_RATIO = 1263 / 2752;
 
   const maxAvailableHeight = windowHeight * 0.97;
   const maxAvailableWidth = windowWidth * 0.95;
