@@ -1,5 +1,5 @@
 import { storage } from "@/src/utils/storage";
-import { DEFAULT_PROFILE, LocalProfile } from "./types";
+import { AvatarId, AVATARS, DEFAULT_PROFILE, LocalProfile } from "./types";
 
 const PROFILE_KEY = "mathblitz.profile.v1";
 
@@ -13,12 +13,19 @@ export function migrateProfile(raw: unknown): LocalProfile {
     return { ...DEFAULT_PROFILE };
   }
   const saved = raw as Partial<LocalProfile> & Record<string, unknown>;
+  // Validate avatar exists in AVATARS list
+  const savedAvatar = typeof saved.avatar === "string" && AVATARS.some((a) => a.id === saved.avatar)
+    ? (saved.avatar as AvatarId)
+    : undefined;
   return {
+    playerName: typeof saved.playerName === "string" ? saved.playerName : undefined,
+    avatar: savedAvatar,
     hasOnboarded: Boolean(saved.hasOnboarded),
     ageGroup: saved.ageGroup ?? null,
     personalBest: typeof saved.personalBest === "number" ? Math.max(0, saved.personalBest) : 0,
     totalXp: typeof saved.totalXp === "number" ? Math.max(0, saved.totalXp) : 0,
     streak: typeof saved.streak === "number" ? Math.max(0, saved.streak) : 0,
+    streakMilestone: typeof saved.streakMilestone === "number" ? saved.streakMilestone : 3,
     lastPlayedDate: typeof saved.lastPlayedDate === "string" ? saved.lastPlayedDate : null,
     settings: {
       sound: saved.settings?.sound ?? DEFAULT_PROFILE.settings.sound,
@@ -36,6 +43,21 @@ export function migrateProfile(raw: unknown): LocalProfile {
     dailyChallengeDate: typeof saved.dailyChallengeDate === "string" ? saved.dailyChallengeDate : null,
     dailyChallengeScore: typeof saved.dailyChallengeScore === "number" ? Math.max(0, saved.dailyChallengeScore) : 0,
     dailyChallengeCompleted: Boolean(saved.dailyChallengeCompleted),
+    // Achievements
+    earnedAchievements: saved.earnedAchievements && typeof saved.earnedAchievements === "object" ? { ...saved.earnedAchievements } as any : {},
+    equippedAchievementBadge: (saved.equippedAchievementBadge as any) ?? null,
+    // Themes
+    activeTheme: (saved.activeTheme as any) ?? "classic",
+    purchasedThemes: Array.isArray(saved.purchasedThemes) ? [...saved.purchasedThemes as any[]] : [],
+    // Premium Badges
+    purchasedPremiumBadges: Array.isArray(saved.purchasedPremiumBadges) ? [...saved.purchasedPremiumBadges as any[]] : [],
+    equippedPremiumBadge: (saved.equippedPremiumBadge as any) ?? null,
+    equippedBadges: Array.isArray(saved.equippedBadges) ? [...saved.equippedBadges as string[]] : (saved.equippedAchievementBadge ? [saved.equippedAchievementBadge as string] : []),
+    verifiedPayments: Array.isArray(saved.verifiedPayments) ? [...saved.verifiedPayments as any[]] : [],
+    // Math Boss
+    totalWins: typeof saved.totalWins === "number" ? Math.max(0, saved.totalWins) : 0,
+    mathBossLevel: typeof saved.mathBossLevel === "number" ? Math.max(0, saved.mathBossLevel) : 0,
+    mathBossDefeated: typeof saved.mathBossDefeated === "number" ? Math.max(0, saved.mathBossDefeated) : 0,
   };
 }
 

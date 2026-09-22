@@ -97,7 +97,7 @@ const useStyles = makeStyles((colors) => ({
     subtitle: { color: colors.muted, fontSize: 12, fontWeight: "600" },
     tokenBadge: { flexDirection: "row", alignItems: "center", gap: 5, minHeight: 36, paddingHorizontal: 11, borderRadius: 99, backgroundColor: colors.brandPrimary },
     tokenValue: { color: colors.onBrandPrimary, fontSize: 13, fontWeight: "900" },
-    content: { paddingHorizontal: 20, paddingBottom: 30, gap: 13 },
+    content: { paddingHorizontal: 20, paddingBottom: 95, gap: 13 },
     progressRow: { marginBottom: 10 },
     progressText: { color: colors.muted, fontSize: 13, fontWeight: "800", marginBottom: 6 },
     progressTrack: { height: 7, borderRadius: 99, overflow: "hidden", backgroundColor: colors.surfaceTertiary },

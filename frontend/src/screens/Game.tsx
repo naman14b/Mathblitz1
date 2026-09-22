@@ -17,6 +17,7 @@ import { makeStyles, useTheme } from "@/src/theme";
 import { SurrealBackground } from "@/src/components/SurrealBackground";
 import { TokenFlyAnimation, TokenFlyRef } from "@/src/components/TokenFlyAnimation";
 import { ComboDisplay } from "@/src/components/ComboDisplay";
+import { showInterstitialAd } from "@/src/services/ads";
 
 type LiveStats = { score: number; correct: number; answered: number; combo: number; bestCombo: number; tokens: number };
 const TIME_PRESSURE: Record<AgeGroupId, number> = { "6-7": 1, "8-10": 2, "11-13": 3, "14-16": 4, "17-20": 5, "21+": 6 };
@@ -62,12 +63,16 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
       };
   });
 
-  const finish = useCallback(() => {
+  const finish = useCallback(async () => {
     if (finished.current) return;
     finished.current = true;
     playSound("gameover", profile.settings.sound);
     if (profile.settings.vibration) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
     const current = stats.current;
+    
+    // Show Interstitial Ad at natural break before result screen
+    await showInterstitialAd();
+
     onFinish({ ...current, accuracy: current.answered ? Math.round((current.correct / current.answered) * 100) : 0, xp: Math.max(20, current.score + current.correct * 3), tokens: tokensAvailable ? Math.max(0, current.tokens) : 0, tokensClaimed: tokensAvailable });
   }, [onFinish, profile.settings.sound, profile.settings.vibration, tokensAvailable]);
 

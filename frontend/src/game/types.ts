@@ -1,5 +1,36 @@
 export type AgeGroupId = "6-7" | "8-10" | "11-13" | "14-16" | "17-20" | "21+";
 
+// --- Avatar Definitions -------------------------------------------------------
+export type AvatarId =
+  | "boy-1" | "girl-1"
+  | "boy-2" | "girl-2"
+  | "boy-3" | "girl-3"
+  | "boy-4" | "girl-4"
+  | "boy-5" | "girl-5";
+
+export type AvatarDef = {
+  id: AvatarId;
+  emoji: string;
+  label: string;
+  gender: "male" | "female";
+};
+
+export const AVATARS: AvatarDef[] = [
+  { id: "boy-1",  emoji: "🧑‍🎓", label: "Scholar",    gender: "male" },
+  { id: "girl-1", emoji: "👩‍🔬", label: "Scientist",  gender: "female" },
+  { id: "boy-2",  emoji: "🧙‍♂️", label: "Wizard",     gender: "male" },
+  { id: "girl-2", emoji: "🧝‍♀️", label: "Elf Queen",  gender: "female" },
+  { id: "boy-3",  emoji: "🦸‍♂️", label: "Hero",       gender: "male" },
+  { id: "girl-3", emoji: "🦸‍♀️", label: "Heroine",    gender: "female" },
+  { id: "boy-4",  emoji: "🥷",   label: "Ninja",      gender: "male" },
+  { id: "girl-4", emoji: "👸",   label: "Princess",   gender: "female" },
+  { id: "boy-5",  emoji: "🤖",   label: "Robot",      gender: "male" },
+  { id: "girl-5", emoji: "🧚‍♀️", label: "Fairy",      gender: "female" },
+];
+
+// --- Streak Milestones --------------------------------------------------------
+export const STREAK_MILESTONES = [3, 7, 15, 21, 24, 30] as const;
+
 export type AgeGroup = {
   id: AgeGroupId;
   label: string;
@@ -107,11 +138,13 @@ export const SUDOKU_TIERS: SudokuTierInfo[] = [
 // --- Player Profile -----------------------------------------------------------
 export type LocalProfile = {
   playerName?: string;
+  avatar?: AvatarId;
   hasOnboarded: boolean;
   ageGroup: AgeGroupId | null;
   personalBest: number;
   totalXp: number;
   streak: number;
+  streakMilestone: number; // current target milestone (3, 7, 15, 21, 24, 30)
   lastPlayedDate: string | null;
   settings: AppSettings;
   tokens: number;
@@ -130,6 +163,26 @@ export type LocalProfile = {
   dailyChallengeDate: string | null;
   dailyChallengeScore: number;
   dailyChallengeCompleted: boolean;
+
+  // Achievements
+  earnedAchievements: Record<AchievementId, string>; // achievementId -> ISO date earned
+  equippedAchievementBadge: AchievementId | null;
+
+  // Themes
+  activeTheme: ThemeId;
+  purchasedThemes: ThemeId[];
+
+  // Premium Badges
+  purchasedPremiumBadges: PremiumBadgeId[];
+  equippedPremiumBadge: PremiumBadgeId | null;
+  // Badges & Frames (Max 2 equipped at a time)
+  equippedBadges: string[];
+  verifiedPayments: Array<{ itemId: string; utr: string; date: string }>;
+
+  // Math Boss
+  totalWins: number;
+  mathBossLevel: number;
+  mathBossDefeated: number;
 };
 
 export const AGE_GROUPS: AgeGroup[] = [
@@ -143,11 +196,13 @@ export const AGE_GROUPS: AgeGroup[] = [
 
 export const DEFAULT_PROFILE: LocalProfile = {
   playerName: undefined,
+  avatar: undefined,
   hasOnboarded: false,
   ageGroup: null,
   personalBest: 0,
   totalXp: 0,
   streak: 0,
+  streakMilestone: 3,
   lastPlayedDate: null,
   settings: { sound: true, vibration: true },
   tokens: 0,
@@ -164,4 +219,123 @@ export const DEFAULT_PROFILE: LocalProfile = {
   dailyChallengeDate: null,
   dailyChallengeScore: 0,
   dailyChallengeCompleted: false,
+
+  // Achievements
+  earnedAchievements: {} as Record<AchievementId, string>,
+  equippedAchievementBadge: null,
+
+  // Themes
+  activeTheme: "classic" as ThemeId,
+  purchasedThemes: [] as ThemeId[],
+
+  // Premium Badges
+  purchasedPremiumBadges: [] as PremiumBadgeId[],
+  equippedPremiumBadge: null,
+  equippedBadges: [] as string[],
+  verifiedPayments: [],
+
+  // Math Boss
+  totalWins: 0,
+  mathBossLevel: 0,
+  mathBossDefeated: 0,
 };
+
+// --- Achievement Definitions --------------------------------------------------
+export type AchievementId =
+  | "first-blood"
+  | "speed-demon"
+  | "on-fire"
+  | "math-master"
+  | "sudoku-solver"
+  | "blitz-legend"
+  | "streak-warrior"
+  | "token-tycoon"
+  | "sharp-shooter"
+  | "grand-champion";
+
+export type Achievement = {
+  id: AchievementId;
+  emoji: string;
+  title: string;
+  description: string;
+  hint: string; // shown when locked
+};
+
+export const ACHIEVEMENTS: Achievement[] = [
+  { id: "first-blood",    emoji: "🏅", title: "First Blood",    description: "Complete your first challenge.",           hint: "Complete any challenge" },
+  { id: "speed-demon",    emoji: "⚡", title: "Speed Demon",    description: "Answer 15 questions in a single 60s game.", hint: "Answer 15 questions in 60s" },
+  { id: "on-fire",        emoji: "🔥", title: "On Fire",        description: "10 correct answers in a row.",             hint: "Chain 10 correct answers" },
+  { id: "math-master",    emoji: "🧠", title: "Math Master",    description: "Complete 50 maths puzzles.",               hint: "Complete 50 puzzles" },
+  { id: "sudoku-solver",  emoji: "🧩", title: "Sudoku Solver",  description: "Complete 10 Sudoku games.",               hint: "Finish 10 Sudoku games" },
+  { id: "blitz-legend",   emoji: "👑", title: "Blitz Legend",   description: "Score 30+ in a 60-second game.",          hint: "Score 30+ in one game" },
+  { id: "streak-warrior", emoji: "🔥", title: "Streak Warrior", description: "Maintain a 7-day login streak.",          hint: "Play 7 days in a row" },
+  { id: "token-tycoon",   emoji: "💎", title: "Token Tycoon",   description: "Accumulate 500 tokens.",                  hint: "Collect 500 tokens total" },
+  { id: "sharp-shooter",  emoji: "🎯", title: "Sharp Shooter",  description: "100% accuracy in a 60-second game.",     hint: "Perfect game accuracy" },
+  { id: "grand-champion", emoji: "🏆", title: "Grand Champion", description: "Reach the Top 3 on any leaderboard.",    hint: "Place top 3 on leaderboard" },
+];
+
+// --- Theme Definitions --------------------------------------------------------
+export type ThemeId =
+  | "classic"
+  | "cosmic"
+  | "ocean"
+  | "forest"
+  | "candy"
+  | "neon"
+  | "volcano"
+  | "diwali"
+  | "holi"
+  | "christmas"
+  | "eid"
+  | "midnight";
+
+export type ThemeDef = {
+  id: ThemeId;
+  name: string;
+  emoji: string;
+  price: number; // 0 = free
+  tag?: string;  // e.g. "Festival"
+  accentColor: string; // preview swatch
+};
+
+export const THEMES: ThemeDef[] = [
+  { id: "classic",   name: "Classic Maths", emoji: "☀️",  price: 0,  accentColor: "#FF6B35" },
+  { id: "cosmic",    name: "Cosmic",        emoji: "🌌",  price: 49, accentColor: "#7C3AED" },
+  { id: "ocean",     name: "Ocean",         emoji: "🌊",  price: 49, accentColor: "#0369A1" },
+  { id: "forest",    name: "Forest",        emoji: "🌲",  price: 49, accentColor: "#15803D" },
+  { id: "candy",     name: "Candy",         emoji: "🌈",  price: 49, accentColor: "#EC4899" },
+  { id: "neon",      name: "Neon",          emoji: "⚡",  price: 49, accentColor: "#00F0FF" },
+  { id: "volcano",   name: "Volcano",       emoji: "🔥",  price: 49, accentColor: "#DC2626" },
+  { id: "diwali",    name: "Diwali",        emoji: "🪔",  price: 49, tag: "Festival", accentColor: "#F59E0B" },
+  { id: "holi",      name: "Holi",          emoji: "🎨",  price: 49, tag: "Festival", accentColor: "#A855F7" },
+  { id: "christmas", name: "Christmas",     emoji: "🎄",  price: 49, tag: "Festival", accentColor: "#16A34A" },
+  { id: "eid",       name: "Eid",           emoji: "🌙",  price: 49, tag: "Festival", accentColor: "#0EA5E9" },
+  { id: "midnight",  name: "Midnight",      emoji: "🖤",  price: 49, accentColor: "#334155" },
+];
+
+// --- Premium Badge Definitions ------------------------------------------------
+export type PremiumBadgeId =
+  | "starborn"
+  | "dragon-scales"
+  | "galaxy-pulse"
+  | "golden-god"
+  | "cyber-grid"
+  | "shadow-king";
+
+export type PremiumBadge = {
+  id: PremiumBadgeId;
+  name: string;
+  description: string;
+  price: number;
+  borderColor: string;
+  gradient: [string, string];
+};
+
+export const PREMIUM_BADGES: PremiumBadge[] = [
+  { id: "starborn",      name: "Starborn",      description: "Iridescent star constellation frame",       price: 49, borderColor: "#A78BFA", gradient: ["#1E1B4B", "#7C3AED"] },
+  { id: "dragon-scales", name: "Dragon Scales", description: "Emerald dragon scale border with fierce eyes", price: 49, borderColor: "#10B981", gradient: ["#064E3B", "#059669"] },
+  { id: "galaxy-pulse",  name: "Galaxy Pulse",  description: "Deep purple nebula swirling frame",          price: 49, borderColor: "#EC4899", gradient: ["#4C0519", "#9D174D"] },
+  { id: "golden-god",    name: "Golden God",    description: "Ornate solid gold baroque frame",             price: 49, borderColor: "#F59E0B", gradient: ["#78350F", "#D97706"] },
+  { id: "cyber-grid",    name: "Cyber Grid",    description: "Neon blue circuit board hexagonal frame",    price: 49, borderColor: "#00F0FF", gradient: ["#0C4A6E", "#0EA5E9"] },
+  { id: "shadow-king",   name: "Shadow King",   description: "Dark obsidian and crimson gothic frame",     price: 49, borderColor: "#DC2626", gradient: ["#1C0A00", "#7F1D1D"] },
+];

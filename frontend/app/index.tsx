@@ -1,10 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, Alert, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AgeSelection } from "@/src/screens/AgeSelection";
 import { NameEntry } from "@/src/screens/NameEntry";
-import { Admin } from "@/src/screens/Admin";
+import DailyChallenge from "@/src/screens/DailyChallenge";
 import { SudokuHub } from "@/src/game/sudoku/SudokuHub";
 import { SudokuGame } from "@/src/game/sudoku/SudokuGame";
 import { MathsPuzzlesHub } from "@/src/game/mathspuzzles/MathsPuzzlesHub";
@@ -19,12 +19,37 @@ import { HowToPlay } from "@/src/screens/HowToPlay";
 import type { SudokuDifficulty } from "@/src/game/sudoku/types";
 import { Results } from "@/src/screens/Results";
 import { Settings } from "@/src/screens/Settings";
+import { Achievements } from "@/src/screens/Achievements";
+import { ThemeStore } from "@/src/screens/ThemeStore";
+import { Leaderboards } from "@/src/screens/Leaderboards";
 import { ChallengeTier } from "@/src/api/types";
+import { leaderboardApi } from "@/src/api/admin";
 import { loadProfile, resetProfile, saveProfile } from "@/src/game/storage";
-import { AgeGroupId, AppSettings, DEFAULT_PROFILE, GameResult, LocalProfile } from "@/src/game/types";
-import { makeStyles, useTheme } from "@/src/theme";
+import { checkAchievements, applyAchievements } from "@/src/game/achievements";
+import { MathBossScreen } from "@/src/screens/MathBoss";
+import { BottomNavBar, NavTab } from "@/src/components/BottomNavBar";
+import { AgeGroupId, AchievementId, ACHIEVEMENTS, AppSettings, AvatarId, AVATARS, DEFAULT_PROFILE, GameResult, LocalProfile, PremiumBadgeId, PREMIUM_BADGES, STREAK_MILESTONES, ThemeId } from "@/src/game/types";
+import { ThemeContext, getThemeColors, makeStyles, useTheme } from "@/src/theme";
 
-type Screen = "splash" | "name" | "age" | "home" | "game" | "results" | "settings" | "admin" | "challenge" | "howto" | "sudoku-hub" | "sudoku-game" | "puzzles-hub" | "puzzle-game";
+type Screen =
+  | "splash"
+  | "name"
+  | "age"
+  | "home"
+  | "game"
+  | "results"
+  | "settings"
+  | "challenge"
+  | "daily-challenge"
+  | "howto"
+  | "sudoku-hub"
+  | "sudoku-game"
+  | "puzzles-hub"
+  | "puzzle-game"
+  | "leaderboards"
+  | "achievements"
+  | "theme-store"
+  | "math-boss";
 
 const CHALLENGE_TOKEN_REWARD: Record<ChallengeTier, number> = { "3-day": 20, "7-day": 30 };
 function Splash() {
@@ -125,16 +150,64 @@ const useStyles = makeStyles((colors) => ({
   },
 }));
 export default function Index() {
+  // Wrap the whole app in ThemeContext so every screen reacts to theme changes
   const [screen, setScreen] = useState<Screen>("splash");
   const [profile, setProfile] = useState<LocalProfile>(DEFAULT_PROFILE);
   const [result, setResult] = useState<GameResult | null>(null);
   const [newBest, setNewBest] = useState(false);
   const [challengeTier, setChallengeTier] = useState<ChallengeTier | null>(null);
+  const [challengeRapidFire, setChallengeRapidFire] = useState(false);
   const [selectedSudokuDifficulty, setSelectedSudokuDifficulty] =
     useState<SudokuDifficulty | null>(null);
   const [selectedSudokuLevel, setSelectedSudokuLevel] = useState<number | null>(null);
   const [selectedMathsPuzzle, setSelectedMathsPuzzle] = useState<number | null>(null);
-  
+
+  const [pendingBossNextScreen, setPendingBossNextScreen] = useState<Screen>("home");
+
+  // Helper to increment totalWins and trigger Math Boss every 10 wins
+  const processWinAndNavigate = async (baseProfile: LocalProfile, targetScreen: Screen) => {
+    const newTotalWins = (baseProfile.totalWins || 0) + 1;
+    const isBossTrigger = newTotalWins > 0 && newTotalWins % 10 === 0;
+
+    const nextProfile = {
+      ...baseProfile,
+      totalWins: newTotalWins,
+    };
+
+    setProfile(nextProfile);
+    await saveProfile(nextProfile);
+
+    if (isBossTrigger) {
+      setPendingBossNextScreen(targetScreen);
+      setScreen("math-boss");
+    } else {
+      setScreen(targetScreen);
+    }
+  };
+
+  const handleMathBossComplete = async (won: boolean, tokensChange: number) => {
+    const nextTokens = Math.max(0, profile.tokens + tokensChange);
+    const nextLevel = (profile.mathBossLevel || 1) + 1;
+    const nextDefeated = (profile.mathBossDefeated || 0) + (won ? 1 : 0);
+
+    const next = {
+      ...profile,
+      tokens: nextTokens,
+      mathBossLevel: nextLevel,
+      mathBossDefeated: nextDefeated,
+    };
+
+    setProfile(next);
+    await saveProfile(next);
+    setScreen(pendingBossNextScreen);
+  };
+
+  // Theme context value — recomputed whenever activeTheme changes
+  const themeContextValue = useMemo(() => ({
+    themeId: profile.activeTheme ?? "classic",
+    colors: getThemeColors(profile.activeTheme ?? "classic"),
+  }), [profile.activeTheme]);
+
   useEffect(() => {
     let active = true;
     loadProfile().then((saved) => {
@@ -142,6 +215,9 @@ export default function Index() {
       setProfile({
         ...DEFAULT_PROFILE,
         ...saved,
+        totalWins: saved.totalWins ?? 0,
+        mathBossLevel: saved.mathBossLevel ?? 1,
+        mathBossDefeated: saved.mathBossDefeated ?? 0,
         speedClaims: saved.speedClaims ?? {},
         challengeClaims: saved.challengeClaims ?? {},
         unlockedSudoku: saved.unlockedSudoku ?? {},
@@ -149,6 +225,8 @@ export default function Index() {
         sudokuHintsUsed: saved.sudokuHintsUsed ?? {},
         unlockedMathsPuzzles: saved.unlockedMathsPuzzles ?? {},
         completedMathsPuzzles: saved.completedMathsPuzzles ?? {},
+        streakMilestone: saved.streakMilestone ?? 3,
+        avatar: saved.avatar,
       });
       setTimeout(() => {
         if (!saved.playerName) {
@@ -156,16 +234,23 @@ export default function Index() {
         } else {
           setScreen(saved.hasOnboarded ? "home" : "age");
         }
-      }, 900);
+      }, 5000);
+
     });
     return () => { active = false; };
   }, []);
 
-  const saveName = async (name: string) => {
-    const next = { ...profile, playerName: name };
-    setProfile(next); 
+  const saveName = async (name: string, avatar: AvatarId) => {
+    const next = { ...profile, playerName: name, avatar };
+    setProfile(next);
     await saveProfile(next);
     setScreen(next.hasOnboarded ? "home" : "age");
+  };
+
+  const changeAvatar = async (avatar: AvatarId) => {
+    const next = { ...profile, avatar };
+    setProfile(next);
+    await saveProfile(next);
   };
 
   const chooseAge = async (ageGroup: AgeGroupId) => {
@@ -177,7 +262,15 @@ export default function Index() {
     const previous = profile.lastPlayedDate;
     const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
     const streak = previous === today ? profile.streak : previous === yesterday ? profile.streak + 1 : 1;
-    const next = { ...profile, streak, lastPlayedDate: today };
+    // Advance streak milestone when current one is reached
+    let nextMilestone = profile.streakMilestone ?? 3;
+    if (streak >= nextMilestone) {
+      const idx = STREAK_MILESTONES.indexOf(nextMilestone as any);
+      if (idx >= 0 && idx < STREAK_MILESTONES.length - 1) {
+        nextMilestone = STREAK_MILESTONES[idx + 1];
+      }
+    }
+    const next = { ...profile, streak, lastPlayedDate: today, streakMilestone: nextMilestone };
     setProfile(next); await saveProfile(next); setScreen("game");
   };
   const finishGame = async (gameResult: Omit<GameResult, "personalBest">) => {
@@ -187,9 +280,17 @@ export default function Index() {
     const tokenGain = gameResult.tokensClaimed ? Math.max(0, gameResult.tokens) : 0;
     const speedClaims = { ...profile.speedClaims };
     if (gameResult.tokensClaimed && profile.ageGroup) speedClaims[profile.ageGroup] = today;
-    const next = { ...profile, personalBest: best, totalXp: profile.totalXp + gameResult.xp, tokens: profile.tokens + tokenGain, speedClaims };
+    let next = { ...profile, personalBest: best, totalXp: profile.totalXp + gameResult.xp, tokens: profile.tokens + tokenGain, speedClaims };
+    // Check achievements
+    const newAch = checkAchievements(next, { gameResult: { score: gameResult.score, correct: gameResult.correct, answered: gameResult.answered, accuracy: gameResult.accuracy, bestCombo: gameResult.bestCombo ?? 0 } });
+    if (newAch.length > 0) next = applyAchievements(next, newAch);
     const complete = { ...gameResult, personalBest: best };
-    setProfile(next); setResult(complete); setNewBest(isBest); await saveProfile(next); setScreen("results");
+    setResult(complete); setNewBest(isBest);
+    // Submit to leaderboard
+    if (profile.playerName && profile.ageGroup) {
+      leaderboardApi.submit(profile.playerName, gameResult.score, profile.ageGroup, "classic").catch(() => { });
+    }
+    await processWinAndNavigate(next, "results");
   };
   const finishChallenge = async (summary: { tier: ChallengeTier; correct: number; total: number; xp: number }) => {
     const today = new Date().toISOString().slice(0, 10);
@@ -199,253 +300,536 @@ export default function Index() {
     const tokenReward = shouldGrant ? CHALLENGE_TOKEN_REWARD[summary.tier] : 0;
     const challengeClaims = { ...profile.challengeClaims };
     if (shouldGrant) challengeClaims[summary.tier] = today;
-    const next = { ...profile, totalXp: profile.totalXp + summary.xp, tokens: profile.tokens + tokenReward, challengeClaims };
-    setProfile(next); await saveProfile(next);
+    let next = { ...profile, totalXp: profile.totalXp + summary.xp, tokens: profile.tokens + tokenReward, challengeClaims };
+    // Check achievements
+    const newAch = checkAchievements(next, { challengeCompleted: passed });
+    if (newAch.length > 0) next = applyAchievements(next, newAch);
     setResult({ score: summary.correct, correct: summary.correct, answered: summary.total, accuracy: summary.total ? Math.round((summary.correct / summary.total) * 100) : 0, bestCombo: summary.correct, xp: summary.xp, personalBest: profile.personalBest, tokens: tokenReward, tokensClaimed: shouldGrant });
-    setNewBest(false); setScreen("results"); setChallengeTier(null);
+    setNewBest(false); setChallengeTier(null);
+    if (passed) {
+      await processWinAndNavigate(next, "results");
+    } else {
+      setProfile(next); await saveProfile(next); setScreen("results");
+    }
   };
+  const openDailyChallenge = () => {
+    setScreen("daily-challenge");
+  };
+
+  const finishDailyChallenge = async (score: number) => {
+    const today = new Date().toISOString().slice(0, 10);
+
+    const alreadyCompleted =
+      profile.dailyChallengeDate === today &&
+      profile.dailyChallengeCompleted;
+
+    const next = {
+      ...profile,
+      dailyChallengeDate: today,
+      dailyChallengeScore: score,
+      dailyChallengeCompleted: true,
+      tokens: alreadyCompleted ? profile.tokens : profile.tokens + 5,
+    };
+
+    // Submit daily score to leaderboard
+    if (!alreadyCompleted && profile.playerName && profile.ageGroup) {
+      leaderboardApi.submit(profile.playerName, score, profile.ageGroup, "daily").catch(() => { });
+    }
+    await processWinAndNavigate(next, "home");
+  };
+
+  const openLeaderboards = () => setScreen("leaderboards");
   const updateSettings = async (settings: AppSettings) => { const next = { ...profile, settings }; setProfile(next); await saveProfile(next); };
   const reset = async () => { await resetProfile(); setProfile(DEFAULT_PROFILE); setScreen("age"); };
-  const openChallenge = (tier: ChallengeTier) => { setChallengeTier(tier); setScreen("challenge"); };
+  const openChallenge = (tier: ChallengeTier, rapid: boolean = false) => { setChallengeTier(tier); setChallengeRapidFire(rapid); setScreen("challenge"); };
 
-  if (screen === "splash") return <Splash />;
-  if (screen === "name") return <NameEntry onSave={saveName} />;
-  if (screen === "age") return <AgeSelection onSelect={chooseAge} />;
-  if (screen === "home") {
-    return (
-      <Home
+  // ── Badge & Achievement handlers (Max 2 badges equipped at a time) ─────────
+  const toggleEquipBadge = async (id: string): Promise<boolean> => {
+    const current = profile.equippedBadges ?? [];
+    let nextBadges: string[];
+    if (current.includes(id)) {
+      nextBadges = current.filter((b) => b !== id);
+    } else {
+      if (current.length >= 2) {
+        Alert.alert(
+          "Badge Limit Reached",
+          "You can only equip up to 2 badges at a time. Please unequip one badge first to equip this badge."
+        );
+        return false;
+      }
+      nextBadges = [...current, id];
+    }
+    const next = {
+      ...profile,
+      equippedBadges: nextBadges,
+      equippedAchievementBadge: (nextBadges.find((b) => ACHIEVEMENTS.some((a) => a.id === b)) as any) ?? null,
+      equippedPremiumBadge: (nextBadges.find((b) => PREMIUM_BADGES.some((p) => p.id === b)) as any) ?? null,
+    };
+    setProfile(next);
+    await saveProfile(next);
+    return true;
+  };
+
+  const equipAchievementBadge = async (id: AchievementId | null) => {
+    if (id) {
+      await toggleEquipBadge(id);
+    }
+  };
+
+  const equipPremiumBadge = async (id: PremiumBadgeId | null) => {
+    if (id) {
+      await toggleEquipBadge(id);
+    }
+  };
+
+  const purchasePremiumBadge = async (id: PremiumBadgeId, utr?: string) => {
+    const already = profile.purchasedPremiumBadges ?? [];
+    const payments = profile.verifiedPayments ?? [];
+    const next = {
+      ...profile,
+      purchasedPremiumBadges: already.includes(id) ? already : [...already, id],
+      verifiedPayments: utr ? [...payments, { itemId: id, utr, date: new Date().toISOString() }] : payments,
+    };
+    setProfile(next);
+    await saveProfile(next);
+  };
+
+  // ── Theme handlers (Payment verification before unlock) ───────────────────
+  const activateTheme = async (id: ThemeId) => {
+    const next = { ...profile, activeTheme: id };
+    setProfile(next);
+    await saveProfile(next);
+  };
+
+  const purchaseTheme = async (id: ThemeId, utr?: string) => {
+    const already = profile.purchasedThemes ?? [];
+    const payments = profile.verifiedPayments ?? [];
+    const next = {
+      ...profile,
+      purchasedThemes: already.includes(id) ? already : [...already, id],
+      activeTheme: id,
+      verifiedPayments: utr ? [...payments, { itemId: id, utr, date: new Date().toISOString() }] : payments,
+    };
+    setProfile(next);
+    await saveProfile(next);
+  };
+
+  if (screen === "splash") return <ThemeContext.Provider value={themeContextValue}><Splash /></ThemeContext.Provider>;
+  if (screen === "name") return <ThemeContext.Provider value={themeContextValue}><NameEntry onSave={saveName} /></ThemeContext.Provider>;
+  if (screen === "age") return <ThemeContext.Provider value={themeContextValue}><AgeSelection onSelect={chooseAge} /></ThemeContext.Provider>;
+  // All themed screens are wrapped in ThemeContext.Provider
+  return (
+    <ThemeContext.Provider value={themeContextValue}>
+      <AppShell
+        screen={screen}
         profile={profile}
-        onPlay={startGame}
-        onSettings={() => setScreen("settings")}
-        onAdmin={() => setScreen("admin")}
-        onAge={() => setScreen("age")}
-        onChallenge={openChallenge}
-        onHowToPlay={() => setScreen("howto")}
-        onSudoku={() => setScreen("sudoku-hub")}
-        onMathsPuzzles={() => setScreen("puzzles-hub")}
+        result={result}
+        newBest={newBest}
+        challengeTier={challengeTier}
+        selectedSudokuDifficulty={selectedSudokuDifficulty}
+        selectedSudokuLevel={selectedSudokuLevel}
+        selectedMathsPuzzle={selectedMathsPuzzle}
+        setScreen={setScreen}
+        setProfile={setProfile}
+        setResult={setResult}
+        setNewBest={setNewBest}
+        setChallengeTier={setChallengeTier}
+        setSelectedSudokuDifficulty={setSelectedSudokuDifficulty}
+        setSelectedSudokuLevel={setSelectedSudokuLevel}
+        setSelectedMathsPuzzle={setSelectedMathsPuzzle}
+        startGame={startGame}
+        finishGame={finishGame}
+        finishChallenge={finishChallenge}
+        finishDailyChallenge={finishDailyChallenge}
+        openDailyChallenge={openDailyChallenge}
+        openLeaderboards={openLeaderboards}
+        updateSettings={updateSettings}
+        reset={reset}
+        openChallenge={openChallenge}
+        challengeRapidFire={challengeRapidFire}
+        setChallengeRapidFire={setChallengeRapidFire}
+        equipAchievementBadge={equipAchievementBadge}
+        equipPremiumBadge={equipPremiumBadge}
+        toggleEquipBadge={toggleEquipBadge}
+        purchasePremiumBadge={purchasePremiumBadge}
+        activateTheme={activateTheme}
+        purchaseTheme={purchaseTheme}
+        saveName={saveName}
+        changeAvatar={changeAvatar}
+        chooseAge={chooseAge}
+        processWinAndNavigate={processWinAndNavigate}
+        onMathBossComplete={handleMathBossComplete}
       />
-    );
-  }
+    </ThemeContext.Provider>
+  );
+}
 
-  if (screen === "game" && profile.ageGroup) {
-    return (
-      <Game
-        age={profile.ageGroup}
-        profile={profile}
-        onFinish={finishGame}
-        onBack={() => setScreen("home")}
-      />
-    );
-  }
+type AppShellProps = {
+  screen: Screen;
+  profile: LocalProfile;
+  result: GameResult | null;
+  newBest: boolean;
+  challengeTier: ChallengeTier | null;
+  challengeRapidFire: boolean;
+  selectedSudokuDifficulty: SudokuDifficulty | null;
+  selectedSudokuLevel: number | null;
+  selectedMathsPuzzle: number | null;
+  setScreen: (s: Screen) => void;
+  setProfile: (p: LocalProfile) => void;
+  setResult: (r: GameResult | null) => void;
+  setNewBest: (b: boolean) => void;
+  setChallengeTier: (t: ChallengeTier | null) => void;
+  setSelectedSudokuDifficulty: (d: SudokuDifficulty | null) => void;
+  setSelectedSudokuLevel: (l: number | null) => void;
+  setSelectedMathsPuzzle: (n: number | null) => void;
+  startGame: () => Promise<void>;
+  finishGame: (r: Omit<GameResult, "personalBest">) => Promise<void>;
+  finishChallenge: (s: { tier: ChallengeTier; correct: number; total: number; xp: number }) => Promise<void>;
+  finishDailyChallenge: (score: number) => Promise<void>;
+  openDailyChallenge: () => void;
+  openLeaderboards: () => void;
+  updateSettings: (s: AppSettings) => Promise<void>;
+  reset: () => Promise<void>;
+  openChallenge: (t: ChallengeTier, rapid?: boolean) => void;
+  setChallengeRapidFire: (r: boolean) => void;
+  equipAchievementBadge: (id: AchievementId | null) => Promise<void>;
+  equipPremiumBadge: (id: PremiumBadgeId | null) => Promise<void>;
+  toggleEquipBadge: (id: string) => Promise<boolean>;
+  purchasePremiumBadge: (id: PremiumBadgeId, utr?: string) => Promise<void>;
+  activateTheme: (id: ThemeId) => Promise<void>;
+  purchaseTheme: (id: ThemeId, utr?: string) => Promise<void>;
+  saveName: (name: string, avatar: AvatarId) => Promise<void>;
+  changeAvatar: (avatar: AvatarId) => Promise<void>;
+  chooseAge: (age: AgeGroupId) => Promise<void>;
+  processWinAndNavigate: (p: LocalProfile, targetScreen: Screen) => Promise<void>;
+  onMathBossComplete: (won: boolean, tokensChange: number) => Promise<void>;
+};
 
-  if (screen === "challenge" && challengeTier) {
-    return (
-      <ChallengeGame
-        tier={challengeTier}
-        profile={profile}
-        onFinish={finishChallenge}
-        onBack={() => {
-          setChallengeTier(null);
-          setScreen("home");
-        }}
-      />
-    );
-  }
+function AppShell({
+  screen, profile, result, newBest, challengeTier, challengeRapidFire,
+  selectedSudokuDifficulty, selectedSudokuLevel, selectedMathsPuzzle,
+  setScreen, setProfile, setResult, setNewBest, setChallengeTier,
+  setSelectedSudokuDifficulty, setSelectedSudokuLevel, setSelectedMathsPuzzle,
+  startGame, finishGame, finishChallenge, finishDailyChallenge, openDailyChallenge, openLeaderboards,
+  updateSettings, reset, openChallenge,
+  equipAchievementBadge, equipPremiumBadge, toggleEquipBadge, purchasePremiumBadge, activateTheme, purchaseTheme,
+  processWinAndNavigate, onMathBossComplete, changeAvatar, setChallengeRapidFire,
+}: AppShellProps) {
+  const showNavBar =
+    screen === "home" ||
+    screen === "sudoku-hub" ||
+    screen === "puzzles-hub" ||
+    screen === "leaderboards" ||
+    screen === "achievements" ||
+    screen === "theme-store";
 
-  if (screen === "sudoku-hub") {
-    return (
-      <SudokuHub
-        profile={profile}
-        onBack={() => setScreen("home")}
-        onPlay={async (difficulty, level) => {
-          const tier = SUDOKU_TIERS.find(
-            (item) => item.difficulty === difficulty,
-          );
+  const activeTab: NavTab =
+    screen === "sudoku-hub"
+      ? "sudoku-hub"
+      : screen === "puzzles-hub"
+      ? "puzzles-hub"
+      : screen === "leaderboards"
+      ? "leaderboards"
+      : screen === "achievements" || screen === "theme-store"
+      ? "achievements"
+      : "home";
 
-          if (!tier) return;
+  const renderContent = () => {
+    if (screen === "home") {
+      return (
+        <Home
+          profile={profile}
+          onPlay={startGame}
+          onSettings={() => setScreen("settings")}
+          onAge={() => setScreen("age")}
+          onChallenge={openChallenge}
+          onDailyChallenge={openDailyChallenge}
+          onLeaderboards={openLeaderboards}
+          onAchievements={() => setScreen("achievements")}
+          onThemeStore={() => setScreen("theme-store")}
+          onHowToPlay={() => setScreen("howto")}
+          onSudoku={() => setScreen("sudoku-hub")}
+          onMathsPuzzles={() => setScreen("puzzles-hub")}
+        />
+      );
+    }
 
-          const id = `sudoku-${difficulty}-${level}`;
-          const unlocked = level === 1 || isSudokuUnlocked(profile, id);
+    if (screen === "game" && profile.ageGroup) {
+      return (
+        <Game
+          age={profile.ageGroup}
+          profile={profile}
+          onFinish={finishGame}
+          onBack={() => setScreen("home")}
+        />
+      );
+    }
 
-          if (!unlocked) {
-            if (profile.tokens < tier.unlockCost) {
-              return;
-            }
+    if (screen === "challenge" && challengeTier) {
+      return (
+        <ChallengeGame
+          tier={challengeTier}
+          profile={profile}
+          onFinish={finishChallenge}
+          rapidFire={challengeRapidFire}
+          onBack={() => {
+            setChallengeTier(null);
+            setChallengeRapidFire(false);
+            setScreen("home");
+          }}
+        />
+      );
+    }
+    if (screen === "leaderboards") {
+      return <Leaderboards profile={profile} onBack={() => setScreen("home")} />;
+    }
+    if (screen === "daily-challenge") {
+      return (
+        <DailyChallenge
+          onComplete={finishDailyChallenge}
+          onBack={() => setScreen("home")}
+        />
+      );
+    }
+    if (screen === "sudoku-hub") {
+      return (
+        <SudokuHub
+          profile={profile}
+          onBack={() => setScreen("home")}
+          onPlay={async (difficulty, level) => {
+            const tier = SUDOKU_TIERS.find(
+              (item) => item.difficulty === difficulty,
+            );
 
-            const next = {
-              ...profile,
-              tokens: profile.tokens - tier.unlockCost,
-              unlockedSudoku: {
-                ...profile.unlockedSudoku,
-                [id]: true,
-              },
-            };
+            if (!tier) return;
 
-            setProfile(next);
-            await saveProfile(next);
-          }
+            const id = `sudoku-${difficulty}-${level}`;
+            const unlocked = level === 1 || isSudokuUnlocked(profile, id);
 
-          setSelectedSudokuDifficulty(difficulty);
-          setSelectedSudokuLevel(level);
-          setScreen("sudoku-game");
-        }}
-      />
-    );
-  }
-  if (
-    screen === "sudoku-game" &&
-    selectedSudokuDifficulty &&
-    selectedSudokuLevel &&
-    profile.ageGroup
-  ) {
-    return (
-      <SudokuGame
-        profile={profile}
-        difficulty={selectedSudokuDifficulty}
-        gameNumber={selectedSudokuLevel}
-        onBack={() => setScreen("sudoku-hub")}
-        onComplete={(puzzleId, mistakes) => {
-          const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
+            if (!unlocked) {
+              if (profile.tokens < tier.unlockCost) {
+                return;
+              }
 
-          if (profile.completedSudoku[puzzleId]) {
-            const currentStars = profile.sudokuStars?.[puzzleId] || 0;
-            if (stars > currentStars) {
               const next = {
                 ...profile,
-                sudokuStars: { ...profile.sudokuStars, [puzzleId]: stars },
+                tokens: profile.tokens - tier.unlockCost,
+                unlockedSudoku: {
+                  ...profile.unlockedSudoku,
+                  [id]: true,
+                },
               };
+
               setProfile(next);
-              void saveProfile(next);
+              await saveProfile(next);
             }
-            setScreen("sudoku-hub");
-            return;
-          }
 
-          const next = {
-            ...profile,
-            tokens: profile.tokens + 5,
-            completedSudoku: {
-              ...profile.completedSudoku,
-              [puzzleId]: true,
-            },
-            sudokuStars: {
-              ...profile.sudokuStars,
-              [puzzleId]: stars,
-            }
-          };
-
-          setProfile(next);
-          void saveProfile(next);
-          setScreen("sudoku-hub");
-        }}
-      />
-    );
-  }
-
-  if (screen === "puzzles-hub") {
-    return (
-      <MathsPuzzlesHub
-        profile={profile}
-        onBack={() => setScreen("home")}
-        onPlay={async (level, unlockCost) => {
-          const unlocked = level === 1 || profile.unlockedMathsPuzzles?.[level];
-          
-          if (!unlocked) {
-            if (profile.tokens < unlockCost) return;
-            const next = {
-              ...profile,
-              tokens: profile.tokens - unlockCost,
-              unlockedMathsPuzzles: {
-                ...profile.unlockedMathsPuzzles,
-                [level]: true,
-              }
-            };
-            setProfile(next);
-            await saveProfile(next);
-          }
-          
-          setSelectedMathsPuzzle(level);
-          setScreen("puzzle-game");
-        }}
-      />
-    );
-  }
-
-  if (screen === "puzzle-game" && selectedMathsPuzzle) {
-    const puzzle = MATHS_CATALOGUE.find(p => p.level === selectedMathsPuzzle);
-    if (puzzle) {
+            setSelectedSudokuDifficulty(difficulty);
+            setSelectedSudokuLevel(level);
+            setScreen("sudoku-game");
+          }}
+        />
+      );
+    }
+    if (
+      screen === "sudoku-game" &&
+      selectedSudokuDifficulty &&
+      selectedSudokuLevel &&
+      profile.ageGroup
+    ) {
       return (
-        <MathsPuzzleGame
+        <SudokuGame
           profile={profile}
-          puzzle={puzzle}
-          onBack={() => setScreen("puzzles-hub")}
-          onComplete={(level) => {
-            if (profile.completedMathsPuzzles?.[level]) {
-              setScreen("puzzles-hub");
+          difficulty={selectedSudokuDifficulty}
+          gameNumber={selectedSudokuLevel}
+          onBack={() => setScreen("sudoku-hub")}
+          onComplete={(puzzleId, mistakes) => {
+            const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
+
+            if (profile.completedSudoku[puzzleId]) {
+              const currentStars = profile.sudokuStars?.[puzzleId] || 0;
+              if (stars > currentStars) {
+                const next = {
+                  ...profile,
+                  sudokuStars: { ...profile.sudokuStars, [puzzleId]: stars },
+                };
+                setProfile(next);
+                void saveProfile(next);
+              }
+              setScreen("sudoku-hub");
               return;
             }
 
             const next = {
               ...profile,
               tokens: profile.tokens + 5,
-              completedMathsPuzzles: {
-                ...profile.completedMathsPuzzles,
-                [level]: true,
+              completedSudoku: {
+                ...profile.completedSudoku,
+                [puzzleId]: true,
+              },
+              sudokuStars: {
+                ...profile.sudokuStars,
+                [puzzleId]: stars,
               }
             };
 
-            setProfile(next);
-            void saveProfile(next);
-            setScreen("puzzles-hub");
+            void processWinAndNavigate(next, "sudoku-hub");
           }}
         />
       );
     }
-  }
 
-  if (screen === "results" && result) {
-    return (
-      <Results
-        result={result}
-        isNewBest={newBest}
-        tokenBalance={profile.tokens}
-        onAgain={startGame}
-        onHome={() => setScreen("home")}
-      />
-    );
-  }
+    if (screen === "puzzles-hub") {
+      return (
+        <MathsPuzzlesHub
+          profile={profile}
+          onBack={() => setScreen("home")}
+          onPlay={async (level, unlockCost) => {
+            const unlocked = level === 1 || profile.unlockedMathsPuzzles?.[level];
 
-  if (screen === "settings") {
+            if (!unlocked) {
+              if (profile.tokens < unlockCost) return;
+              const next = {
+                ...profile,
+                tokens: profile.tokens - unlockCost,
+                unlockedMathsPuzzles: {
+                  ...profile.unlockedMathsPuzzles,
+                  [level]: true,
+                }
+              };
+              setProfile(next);
+              await saveProfile(next);
+            }
+
+            setSelectedMathsPuzzle(level);
+            setScreen("puzzle-game");
+          }}
+        />
+      );
+    }
+
+    if (screen === "puzzle-game" && selectedMathsPuzzle) {
+      const puzzle = MATHS_CATALOGUE.find(p => p.level === selectedMathsPuzzle);
+      if (puzzle) {
+        return (
+          <MathsPuzzleGame
+            profile={profile}
+            puzzle={puzzle}
+            onBack={() => setScreen("puzzles-hub")}
+            onComplete={(level) => {
+              if (profile.completedMathsPuzzles?.[level]) {
+                setScreen("puzzles-hub");
+                return;
+              }
+
+              const next = {
+                ...profile,
+                tokens: profile.tokens + 5,
+                completedMathsPuzzles: {
+                  ...profile.completedMathsPuzzles,
+                  [level]: true,
+                }
+              };
+
+              void processWinAndNavigate(next, "puzzles-hub");
+            }}
+          />
+        );
+      }
+    }
+
+    if (screen === "math-boss") {
+      return (
+        <MathBossScreen
+          profile={profile}
+          onComplete={onMathBossComplete}
+        />
+      );
+    }
+
+    if (screen === "results" && result) {
+      return (
+        <Results
+          result={result}
+          isNewBest={newBest}
+          tokenBalance={profile.tokens}
+          onAgain={startGame}
+          onHome={() => setScreen("home")}
+        />
+      );
+    }
+
+    if (screen === "settings") {
+      return (
+        <Settings
+          profile={profile}
+          onSave={updateSettings}
+          onBack={() => setScreen("home")}
+          onAge={() => setScreen("age")}
+          onReset={reset}
+          onChangeAvatar={changeAvatar}
+        />
+      );
+    }
+
+    if (screen === "howto") {
+      return <HowToPlay onBack={() => setScreen("home")} />;
+    }
+
+    if (screen === "achievements") {
+      return (
+        <Achievements
+          profile={profile}
+          onBack={() => setScreen("home")}
+          onEquipAchievementBadge={equipAchievementBadge}
+          onEquipPremiumBadge={equipPremiumBadge}
+          onToggleEquipBadge={toggleEquipBadge}
+          onPurchasePremiumBadge={purchasePremiumBadge}
+        />
+      );
+    }
+
+    if (screen === "theme-store") {
+      return (
+        <ThemeStore
+          profile={profile}
+          onBack={() => setScreen("home")}
+          onActivateTheme={activateTheme}
+          onPurchaseTheme={purchaseTheme}
+        />
+      );
+    }
+
     return (
-      <Settings
+      <Home
         profile={profile}
-        onSave={updateSettings}
-        onBack={() => setScreen("home")}
+        onPlay={startGame}
+        onSettings={() => setScreen("settings")}
         onAge={() => setScreen("age")}
-        onReset={reset}
+        onChallenge={openChallenge}
+        onDailyChallenge={openDailyChallenge}
+        onLeaderboards={openLeaderboards}
+        onAchievements={() => setScreen("achievements")}
+        onThemeStore={() => setScreen("theme-store")}
+        onHowToPlay={() => setScreen("howto")}
+        onSudoku={() => setScreen("sudoku-hub")}
+        onMathsPuzzles={() => setScreen("puzzles-hub")}
       />
     );
-  }
+  };
 
-  if (screen === "admin") {
-    return <Admin onBack={() => setScreen("home")} />;
-  }
-
-  if (screen === "howto") {
-    return <HowToPlay onBack={() => setScreen("home")} />;
-  }
+  const { colors } = useTheme();
 
   return (
-    <Home
-      profile={profile}
-      onPlay={startGame}
-      onSettings={() => setScreen("settings")}
-      onAdmin={() => setScreen("admin")}
-      onAge={() => setScreen("age")}
-      onChallenge={openChallenge}
-      onHowToPlay={() => setScreen("howto")}
-      onSudoku={() => setScreen("sudoku-hub")}
-      onMathsPuzzles={() => setScreen("puzzles-hub")}
-    />
+    <View style={{ flex: 1, backgroundColor: colors.surface }}>
+      {renderContent()}
+      {showNavBar && (
+        <BottomNavBar
+          currentTab={activeTab}
+          onSelectTab={(tab) => setScreen(tab)}
+          vibrationEnabled={profile.settings.vibration}
+        />
+      )}
+    </View>
   );
-}
+}

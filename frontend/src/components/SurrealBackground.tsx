@@ -8,107 +8,115 @@ import Animated, {
   Easing,
   withDelay,
 } from "react-native-reanimated";
+import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "@/src/theme";
 
 const { width, height } = Dimensions.get("window");
 
-const NUM_PARTICLES = 30; // More particles for math symbols
-const SYMBOLS = ["+", "-", "×", "÷", "π", "√", "1", "2", "3", "4", "5", "7", "8", "9"];
-const COLORS = ["#4FC3F7", "#81C784", "#FFCA28", "#FF8A65", "#BA68C8", "#F06292", "#64B5F6"];
+// Pre-seeded particle configurations to avoid random regeneration on re-renders
+const PARTICLES_CONFIG = [
+  { id: 0, symbol: "+", size: 36, xPct: 0.08, duration: 18000, delay: 0, color: "#4FC3F7" },
+  { id: 1, symbol: "×", size: 48, xPct: 0.22, duration: 22000, delay: 3000, color: "#81C784" },
+  { id: 2, symbol: "÷", size: 42, xPct: 0.40, duration: 20000, delay: 6000, color: "#FFCA28" },
+  { id: 3, symbol: "π", size: 52, xPct: 0.58, duration: 26000, delay: 1000, color: "#FF8A65" },
+  { id: 4, symbol: "√", size: 44, xPct: 0.75, duration: 21000, delay: 4000, color: "#BA68C8" },
+  { id: 5, symbol: "∑", size: 40, xPct: 0.88, duration: 24000, delay: 7000, color: "#F06292" },
+  { id: 6, symbol: "∞", size: 46, xPct: 0.15, duration: 25000, delay: 8000, color: "#64B5F6" },
+  { id: 7, symbol: "∆", size: 38, xPct: 0.33, duration: 19000, delay: 2000, color: "#81C784" },
+  { id: 8, symbol: "-", size: 50, xPct: 0.50, duration: 23000, delay: 5000, color: "#FFCA28" },
+  { id: 9, symbol: "7", size: 34, xPct: 0.68, duration: 27000, delay: 9000, color: "#BA68C8" },
+  { id: 10, symbol: "9", size: 42, xPct: 0.82, duration: 20000, delay: 3500, color: "#4FC3F7" },
+  { id: 11, symbol: "3", size: 36, xPct: 0.93, duration: 22000, delay: 6500, color: "#FF8A65" },
+];
 
-const Particle = ({ index }: { index: number }) => {
-  const startX = Math.random() * width;
-  const startY = height + Math.random() * 400;
-  const size = 30 + Math.random() * 60; // Font size variation
-  const opacity = 0.5 + Math.random() * 0.4;
-  const duration = 15000 + Math.random() * 25000;
-  const delay = Math.random() * 8000;
-
-  const symbol = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
-  const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+const SmoothParticle = React.memo(({ config }: { config: typeof PARTICLES_CONFIG[0] }) => {
+  const startX = config.xPct * width;
+  const startY = height + 60;
 
   const translateY = useSharedValue(startY);
-  const rotation = useSharedValue(Math.random() * 360);
+  const rotation = useSharedValue(0);
 
   useEffect(() => {
     translateY.value = withDelay(
-      delay,
+      config.delay,
       withRepeat(
-        withTiming(-200, { duration, easing: Easing.linear }),
+        withTiming(-120, { duration: config.duration, easing: Easing.linear }),
         -1,
         false
       )
     );
 
     rotation.value = withDelay(
-      delay,
+      config.delay,
       withRepeat(
-        withTiming(rotation.value + 360, { duration: duration * 1.5, easing: Easing.linear }),
+        withTiming(360, { duration: config.duration * 1.4, easing: Easing.linear }),
         -1,
         false
       )
     );
-  }, [delay, duration, rotation, translateY]);
+  }, [config.delay, config.duration, rotation, translateY]);
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { translateY: translateY.value },
-        { rotate: `${rotation.value}deg` },
-      ],
-    };
-  });
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateY: translateY.value },
+      { rotate: `${rotation.value}deg` },
+    ],
+  }));
 
   return (
     <Animated.View
       style={[
         styles.particle,
-        { left: startX, opacity },
+        { left: startX },
         animatedStyle,
       ]}
+      pointerEvents="none"
     >
-      <Text style={{ fontSize: size, color, fontWeight: '900', textShadowColor: 'rgba(255,255,255,0.7)', textShadowRadius: 10 }}>{symbol}</Text>
+      <Text
+        style={[
+          styles.particleText,
+          {
+            fontSize: config.size,
+            color: config.color,
+          },
+        ]}
+      >
+        {config.symbol}
+      </Text>
     </Animated.View>
   );
-};
+});
 
-import { LinearGradient } from "expo-linear-gradient";
-
-export function SurrealBackground() {
-  const { scheme, colors } = useTheme();
-
-  if (scheme === 'light') {
-    return (
-      <LinearGradient
-        colors={['#E1F5FE', '#FFFFFF', '#B3E5FC']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.container}
-      >
-        {Array.from({ length: NUM_PARTICLES }).map((_, i) => (
-          <Particle key={i} index={i} />
-        ))}
-      </LinearGradient>
-    );
-  }
-
+export const SurrealBackground = React.memo(function SurrealBackground() {
   return (
-    <View style={[styles.container, { backgroundColor: colors.darkBackground }]}>
-      {Array.from({ length: NUM_PARTICLES }).map((_, i) => (
-        <Particle key={i} index={i} />
+    <LinearGradient
+      colors={["#FFFDF8", "#FFF4EC", "#E1F5FE"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.container}
+      pointerEvents="none"
+    >
+      {PARTICLES_CONFIG.map((config) => (
+        <SmoothParticle key={config.id} config={config} />
       ))}
-    </View>
+    </LinearGradient>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFill,
-    zIndex: -1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflow: "hidden",
   },
   particle: {
     position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
+    opacity: 0.35,
+  },
+  particleText: {
+    fontWeight: "900",
   },
 });

@@ -4,7 +4,7 @@
     "slug": "mathblitz-60s",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/mathblitz-icon.jpg",
     "scheme": "frontend",
     "userInterfaceStyle": "automatic",
     "ios": {
@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/mathblitz-icon.jpg",
         "backgroundColor": "#FF6B35"
       },
       "package": "com.emergent.applaunchstage.v80bbd",
@@ -27,14 +27,14 @@
     "web": {
       "bundler": "metro",
       "output": "single",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/mathblitz-icon.jpg"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/icon.png",
+          "image": "./assets/images/mathblitz-icon.jpg",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#FFFDF9"

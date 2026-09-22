@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import { Platform } from "react-native";
-import { AdminQuestion, ChallengeQuestion, ChallengeTier, MonetizationSettings, UploadResult } from "./types";
+import { AdminQuestion, BossChallenge, BossResult, ChallengeQuestion, ChallengeTier, LeaderboardRow, LeaderboardTimeframe, MonetizationSettings, UploadResult } from "./types";
 
 const backendUrl = Constants.expoConfig?.extra?.backendUrl ?? process.env.EXPO_PUBLIC_BACKEND_URL;
 const API_ROOT = backendUrl ? `${backendUrl.replace(/\/$/, "")}/api` : "";
@@ -52,3 +52,28 @@ export const adminApi = {
   monetization: (token: string) => request<MonetizationSettings>("/admin/monetization", {}, token),
   saveMonetization: (token: string, settings: MonetizationSettings) => request<MonetizationSettings>("/admin/monetization", { method: "PUT", body: JSON.stringify(settings) }, token),
 };
+
+export const leaderboardApi = {
+  submit: (username: string, score: number, age_group: string, game_mode: "classic" | "daily" = "classic") =>
+    request<{ message: string }>("/leaderboard", {
+      method: "POST",
+      body: JSON.stringify({ username, score, age_group, game_mode }),
+    }),
+  fetch: (timeframe: LeaderboardTimeframe, age_group?: string, game_mode: "classic" | "daily" = "classic") => {
+    const params = new URLSearchParams({ timeframe, game_mode });
+    if (age_group && age_group !== "all") params.set("age_group", age_group);
+    return request<LeaderboardRow[]>(`/leaderboard?${params.toString()}`);
+  },
+};
+
+export const mathBossApi = {
+  getChallenge: (level: number, playerName: string, wins: number) =>
+    request<BossChallenge>(`/math-boss/challenge?level=${level}&player_name=${encodeURIComponent(playerName)}&wins=${wins}`),
+  submitResult: (level: number, correct: number, total: number) =>
+    request<BossResult>("/math-boss/result", {
+      method: "POST",
+      body: JSON.stringify({ level, correct, total }),
+    }),
+};
+
+export type { BossChallenge, BossResult };

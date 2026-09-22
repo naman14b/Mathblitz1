@@ -22,6 +22,7 @@ import { SurrealBackground } from "@/src/components/SurrealBackground";
 import { TokenFlyAnimation, TokenFlyRef } from "@/src/components/TokenFlyAnimation";
 import { ComboDisplay } from "@/src/components/ComboDisplay";
 import { BlitzEnergyBar } from "@/src/components/BlitzEnergyBar";
+import { showRewardedAd, showRewardedInterstitialAd } from "@/src/services/ads";
 
 type SudokuGameProps = {
     profile: LocalProfile;
@@ -215,6 +216,18 @@ export function SudokuGame({
         setHintsUsed((current) => current + 1);
     };
 
+    const handleWatchAdToContinue = async () => {
+        await showRewardedInterstitialAd(() => {
+            setSecondsLeft(60);
+        });
+    };
+
+    const handleWatchAdForHint = async () => {
+        await showRewardedAd(() => {
+            handleHint();
+        });
+    };
+
     return (
         <View style={styles.container}>
             <SurrealBackground />
@@ -268,7 +281,7 @@ export function SudokuGame({
                         <Text style={styles.hintText}>Try Again</Text>
                     </Pressable>
                     <Pressable
-                        onPress={() => setSecondsLeft(60)}
+                        onPress={handleWatchAdToContinue}
                         style={[styles.hintButton, { backgroundColor: colors.brandSecondary, paddingHorizontal: 40, width: '100%', maxWidth: 300 }]}
                     >
                         <Text style={[styles.hintText, { color: colors.brandPrimary }]}>Watch Ad to Continue (+60s)</Text>
@@ -334,12 +347,12 @@ export function SudokuGame({
 
                     <View style={styles.controls}>
                         <Pressable
-                            onPress={handleHint}
+                            onPress={hintsUsed >= 1 ? handleWatchAdForHint : handleHint}
                             style={[styles.hintButton, { backgroundColor: (secondsLeft === 0) ? colors.surfaceTertiary : colors.brandPrimary }]}
                             disabled={secondsLeft === 0}
                         >
                             <Text style={[styles.hintText, { color: (secondsLeft === 0) ? colors.muted : colors.onBrandPrimary }]}>
-                                {hintsUsed >= 1 ? "Watch Ad for Hint" : "Use Hint"}
+                                {hintsUsed >= 1 ? "💡 Watch Ad for Free Hint" : "💡 Use Free Hint"}
                             </Text>
                         </Pressable>
                     </View>

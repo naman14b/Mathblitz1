@@ -1,0 +1,451 @@
+import { ChallengeQuestion, ChallengeTier } from "@/src/api/types";
+
+/**
+ * MathBlitz In-Game Challenge Bank
+ * 
+ * You can add, edit, or customize challenge questions directly in this file!
+ * - 3-day: Quickfire Streak Challenges (rapid mental arithmetic & speed logic)
+ * - 7-day: Blitz Master Streak Challenges (advanced algebra, order of operations, patterns)
+ * 
+ * Each question has a `mode` field:
+ * - "standard": Normal challenge (default)
+ * - "rapid-fire": Fast-paced mode with shorter timers and auto-advance
+ */
+export type ChallengeMode = "standard" | "rapid-fire";
+
+export type ExtendedChallengeQuestion = ChallengeQuestion & {
+  mode?: ChallengeMode;
+};
+
+export const CHALLENGE_BANK: ExtendedChallengeQuestion[] = [
+  // ─── 3-Day Quickfire Challenges (Tier: "3-day") — Standard ──────────────────
+  {
+    id: "qf-1",
+    tier: "3-day",
+    prompt: "What is 15 × 6 - 25?",
+    options: ["65", "70", "75", "80"],
+    correct_answer: "65",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-2",
+    tier: "3-day",
+    prompt: "If 3x + 9 = 30, what is the value of x?",
+    options: ["5", "7", "9", "11"],
+    correct_answer: "7",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-3",
+    tier: "3-day",
+    prompt: "Find the missing number: 2, 6, 18, 54, ?",
+    options: ["108", "162", "144", "156"],
+    correct_answer: "162",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-4",
+    tier: "3-day",
+    prompt: "What is 25% of 160?",
+    options: ["30", "40", "45", "50"],
+    correct_answer: "40",
+    time_limit_seconds: 12,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-5",
+    tier: "3-day",
+    prompt: "Calculate: 12² - 10² = ?",
+    options: ["24", "44", "144", "22"],
+    correct_answer: "44",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-6",
+    tier: "3-day",
+    prompt: "Which prime number comes right after 29?",
+    options: ["31", "33", "37", "39"],
+    correct_answer: "31",
+    time_limit_seconds: 12,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-7",
+    tier: "3-day",
+    prompt: "A car travels 180 km in 3 hours. What is its average speed?",
+    options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
+    correct_answer: "60 km/h",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-8",
+    tier: "3-day",
+    prompt: "What is the square root of 225?",
+    options: ["13", "15", "17", "25"],
+    correct_answer: "15",
+    time_limit_seconds: 12,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-9",
+    tier: "3-day",
+    prompt: "Simplify: (48 ÷ 6) × (15 - 9) = ?",
+    options: ["48", "36", "54", "42"],
+    correct_answer: "48",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "qf-10",
+    tier: "3-day",
+    prompt: "If 4 notebooks cost ₹80, what is the cost of 7 notebooks?",
+    options: ["₹120", "₹140", "₹160", "₹150"],
+    correct_answer: "₹140",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+
+  // ─── 3-Day Rapid Fire Challenges (Tier: "3-day") ────────────────────────────
+  {
+    id: "rf3-1",
+    tier: "3-day",
+    prompt: "9 × 8 = ?",
+    options: ["72", "81", "64", "56"],
+    correct_answer: "72",
+    time_limit_seconds: 8,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-2",
+    tier: "3-day",
+    prompt: "What is 50% of 84?",
+    options: ["42", "38", "44", "40"],
+    correct_answer: "42",
+    time_limit_seconds: 8,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-3",
+    tier: "3-day",
+    prompt: "15 + 27 + 8 = ?",
+    options: ["48", "50", "52", "46"],
+    correct_answer: "50",
+    time_limit_seconds: 8,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-4",
+    tier: "3-day",
+    prompt: "What is 100 - 37?",
+    options: ["63", "67", "57", "73"],
+    correct_answer: "63",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-5",
+    tier: "3-day",
+    prompt: "7 × 12 = ?",
+    options: ["84", "78", "96", "72"],
+    correct_answer: "84",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-6",
+    tier: "3-day",
+    prompt: "144 ÷ 12 = ?",
+    options: ["12", "14", "11", "13"],
+    correct_answer: "12",
+    time_limit_seconds: 8,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-7",
+    tier: "3-day",
+    prompt: "What is 3³?",
+    options: ["9", "27", "18", "81"],
+    correct_answer: "27",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-8",
+    tier: "3-day",
+    prompt: "Double of 65?",
+    options: ["120", "130", "125", "135"],
+    correct_answer: "130",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-9",
+    tier: "3-day",
+    prompt: "45 + 55 = ?",
+    options: ["90", "95", "100", "110"],
+    correct_answer: "100",
+    time_limit_seconds: 6,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf3-10",
+    tier: "3-day",
+    prompt: "What is ½ of 96?",
+    options: ["48", "46", "52", "44"],
+    correct_answer: "48",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+
+  // ─── 7-Day Blitz Master Challenges (Tier: "7-day") — Standard ────────────────
+  {
+    id: "bm-1",
+    tier: "7-day",
+    prompt: "Solve for y: 5y - 14 = 3y + 18",
+    options: ["14", "16", "18", "20"],
+    correct_answer: "16",
+    time_limit_seconds: 18,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-2",
+    tier: "7-day",
+    prompt: "What is the sum of internal angles in a hexagon (6-sided polygon)?",
+    options: ["540°", "720°", "360°", "900°"],
+    correct_answer: "720°",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-3",
+    tier: "7-day",
+    prompt: "Find the next term in the sequence: 5, 8, 13, 21, 34, ?",
+    options: ["45", "55", "58", "64"],
+    correct_answer: "55",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-4",
+    tier: "7-day",
+    prompt: "A right-angled triangle has sides of 6 cm and 8 cm. What is its area?",
+    options: ["24 cm²", "30 cm²", "48 cm²", "40 cm²"],
+    correct_answer: "24 cm²",
+    time_limit_seconds: 18,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-5",
+    tier: "7-day",
+    prompt: "What is the Greatest Common Divisor (GCD) of 48 and 72?",
+    options: ["12", "16", "24", "36"],
+    correct_answer: "24",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-6",
+    tier: "7-day",
+    prompt: "Calculate: 2³ + 3³ + 4³ = ?",
+    options: ["89", "99", "100", "95"],
+    correct_answer: "99",
+    time_limit_seconds: 18,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-7",
+    tier: "7-day",
+    prompt: "A game originally ₹800 is sold at 35% discount. What is the final price?",
+    options: ["₹520", "₹540", "₹560", "₹480"],
+    correct_answer: "₹520",
+    time_limit_seconds: 18,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-8",
+    tier: "7-day",
+    prompt: "Find x if 2^(x + 1) = 64",
+    options: ["4", "5", "6", "7"],
+    correct_answer: "5",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-9",
+    tier: "7-day",
+    prompt: "The average of 5 numbers is 24. Four of them are 18, 22, 26, and 30. What is the 5th number?",
+    options: ["16", "20", "24", "28"],
+    correct_answer: "24",
+    time_limit_seconds: 20,
+    active: true,
+    mode: "standard",
+  },
+  {
+    id: "bm-10",
+    tier: "7-day",
+    prompt: "What is the probability of rolling a prime number on a standard 6-sided die?",
+    options: ["1/3", "1/2", "2/3", "1/6"],
+    correct_answer: "1/2",
+    time_limit_seconds: 15,
+    active: true,
+    mode: "standard",
+  },
+
+  // ─── 7-Day Rapid Fire Challenges (Tier: "7-day") — Harder ────────────────────
+  {
+    id: "rf7-1",
+    tier: "7-day",
+    prompt: "Solve: 4x - 7 = 2x + 9 → x = ?",
+    options: ["6", "8", "10", "4"],
+    correct_answer: "8",
+    time_limit_seconds: 8,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-2",
+    tier: "7-day",
+    prompt: "What is 17² ?",
+    options: ["256", "289", "272", "324"],
+    correct_answer: "289",
+    time_limit_seconds: 8,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-3",
+    tier: "7-day",
+    prompt: "LCM of 12 and 18?",
+    options: ["24", "36", "48", "72"],
+    correct_answer: "36",
+    time_limit_seconds: 8,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-4",
+    tier: "7-day",
+    prompt: "If a = 3, b = 4, what is a² + b²?",
+    options: ["25", "24", "12", "7"],
+    correct_answer: "25",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-5",
+    tier: "7-day",
+    prompt: "Convert 0.75 to fraction?",
+    options: ["3/4", "7/10", "4/5", "5/8"],
+    correct_answer: "3/4",
+    time_limit_seconds: 6,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-6",
+    tier: "7-day",
+    prompt: "What is 15% of 200?",
+    options: ["25", "30", "35", "20"],
+    correct_answer: "30",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-7",
+    tier: "7-day",
+    prompt: "√196 = ?",
+    options: ["14", "13", "12", "16"],
+    correct_answer: "14",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-8",
+    tier: "7-day",
+    prompt: "What is (-3) × (-5) × 2?",
+    options: ["30", "-30", "15", "-15"],
+    correct_answer: "30",
+    time_limit_seconds: 8,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-9",
+    tier: "7-day",
+    prompt: "Perimeter of a square with side 13 cm?",
+    options: ["52 cm", "48 cm", "56 cm", "44 cm"],
+    correct_answer: "52 cm",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+  {
+    id: "rf7-10",
+    tier: "7-day",
+    prompt: "What is 5! (5 factorial)?",
+    options: ["100", "120", "60", "150"],
+    correct_answer: "120",
+    time_limit_seconds: 7,
+    active: true,
+    mode: "rapid-fire",
+  },
+];
+
+/**
+ * Returns active challenges for the given tier.
+ * Returns up to `count` shuffled questions per session.
+ * If mode is specified, only returns questions of that mode.
+ */
+export function getChallengeQuestions(
+  tier: ChallengeTier,
+  count: number = 5,
+  mode?: ChallengeMode
+): ChallengeQuestion[] {
+  const filtered = CHALLENGE_BANK.filter(
+    (q) => q.tier === tier && q.active !== false && (mode ? q.mode === mode : true)
+  );
+  return [...filtered].sort(() => Math.random() - 0.5).slice(0, count);
+}
+
+/**
+ * Returns rapid-fire questions for the given tier.
+ */
+export function getRapidFireQuestions(tier: ChallengeTier, count: number = 7): ChallengeQuestion[] {
+  return getChallengeQuestions(tier, count, "rapid-fire");
+}

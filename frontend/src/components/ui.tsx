@@ -24,12 +24,13 @@ export function IconButton({ name, onPress, label }: { name: keyof typeof Ionico
   );
 }
 
-export function PrimaryButton({ children, onPress, icon, style, disabled = false, testID }: PropsWithChildren<{ onPress: () => void; icon?: keyof typeof Ionicons.glyphMap; style?: StyleProp<ViewStyle>; disabled?: boolean; testID?: string }>) {
+export function PrimaryButton({ children, label, onPress, icon, style, disabled = false, testID }: PropsWithChildren<{ label?: string; onPress: () => void; icon?: keyof typeof Ionicons.glyphMap; style?: StyleProp<ViewStyle>; disabled?: boolean; testID?: string }>) {
   const { colors } = useTheme();
   const styles = useStyles();
+  const content = children ?? label;
   return (
     <Pressable testID={testID} onPress={onPress} disabled={disabled} accessibilityRole="button" style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.brandPrimary, opacity: disabled ? 0.5 : pressed ? 0.82 : 1 }, style]}>
-      <Text style={[styles.primaryText, { color: colors.onBrandPrimary }]}>{children}</Text>
+      <Text style={[styles.primaryText, { color: colors.onBrandPrimary }]}>{content}</Text>
       {icon ? <Ionicons name={icon} size={20} color={colors.onBrandPrimary} /> : null}
     </Pressable>
   );

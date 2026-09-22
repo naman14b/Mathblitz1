@@ -333,7 +333,7 @@ const useStyles = makeStyles((colors) => ({
 
     content: {
         paddingHorizontal: 20,
-        paddingBottom: 30,
+        paddingBottom: 95,
         gap: 13,
     },
 

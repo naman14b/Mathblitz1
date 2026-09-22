@@ -22,12 +22,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from starlette.middleware.cors import CORSMiddleware
 
-ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / ".env")
-
-mongo_url = os.environ["MONGO_URL"]
-client = AsyncIOMotorClient(mongo_url, tz_aware=True)
-db = client[os.environ["DB_NAME"]]
+from .config import ROOT_DIR  # noqa: F401 – ensures .env is loaded
+from .db import db, client
 
 app = FastAPI(title="MathBlitz admin API")
 api_router = APIRouter(prefix="/api")
@@ -151,6 +147,22 @@ class MonetizationSettings(BaseModel):
     rewarded_ads_enabled: bool = False
     interstitial_frequency: int = 0
     remove_ads_price: str = ""
+
+
+class LeaderboardEntry(BaseModel):
+    username: str = Field(min_length=1, max_length=30)
+    score: int = Field(ge=0)
+    age_group: str
+    game_mode: str = "classic"  # "classic" | "daily"
+
+
+class LeaderboardRow(BaseModel):
+    rank: int
+    username: str
+    score: int
+    age_group: str
+    game_mode: str
+    played_at: datetime
 
 
 class UploadResult(BaseModel):
@@ -398,6 +410,104 @@ async def get_monetization(_: str = Depends(require_admin)) -> MonetizationSetti
 async def update_monetization(payload: MonetizationSettings, _: str = Depends(require_admin)) -> MonetizationSettings:
     await db.admin_settings.replace_one({"key": "monetization"}, {"key": "monetization", **payload.model_dump(), "updated_at": utc_now()}, upsert=True)
     return payload
+
+
+
+# --- Leaderboard endpoints ---------------------------------------------------
+VALID_AGE_GROUPS = {"6-7", "8-10", "11-13", "14-16", "17-20", "21+", "all"}
+VALID_TIMEFRAMES = {"daily", "weekly", "all-time"}
+VALID_GAME_MODES = {"classic", "daily"}
+
+
+@api_router.post("/leaderboard", status_code=status.HTTP_201_CREATED)
+async def submit_score(payload: LeaderboardEntry) -> dict[str, str]:
+    if payload.age_group not in VALID_AGE_GROUPS - {"all"}:
+        raise HTTPException(status_code=400, detail="Invalid age_group")
+    if payload.game_mode not in VALID_GAME_MODES:
+        raise HTTPException(status_code=400, detail="Invalid game_mode")
+    await db.leaderboard.insert_one({
+        "username": payload.username.strip(),
+        "score": payload.score,
+        "age_group": payload.age_group,
+        "game_mode": payload.game_mode,
+        "played_at": utc_now(),
+    })
+    return {"message": "Score recorded"}
+
+
+@api_router.get("/leaderboard", response_model=List[LeaderboardRow])
+async def get_leaderboard(
+    timeframe: str = Query(default="all-time"),
+    age_group: Optional[str] = Query(default=None),
+    game_mode: Optional[str] = Query(default="classic"),
+    limit: int = Query(default=50, ge=1, le=100),
+) -> List[LeaderboardRow]:
+    if timeframe not in VALID_TIMEFRAMES:
+        raise HTTPException(status_code=400, detail="Invalid timeframe. Use: daily, weekly, all-time")
+
+    query: dict = {}
+
+    if timeframe == "daily":
+        query["played_at"] = {"$gte": utc_now() - timedelta(hours=24)}
+    elif timeframe == "weekly":
+        query["played_at"] = {"$gte": utc_now() - timedelta(days=7)}
+
+    if age_group and age_group != "all":
+        if age_group not in VALID_AGE_GROUPS - {"all"}:
+            raise HTTPException(status_code=400, detail="Invalid age_group")
+        query["age_group"] = age_group
+
+    if game_mode and game_mode in VALID_GAME_MODES:
+        query["game_mode"] = game_mode
+
+    docs = await db.leaderboard.find(query, {"_id": 0}).sort("score", -1).limit(limit).to_list(limit)
+
+    rows: List[LeaderboardRow] = []
+    for i, doc in enumerate(docs):
+        rows.append(LeaderboardRow(
+            rank=i + 1,
+            username=doc["username"],
+            score=doc["score"],
+            age_group=doc["age_group"],
+            game_mode=doc.get("game_mode", "classic"),
+            played_at=doc["played_at"],
+        ))
+    return rows
+
+
+# --- Math Boss endpoints ------------------------------------------------------
+from .math_boss import build_challenge, build_result, BossChallenge, BossResult
+
+
+@api_router.get("/math-boss/challenge", response_model=BossChallenge)
+async def math_boss_challenge(
+    level: int = Query(default=1, ge=1, le=50),
+    player_name: str = Query(default="Player"),
+    wins: int = Query(default=10, ge=1),
+) -> BossChallenge:
+    return build_challenge(level=level, player_name=player_name, wins=wins)
+
+
+class MathBossResultPayload(BaseModel):
+    level: int = Field(ge=1)
+    correct: int = Field(ge=0)
+    total: int = Field(default=20, ge=1)
+    player_name: str = "Player"
+
+
+@api_router.post("/math-boss/result", response_model=BossResult)
+async def math_boss_result(payload: MathBossResultPayload) -> BossResult:
+    result = build_result(level=payload.level, correct=payload.correct, total=payload.total)
+    # Record for analytics
+    await db.math_boss_results.insert_one({
+        "level": payload.level,
+        "correct": payload.correct,
+        "total": payload.total,
+        "won": result.won,
+        "player_name": payload.player_name,
+        "played_at": utc_now(),
+    })
+    return result
 
 
 app.include_router(api_router)
