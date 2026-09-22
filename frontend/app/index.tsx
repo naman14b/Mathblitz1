@@ -151,31 +151,9 @@ const useStyles = makeStyles((colors) => ({
   },
 }));
 
-function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; isNight: boolean }) {
-  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
-  const isDesktopWeb = Platform.OS === "web" && windowWidth > 500;
-
-  // Exact wallpaper ratio matching reference phone layouts: 1263 / 2752 ≈ 470 / 1024
-  const PHONE_ASPECT_RATIO = 1263 / 2752;
-
-  const maxAvailableHeight = windowHeight * 0.97;
-  const maxAvailableWidth = windowWidth * 0.95;
-
-  let phoneHeight = Math.min(maxAvailableHeight, 1080);
-  let phoneWidth = phoneHeight * PHONE_ASPECT_RATIO;
-
-  if (phoneWidth > maxAvailableWidth || phoneWidth > 480) {
-    phoneWidth = Math.min(maxAvailableWidth, 480);
-    phoneHeight = phoneWidth / PHONE_ASPECT_RATIO;
-  }
-
-  if (!isDesktopWeb) {
-    return (
-      <View style={{ flex: 1, width: "100%", height: "100%", backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
-        {children}
-      </View>
-    );
-  }
+function ScreenContainer({ children, isNight }: { children: React.ReactNode; isNight: boolean }) {
+  const { width: windowWidth } = useWindowDimensions();
+  const isWidescreen = Platform.OS === "web" && windowWidth > 640;
 
   return (
     <View
@@ -183,76 +161,22 @@ function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; 
         flex: 1,
         width: "100%",
         height: "100%",
-        backgroundColor: isNight ? "#060812" : "#E2E8F0",
-        justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: isNight ? "#04060F" : "#4FA5F8",
+        overflow: "hidden",
       }}
     >
-      {/* Phone Screen Container — iPhone 14 Pro aspect ratio */}
+      <SurrealBackground />
       <View
         style={{
-          width: phoneWidth,
-          height: phoneHeight,
-          borderRadius: 48,
-          overflow: "hidden",
-          backgroundColor: isNight ? "#090A14" : "#F0F8FF",
-          borderWidth: 3,
-          borderColor: isNight ? "#1C233D" : "#D2D9E2",
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 20 },
-          shadowOpacity: isNight ? 0.65 : 0.22,
-          shadowRadius: 40,
-          elevation: 24,
+          flex: 1,
+          width: "100%",
+          maxWidth: isWidescreen ? 540 : "100%",
+          alignSelf: "center",
           position: "relative",
+          zIndex: 1,
         }}
       >
-        {/* Dynamic Island */}
-        <View
-          style={{
-            position: "absolute",
-            top: 8,
-            alignSelf: "center",
-            width: 96,
-            height: 22,
-            borderRadius: 11,
-            backgroundColor: isNight ? "#000000" : "#111827",
-            zIndex: 9999,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          pointerEvents="none"
-        >
-          <View
-            style={{
-              position: "absolute",
-              right: 10,
-              width: 8,
-              height: 8,
-              borderRadius: 4,
-              backgroundColor: isNight ? "#0C1425" : "#1F2937",
-            }}
-          />
-        </View>
-
-        {/* Content */}
-        <View style={{ flex: 1, position: "relative" }}>
-          {children}
-        </View>
-
-        {/* Home Indicator */}
-        <View
-          style={{
-            position: "absolute",
-            bottom: 6,
-            alignSelf: "center",
-            width: 120,
-            height: 4,
-            borderRadius: 2,
-            backgroundColor: isNight ? "rgba(255, 255, 255, 0.35)" : "rgba(0, 0, 0, 0.3)",
-            zIndex: 9999,
-          }}
-          pointerEvents="none"
-        />
+        {children}
       </View>
     </View>
   );

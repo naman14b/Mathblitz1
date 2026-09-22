@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Dimensions, Text, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, Image, useWindowDimensions, Platform } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -10,12 +11,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { useTheme } from "@/src/theme";
 
-const { width, height } = Dimensions.get("window");
-
 const BG_DAY = require("@/assets/images/bg-day.jpg");
 const BG_NIGHT = require("@/assets/images/bg-night.jpg");
 
-// Pre-seeded particle configurations to avoid random regeneration on re-renders
+// Pre-seeded particle configurations
 const PARTICLES_CONFIG = [
   { id: 0, symbol: "+", size: 36, xPct: 0.08, duration: 18000, delay: 0, color: "#4FC3F7" },
   { id: 1, symbol: "×", size: 48, xPct: 0.22, duration: 22000, delay: 3000, color: "#81C784" },
@@ -31,9 +30,19 @@ const PARTICLES_CONFIG = [
   { id: 11, symbol: "3", size: 36, xPct: 0.93, duration: 22000, delay: 6500, color: "#FF8A65" },
 ];
 
-const SmoothParticle = React.memo(({ config, isNight }: { config: typeof PARTICLES_CONFIG[0]; isNight: boolean }) => {
-  const startX = config.xPct * width;
-  const startY = height + 60;
+const SmoothParticle = React.memo(({
+  config,
+  isNight,
+  screenWidth,
+  screenHeight,
+}: {
+  config: typeof PARTICLES_CONFIG[0];
+  isNight: boolean;
+  screenWidth: number;
+  screenHeight: number;
+}) => {
+  const startX = config.xPct * screenWidth;
+  const startY = screenHeight + 60;
 
   const translateY = useSharedValue(startY);
   const rotation = useSharedValue(0);
@@ -69,7 +78,7 @@ const SmoothParticle = React.memo(({ config, isNight }: { config: typeof PARTICL
     <Animated.View
       style={[
         styles.particle,
-        { left: startX, opacity: isNight ? 0.4 : 0.28 },
+        { left: startX, opacity: isNight ? 0.45 : 0.3 },
         animatedStyle,
       ]}
       pointerEvents="none"
@@ -79,7 +88,7 @@ const SmoothParticle = React.memo(({ config, isNight }: { config: typeof PARTICL
           styles.particleText,
           {
             fontSize: config.size,
-            color: isNight ? config.color : "#2C3E50",
+            color: isNight ? config.color : "#1E293B",
           },
         ]}
       >
@@ -91,25 +100,63 @@ const SmoothParticle = React.memo(({ config, isNight }: { config: typeof PARTICL
 
 export const SurrealBackground = React.memo(function SurrealBackground() {
   const { isNight } = useTheme();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+
+  const isWidescreen = windowWidth > 640;
+  // Aspect ratio of the artwork is 1080 / 2400 = 0.45
+  const ART_ASPECT_RATIO = 1080 / 2400;
+  const artWidth = isWidescreen ? Math.min(windowWidth, windowHeight * ART_ASPECT_RATIO) : "100%";
 
   return (
     <View style={styles.container} pointerEvents="none">
-      <ImageBackground
-        source={isNight ? BG_NIGHT : BG_DAY}
+      {/* Layer 1: Ambient Full-Bleed Gradient filling the entire screen */}
+      <LinearGradient
+        colors={
+          isNight
+            ? ["#04060F", "#0A1028", "#070B1C", "#04060F"]
+            : ["#4FA5F8", "#6CB7FC", "#5CAAFB", "#3B82F6"]
+        }
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
         style={StyleSheet.absoluteFill}
-        resizeMode="stretch"
+      />
+
+      {/* Layer 2: Complete Artwork Layer (Fully visible, zoomed out to fit top to bottom) */}
+      <View
+        style={[
+          styles.artWrapper,
+          {
+            width: artWidth,
+            height: "100%",
+            alignSelf: "center",
+          },
+        ]}
       >
-        {/* Subtle readability scrim: keeps artwork visible while ensuring text contrast */}
+        <Image
+          source={isNight ? BG_NIGHT : BG_DAY}
+          style={styles.artImage}
+          resizeMode={isWidescreen ? "contain" : "cover"}
+        />
+
+        {/* Subtle readability scrim over the artwork */}
         <View
           style={[
             styles.scrim,
             isNight ? styles.scrimNight : styles.scrimDay,
           ]}
         />
-        {PARTICLES_CONFIG.map((config) => (
-          <SmoothParticle key={config.id} config={config} isNight={isNight} />
-        ))}
-      </ImageBackground>
+      </View>
+
+      {/* Layer 3: Smooth floating math particles across full screen width */}
+      {PARTICLES_CONFIG.map((config) => (
+        <SmoothParticle
+          key={config.id}
+          config={config}
+          isNight={isNight}
+          screenWidth={windowWidth}
+          screenHeight={windowHeight}
+        />
+      ))}
     </View>
   );
 });
@@ -123,6 +170,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     overflow: "hidden",
   },
+  artWrapper: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    marginHorizontal: "auto",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  artImage: {
+    width: "100%",
+    height: "100%",
+  },
   scrim: {
     position: "absolute",
     top: 0,
@@ -131,10 +192,10 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   scrimDay: {
-    backgroundColor: "transparent",
+    backgroundColor: "rgba(255, 255, 255, 0.04)",
   },
   scrimNight: {
-    backgroundColor: "rgba(0, 0, 0, 0.05)",
+    backgroundColor: "rgba(0, 0, 0, 0.12)",
   },
   particle: {
     position: "absolute",

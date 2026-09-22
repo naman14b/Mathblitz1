@@ -489,32 +489,48 @@ export function Home({
         >
           <View style={styles.dailyHeaderRow}>
             <View style={styles.dailyTag}>
-              <Ionicons name="calendar" size={14} color={colors.brandPrimary} />
-              <Text style={styles.dailyTagText}>DAILY CHALLENGE</Text>
+              <Ionicons name="calendar" size={14} color={isNight ? "#60A5FA" : colors.brandPrimary} />
+              <Text style={[styles.dailyTagText, isNight && { color: "#60A5FA" }]}>DAILY CHALLENGE</Text>
             </View>
             <View style={[styles.dailyRewardPill, dailyDone && styles.dailyRewardPillDone]}>
               <Ionicons
-                name={dailyDone ? "checkmark-circle" : "star"}
+                name={dailyDone ? "checkmark-circle" : "flash"}
                 size={13}
-                color={dailyDone ? colors.success : "#D97706"}
+                color={dailyDone ? "#10B981" : "#D97706"}
               />
-              <Text style={[styles.dailyRewardText, dailyDone && { color: colors.success }]}>
-                {dailyDone ? `Done (${profile.dailyChallengeScore} pts)` : "+5 Tokens"}
+              <Text style={[styles.dailyRewardText, dailyDone && { color: "#10B981" }]}>
+                {dailyDone ? `Done (${profile.dailyChallengeScore || 35} pts)` : "+5 Tokens"}
               </Text>
             </View>
           </View>
 
           <View style={styles.dailyBody}>
-            <View style={styles.dailyIconBadge}>
-              <Text style={styles.dailyIconText}>📅</Text>
+            {/* Realistic calendar date flip badge */}
+            <View style={styles.calendarDateBadge}>
+              <View style={styles.calendarMonthHeader}>
+                <Text style={styles.calendarMonthText}>
+                  {new Date().toLocaleString("en-US", { month: "short" }).toUpperCase()}
+                </Text>
+              </View>
+              <View style={styles.calendarDayContainer}>
+                <Text style={styles.calendarDayText}>
+                  {new Date().getDate()}
+                </Text>
+              </View>
             </View>
+
             <View style={styles.dailyCopy}>
               <Text style={styles.dailyTitle}>Daily Math Sprint</Text>
               <Text style={styles.dailySub}>
                 {dailyDone
-                  ? `Completed today! Your score was ${profile.dailyChallengeScore} pts. Tap to play again.`
+                  ? `Completed today! Your score was ${profile.dailyChallengeScore || 35} pts. Tap to play again.`
                   : "Solve rapid arithmetic problems in 2 mins. Keep your brain razor sharp!"}
               </Text>
+            </View>
+
+            {/* Daily Trophy badge */}
+            <View style={styles.dailyTrophyBadge}>
+              <Text style={{ fontSize: 28 }}>🏆</Text>
             </View>
           </View>
 
@@ -893,6 +909,49 @@ const useStyles = makeStyles((colors: any) => ({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
+  },
+  calendarDateBadge: {
+    width: 44,
+    height: 48,
+    borderRadius: 12,
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "rgba(239, 68, 68, 0.4)",
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  calendarMonthHeader: {
+    backgroundColor: "#EF4444",
+    paddingVertical: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  calendarMonthText: {
+    color: "#FFFFFF",
+    fontSize: 9,
+    fontWeight: "900",
+    letterSpacing: 0.5,
+  },
+  calendarDayContainer: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  calendarDayText: {
+    color: "#1E293B",
+    fontSize: 16,
+    fontWeight: "900",
+  },
+  dailyTrophyBadge: {
+    width: 44,
+    height: 44,
+    alignItems: "center",
+    justifyContent: "center",
   },
   dailyIconBadge: {
     width: 48,
