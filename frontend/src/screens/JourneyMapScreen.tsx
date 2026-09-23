@@ -130,7 +130,7 @@ export function JourneyMapScreen({
       />
 
       {/* Bottom Floating Quick Continue Dock with Theme Preview */}
-      <View style={[styles.bottomDock, { paddingBottom: Math.max(insets.bottom, 14) }]}>
+      <View style={styles.bottomDock}>
         <View style={styles.dockImageContainer}>
           <Image
             source={getLevelImage(currentLevelDef.id)}
@@ -230,21 +230,22 @@ const styles = StyleSheet.create({
   },
   bottomDock: {
     position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
+    bottom: 74,
+    left: 14,
+    right: 14,
     backgroundColor: "rgba(15, 23, 42, 0.96)",
-    borderTopColor: "rgba(255,255,255,0.1)",
-    borderTopWidth: 1.5,
+    borderColor: "rgba(245, 158, 11, 0.35)",
+    borderWidth: 1.5,
+    borderRadius: 18,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingTop: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     zIndex: 25,
     shadowColor: "#000000",
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
     elevation: 10,
   },
   dockImageContainer: {
