@@ -1,7 +1,7 @@
 /**
  * MathBlitz Kingdom - Scrollable World Map Canvas
- * Features dedicated, non-overlapping World Landmark Gateway Headings
- * and styled thematic terrain backdrops.
+ * Features an ancient 3D golden cobblestone viaduct bridge path
+ * and ornate compass medallion level nodes matching the fantasy adventure design.
  */
 
 import React, { useRef, useEffect, useMemo } from "react";
@@ -14,7 +14,13 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons } from "@expo/vector-icons";
+import Svg, {
+  Path as SvgPath,
+  Defs,
+  LinearGradient as SvgLinearGradient,
+  Stop,
+  G,
+} from "react-native-svg";
 import { JourneyLevelDef, PlayerJourneyState, WorldDef } from "../types";
 import { WORLDS, CURATED_LEVELS, getWorldForLevel } from "../worlds";
 import { MapLevelNode } from "./MapLevelNode";
@@ -81,7 +87,7 @@ export function WorldMap({
       // Place levels of this world from highest (endLevel) down to lowest (startLevel)
       for (let lvl = endLevel; lvl >= startLevel; lvl--) {
         // Winding S-curve horizontal position (0.22 to 0.78)
-        const x = 0.5 + 0.30 * Math.sin(lvl * 0.72);
+        const x = 0.5 + 0.28 * Math.sin(lvl * 0.72);
         levelPosMap.set(lvl, { x, y: currentY });
         currentY += NODE_VERTICAL_SPACING;
       }
@@ -120,6 +126,40 @@ export function WorldMap({
       }, 300);
     }
   }, [journeyState.currentLevel, levelPositions]);
+
+  // Generate continuous SVG Bezier path for the entire 100-level stone viaduct bridge
+  const viaductPathD = useMemo(() => {
+    const sortedLevels = [...CURATED_LEVELS].sort((a, b) => a.id - b.id);
+    if (sortedLevels.length === 0) return "";
+
+    let d = "";
+    for (let i = 0; i < sortedLevels.length - 1; i++) {
+      const currentLvl = sortedLevels[i];
+      const nextLvl = sortedLevels[i + 1];
+      const p1 = levelPositions.get(currentLvl.id);
+      const p2 = levelPositions.get(nextLvl.id);
+
+      if (!p1 || !p2) continue;
+
+      const x1 = p1.x * windowWidth;
+      const y1 = p1.y + 35; // Center of node
+      const x2 = p2.x * windowWidth;
+      const y2 = p2.y + 35;
+
+      // Smooth vertical curve control points
+      const cy1 = y1 - (y1 - y2) * 0.5;
+      const cx1 = x1;
+      const cy2 = y2 + (y1 - y2) * 0.5;
+      const cx2 = x2;
+
+      if (i === 0) {
+        d += `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2} `;
+      } else {
+        d += `C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2} `;
+      }
+    }
+    return d;
+  }, [levelPositions, windowWidth]);
 
   return (
     <View style={styles.wrapper}>
@@ -246,48 +286,95 @@ export function WorldMap({
           );
         })}
 
-        {/* Connecting S-Curve Path Lines */}
-        {CURATED_LEVELS.map((level, idx) => {
-          if (idx === CURATED_LEVELS.length - 1) return null;
-          const nextLevel = CURATED_LEVELS[idx + 1];
-          const posA = levelPositions.get(level.id);
-          const posB = levelPositions.get(nextLevel.id);
-          if (!posA || !posB) return null;
+        {/* 3D Ancient Golden Stone Viaduct Bridge Path (Unbroken from Level 1 to 100) */}
+        {viaductPathD ? (
+          <Svg
+            style={styles.svgPathOverlay}
+            width={windowWidth}
+            height={totalMapHeight}
+            viewBox={`0 0 ${windowWidth} ${totalMapHeight}`}
+          >
+            <Defs>
+              {/* Golden Cobblestone Roadbed Gradient */}
+              <SvgLinearGradient id="viaductGoldGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+                <Stop offset="0%" stopColor="#FEF08A" />
+                <Stop offset="30%" stopColor="#F59E0B" />
+                <Stop offset="70%" stopColor="#B45309" />
+                <Stop offset="100%" stopColor="#D97706" />
+              </SvgLinearGradient>
 
-          const isUnlocked = level.id <= journeyState.highestUnlockedLevel;
-          const world = getWorldForLevel(level.id);
+              {/* Stone Wall Side Parapet Gradient */}
+              <SvgLinearGradient id="stoneWallGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <Stop offset="0%" stopColor="#0F172A" />
+                <Stop offset="50%" stopColor="#334155" />
+                <Stop offset="100%" stopColor="#1E293B" />
+              </SvgLinearGradient>
+            </Defs>
 
-          const startX = posA.x * windowWidth;
-          const startY = posA.y;
-          const endX = posB.x * windowWidth;
-          const endY = posB.y;
-
-          const deltaX = endX - startX;
-          const deltaY = endY - startY;
-          const distance = Math.hypot(deltaX, deltaY);
-          const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-
-          return (
-            <View
-              key={`path_${level.id}_${nextLevel.id}`}
-              style={[
-                styles.pathSegment,
-                {
-                  left: startX,
-                  top: startY + 32,
-                  width: distance,
-                  transform: [
-                    { rotate: `${angle}deg` },
-                    { translateX: 0 },
-                    { translateY: -3 },
-                  ],
-                  backgroundColor: isUnlocked ? world.palette.pathColor : "#334155",
-                  borderColor: isUnlocked ? world.palette.pathBorder : "rgba(255,255,255,0.08)",
-                },
-              ]}
+            {/* Layer 1: Bridge Deep Ambient Drop Shadow */}
+            <SvgPath
+              d={viaductPathD}
+              stroke="rgba(0, 0, 0, 0.7)"
+              strokeWidth={38}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+              transform="translate(0, 6)"
             />
-          );
-        })}
+
+            {/* Layer 2: 3D Ancient Stone Viaduct Foundation & Masonry Wall */}
+            <SvgPath
+              d={viaductPathD}
+              stroke="url(#stoneWallGrad)"
+              strokeWidth={32}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+
+            {/* Layer 3: Stone Parapet Outer Railing Curb */}
+            <SvgPath
+              d={viaductPathD}
+              stroke="#64748B"
+              strokeWidth={26}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+
+            {/* Layer 4: Glowing Golden Cobblestone Road Surface */}
+            <SvgPath
+              d={viaductPathD}
+              stroke="url(#viaductGoldGlow)"
+              strokeWidth={18}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+
+            {/* Layer 5: Cobblestone Block Seam Texture (Intermittent Paver Grooves) */}
+            <SvgPath
+              d={viaductPathD}
+              stroke="#78350F"
+              strokeWidth={17}
+              strokeDasharray="4,8"
+              strokeLinecap="butt"
+              fill="none"
+              opacity={0.6}
+            />
+
+            {/* Layer 6: Radiant Central Golden Energy Spine */}
+            <SvgPath
+              d={viaductPathD}
+              stroke="#FEF08A"
+              strokeWidth={3}
+              strokeDasharray="10,6"
+              strokeLinecap="round"
+              fill="none"
+              opacity={0.9}
+            />
+          </Svg>
+        ) : null}
 
         {/* Level Nodes */}
         {CURATED_LEVELS.map((level) => {
@@ -342,6 +429,13 @@ const styles = StyleSheet.create({
   mapContainer: {
     position: "relative",
     width: "100%",
+  },
+  svgPathOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 2,
+    pointerEvents: "none",
   },
   worldSectionContainer: {
     position: "absolute",
@@ -451,13 +545,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontSize: 26,
     opacity: 0.45,
-  },
-  pathSegment: {
-    position: "absolute",
-    height: 7,
-    borderRadius: 3.5,
-    borderWidth: 1,
-    zIndex: 1,
-    transformOrigin: "left center",
   },
 });

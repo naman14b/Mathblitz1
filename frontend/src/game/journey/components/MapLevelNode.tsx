@@ -1,11 +1,21 @@
 /**
- * MathBlitz Kingdom - Map Level Node Component
- * Styled with Sudoku & Puzzles level theme image artwork and indicators.
+ * MathBlitz Kingdom - Ornate Compass Medallion Level Node Component
+ * Modeled precisely on the golden/bronze ancient compass medallion style.
  */
 
 import React from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Svg, {
+  Circle,
+  Path,
+  G,
+  Defs,
+  LinearGradient,
+  RadialGradient,
+  Stop,
+  Rect,
+} from "react-native-svg";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -16,7 +26,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { JourneyLevelDef, StarRating } from "../types";
 import { getWorldForLevel } from "../worlds";
-import { getLevelImage } from "@/src/game/levelAssets";
 
 interface MapLevelNodeProps {
   level: JourneyLevelDef;
@@ -44,7 +53,6 @@ export function MapLevelNode({
   const world = getWorldForLevel(level.id);
   const isBoss = level.levelType === "boss";
   const isSpeedGate = level.levelType === "speed_gate";
-  const levelImage = getLevelImage(level.id);
 
   // Pulse animation for active current level
   const pulseScale = useSharedValue(1);
@@ -67,15 +75,8 @@ export function MapLevelNode({
     transform: [{ scale: pulseScale.value }],
   }));
 
-  const nodeBorderColor = isCurrent
-    ? "#FBBF24"
-    : isCompleted
-    ? "#34D399"
-    : isBoss
-    ? "#F59E0B"
-    : !isUnlocked
-    ? "#334155"
-    : "#FFFFFF";
+  const size = isBoss ? 80 : 70;
+  const radius = size / 2;
 
   return (
     <View
@@ -84,96 +85,156 @@ export function MapLevelNode({
         {
           left: `${Math.round(x * 100)}%`,
           top: y,
-          transform: [{ translateX: -34 }],
+          transform: [{ translateX: -size / 2 }],
         },
       ]}
     >
-      {/* Active pulsating beacon ring */}
+      {/* Active pulsating glowing beacon ring */}
       {isCurrent && (
         <Animated.View
           style={[
             styles.beaconRing,
-            { borderColor: world.palette.accent },
+            {
+              width: size + 16,
+              height: size + 16,
+              borderRadius: (size + 16) / 2,
+              borderColor: "#FBBF24",
+            },
             animatedPulse,
           ]}
         />
       )}
 
-      {/* Main Node Button with Sudoku/Puzzles Level Theme Image */}
+      {/* Main Ornate Compass Medallion */}
       <Pressable
         onPress={() => onPress(level)}
         disabled={!isUnlocked}
         style={({ pressed }) => [
-          styles.node,
-          {
-            borderColor: nodeBorderColor,
-            borderWidth: isCurrent ? 3.5 : isCompleted ? 2.5 : isBoss ? 3 : 2,
-            opacity: pressed ? 0.85 : 1,
-          },
-          isBoss && styles.bossNode,
-          !isUnlocked && styles.lockedNode,
+          styles.nodePressable,
+          { width: size, height: size },
+          pressed && { transform: [{ scale: 0.95 }] },
         ]}
       >
-        {/* Theme image thumbnail from Sudoku/Puzzles */}
-        <Image
-          source={levelImage}
-          style={[
-            styles.nodeImage,
-            isBoss && styles.bossNodeImage,
-            !isUnlocked && { opacity: 0.25 },
-          ]}
-          resizeMode="cover"
-        />
+        <Svg width={size} height={size} viewBox="0 0 100 100">
+          <Defs>
+            {/* Outer Bronze/Gold Metallic Rim Gradient */}
+            <LinearGradient id="bronzeRim" x1="0%" y1="0%" x2="100%" y2="100%">
+              <Stop offset="0%" stopColor="#FDE68A" />
+              <Stop offset="30%" stopColor="#D97706" />
+              <Stop offset="70%" stopColor="#78350F" />
+              <Stop offset="100%" stopColor="#F59E0B" />
+            </LinearGradient>
 
-        {/* Semi-transparent dark vignette overlay */}
-        <View
-          style={[
-            styles.imageOverlay,
-            isCompleted && { backgroundColor: "rgba(6, 78, 59, 0.45)" },
-            isCurrent && { backgroundColor: "rgba(180, 83, 9, 0.35)" },
-            !isUnlocked && { backgroundColor: "rgba(15, 23, 42, 0.82)" },
-          ]}
-        />
+            {/* Inner Dial Midnight Gradient */}
+            <RadialGradient id="innerDial" cx="50%" cy="50%" r="50%">
+              <Stop offset="0%" stopColor="#1E293B" />
+              <Stop offset="75%" stopColor="#0F172A" />
+              <Stop offset="100%" stopColor="#090D16" />
+            </RadialGradient>
 
-        {/* Content Over Theme Image */}
-        {isBoss ? (
-          <View style={styles.bossInner}>
-            <Text style={styles.bossIcon}>👑</Text>
-            <Text style={styles.bossLevelText}>{level.id}</Text>
-          </View>
-        ) : isSpeedGate ? (
-          <View style={styles.centerContent}>
-            <Ionicons name="flash" size={20} color="#FBBF24" />
-            <Text style={styles.levelText}>{level.id}</Text>
-          </View>
-        ) : !isUnlocked ? (
-          <View style={styles.centerContent}>
-            <Ionicons name="lock-closed" size={18} color="#94A3B8" />
-            <Text style={styles.lockedLevelText}>{level.id}</Text>
-          </View>
-        ) : (
-          <View style={styles.centerContent}>
-            <Text style={styles.levelText}>{level.id}</Text>
-          </View>
-        )}
+            {/* Active Gold Glowing Dial */}
+            <RadialGradient id="activeDial" cx="50%" cy="50%" r="50%">
+              <Stop offset="0%" stopColor="#3B2E1E" />
+              <Stop offset="80%" stopColor="#1E1B18" />
+              <Stop offset="100%" stopColor="#0F172A" />
+            </RadialGradient>
+          </Defs>
+
+          {/* 8 Compass Pointer Spikes / Star Points */}
+          <G fill={isCurrent ? "#FDE68A" : isCompleted ? "#F59E0B" : "#B45309"}>
+            {/* Top */}
+            <Path d="M 50,0 L 55,14 L 45,14 Z" />
+            {/* Bottom */}
+            <Path d="M 50,100 L 55,86 L 45,86 Z" />
+            {/* Left */}
+            <Path d="M 0,50 L 14,45 L 14,55 Z" />
+            {/* Right */}
+            <Path d="M 100,50 L 86,45 L 86,55 Z" />
+            {/* Diagonal Top-Right */}
+            <Path d="M 85,15 L 75,22 L 78,25 Z" />
+            {/* Diagonal Top-Left */}
+            <Path d="M 15,15 L 25,22 L 22,25 Z" />
+            {/* Diagonal Bottom-Right */}
+            <Path d="M 85,85 L 75,78 L 78,75 Z" />
+            {/* Diagonal Bottom-Left */}
+            <Path d="M 15,85 L 25,78 L 22,75 Z" />
+          </G>
+
+          {/* Outer Beveled Metallic Ring */}
+          <Circle
+            cx="50"
+            cy="50"
+            r="42"
+            fill="none"
+            stroke="url(#bronzeRim)"
+            strokeWidth="5"
+          />
+
+          {/* Inner Dark Dial with Engraved Compass Lines */}
+          <Circle
+            cx="50"
+            cy="50"
+            r="38"
+            fill={isCurrent ? "url(#activeDial)" : "url(#innerDial)"}
+            stroke={isCurrent ? "#FBBF24" : "#B45309"}
+            strokeWidth="1.5"
+          />
+
+          {/* Etched Compass Crosshairs */}
+          <Path
+            d="M 50,16 L 50,84 M 16,50 L 84,50"
+            stroke={isCurrent ? "rgba(245, 158, 11, 0.4)" : "rgba(255, 255, 255, 0.12)"}
+            strokeWidth="1"
+            strokeDasharray="2,3"
+          />
+
+          {/* Inner Engraved Accent Circle */}
+          <Circle
+            cx="50"
+            cy="50"
+            r="28"
+            fill="none"
+            stroke={isCurrent ? "rgba(245, 158, 11, 0.5)" : "rgba(255, 255, 255, 0.15)"}
+            strokeWidth="1"
+          />
+        </Svg>
+
+        {/* Center Node Icon & Level Number */}
+        <View style={styles.centerOverlay}>
+          {isBoss ? (
+            <View style={styles.contentCol}>
+              <Text style={styles.bossCrownIcon}>👑</Text>
+              <Text style={styles.bossLevelNumText}>{level.id}</Text>
+            </View>
+          ) : isSpeedGate ? (
+            <View style={styles.contentCol}>
+              <Ionicons name="flash" size={16} color="#FBBF24" />
+              <Text style={styles.nodeNumText}>{level.id}</Text>
+            </View>
+          ) : !isUnlocked ? (
+            <View style={styles.contentCol}>
+              <Ionicons name="lock-closed" size={16} color="#FDE68A" />
+              <Text style={styles.lockedNodeNumText}>{level.id}</Text>
+            </View>
+          ) : (
+            <View style={styles.contentCol}>
+              {isCompleted ? (
+                <Ionicons
+                  name="checkmark-circle"
+                  size={14}
+                  color="#10B981"
+                  style={{ marginBottom: -2 }}
+                />
+              ) : null}
+              <Text style={[styles.nodeNumText, isCurrent && styles.activeNodeNumText]}>
+                {level.id}
+              </Text>
+            </View>
+          )}
+        </View>
       </Pressable>
 
-      {/* Stars indicator under completed levels */}
-      {isCompleted && (
-        <View style={styles.starsRow}>
-          {[1, 2, 3].map((starIndex) => (
-            <Ionicons
-              key={starIndex}
-              name={starIndex <= stars ? "star" : "star-outline"}
-              size={11}
-              color={starIndex <= stars ? "#F59E0B" : "rgba(255,255,255,0.2)"}
-              style={styles.starIcon}
-            />
-          ))}
-        </View>
-      )}
-
-      {/* Level Title banner label */}
+      {/* Level Title Pill */}
       <View style={[styles.titleBadge, !isUnlocked && styles.titleBadgeLocked]}>
         <Text
           numberOfLines={1}
@@ -182,6 +243,21 @@ export function MapLevelNode({
           {level.title}
         </Text>
       </View>
+
+      {/* 3 Stars Placed Lower Below the Circle and Title */}
+      {isCompleted && (
+        <View style={styles.starsRow}>
+          {[1, 2, 3].map((starIndex) => (
+            <Ionicons
+              key={starIndex}
+              name={starIndex <= stars ? "star" : "star-outline"}
+              size={11}
+              color={starIndex <= stars ? "#FBBF24" : "rgba(255,255,255,0.25)"}
+              style={styles.starIcon}
+            />
+          ))}
+        </View>
+      )}
     </View>
   );
 }
@@ -191,130 +267,111 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-    width: 68,
-    height: 96,
+    zIndex: 5,
   },
   beaconRing: {
     position: "absolute",
-    top: -7,
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    top: -8,
     borderWidth: 2.5,
     borderStyle: "dashed",
     opacity: 0.9,
+    zIndex: 1,
   },
-  node: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+  nodePressable: {
     alignItems: "center",
     justifyContent: "center",
-    overflow: "hidden",
-    backgroundColor: "#0F172A",
     shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.45,
-    shadowRadius: 6,
-    elevation: 7,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
+    elevation: 8,
+    zIndex: 2,
   },
-  lockedNode: {
-    backgroundColor: "#1E293B",
-  },
-  bossNode: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-  },
-  nodeImage: {
-    position: "absolute",
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-  },
-  bossNodeImage: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-  },
-  imageOverlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(15, 23, 42, 0.45)",
-  },
-  centerContent: {
+  centerOverlay: {
+    ...StyleSheet.absoluteFillObject,
     alignItems: "center",
     justifyContent: "center",
   },
-  bossInner: {
+  contentCol: {
     alignItems: "center",
     justifyContent: "center",
   },
-  bossIcon: {
-    fontSize: 20,
-    marginBottom: -4,
+  bossCrownIcon: {
+    fontSize: 16,
+    marginBottom: -2,
   },
-  bossLevelText: {
-    color: "#FFFFFF",
-    fontSize: 12,
+  bossLevelNumText: {
+    color: "#FDE68A",
+    fontSize: 13,
     fontWeight: "900",
-    textShadowColor: "rgba(0,0,0,0.8)",
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 3,
-  },
-  levelText: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "900",
-    textShadowColor: "rgba(0,0,0,0.8)",
+    textShadowColor: "rgba(0,0,0,0.9)",
     textShadowOffset: { width: 0, height: 1.5 },
     textShadowRadius: 3,
   },
-  lockedLevelText: {
-    color: "#94A3B8",
+  nodeNumText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    fontWeight: "900",
+    textShadowColor: "rgba(0,0,0,0.9)",
+    textShadowOffset: { width: 0, height: 1.5 },
+    textShadowRadius: 3,
+  },
+  activeNodeNumText: {
+    color: "#FDE68A",
+    fontSize: 15,
+  },
+  lockedNodeNumText: {
+    color: "#FDE68A",
     fontSize: 12,
-    fontWeight: "700",
+    fontWeight: "800",
     marginTop: 1,
+    textShadowColor: "rgba(0,0,0,0.8)",
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  titleBadge: {
+    marginTop: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+    backgroundColor: "rgba(15, 23, 42, 0.92)",
+    maxWidth: 104,
+    borderWidth: 1,
+    borderColor: "rgba(245, 158, 11, 0.4)",
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    elevation: 3,
+    zIndex: 6,
+  },
+  titleBadgeLocked: {
+    backgroundColor: "rgba(15, 23, 42, 0.82)",
+    borderColor: "rgba(255, 255, 255, 0.12)",
+  },
+  titleText: {
+    color: "#F8FAFC",
+    fontSize: 10,
+    fontWeight: "800",
+    textAlign: "center",
+  },
+  titleTextLocked: {
+    color: "#94A3B8",
   },
   starsRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 3,
-    backgroundColor: "rgba(15, 23, 42, 0.9)",
-    paddingHorizontal: 5,
-    paddingVertical: 1.5,
-    borderRadius: 8,
-    borderWidth: 0.5,
-    borderColor: "rgba(255,255,255,0.1)",
-  },
-  starIcon: {
-    marginHorizontal: 0.5,
-  },
-  titleBadge: {
-    marginTop: 2,
+    backgroundColor: "rgba(15, 23, 42, 0.90)",
     paddingHorizontal: 6,
     paddingVertical: 2,
-    borderRadius: 6,
-    backgroundColor: "rgba(15, 23, 42, 0.88)",
-    maxWidth: 96,
-    borderWidth: 0.5,
-    borderColor: "rgba(255,255,255,0.1)",
+    borderRadius: 8,
+    borderWidth: 0.8,
+    borderColor: "rgba(245, 158, 11, 0.3)",
+    zIndex: 6,
   },
-  titleBadgeLocked: {
-    backgroundColor: "rgba(30, 41, 59, 0.75)",
-    borderColor: "transparent",
-  },
-  titleText: {
-    color: "#F8FAFC",
-    fontSize: 10,
-    fontWeight: "700",
-    textAlign: "center",
-  },
-  titleTextLocked: {
-    color: "#94A3B8",
+  starIcon: {
+    marginHorizontal: 1,
   },
 });
