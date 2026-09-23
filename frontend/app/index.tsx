@@ -835,11 +835,13 @@ function AppShell({
             onBack={() => setScreen("puzzles-hub")}
             onComplete={(level, mistakes, elapsedSeconds) => {
               const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
-              const currentBestTime = profile.mathsPuzzleBestTime?.[level];
+              const currentBestTime = profile.mathsPuzzleBestTime?.[level] ?? (profile.mathsPuzzleBestTime as any)?.[String(level)];
               const newBestTime = (!currentBestTime || elapsedSeconds < currentBestTime) ? elapsedSeconds : currentBestTime;
 
-              if (profile.completedMathsPuzzles?.[level]) {
-                const currentStars = profile.mathsPuzzleStars?.[level] || 0;
+              const isAlreadyCompleted = Boolean(profile.completedMathsPuzzles?.[level] || (profile.completedMathsPuzzles as any)?.[String(level)]);
+
+              if (isAlreadyCompleted) {
+                const currentStars = profile.mathsPuzzleStars?.[level] ?? (profile.mathsPuzzleStars as any)?.[String(level)] ?? 0;
                 const nextStars = Math.max(currentStars, stars);
                 const next = {
                   ...profile,

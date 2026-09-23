@@ -115,12 +115,12 @@ export function MathsPuzzlesHub({
                     {MATHS_CATALOGUE.map((puzzle) => {
                         const level = puzzle.level;
                         const unlockCost = 20 + (level - 1) * 5;
-                        const unlocked = level === 1 || isMathsPuzzleUnlocked(profile, level);
-                        const completed = isMathsPuzzleCompleted(profile, level);
+                        const unlocked = level === 1 || isMathsPuzzleUnlocked(profile, level) || Boolean((profile.unlockedMathsPuzzles as any)?.[String(level)]);
+                        const earnedStars = profile.mathsPuzzleStars?.[level] ?? (profile.mathsPuzzleStars as any)?.[String(level)] ?? 0;
+                        const bestTime = profile.mathsPuzzleBestTime?.[level] ?? (profile.mathsPuzzleBestTime as any)?.[String(level)];
+                        const completed = isMathsPuzzleCompleted(profile, level) || Boolean((profile.completedMathsPuzzles as any)?.[String(level)]) || Boolean(profile.completedMathsPuzzles?.[level]) || earnedStars > 0 || (typeof bestTime === "number" && bestTime > 0);
                         const canUnlock = profile.tokens >= unlockCost;
                         const canPlay = unlocked || canUnlock;
-                        const earnedStars = profile.mathsPuzzleStars?.[level] || 0;
-                        const bestTime = profile.mathsPuzzleBestTime?.[level];
 
                         const isActiveLevel = unlocked && !completed;
 
@@ -157,18 +157,20 @@ export function MathsPuzzlesHub({
                                         {Array.from({ length: 3 }).map((_, sIdx) => (
                                             <Ionicons
                                                 key={sIdx}
-                                                name={sIdx < earnedStars ? "star" : "star"}
+                                                name="star"
                                                 size={10}
                                                 color={sIdx < earnedStars ? "#FBBF24" : "rgba(255,255,255,0.18)"}
                                             />
                                         ))}
                                     </View>
 
-                                    {/* Best time (if completed) */}
-                                    {completed && typeof bestTime === "number" && bestTime > 0 ? (
-                                        <Text style={styles.bestTimeText}>
-                                            ⏱ {formatSecondsToTime(bestTime)}
-                                        </Text>
+                                    {/* Best time (if completed / recorded) */}
+                                    {typeof bestTime === "number" && bestTime > 0 ? (
+                                        <View style={styles.bestTimePill}>
+                                            <Text style={styles.bestTimeText}>
+                                                ⏱ {formatSecondsToTime(bestTime)}
+                                            </Text>
+                                        </View>
                                     ) : null}
 
                                     {/* Action row */}
@@ -421,10 +423,20 @@ const useStyles = makeStyles((colors) => ({
         flexDirection: "row",
         gap: 2,
     },
+    bestTimePill: {
+        backgroundColor: "rgba(56, 189, 248, 0.16)",
+        borderRadius: 4,
+        paddingHorizontal: 4,
+        paddingVertical: 1,
+        borderWidth: 0.5,
+        borderColor: "rgba(56, 189, 248, 0.4)",
+        marginTop: 1,
+    },
     bestTimeText: {
         color: "#38BDF8",
         fontSize: 8.5,
-        fontWeight: "800",
+        fontWeight: "900",
+        textAlign: "center",
     },
     playPill: {
         flexDirection: "row",

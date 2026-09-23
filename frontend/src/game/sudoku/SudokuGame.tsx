@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -98,19 +99,23 @@ export function SudokuGame({
         }
     }, [difficulty]);
 
+    const [hasWon, setHasWon] = useState(false);
+    const [finalElapsed, setFinalElapsed] = useState(0);
+    const [isWatchingAd, setIsWatchingAd] = useState(false);
+
     useEffect(() => {
         setSecondsLeft(timeLimit);
     }, [timeLimit]);
 
     useEffect(() => {
-        if (secondsLeft <= 0) return;
+        if (secondsLeft <= 0 || hasWon) return;
 
         const timer = setInterval(() => {
             setSecondsLeft((current) => Math.max(0, current - 1));
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [secondsLeft]);
+    }, [secondsLeft, hasWon]);
 
     const formatTime = (seconds: number) => {
         const minutes = Math.floor(seconds / 60);
@@ -129,14 +134,39 @@ export function SudokuGame({
     );
 
     useEffect(() => {
-        if (isComplete) {
+        if (isComplete && !hasWon) {
             const elapsed = Math.max(1, timeLimit - secondsLeft);
-            onComplete(puzzle.id, mistakes, elapsed);
+            setFinalElapsed(elapsed);
+            setHasWon(true);
+            playSound("levelup", profile.settings.sound);
+            if (profile.settings.vibration) {
+                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+            }
         }
-    }, [isComplete, onComplete, puzzle.id, mistakes, timeLimit, secondsLeft]);
+    }, [isComplete, hasWon, timeLimit, secondsLeft, profile.settings.sound, profile.settings.vibration]);
+
+    const handleClaimVictory = () => {
+        onComplete(puzzle.id, mistakes, finalElapsed);
+    };
+
+    const handlePlayAgain = () => {
+        setGrid(puzzle.puzzle.map(row => [...row]));
+        setSelected(null);
+        setMistakes(0);
+        setHintsUsed(0);
+        setSecondsLeft(timeLimit);
+        setMistakeCell(null);
+        setPaceNotice("");
+        setCombo(0);
+        setBlitzEnergy(0);
+        setHasWon(false);
+        setFinalElapsed(0);
+    };
+
+    const starsEarned = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
 
     const handleNumberPress = (number: number, event: any) => {
-        if (!selected || secondsLeft === 0) return;
+        if (!selected || secondsLeft === 0 || hasWon) return;
 
         const [row, column] = selected;
 
@@ -260,31 +290,115 @@ export function SudokuGame({
                 </View>
             ) : null}
 
-            {secondsLeft === 0 && !isComplete ? (
-                <View style={[styles.content, { justifyContent: 'center', flex: 1 }]}>
-                    <Text style={{ fontSize: 32, fontWeight: '900', color: colors.error, marginBottom: 20 }}>Time's Up!</Text>
-                    <Pressable
-                        onPress={() => {
-                            setGrid(puzzle.puzzle.map(row => [...row]));
-                            setSelected(null);
-                            setMistakes(0);
-                            setHintsUsed(0);
-                            setSecondsLeft(timeLimit);
-                            setMistakeCell(null);
-                            setPaceNotice("");
-                            setCombo(0);
-                            setBlitzEnergy(0);
-                        }}
-                        style={[styles.hintButton, { backgroundColor: colors.brandPrimary, paddingHorizontal: 40, marginBottom: 12, width: '100%', maxWidth: 300 }]}
-                    >
-                        <Text style={styles.hintText}>Try Again</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={handleWatchAdToContinue}
-                        style={[styles.hintButton, { backgroundColor: colors.brandSecondary, paddingHorizontal: 40, width: '100%', maxWidth: 300 }]}
-                    >
-                        <Text style={[styles.hintText, { color: colors.brandPrimary }]}>Watch Ad to Continue (+60s)</Text>
-                    </Pressable>
+            {/* Victory Screen */}
+            {hasWon ? (
+                <View style={styles.modalOverlay}>
+                    <View style={styles.endCard}>
+                        {/* Trophy Icon */}
+                        <View style={styles.victoryIconBadge}>
+                            <Ionicons name="trophy" size={38} color="#FBBF24" />
+                        </View>
+
+                        <Text style={styles.endTitle}>Sudoku Cleared!</Text>
+
+                        {/* Stars */}
+                        <View style={styles.victoryStarsRow}>
+                            {[1, 2, 3].map((starIdx) => (
+                                <View key={starIdx} style={styles.victoryStarWrapper}>
+                                    <Ionicons
+                                        name={starIdx <= starsEarned ? "star" : "star-outline"}
+                                        size={36}
+                                        color={starIdx <= starsEarned ? "#FBBF24" : "rgba(255, 255, 255, 0.2)"}
+                                    />
+                                </View>
+                            ))}
+                        </View>
+
+                        <Text style={styles.victoryBadgeSub}>
+                            {starsEarned === 3
+                                ? "🌟 Flawless Solve! 3 Stars!"
+                                : starsEarned === 2
+                                ? "⚡ Great Job! 2 Stars!"
+                                : "👏 Game Complete! 1 Star!"}
+                        </Text>
+
+                        {/* Stats Grid */}
+                        <View style={styles.victoryStatsGrid}>
+                            <View style={styles.victoryStatCard}>
+                                <Text style={styles.victoryStatLabel}>⏱ Time</Text>
+                                <Text style={styles.victoryStatVal}>{formatTime(finalElapsed)}</Text>
+                            </View>
+                            <View style={styles.victoryStatCard}>
+                                <Text style={styles.victoryStatLabel}>❌ Mistakes</Text>
+                                <Text style={styles.victoryStatVal}>{mistakes}</Text>
+                            </View>
+                            <View style={styles.victoryStatCard}>
+                                <Text style={styles.victoryStatLabel}>🪙 Reward</Text>
+                                <Text style={styles.victoryStatVal}>+5 Tokens</Text>
+                            </View>
+                        </View>
+
+                        {/* Actions */}
+                        <View style={styles.endActions}>
+                            <Pressable
+                                onPress={handleClaimVictory}
+                                style={[styles.endPrimaryBtn, { backgroundColor: "#FBBF24" }]}
+                            >
+                                <Ionicons name="arrow-forward-circle" size={22} color="#0F172A" />
+                                <Text style={[styles.endPrimaryBtnText, { color: "#0F172A" }]}>Claim & Continue</Text>
+                            </Pressable>
+
+                            <Pressable
+                                onPress={handlePlayAgain}
+                                style={styles.endSecondaryBtn}
+                            >
+                                <Ionicons name="refresh" size={18} color="#FFFFFF" />
+                                <Text style={styles.endSecondaryBtnText}>Play Again</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+            ) : secondsLeft === 0 ? (
+                /* Defeat / Time's Up Screen */
+                <View style={styles.modalOverlay}>
+                    <View style={[styles.endCard, styles.defeatCard]}>
+                        <View style={styles.defeatIconBadge}>
+                            <Ionicons name="hourglass" size={38} color="#EF4444" />
+                        </View>
+
+                        <Text style={[styles.endTitle, { color: "#EF4444" }]}>Time's Up!</Text>
+                        <Text style={styles.defeatSub}>
+                            You ran out of time on this Sudoku puzzle. Watch a short ad for extra time or try again!
+                        </Text>
+
+                        <View style={styles.endActions}>
+                            <Pressable
+                                onPress={handleWatchAdToContinue}
+                                disabled={isWatchingAd}
+                                style={[styles.endPrimaryBtn, { backgroundColor: "#F59E0B" }]}
+                            >
+                                <Ionicons name="gift" size={20} color="#0F172A" />
+                                <Text style={[styles.endPrimaryBtnText, { color: "#0F172A" }]}>
+                                    {isWatchingAd ? "Loading Ad..." : "Watch Ad for +60s 🎁"}
+                                </Text>
+                            </Pressable>
+
+                            <Pressable
+                                onPress={handlePlayAgain}
+                                style={[styles.endSecondaryBtn, { backgroundColor: "rgba(255, 255, 255, 0.12)" }]}
+                            >
+                                <Ionicons name="refresh" size={18} color="#FFFFFF" />
+                                <Text style={styles.endSecondaryBtnText}>Try Again</Text>
+                            </Pressable>
+
+                            <Pressable
+                                onPress={onBack}
+                                style={{ paddingVertical: 10, alignItems: "center" }}
+                            >
+                                <Text style={{ color: "rgba(255, 255, 255, 0.6)", fontSize: 14, fontWeight: "700" }}>‹ Back to Levels</Text>
+                            </Pressable>
+                        </View>
+                    </View>
                 </View>
             ) : (
                 <ScrollView
@@ -563,5 +677,157 @@ const useStyles = makeStyles((colors: any) => ({
         fontWeight: "900",
         textShadowColor: 'rgba(0,0,0,0.5)',
         textShadowRadius: 2
+    },
+
+    // Modal & End Game (Victory & Time's Up)
+    modalOverlay: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(5, 10, 25, 0.95)",
+        zIndex: 999,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 20,
+    },
+    endCard: {
+        width: "100%",
+        maxWidth: 360,
+        backgroundColor: "rgba(15, 23, 42, 0.98)",
+        borderRadius: 24,
+        padding: 24,
+        alignItems: "center",
+        borderWidth: 2,
+        borderColor: "#FBBF24",
+        shadowColor: "#F59E0B",
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.5,
+        shadowRadius: 16,
+        elevation: 10,
+    },
+    defeatCard: {
+        borderColor: "#EF4444",
+        shadowColor: "#EF4444",
+    },
+    victoryIconBadge: {
+        width: 76,
+        height: 76,
+        borderRadius: 38,
+        backgroundColor: "rgba(251, 191, 36, 0.15)",
+        borderWidth: 2,
+        borderColor: "#FBBF24",
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 12,
+    },
+    defeatIconBadge: {
+        width: 76,
+        height: 76,
+        borderRadius: 38,
+        backgroundColor: "rgba(239, 68, 68, 0.15)",
+        borderWidth: 2,
+        borderColor: "#EF4444",
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 12,
+    },
+    endTitle: {
+        fontSize: 26,
+        fontWeight: "900",
+        color: "#FFFFFF",
+        textAlign: "center",
+        letterSpacing: -0.5,
+        marginBottom: 6,
+    },
+    victoryStarsRow: {
+        flexDirection: "row",
+        gap: 12,
+        marginVertical: 10,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    victoryStarWrapper: {
+        shadowColor: "#FBBF24",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.6,
+        shadowRadius: 6,
+    },
+    victoryBadgeSub: {
+        fontSize: 14,
+        fontWeight: "800",
+        color: "#FCD34D",
+        textAlign: "center",
+        marginBottom: 16,
+    },
+    defeatSub: {
+        fontSize: 13.5,
+        lineHeight: 20,
+        fontWeight: "600",
+        color: "rgba(255, 255, 255, 0.75)",
+        textAlign: "center",
+        marginBottom: 20,
+    },
+    victoryStatsGrid: {
+        flexDirection: "row",
+        gap: 8,
+        width: "100%",
+        marginBottom: 20,
+    },
+    victoryStatCard: {
+        flex: 1,
+        backgroundColor: "rgba(30, 41, 59, 0.8)",
+        borderRadius: 14,
+        paddingVertical: 10,
+        paddingHorizontal: 6,
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.08)",
+    },
+    victoryStatLabel: {
+        fontSize: 11,
+        fontWeight: "700",
+        color: "rgba(255, 255, 255, 0.6)",
+        marginBottom: 4,
+    },
+    victoryStatVal: {
+        fontSize: 15,
+        fontWeight: "900",
+        color: "#FFFFFF",
+    },
+    endActions: {
+        width: "100%",
+        gap: 10,
+    },
+    endPrimaryBtn: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 8,
+        paddingVertical: 14,
+        borderRadius: 16,
+        width: "100%",
+    },
+    endPrimaryBtnText: {
+        fontSize: 16,
+        fontWeight: "900",
+    },
+    endSecondaryBtn: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 8,
+        paddingVertical: 12,
+        borderRadius: 16,
+        backgroundColor: "rgba(255, 255, 255, 0.08)",
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.15)",
+        width: "100%",
+    },
+    endSecondaryBtnText: {
+        fontSize: 14,
+        fontWeight: "800",
+        color: "#FFFFFF",
     },
 }));

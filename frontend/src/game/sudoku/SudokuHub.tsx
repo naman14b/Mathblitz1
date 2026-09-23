@@ -180,11 +180,11 @@ export function SudokuHub({
                         const level = i + 1;
                         const id = `sudoku-${selectedDifficulty}-${level}`;
                         const unlocked = level === 1 || isSudokuUnlocked(profile, id);
-                        const completed = isSudokuCompleted(profile, id);
-                        const canUnlock = profile.tokens >= currentTier.unlockCost;
-                        const canPlay = unlocked || canUnlock;
                         const earnedStars = profile.sudokuStars?.[id] || 0;
                         const bestTime = profile.sudokuBestTime?.[id];
+                        const completed = isSudokuCompleted(profile, id) || Boolean(profile.completedSudoku?.[id]) || earnedStars > 0 || (typeof bestTime === "number" && bestTime > 0);
+                        const canUnlock = profile.tokens >= currentTier.unlockCost;
+                        const canPlay = unlocked || canUnlock;
 
                         // Determine if current level is the latest playable active level
                         const isActiveLevel = unlocked && !completed;
@@ -229,11 +229,13 @@ export function SudokuHub({
                                         ))}
                                     </View>
 
-                                    {/* Best time (if completed) */}
-                                    {completed && typeof bestTime === "number" && bestTime > 0 ? (
-                                        <Text style={styles.bestTimeText}>
-                                            ⏱ {formatSecondsToTime(bestTime)}
-                                        </Text>
+                                    {/* Best time (if completed / recorded) */}
+                                    {typeof bestTime === "number" && bestTime > 0 ? (
+                                        <View style={styles.bestTimePill}>
+                                            <Text style={styles.bestTimeText}>
+                                                ⏱ {formatSecondsToTime(bestTime)}
+                                            </Text>
+                                        </View>
                                     ) : null}
 
                                     {/* Action row */}
@@ -536,10 +538,20 @@ const useStyles = makeStyles((colors) => ({
         flexDirection: "row",
         gap: 2,
     },
+    bestTimePill: {
+        backgroundColor: "rgba(56, 189, 248, 0.16)",
+        borderRadius: 4,
+        paddingHorizontal: 4,
+        paddingVertical: 1,
+        borderWidth: 0.5,
+        borderColor: "rgba(56, 189, 248, 0.4)",
+        marginTop: 1,
+    },
     bestTimeText: {
         color: "#38BDF8",
         fontSize: 8.5,
-        fontWeight: "800",
+        fontWeight: "900",
+        textAlign: "center",
     },
     playPill: {
         flexDirection: "row",
