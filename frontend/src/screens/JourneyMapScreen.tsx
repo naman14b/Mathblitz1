@@ -130,7 +130,7 @@ export function JourneyMapScreen({
       />
 
       {/* Bottom Floating Quick Continue Dock with Theme Preview */}
-      <View style={styles.bottomDock}>
+      <View style={[styles.bottomDock, { bottom: Math.max(insets.bottom, 10) + 70 }]}>
         <View style={styles.dockImageContainer}>
           <Image
             source={getLevelImage(currentLevelDef.id)}

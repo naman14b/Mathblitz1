@@ -37,10 +37,10 @@ interface WorldMapProps {
   onCharacterMoveComplete?: () => void;
 }
 
-const NODE_VERTICAL_SPACING = 110;
-const WORLD_GATEWAY_GAP = 140; // Dedicated clearance for World Gateway Heading
-const MAP_PADDING_TOP = 40;
-const MAP_PADDING_BOTTOM = 220; // Clearance for floating continue dock and bottom nav bar
+const NODE_VERTICAL_SPACING = 120;
+const WORLD_GATEWAY_GAP = 230; // Dedicated clearance for World Gateway Heading
+const MAP_PADDING_TOP = 60;
+const MAP_PADDING_BOTTOM = 280; // Clearance for floating continue dock and bottom nav bar
 
 const WORLD_EMOJIS: Record<string, string> = {
   number_forest: "🌲",
@@ -79,8 +79,8 @@ export function WorldMap({
       const startLevel = world.levelsRange[0]; // e.g. 81
       const endLevel = world.levelsRange[1];   // e.g. 100
 
-      // World Gateway Heading is placed here with dedicated space
-      const bannerY = currentY + 30;
+      // World Gateway Heading is placed here centered inside dedicated gap
+      const bannerY = currentY + (WORLD_GATEWAY_GAP - 90) / 2;
       const worldTopY = currentY;
       currentY += WORLD_GATEWAY_GAP;
 
@@ -169,13 +169,12 @@ export function WorldMap({
         contentContainerStyle={[styles.mapContainer, { height: totalMapHeight }]}
         showsVerticalScrollIndicator={false}
       >
-        {/* World Realms Backgrounds & Gateway Headings */}
+        {/* Layer 1: World Realms Theme Background Artworks & Ambient Glows */}
         {WORLDS.map((world) => {
           const layout = worldLayouts.get(world.id);
           if (!layout) return null;
 
           const worldThemeImage = getLevelImage(world.worldNumber);
-          const worldEmoji = WORLD_EMOJIS[world.id] || "✨";
 
           return (
             <View
@@ -259,34 +258,11 @@ export function WorldMap({
                   )}
                 </View>
               </LinearGradient>
-
-              {/* Majestic Non-Overlapping World Gateway Archway Heading */}
-              <View style={[styles.worldGatewayArch, { top: layout.bannerY - layout.topY }]}>
-                <View style={[styles.gatewayFrame, { borderColor: world.palette.accent }]}>
-                  {/* Realm Emblem */}
-                  <View style={[styles.emblemBadge, { backgroundColor: world.palette.primary }]}>
-                    <Text style={styles.emblemText}>{worldEmoji}</Text>
-                  </View>
-
-                  {/* Header Title Information */}
-                  <View style={styles.gatewayInfo}>
-                    <View style={styles.worldTagRow}>
-                      <Text style={styles.worldTagLine}>❖</Text>
-                      <Text style={styles.worldTagText}>
-                        REALM {world.worldNumber} • WORLD {world.worldNumber}
-                      </Text>
-                      <Text style={styles.worldTagLine}>❖</Text>
-                    </View>
-                    <Text style={styles.worldTitleText}>{world.name.toUpperCase()}</Text>
-                    <Text style={styles.worldSubtitleText}>{world.subtitle}</Text>
-                  </View>
-                </View>
-              </View>
             </View>
           );
         })}
 
-        {/* 3D Ancient Golden Stone Viaduct Bridge Path (Unbroken from Level 1 to 100) */}
+        {/* Layer 2: 3D Ancient Golden Stone Viaduct Bridge Path (Unbroken from Level 1 to 100) */}
         {viaductPathD ? (
           <Svg
             style={styles.svgPathOverlay}
@@ -311,7 +287,7 @@ export function WorldMap({
               </SvgLinearGradient>
             </Defs>
 
-            {/* Layer 1: Bridge Deep Ambient Drop Shadow */}
+            {/* Layer 2a: Bridge Deep Ambient Drop Shadow */}
             <SvgPath
               d={viaductPathD}
               stroke="rgba(0, 0, 0, 0.7)"
@@ -322,7 +298,7 @@ export function WorldMap({
               transform="translate(0, 6)"
             />
 
-            {/* Layer 2: 3D Ancient Stone Viaduct Foundation & Masonry Wall */}
+            {/* Layer 2b: 3D Ancient Stone Viaduct Foundation & Masonry Wall */}
             <SvgPath
               d={viaductPathD}
               stroke="url(#stoneWallGrad)"
@@ -332,7 +308,7 @@ export function WorldMap({
               fill="none"
             />
 
-            {/* Layer 3: Stone Parapet Outer Railing Curb */}
+            {/* Layer 2c: Stone Parapet Outer Railing Curb */}
             <SvgPath
               d={viaductPathD}
               stroke="#64748B"
@@ -342,7 +318,7 @@ export function WorldMap({
               fill="none"
             />
 
-            {/* Layer 4: Glowing Golden Cobblestone Road Surface */}
+            {/* Layer 2d: Glowing Golden Cobblestone Road Surface */}
             <SvgPath
               d={viaductPathD}
               stroke="url(#viaductGoldGlow)"
@@ -352,7 +328,7 @@ export function WorldMap({
               fill="none"
             />
 
-            {/* Layer 5: Cobblestone Block Seam Texture (Intermittent Paver Grooves) */}
+            {/* Layer 2e: Cobblestone Block Seam Texture (Intermittent Paver Grooves) */}
             <SvgPath
               d={viaductPathD}
               stroke="#78350F"
@@ -363,7 +339,7 @@ export function WorldMap({
               opacity={0.6}
             />
 
-            {/* Layer 6: Radiant Central Golden Energy Spine */}
+            {/* Layer 2f: Radiant Central Golden Energy Spine */}
             <SvgPath
               d={viaductPathD}
               stroke="#FEF08A"
@@ -376,7 +352,42 @@ export function WorldMap({
           </Svg>
         ) : null}
 
-        {/* Level Nodes */}
+        {/* Layer 3: Majestic Non-Overlapping World Gateway Archways (Rendered above road for clean pass-under) */}
+        {WORLDS.map((world) => {
+          const layout = worldLayouts.get(world.id);
+          if (!layout) return null;
+          const worldEmoji = WORLD_EMOJIS[world.id] || "✨";
+
+          return (
+            <View
+              key={`gateway_${world.id}`}
+              style={[styles.worldGatewayArch, { top: layout.bannerY }]}
+              pointerEvents="none"
+            >
+              <View style={[styles.gatewayFrame, { borderColor: world.palette.accent }]}>
+                {/* Realm Emblem */}
+                <View style={[styles.emblemBadge, { backgroundColor: world.palette.primary }]}>
+                  <Text style={styles.emblemText}>{worldEmoji}</Text>
+                </View>
+
+                {/* Header Title Information */}
+                <View style={styles.gatewayInfo}>
+                  <View style={styles.worldTagRow}>
+                    <Text style={styles.worldTagLine}>❖</Text>
+                    <Text style={styles.worldTagText}>
+                      REALM {world.worldNumber} • WORLD {world.worldNumber}
+                    </Text>
+                    <Text style={styles.worldTagLine}>❖</Text>
+                  </View>
+                  <Text style={styles.worldTitleText}>{world.name.toUpperCase()}</Text>
+                  <Text style={styles.worldSubtitleText}>{world.subtitle}</Text>
+                </View>
+              </View>
+            </View>
+          );
+        })}
+
+        {/* Layer 4: Level Nodes (Compass Medallions) */}
         {CURATED_LEVELS.map((level) => {
           const pos = levelPositions.get(level.id);
           if (!pos) return null;
@@ -403,7 +414,7 @@ export function WorldMap({
           );
         })}
 
-        {/* Animated Character Avatar Token */}
+        {/* Layer 5: Animated Character Avatar Token */}
         <PlayerCharacterToken
           targetXPercent={currentLevelPos.x}
           targetY={currentLevelPos.y}
