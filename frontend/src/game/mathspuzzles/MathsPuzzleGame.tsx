@@ -85,13 +85,8 @@ export function MathsPuzzleGame({
         return `${String(minutes).padStart(2, "0")}:${String(remaining).padStart(2, "0")}`;
     };
 
-    const isComplete = grid.every((row, r) =>
-        row.every((cell, c) => {
-            if (cell.isBlank) {
-                return cell.value === puzzle.grid[r][c].value;
-            }
-            return true;
-        })
+    const isComplete = bank.length === 0 && grid.every((row) =>
+        row.every((cell) => !cell.isBlank)
     );
 
     useEffect(() => {

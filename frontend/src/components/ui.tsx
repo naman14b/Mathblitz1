@@ -47,9 +47,27 @@ export function SoftButton({ children, onPress, icon, style, testID }: PropsWith
   );
 }
 
-export function ScreenTitle({ eyebrow, title, subtitle }: { eyebrow?: string; title: string; subtitle?: string }) {
+export function ScreenTitle({
+  eyebrow,
+  title,
+  subtitle,
+  numberOfLines = 2,
+}: {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  numberOfLines?: number;
+}) {
   const styles = useStyles();
-  return <View style={styles.titleBlock}>{eyebrow ? <Text style={styles.eyebrow}>{eyebrow}</Text> : null}<Text style={styles.title}>{title}</Text>{subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}</View>;
+  return (
+    <View style={styles.titleBlock}>
+      {eyebrow ? <Text style={styles.eyebrow}>{eyebrow}</Text> : null}
+      <Text style={styles.title} numberOfLines={numberOfLines}>
+        {title}
+      </Text>
+      {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+    </View>
+  );
 }
 
 export function StatTile({ icon, value, label, color }: { icon: keyof typeof Ionicons.glyphMap; value: string; label: string; color?: string }) {
@@ -67,10 +85,10 @@ const useStyles = makeStyles((colors) => ({
   primaryText: { fontSize: 16, fontWeight: "800" },
   softButton: { minHeight: 46, borderRadius: 15, paddingHorizontal: 18, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8 },
   softText: { fontSize: 14, fontWeight: "800" },
-  titleBlock: { gap: 5 },
+  titleBlock: { flex: 1, gap: 4 },
   eyebrow: { color: colors.brandPrimary, fontSize: 12, fontWeight: "800", letterSpacing: 1.4, textTransform: "uppercase" },
-  title: { color: colors.onSurface, fontSize: 30, lineHeight: 36, fontWeight: "800", letterSpacing: -0.8 },
-  subtitle: { color: colors.muted, fontSize: 15, lineHeight: 22 },
+  title: { color: colors.onSurface, fontSize: 22, lineHeight: 28, fontWeight: "800", letterSpacing: -0.6 },
+  subtitle: { color: colors.muted, fontSize: 14, lineHeight: 20 },
   statTile: { flex: 1, minHeight: 106, borderRadius: 20, padding: 15, gap: 5 },
   statValue: { color: colors.onSurface, fontSize: 22, fontWeight: "800", marginTop: 3 },
   statLabel: { color: colors.muted, fontSize: 12, fontWeight: "700" },
