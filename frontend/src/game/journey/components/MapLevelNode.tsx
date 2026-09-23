@@ -1,9 +1,10 @@
 /**
  * MathBlitz Kingdom - Map Level Node Component
+ * Styled with Sudoku & Puzzles level theme image artwork and indicators.
  */
 
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, {
   useAnimatedStyle,
@@ -15,6 +16,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { JourneyLevelDef, StarRating } from "../types";
 import { getWorldForLevel } from "../worlds";
+import { getLevelImage } from "@/src/game/levelAssets";
 
 interface MapLevelNodeProps {
   level: JourneyLevelDef;
@@ -42,6 +44,7 @@ export function MapLevelNode({
   const world = getWorldForLevel(level.id);
   const isBoss = level.levelType === "boss";
   const isSpeedGate = level.levelType === "speed_gate";
+  const levelImage = getLevelImage(level.id);
 
   // Pulse animation for active current level
   const pulseScale = useSharedValue(1);
@@ -64,20 +67,14 @@ export function MapLevelNode({
     transform: [{ scale: pulseScale.value }],
   }));
 
-  const nodeColor = !isUnlocked
-    ? world.palette.nodeLocked
-    : isBoss
-    ? world.palette.nodeBoss
-    : isSpeedGate
-    ? "#F59E0B"
-    : world.palette.nodeUnlocked;
-
   const nodeBorderColor = isCurrent
     ? "#FBBF24"
     : isCompleted
-    ? "#FCD34D"
+    ? "#34D399"
+    : isBoss
+    ? "#F59E0B"
     : !isUnlocked
-    ? "#4B5563"
+    ? "#334155"
     : "#FFFFFF";
 
   return (
@@ -87,7 +84,7 @@ export function MapLevelNode({
         {
           left: `${Math.round(x * 100)}%`,
           top: y,
-          transform: [{ translateX: -32 }],
+          transform: [{ translateX: -34 }],
         },
       ]}
     >
@@ -102,21 +99,43 @@ export function MapLevelNode({
         />
       )}
 
-      {/* Main Node Button */}
+      {/* Main Node Button with Sudoku/Puzzles Level Theme Image */}
       <Pressable
         onPress={() => onPress(level)}
         disabled={!isUnlocked}
         style={({ pressed }) => [
           styles.node,
           {
-            backgroundColor: nodeColor,
             borderColor: nodeBorderColor,
-            borderWidth: isCurrent ? 3.5 : isCompleted ? 2.5 : 2,
+            borderWidth: isCurrent ? 3.5 : isCompleted ? 2.5 : isBoss ? 3 : 2,
             opacity: pressed ? 0.85 : 1,
           },
           isBoss && styles.bossNode,
+          !isUnlocked && styles.lockedNode,
         ]}
       >
+        {/* Theme image thumbnail from Sudoku/Puzzles */}
+        <Image
+          source={levelImage}
+          style={[
+            styles.nodeImage,
+            isBoss && styles.bossNodeImage,
+            !isUnlocked && { opacity: 0.25 },
+          ]}
+          resizeMode="cover"
+        />
+
+        {/* Semi-transparent dark vignette overlay */}
+        <View
+          style={[
+            styles.imageOverlay,
+            isCompleted && { backgroundColor: "rgba(6, 78, 59, 0.45)" },
+            isCurrent && { backgroundColor: "rgba(180, 83, 9, 0.35)" },
+            !isUnlocked && { backgroundColor: "rgba(15, 23, 42, 0.82)" },
+          ]}
+        />
+
+        {/* Content Over Theme Image */}
         {isBoss ? (
           <View style={styles.bossInner}>
             <Text style={styles.bossIcon}>👑</Text>
@@ -124,12 +143,12 @@ export function MapLevelNode({
           </View>
         ) : isSpeedGate ? (
           <View style={styles.centerContent}>
-            <Ionicons name="flash" size={20} color="#FFFFFF" />
+            <Ionicons name="flash" size={20} color="#FBBF24" />
             <Text style={styles.levelText}>{level.id}</Text>
           </View>
         ) : !isUnlocked ? (
           <View style={styles.centerContent}>
-            <Ionicons name="lock-closed" size={18} color="#9CA3AF" />
+            <Ionicons name="lock-closed" size={18} color="#94A3B8" />
             <Text style={styles.lockedLevelText}>{level.id}</Text>
           </View>
         ) : (
@@ -146,8 +165,8 @@ export function MapLevelNode({
             <Ionicons
               key={starIndex}
               name={starIndex <= stars ? "star" : "star-outline"}
-              size={12}
-              color={starIndex <= stars ? "#F59E0B" : "#9CA3AF"}
+              size={11}
+              color={starIndex <= stars ? "#F59E0B" : "rgba(255,255,255,0.2)"}
               style={styles.starIcon}
             />
           ))}
@@ -172,35 +191,59 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-    width: 64,
-    height: 90,
+    width: 68,
+    height: 96,
   },
   beaconRing: {
     position: "absolute",
-    top: -6,
-    width: 76,
-    height: 76,
-    borderRadius: 38,
+    top: -7,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     borderWidth: 2.5,
     borderStyle: "dashed",
-    opacity: 0.85,
+    opacity: 0.9,
   },
   node: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
+    backgroundColor: "#0F172A",
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 5,
-    elevation: 6,
+    shadowOpacity: 0.45,
+    shadowRadius: 6,
+    elevation: 7,
+  },
+  lockedNode: {
+    backgroundColor: "#1E293B",
   },
   bossNode: {
-    width: 68,
-    height: 68,
-    borderRadius: 34,
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+  },
+  nodeImage: {
+    position: "absolute",
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+  },
+  bossNodeImage: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+  },
+  imageOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(15, 23, 42, 0.45)",
   },
   centerContent: {
     alignItems: "center",
@@ -218,17 +261,20 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 12,
     fontWeight: "900",
+    textShadowColor: "rgba(0,0,0,0.8)",
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
   },
   levelText: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: "800",
-    textShadowColor: "rgba(0,0,0,0.4)",
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
+    fontWeight: "900",
+    textShadowColor: "rgba(0,0,0,0.8)",
+    textShadowOffset: { width: 0, height: 1.5 },
+    textShadowRadius: 3,
   },
   lockedLevelText: {
-    color: "#9CA3AF",
+    color: "#94A3B8",
     fontSize: 12,
     fontWeight: "700",
     marginTop: 1,
@@ -238,10 +284,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 3,
-    backgroundColor: "rgba(17, 24, 39, 0.8)",
-    paddingHorizontal: 4,
+    backgroundColor: "rgba(15, 23, 42, 0.9)",
+    paddingHorizontal: 5,
     paddingVertical: 1.5,
     borderRadius: 8,
+    borderWidth: 0.5,
+    borderColor: "rgba(255,255,255,0.1)",
   },
   starIcon: {
     marginHorizontal: 0.5,
@@ -251,19 +299,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 6,
-    backgroundColor: "rgba(15, 23, 42, 0.85)",
-    maxWidth: 90,
+    backgroundColor: "rgba(15, 23, 42, 0.88)",
+    maxWidth: 96,
+    borderWidth: 0.5,
+    borderColor: "rgba(255,255,255,0.1)",
   },
   titleBadgeLocked: {
-    backgroundColor: "rgba(31, 41, 55, 0.7)",
+    backgroundColor: "rgba(30, 41, 59, 0.75)",
+    borderColor: "transparent",
   },
   titleText: {
-    color: "#F3F4F6",
+    color: "#F8FAFC",
     fontSize: 10,
     fontWeight: "700",
     textAlign: "center",
   },
   titleTextLocked: {
-    color: "#9CA3AF",
+    color: "#94A3B8",
   },
 });

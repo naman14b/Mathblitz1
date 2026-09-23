@@ -1,9 +1,11 @@
 /**
  * MathBlitz Kingdom - Journey Map Screen (Main Kingdom Hub)
+ * Enhanced with Sudoku & Puzzles themes and headers.
  */
 
 import React, { useState, useEffect, useCallback } from "react";
 import {
+  Image,
   StyleSheet,
   Text,
   View,
@@ -18,6 +20,7 @@ import { loadJourneyState } from "../game/journey/storage";
 import { WorldMap } from "../game/journey/components/WorldMap";
 import { DailyJourneyWidget } from "../game/journey/components/DailyJourneyWidget";
 import { LocalProfile } from "@/src/game/types";
+import { ASTRONAUT_HEADER, getLevelImage } from "@/src/game/levelAssets";
 
 interface JourneyMapScreenProps {
   profile: LocalProfile;
@@ -58,6 +61,7 @@ export function JourneyMapScreen({
 
   const currentLevelDef = getLevelDef(journeyState.currentLevel);
   const currentWorld = getWorldForLevel(journeyState.currentLevel);
+  const currentWorldImage = getLevelImage(currentWorld.worldNumber);
 
   const handleSelectLevel = (level: JourneyLevelDef) => {
     if (level.levelType === "speed_gate") {
@@ -125,11 +129,18 @@ export function JourneyMapScreen({
         onSelectLevel={handleSelectLevel}
       />
 
-      {/* Bottom Floating Quick Continue Dock */}
+      {/* Bottom Floating Quick Continue Dock with Theme Preview */}
       <View style={[styles.bottomDock, { paddingBottom: Math.max(insets.bottom, 14) }]}>
+        <View style={styles.dockImageContainer}>
+          <Image
+            source={getLevelImage(currentLevelDef.id)}
+            style={styles.dockThumbnail}
+            resizeMode="cover"
+          />
+        </View>
         <View style={styles.dockInfo}>
           <Text style={styles.dockRealmText}>{currentWorld.name.toUpperCase()}</Text>
-          <Text style={styles.dockLevelText}>
+          <Text style={styles.dockLevelText} numberOfLines={1}>
             Level {currentLevelDef.id}: {currentLevelDef.title}
           </Text>
         </View>
@@ -200,14 +211,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   streakPill: {
-    borderColor: "#F59E0B",
-    backgroundColor: "rgba(245, 158, 11, 0.15)",
-  },
-  coinEmoji: {
-    fontSize: 12,
-  },
-  flameEmoji: {
-    fontSize: 12,
+    borderColor: "#EA580C",
+    backgroundColor: "rgba(234, 88, 12, 0.15)",
   },
   statPillText: {
     color: "#F8FAFC",
@@ -215,7 +220,13 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   streakText: {
-    color: "#FBBF24",
+    color: "#FB923C",
+  },
+  coinEmoji: {
+    fontSize: 12,
+  },
+  flameEmoji: {
+    fontSize: 12,
   },
   bottomDock: {
     position: "absolute",
@@ -223,22 +234,35 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: "rgba(15, 23, 42, 0.96)",
-    borderTopColor: "#334155",
+    borderTopColor: "rgba(255,255,255,0.1)",
     borderTopWidth: 1.5,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 18,
+    paddingHorizontal: 16,
     paddingTop: 12,
-    zIndex: 30,
-    shadowColor: "#000",
+    zIndex: 25,
+    shadowColor: "#000000",
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 8,
+    shadowRadius: 6,
+    elevation: 10,
+  },
+  dockImageContainer: {
+    width: 44,
+    height: 44,
+    borderRadius: 10,
+    overflow: "hidden",
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: "#F59E0B",
+  },
+  dockThumbnail: {
+    width: "100%",
+    height: "100%",
   },
   dockInfo: {
     flex: 1,
+    marginRight: 10,
   },
   dockRealmText: {
     color: "#F59E0B",
@@ -250,23 +274,20 @@ const styles = StyleSheet.create({
     color: "#F8FAFC",
     fontSize: 14,
     fontWeight: "800",
-    marginTop: 1,
   },
   continueBtn: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
     backgroundColor: "#10B981",
-    borderColor: "#34D399",
-    borderWidth: 1.5,
-    borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 10,
+    borderRadius: 14,
     shadowColor: "#10B981",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 6,
-    elevation: 6,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 4,
   },
   continueBtnText: {
     color: "#FFFFFF",

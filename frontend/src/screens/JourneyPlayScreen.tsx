@@ -1,9 +1,11 @@
 /**
  * MathBlitz Kingdom - Journey Play Screen
+ * Styled with Sudoku & Puzzles level theme image artwork and deterministic score tracking.
  */
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
+  Image,
   StyleSheet,
   Text,
   View,
@@ -27,6 +29,7 @@ import { submitLocalLevelResult } from "../game/journey/storage";
 import { JourneyLevelCompleteModal } from "./JourneyLevelCompleteModal";
 import { playSound } from "@/src/game/sounds";
 import { LocalProfile } from "@/src/game/types";
+import { getLevelImage } from "@/src/game/levelAssets";
 
 interface JourneyPlayScreenProps {
   levelId: number;
@@ -47,6 +50,7 @@ export function JourneyPlayScreen({
   const levelDef = getLevelDef(levelId);
   const world = getWorldForLevel(levelId);
   const isBoss = levelDef.levelType === "boss";
+  const levelThemeImage = getLevelImage(levelDef.id);
 
   const [questions, setQuestions] = useState<JourneyQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -62,6 +66,13 @@ export function JourneyPlayScreen({
   const [bossDialogue, setBossDialogue] = useState(
     isBoss && levelDef.boss ? levelDef.boss.introDialogue : ""
   );
+
+  // Synchronized refs to eliminate race conditions and stale closure states
+  const correctCountRef = useRef(0);
+  const scoreRef = useRef(0);
+  const timeTakenRef = useRef(0);
+  const comboRef = useRef(0);
+  const isGameOverRef = useRef(false);
 
   // Boss health tracker
   const [bossHealth, setBossHealth] = useState(levelDef.questionCount);
@@ -83,7 +94,47 @@ export function JourneyPlayScreen({
     setSelectedChoiceId(null);
     setIsAnswered(false);
     setBossHealth(generated.length);
+
+    correctCountRef.current = 0;
+    scoreRef.current = 0;
+    timeTakenRef.current = 0;
+    comboRef.current = 0;
+    isGameOverRef.current = false;
   }, [levelId]);
+
+  const handleFinishLevel = useCallback(
+    async (finalCorrect?: number, finalScore?: number, finalTime?: number) => {
+      if (isGameOverRef.current) return;
+      isGameOverRef.current = true;
+      setIsGameOver(true);
+      if (timerRef.current) clearInterval(timerRef.current);
+
+      const resolvedCorrect = typeof finalCorrect === "number" ? finalCorrect : correctCountRef.current;
+      const resolvedScore = typeof finalScore === "number" ? finalScore : scoreRef.current;
+      const resolvedTime = typeof finalTime === "number" ? finalTime : timeTakenRef.current;
+
+      const playerId = profile.playerName || "player_local";
+      const { resultData: res, xpDelta, tokensDelta } = await submitLocalLevelResult(playerId, {
+        levelId,
+        score: resolvedScore,
+        correctAnswers: resolvedCorrect,
+        totalQuestions: questions.length,
+        timeTakenSeconds: resolvedTime,
+      });
+
+      setResultData(res);
+
+      // Apply tokens and XP delta to profile
+      if (xpDelta > 0 || tokensDelta > 0) {
+        onUpdateProfile((prev) => ({
+          ...prev,
+          totalXp: prev.totalXp + xpDelta,
+          tokens: prev.tokens + tokensDelta,
+        }));
+      }
+    },
+    [profile.playerName, levelId, questions.length, onUpdateProfile]
+  );
 
   // Main countdown timer
   useEffect(() => {
@@ -98,41 +149,19 @@ export function JourneyPlayScreen({
         }
         return prev - 1;
       });
-      setTimeTaken((prev) => prev + 1);
+      setTimeTaken((prev) => {
+        const next = prev + 1;
+        timeTakenRef.current = next;
+        return next;
+      });
     }, 1000);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isGameOver, questions.length]);
+  }, [isGameOver, questions.length, handleFinishLevel]);
 
   const currentQ = questions[currentIndex];
-
-  const handleFinishLevel = useCallback(async () => {
-    if (isGameOver) return;
-    setIsGameOver(true);
-    if (timerRef.current) clearInterval(timerRef.current);
-
-    const playerId = profile.playerName || "player_local";
-    const { resultData: res, xpDelta, tokensDelta } = await submitLocalLevelResult(playerId, {
-      levelId,
-      score,
-      correctAnswers: correctCount,
-      totalQuestions: questions.length,
-      timeTakenSeconds: timeTaken,
-    });
-
-    setResultData(res);
-
-    // Apply tokens and XP delta to profile
-    if (xpDelta > 0 || tokensDelta > 0) {
-      onUpdateProfile((prev) => ({
-        ...prev,
-        totalXp: prev.totalXp + xpDelta,
-        tokens: prev.tokens + tokensDelta,
-      }));
-    }
-  }, [isGameOver, profile.playerName, levelId, score, correctCount, questions.length, timeTaken, onUpdateProfile]);
 
   const handleSelectChoice = (choiceId: string, choiceValue: string | number) => {
     if (isAnswered || isGameOver || !currentQ) return;
@@ -141,17 +170,25 @@ export function JourneyPlayScreen({
     setIsAnswered(true);
 
     const isCorrect = String(choiceValue) === String(currentQ.correctAnswer);
+    let nextCorrect = correctCountRef.current;
+    let nextScore = scoreRef.current;
+    let nextCombo = comboRef.current;
 
     if (isCorrect) {
       playSound("correct");
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
-      const nextCorrect = correctCount + 1;
-      const nextCombo = combo + 1;
+      nextCorrect += 1;
+      nextCombo += 1;
       const pointsEarned = 100 + nextCombo * 20;
+      nextScore += pointsEarned;
+
+      correctCountRef.current = nextCorrect;
+      comboRef.current = nextCombo;
+      scoreRef.current = nextScore;
 
       setCorrectCount(nextCorrect);
       setCombo(nextCombo);
-      setScore((s) => s + pointsEarned);
+      setScore(nextScore);
 
       if (isBoss) {
         setBossHealth((bh) => Math.max(0, bh - 1));
@@ -160,20 +197,22 @@ export function JourneyPlayScreen({
     } else {
       playSound("wrong");
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+      nextCombo = 0;
+      comboRef.current = 0;
       setCombo(0);
       if (isBoss) {
         setBossDialogue("Ha! The Guardian's math remains unyielding!");
       }
     }
 
-    // Move to next question after 900ms delay
+    // Move to next question after delay
     setTimeout(() => {
       if (currentIndex + 1 < questions.length) {
         setCurrentIndex((i) => i + 1);
         setSelectedChoiceId(null);
         setIsAnswered(false);
       } else {
-        handleFinishLevel();
+        handleFinishLevel(nextCorrect, nextScore, timeTakenRef.current);
       }
     }, 850);
   };
@@ -191,6 +230,14 @@ export function JourneyPlayScreen({
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+      {/* Level Theme Artwork Background */}
+      <Image
+        source={levelThemeImage}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      />
+      <View style={styles.darkBackdropOverlay} />
+
       {/* Top Header */}
       <View style={styles.header}>
         <Pressable onPress={onBackToMap} style={styles.backBtn}>
@@ -251,76 +298,69 @@ export function JourneyPlayScreen({
         )}
       </View>
 
-      {/* Main Question Card */}
+      {/* Question Card */}
       <View style={styles.questionCard}>
-        <Text style={styles.conceptBadge}>{currentQ?.concept.replace(/_/g, " ").toUpperCase()}</Text>
-        <Text style={styles.promptText}>{currentQ?.prompt}</Text>
+        <Text style={styles.questionPrompt}>{currentQ?.prompt}</Text>
+        {currentQ?.explanation && isAnswered && (
+          <Text style={styles.hintText}>{currentQ.explanation}</Text>
+        )}
       </View>
 
-      {/* Answer Choices Grid */}
+      {/* Choices Grid */}
       <View style={styles.choicesGrid}>
         {currentQ?.choices.map((choice) => {
           const isSelected = selectedChoiceId === choice.id;
           const isCorrectChoice = String(choice.value) === String(currentQ.correctAnswer);
 
-          let btnBg = "#1E293B";
-          let btnBorder = "#334155";
-          let textColor = "#F8FAFC";
+          let btnBg = "rgba(30, 41, 59, 0.92)";
+          let btnBorder = "rgba(71, 85, 105, 0.6)";
 
           if (isAnswered) {
             if (isCorrectChoice) {
-              btnBg = "#065F46";
-              btnBorder = "#10B981";
-              textColor = "#D1FAE5";
+              btnBg = "rgba(16, 185, 129, 0.95)";
+              btnBorder = "#34D399";
             } else if (isSelected) {
-              btnBg = "#7F1D1D";
-              btnBorder = "#EF4444";
-              textColor = "#FEE2E2";
+              btnBg = "rgba(239, 68, 68, 0.95)";
+              btnBorder = "#F87171";
             }
+          } else if (isSelected) {
+            btnBg = "#3B82F6";
+            btnBorder = "#60A5FA";
           }
 
           return (
             <Pressable
               key={choice.id}
-              onPress={() => handleSelectChoice(choice.id, choice.value)}
               disabled={isAnswered}
+              onPress={() => handleSelectChoice(choice.id, choice.value)}
               style={({ pressed }) => [
                 styles.choiceBtn,
                 {
                   backgroundColor: btnBg,
                   borderColor: btnBorder,
-                  transform: [{ scale: pressed && !isAnswered ? 0.96 : 1 }],
+                  transform: [{ scale: pressed && !isAnswered ? 0.97 : 1 }],
                 },
               ]}
             >
-              <Text style={[styles.choiceText, { color: textColor }]}>
-                {choice.label}
-              </Text>
+              <Text style={styles.choiceText}>{choice.label}</Text>
             </Pressable>
           );
         })}
       </View>
 
-      {/* Level Complete / Results Modal */}
+      {/* Bottom Progress Tracker */}
+      <View style={styles.bottomBar}>
+        <View style={styles.progressTrack}>
+          <View style={[styles.progressFill, { width: `${progressPercent}%` }]} />
+        </View>
+      </View>
+
+      {/* Victory / Defeat Modal */}
       <JourneyLevelCompleteModal
         visible={isGameOver && resultData !== null}
         result={resultData}
         onNextLevel={() => onNavigateToLevel(levelId + 1)}
-        onReplay={() => {
-          setIsGameOver(false);
-          setResultData(null);
-          const generated = JourneyQuestionEngine.generateQuestionsForLevel(levelId);
-          setQuestions(generated);
-          setCurrentIndex(0);
-          setCorrectCount(0);
-          setScore(0);
-          setCombo(0);
-          setTimeRemaining(levelDef.timeLimitSeconds);
-          setTimeTaken(0);
-          setSelectedChoiceId(null);
-          setIsAnswered(false);
-          setBossHealth(generated.length);
-        }}
+        onReplay={() => onNavigateToLevel(levelId)}
         onBackToMap={onBackToMap}
       />
     </View>
@@ -330,25 +370,49 @@ export function JourneyPlayScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0F172A",
-    paddingHorizontal: 16,
+    backgroundColor: "#022C22",
+    justifyContent: "space-between",
+  },
+  backgroundImage: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: "100%",
+    height: "100%",
+  },
+  darkBackdropOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(15, 23, 42, 0.88)",
   },
   loadingText: {
     color: "#94A3B8",
     fontSize: 16,
     textAlign: "center",
-    marginTop: 60,
+    marginTop: 40,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    zIndex: 2,
   },
   backBtn: {
-    padding: 8,
-    borderRadius: 10,
-    backgroundColor: "#1E293B",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "rgba(15, 23, 42, 0.8)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.1)",
   },
   levelInfo: {
     alignItems: "center",
@@ -356,65 +420,64 @@ const styles = StyleSheet.create({
   realmLabel: {
     color: "#F59E0B",
     fontSize: 10,
-    fontWeight: "800",
-    letterSpacing: 1,
+    fontWeight: "900",
+    letterSpacing: 1.5,
   },
   levelTitleText: {
     color: "#F8FAFC",
-    fontSize: 14,
-    fontWeight: "700",
+    fontSize: 15,
+    fontWeight: "800",
   },
   scoreBadge: {
-    backgroundColor: "#1E293B",
-    borderColor: "#334155",
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 10,
+    backgroundColor: "rgba(15, 23, 42, 0.8)",
+    paddingHorizontal: 12,
     paddingVertical: 4,
+    borderRadius: 12,
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.1)",
   },
   scoreLabel: {
     color: "#94A3B8",
     fontSize: 9,
-    fontWeight: "700",
+    fontWeight: "800",
   },
   scoreValue: {
     color: "#FBBF24",
     fontSize: 14,
-    fontWeight: "800",
+    fontWeight: "900",
   },
   timerTrack: {
-    height: 6,
-    backgroundColor: "#1E293B",
-    borderRadius: 3,
-    overflow: "hidden",
-    marginVertical: 8,
+    height: 5,
+    backgroundColor: "rgba(30, 41, 59, 0.8)",
+    width: "100%",
   },
   timerFill: {
     height: "100%",
-    borderRadius: 3,
+    borderRadius: 2.5,
   },
   bossCard: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1E293B",
-    borderColor: "#EF4444",
+    backgroundColor: "rgba(30, 41, 59, 0.9)",
+    marginHorizontal: 16,
+    marginTop: 8,
+    padding: 12,
+    borderRadius: 16,
     borderWidth: 1.5,
-    borderRadius: 14,
-    padding: 10,
-    marginVertical: 8,
-    gap: 10,
+    borderColor: "#F59E0B",
   },
   bossAvatarBubble: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "#7F1D1D",
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#0F172A",
     alignItems: "center",
     justifyContent: "center",
+    marginRight: 12,
   },
   bossAvatarText: {
-    fontSize: 24,
+    fontSize: 26,
   },
   bossInfoCol: {
     flex: 1,
@@ -425,96 +488,120 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bossName: {
-    color: "#F8FAFC",
-    fontSize: 13,
-    fontWeight: "800",
+    color: "#F59E0B",
+    fontSize: 14,
+    fontWeight: "900",
   },
   bossHealthText: {
-    color: "#F87171",
+    color: "#94A3B8",
     fontSize: 11,
     fontWeight: "700",
   },
   bossDialogueText: {
-    color: "#FCD34D",
-    fontSize: 11,
+    color: "#E2E8F0",
+    fontSize: 12,
     fontStyle: "italic",
-    marginTop: 2,
+    marginTop: 3,
   },
   subHeaderRow: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
-    marginVertical: 8,
+    alignItems: "center",
+    paddingHorizontal: 20,
+    marginTop: 10,
+    zIndex: 2,
   },
   questionIndexText: {
     color: "#94A3B8",
-    fontSize: 12,
-    fontWeight: "600",
+    fontSize: 13,
+    fontWeight: "700",
   },
   comboPill: {
-    backgroundColor: "#78350F",
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 6,
+    backgroundColor: "rgba(245, 158, 11, 0.2)",
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#F59E0B",
   },
   comboText: {
-    color: "#FDE68A",
-    fontSize: 11,
-    fontWeight: "800",
+    color: "#FBBF24",
+    fontSize: 12,
+    fontWeight: "900",
   },
   questionCard: {
-    backgroundColor: "#1E293B",
-    borderColor: "#334155",
-    borderWidth: 2,
+    backgroundColor: "rgba(15, 23, 42, 0.92)",
+    marginHorizontal: 16,
+    paddingVertical: 28,
+    paddingHorizontal: 20,
     borderRadius: 20,
-    padding: 20,
     alignItems: "center",
     justifyContent: "center",
-    minHeight: 150,
-    marginVertical: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.12)",
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.4,
     shadowRadius: 8,
-    elevation: 5,
+    elevation: 8,
+    zIndex: 2,
   },
-  conceptBadge: {
-    color: "#F59E0B",
-    fontSize: 10,
-    fontWeight: "800",
-    letterSpacing: 1,
-    marginBottom: 8,
-  },
-  promptText: {
+  questionPrompt: {
     color: "#F8FAFC",
     fontSize: 22,
     fontWeight: "800",
     textAlign: "center",
     lineHeight: 30,
   },
+  hintText: {
+    color: "#34D399",
+    fontSize: 13,
+    fontWeight: "600",
+    textAlign: "center",
+    marginTop: 10,
+  },
   choicesGrid: {
+    paddingHorizontal: 16,
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent: "space-between",
     gap: 12,
-    marginTop: 10,
+    zIndex: 2,
   },
   choiceBtn: {
     width: "48%",
-    height: 72,
+    paddingVertical: 18,
+    paddingHorizontal: 12,
     borderRadius: 16,
-    borderWidth: 2,
+    borderWidth: 1.5,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 4,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
   },
   choiceText: {
+    color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "800",
     textAlign: "center",
+  },
+  bottomBar: {
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    zIndex: 2,
+  },
+  progressTrack: {
+    height: 8,
+    backgroundColor: "rgba(30, 41, 59, 0.9)",
+    borderRadius: 4,
+    overflow: "hidden",
+  },
+  progressFill: {
+    height: "100%",
+    backgroundColor: "#10B981",
+    borderRadius: 4,
   },
 });
