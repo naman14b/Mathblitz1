@@ -106,19 +106,19 @@ export function WorldMap({
                 },
               ]}
             >
-              {/* Theme Artwork Background */}
+              {/* Theme Artwork Background - Clearly Visible */}
               <Image
                 source={worldThemeImage}
                 style={styles.worldThemeImage}
                 resizeMode="cover"
               />
 
-              {/* Gradient Dark/Atmospheric Tint */}
+              {/* Translucent Atmospheric Gradient Overlay */}
               <LinearGradient
                 colors={[
-                  world.palette.backgroundTop,
-                  "rgba(15, 23, 42, 0.75)",
-                  world.palette.backgroundBottom,
+                  "rgba(15, 23, 42, 0.4)",
+                  "rgba(15, 23, 42, 0.12)",
+                  "rgba(15, 23, 42, 0.5)",
                 ]}
                 style={styles.worldGradientBg}
               >
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     height: "100%",
-    opacity: 0.38,
+    opacity: 0.90,
   },
   worldGradientBg: {
     position: "absolute",
