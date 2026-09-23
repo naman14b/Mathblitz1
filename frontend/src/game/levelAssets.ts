@@ -21,9 +21,10 @@ export function getLevelImage(level: number): ImageSourcePropType {
   return LEVEL_IMAGES[index] || LEVEL_IMAGES[1];
 }
 
-export function formatSecondsToTime(seconds?: number): string {
-  if (typeof seconds !== "number" || seconds <= 0) return "--:--";
-  const mins = Math.floor(seconds / 60);
-  const secs = seconds % 60;
+export function formatSecondsToTime(seconds?: number | string): string {
+  const num = typeof seconds === "number" ? seconds : Number(seconds);
+  if (isNaN(num) || num <= 0) return "--:--";
+  const mins = Math.floor(num / 60);
+  const secs = Math.floor(num % 60);
   return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
 }

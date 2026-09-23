@@ -835,23 +835,32 @@ function AppShell({
             onBack={() => setScreen("puzzles-hub")}
             onComplete={(level, mistakes, elapsedSeconds) => {
               const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
-              const currentBestTime = profile.mathsPuzzleBestTime?.[level] ?? (profile.mathsPuzzleBestTime as any)?.[String(level)];
-              const newBestTime = (!currentBestTime || elapsedSeconds < currentBestTime) ? elapsedSeconds : currentBestTime;
+              const rawPrevTime = profile.mathsPuzzleBestTime?.[level] ?? (profile.mathsPuzzleBestTime as any)?.[String(level)];
+              const prevBestTime = typeof rawPrevTime === "number" ? rawPrevTime : (rawPrevTime ? Number(rawPrevTime) : 0);
+              const validElapsed = typeof elapsedSeconds === "number" && elapsedSeconds > 0 ? elapsedSeconds : 1;
+              const newBestTime = (!prevBestTime || validElapsed < prevBestTime) ? validElapsed : prevBestTime;
 
               const isAlreadyCompleted = Boolean(profile.completedMathsPuzzles?.[level] || (profile.completedMathsPuzzles as any)?.[String(level)]);
 
               if (isAlreadyCompleted) {
-                const currentStars = profile.mathsPuzzleStars?.[level] ?? (profile.mathsPuzzleStars as any)?.[String(level)] ?? 0;
+                const currentStars = Number(profile.mathsPuzzleStars?.[level] ?? (profile.mathsPuzzleStars as any)?.[String(level)] ?? 0);
                 const nextStars = Math.max(currentStars, stars);
                 const next = {
                   ...profile,
+                  completedMathsPuzzles: {
+                    ...profile.completedMathsPuzzles,
+                    [level]: true,
+                    [String(level)]: true,
+                  },
                   mathsPuzzleStars: {
                     ...profile.mathsPuzzleStars,
                     [level]: nextStars,
+                    [String(level)]: nextStars,
                   },
                   mathsPuzzleBestTime: {
                     ...profile.mathsPuzzleBestTime,
                     [level]: newBestTime,
+                    [String(level)]: newBestTime,
                   },
                 };
                 setProfile(next);
@@ -866,14 +875,17 @@ function AppShell({
                 completedMathsPuzzles: {
                   ...profile.completedMathsPuzzles,
                   [level]: true,
+                  [String(level)]: true,
                 },
                 mathsPuzzleStars: {
                   ...profile.mathsPuzzleStars,
                   [level]: stars,
+                  [String(level)]: stars,
                 },
                 mathsPuzzleBestTime: {
                   ...profile.mathsPuzzleBestTime,
                   [level]: newBestTime,
+                  [String(level)]: newBestTime,
                 },
               };
 

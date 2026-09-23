@@ -106,7 +106,8 @@ export function MathsPuzzleGame({
     }, [isComplete, hasWon, puzzle.timeLimitSeconds, secondsLeft, profile.settings.sound, profile.settings.vibration]);
 
     const handleClaimVictory = () => {
-        onComplete(puzzle.level, mistakes, finalElapsed);
+        const currentElapsed = finalElapsed > 0 ? finalElapsed : Math.max(1, puzzle.timeLimitSeconds - secondsLeft);
+        onComplete(puzzle.level, mistakes, currentElapsed);
     };
 
     const handlePlayAgain = () => {
@@ -247,7 +248,7 @@ export function MathsPuzzleGame({
             <ComboDisplay combo={combo} />
 
             <View style={styles.header}>
-                <Pressable onPress={onBack} style={styles.backButton}>
+                <Pressable onPress={hasWon ? handleClaimVictory : onBack} style={styles.backButton}>
                     <Text style={styles.backText}>‹ Back</Text>
                 </Pressable>
                 <View style={styles.headerCenter}>

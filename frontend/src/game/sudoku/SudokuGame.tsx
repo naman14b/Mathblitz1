@@ -146,7 +146,8 @@ export function SudokuGame({
     }, [isComplete, hasWon, timeLimit, secondsLeft, profile.settings.sound, profile.settings.vibration]);
 
     const handleClaimVictory = () => {
-        onComplete(puzzle.id, mistakes, finalElapsed);
+        const currentElapsed = finalElapsed > 0 ? finalElapsed : Math.max(1, timeLimit - secondsLeft);
+        onComplete(puzzle.id, mistakes, currentElapsed);
     };
 
     const handlePlayAgain = () => {
@@ -265,7 +266,7 @@ export function SudokuGame({
 
             <View style={styles.header}>
                 <Pressable
-                    onPress={onBack}
+                    onPress={hasWon ? handleClaimVictory : onBack}
                     style={styles.backButton}
                     accessibilityRole="button"
                 >

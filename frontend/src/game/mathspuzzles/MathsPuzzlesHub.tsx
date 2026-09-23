@@ -116,8 +116,9 @@ export function MathsPuzzlesHub({
                         const level = puzzle.level;
                         const unlockCost = 20 + (level - 1) * 5;
                         const unlocked = level === 1 || isMathsPuzzleUnlocked(profile, level) || Boolean((profile.unlockedMathsPuzzles as any)?.[String(level)]);
-                        const earnedStars = profile.mathsPuzzleStars?.[level] ?? (profile.mathsPuzzleStars as any)?.[String(level)] ?? 0;
-                        const bestTime = profile.mathsPuzzleBestTime?.[level] ?? (profile.mathsPuzzleBestTime as any)?.[String(level)];
+                        const earnedStars = Number(profile.mathsPuzzleStars?.[level] ?? (profile.mathsPuzzleStars as any)?.[String(level)] ?? 0);
+                        const rawTime = profile.mathsPuzzleBestTime?.[level] ?? (profile.mathsPuzzleBestTime as any)?.[String(level)];
+                        const bestTime = typeof rawTime === "number" ? rawTime : (rawTime ? Number(rawTime) : 0);
                         const completed = isMathsPuzzleCompleted(profile, level) || Boolean((profile.completedMathsPuzzles as any)?.[String(level)]) || Boolean(profile.completedMathsPuzzles?.[level]) || earnedStars > 0 || (typeof bestTime === "number" && bestTime > 0);
                         const canUnlock = profile.tokens >= unlockCost;
                         const canPlay = unlocked || canUnlock;
