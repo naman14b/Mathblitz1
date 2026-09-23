@@ -203,3 +203,52 @@ class CoachingIntervention(Base):
     __table_args__ = (
         Index("ix_ci_player_created", "player_id", "created_at"),
     )
+
+
+# ── MathBlitz Kingdom Journey Persistent Models ──────────────────────────────
+
+class PlayerJourneyProgress(Base):
+    """Authoritative persistent state for a player's MathBlitz Kingdom Journey."""
+    __tablename__ = "player_journey_progress"
+
+    player_id = Column(String(64), primary_key=True)
+    highest_unlocked_level = Column(Integer, default=1, nullable=False)
+    total_stars = Column(Integer, default=0, nullable=False)
+    completed_levels = Column(JSON, default=dict, nullable=False) # { "1": true, "2": true }
+    stars_by_level = Column(JSON, default=dict, nullable=False) # { "1": 3, "2": 2 }
+    best_scores_by_level = Column(JSON, default=dict, nullable=False) # { "1": 450 }
+    best_times_by_level = Column(JSON, default=dict, nullable=False) # { "1": 24 }
+    unlocked_worlds = Column(JSON, default=lambda: {"number_forest": True}, nullable=False)
+
+    daily_journey_date = Column(String(16), nullable=True)
+    daily_journey_completed_levels = Column(JSON, default=list, nullable=False)
+    daily_streak = Column(Integer, default=0, nullable=False)
+    longest_streak = Column(Integer, default=0, nullable=False)
+    last_qualifying_date = Column(String(16), nullable=True)
+
+    weekly_start_date = Column(String(16), nullable=True)
+    weekly_completed_count = Column(Integer, default=0, nullable=False)
+    updated_at = Column(DateTime(timezone=True), default=utc_now, onupdate=utc_now, nullable=False)
+
+
+class PlayerLevelResult(Base):
+    """Individual level result attempts with deduplication idempotency."""
+    __tablename__ = "player_level_results"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    submission_id = Column(String(128), unique=True, index=True, nullable=False)
+    player_id = Column(String(64), index=True, nullable=False)
+    level_id = Column(Integer, index=True, nullable=False)
+    world_id = Column(String(64), nullable=False)
+    score = Column(Integer, default=0, nullable=False)
+    stars = Column(Integer, default=0, nullable=False)
+    correct_count = Column(Integer, default=0, nullable=False)
+    total_count = Column(Integer, default=0, nullable=False)
+    time_taken_seconds = Column(Integer, default=0, nullable=False)
+    accuracy = Column(Float, default=0.0, nullable=False)
+    created_at = Column(DateTime(timezone=True), default=utc_now, index=True, nullable=False)
+
+    __table_args__ = (
+        Index("ix_plr_player_level", "player_id", "level_id"),
+    )
+

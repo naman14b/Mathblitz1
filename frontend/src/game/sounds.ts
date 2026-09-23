@@ -24,7 +24,7 @@ async function ensureReady() {
   });
 }
 
-export async function playSound(key: SoundKey, enabled: boolean) {
+export async function playSound(key: SoundKey, enabled: boolean = true) {
   if (!enabled) return;
   try {
     await ensureReady();

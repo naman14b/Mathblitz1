@@ -21,6 +21,7 @@ import { aiCoachApi } from "@/src/api/aiCoach";
 type HomeProps = {
   profile: LocalProfile;
   onPlay: () => void;
+  onJourney?: () => void;
   onSudoku: () => void;
   onMathsPuzzles: () => void;
   onAICoach: (conceptId?: string) => void;
@@ -119,6 +120,7 @@ function HeroParticles() {
 export function Home({
   profile,
   onPlay,
+  onJourney,
   onSettings,
   onAge,
   onChallenge,
@@ -504,6 +506,54 @@ export function Home({
             </Pressable>
           </View>
         </View>
+
+        {/* MathBlitz Kingdom Adventure Card */}
+        {onJourney && (
+          <AnimatedPressableCard
+            testID="home-kingdom-journey"
+            onPress={onJourney}
+            style={[
+              styles.dailyCard,
+              {
+                backgroundColor: isNight ? "#1E1B4B" : "#312E81",
+                borderColor: "#6366F1",
+                borderWidth: 2,
+              },
+            ]}
+          >
+            <View style={styles.dailyHeaderRow}>
+              <View style={[styles.dailyTag, { backgroundColor: "rgba(99, 102, 241, 0.2)" }]}>
+                <Ionicons name="map" size={14} color="#818CF8" />
+                <Text style={[styles.dailyTagText, { color: "#A5B4FC" }]}>MATHBLITZ KINGDOM</Text>
+              </View>
+              <View style={[styles.dailyRewardPill, { backgroundColor: "rgba(245, 158, 11, 0.2)", borderColor: "#F59E0B" }]}>
+                <Text style={{ color: "#FCD34D", fontSize: 11, fontWeight: "800" }}>⭐ 5 Realms • 100 Levels</Text>
+              </View>
+            </View>
+
+            <View style={styles.dailyBody}>
+              <View style={[styles.calendarDateBadge, { backgroundColor: "#4338CA", borderColor: "#818CF8" }]}>
+                <Text style={{ fontSize: 24 }}>🏰</Text>
+              </View>
+              <View style={styles.dailyCopy}>
+                <Text style={[styles.dailyTitle, { color: "#FFFFFF" }]}>Character Adventure</Text>
+                <Text style={[styles.dailySub, { color: "#C7D2FE" }]}>
+                  Travel across realms with your hero, conquer bosses, and earn stars!
+                </Text>
+              </View>
+              <View style={styles.dailyTrophyBadge}>
+                <Text style={{ fontSize: 26 }}>👑</Text>
+              </View>
+            </View>
+
+            <View style={styles.dailyFooter}>
+              <View style={[styles.dailyBtn, { backgroundColor: "#4F46E5" }]}>
+                <Text style={[styles.dailyBtnText, { color: "#FFFFFF" }]}>Enter Kingdom Journey</Text>
+                <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
+              </View>
+            </View>
+          </AnimatedPressableCard>
+        )}
 
         {/* Daily Challenge Card */}
         <AnimatedPressableCard

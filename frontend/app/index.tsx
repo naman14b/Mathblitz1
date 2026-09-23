@@ -28,6 +28,8 @@ import { loadProfile, resetProfile, saveProfile } from "@/src/game/storage";
 import { checkAchievements, applyAchievements } from "@/src/game/achievements";
 import { MathBossScreen } from "@/src/screens/MathBoss";
 import { AICoachScreen } from "@/src/screens/AICoachScreen";
+import { JourneyMapScreen } from "@/src/screens/JourneyMapScreen";
+import { JourneyPlayScreen } from "@/src/screens/JourneyPlayScreen";
 import { BottomNavBar, NavTab } from "@/src/components/BottomNavBar";
 import { AgeGroupId, AchievementId, ACHIEVEMENTS, AppSettings, AvatarId, AVATARS, DEFAULT_PROFILE, GameResult, LocalProfile, PremiumBadgeId, PREMIUM_BADGES, STREAK_MILESTONES, ThemeId, ThemeMode } from "@/src/game/types";
 import { ThemeContext, getThemeColors, isNightTime, makeStyles, useTheme } from "@/src/theme";
@@ -52,7 +54,9 @@ type Screen =
   | "achievements"
   | "theme-store"
   | "math-boss"
-  | "ai-coach";
+  | "ai-coach"
+  | "journey-map"
+  | "journey-play";
 
 const CHALLENGE_TOKEN_REWARD: Record<ChallengeTier, number> = { "3-day": 20, "7-day": 30 };
 function Splash() {
@@ -199,6 +203,7 @@ export default function Index() {
   const [selectedSudokuLevel, setSelectedSudokuLevel] = useState<number | null>(null);
   const [selectedMathsPuzzle, setSelectedMathsPuzzle] = useState<number | null>(null);
   const [selectedCoachConcept, setSelectedCoachConcept] = useState<string | null>(null);
+  const [selectedJourneyLevel, setSelectedJourneyLevel] = useState<number>(1);
 
   const [pendingBossNextScreen, setPendingBossNextScreen] = useState<Screen>("home");
 
@@ -551,6 +556,8 @@ export default function Index() {
           setSelectedSudokuDifficulty={setSelectedSudokuDifficulty}
           setSelectedSudokuLevel={setSelectedSudokuLevel}
           setSelectedMathsPuzzle={setSelectedMathsPuzzle}
+          selectedJourneyLevel={selectedJourneyLevel}
+          setSelectedJourneyLevel={setSelectedJourneyLevel}
           startGame={startGame}
           finishGame={finishGame}
           finishChallenge={finishChallenge}
@@ -590,7 +597,9 @@ type AppShellProps = {
   selectedSudokuLevel: number | null;
   selectedMathsPuzzle: number | null;
   selectedCoachConcept: string | null;
+  selectedJourneyLevel: number;
   setSelectedCoachConcept: (c: string | null) => void;
+  setSelectedJourneyLevel: (l: number) => void;
   setScreen: (s: Screen) => void;
   setProfile: (p: LocalProfile) => void;
   setResult: (r: GameResult | null) => void;
@@ -626,6 +635,7 @@ function AppShell({
   screen, profile, result, newBest, challengeTier, challengeRapidFire,
   selectedSudokuDifficulty, selectedSudokuLevel, selectedMathsPuzzle,
   selectedCoachConcept, setSelectedCoachConcept,
+  selectedJourneyLevel, setSelectedJourneyLevel,
   setScreen, setProfile, setResult, setNewBest, setChallengeTier,
   setSelectedSudokuDifficulty, setSelectedSudokuLevel, setSelectedMathsPuzzle,
   startGame, finishGame, finishChallenge, finishDailyChallenge, openDailyChallenge, openLeaderboards,
@@ -636,6 +646,7 @@ function AppShell({
   const { isNight } = useTheme();
   const showNavBar =
     screen === "home" ||
+    screen === "journey-map" ||
     screen === "ai-coach" ||
     screen === "sudoku-hub" ||
     screen === "puzzles-hub" ||
@@ -644,7 +655,9 @@ function AppShell({
     screen === "theme-store";
 
   const activeTab: NavTab =
-    screen === "ai-coach"
+    screen === "journey-map" || screen === "journey-play"
+      ? "journey"
+      : screen === "ai-coach"
       ? "ai-coach"
       : screen === "sudoku-hub"
       ? "sudoku-hub"
@@ -662,6 +675,7 @@ function AppShell({
         <Home
           profile={profile}
           onPlay={startGame}
+          onJourney={() => setScreen("journey-map")}
           onSettings={() => setScreen("settings")}
           onAge={() => setScreen("age")}
           onChallenge={openChallenge}
@@ -675,6 +689,42 @@ function AppShell({
           onAICoach={(conceptId?: string) => {
             setSelectedCoachConcept(conceptId || null);
             setScreen("ai-coach");
+          }}
+        />
+      );
+    }
+
+    if (screen === "journey-map") {
+      return (
+        <JourneyMapScreen
+          profile={profile}
+          onPlayLevel={(lvl) => {
+            setSelectedJourneyLevel(lvl);
+            setScreen("journey-play");
+          }}
+          onSpeedGate={() => {
+            startGame();
+          }}
+          onDailyChallenge={openDailyChallenge}
+          onBackHome={() => setScreen("home")}
+        />
+      );
+    }
+
+    if (screen === "journey-play") {
+      return (
+        <JourneyPlayScreen
+          levelId={selectedJourneyLevel || 1}
+          profile={profile}
+          onUpdateProfile={async (updater) => {
+            const next = updater(profile);
+            setProfile(next);
+            await saveProfile(next);
+          }}
+          onBackToMap={() => setScreen("journey-map")}
+          onNavigateToLevel={(nextLvl) => {
+            setSelectedJourneyLevel(nextLvl);
+            setScreen("journey-play");
           }}
         />
       );
@@ -1018,8 +1068,12 @@ function AppShell({
           onSelectTab={(tab) => {
             if (tab === "ai-coach") {
               setSelectedCoachConcept(null);
+              setScreen("ai-coach");
+            } else if (tab === "journey") {
+              setScreen("journey-map");
+            } else {
+              setScreen(tab);
             }
-            setScreen(tab);
           }}
           vibrationEnabled={profile.settings.vibration}
         />
