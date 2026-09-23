@@ -27,6 +27,7 @@ import { leaderboardApi } from "@/src/api/admin";
 import { loadProfile, resetProfile, saveProfile } from "@/src/game/storage";
 import { checkAchievements, applyAchievements } from "@/src/game/achievements";
 import { MathBossScreen } from "@/src/screens/MathBoss";
+import { AICoachScreen } from "@/src/screens/AICoachScreen";
 import { BottomNavBar, NavTab } from "@/src/components/BottomNavBar";
 import { AgeGroupId, AchievementId, ACHIEVEMENTS, AppSettings, AvatarId, AVATARS, DEFAULT_PROFILE, GameResult, LocalProfile, PremiumBadgeId, PREMIUM_BADGES, STREAK_MILESTONES, ThemeId, ThemeMode } from "@/src/game/types";
 import { ThemeContext, getThemeColors, isNightTime, makeStyles, useTheme } from "@/src/theme";
@@ -50,7 +51,8 @@ type Screen =
   | "leaderboards"
   | "achievements"
   | "theme-store"
-  | "math-boss";
+  | "math-boss"
+  | "ai-coach";
 
 const CHALLENGE_TOKEN_REWARD: Record<ChallengeTier, number> = { "3-day": 20, "7-day": 30 };
 function Splash() {
@@ -196,6 +198,7 @@ export default function Index() {
     useState<SudokuDifficulty | null>(null);
   const [selectedSudokuLevel, setSelectedSudokuLevel] = useState<number | null>(null);
   const [selectedMathsPuzzle, setSelectedMathsPuzzle] = useState<number | null>(null);
+  const [selectedCoachConcept, setSelectedCoachConcept] = useState<string | null>(null);
 
   const [pendingBossNextScreen, setPendingBossNextScreen] = useState<Screen>("home");
 
@@ -538,6 +541,8 @@ export default function Index() {
           selectedSudokuDifficulty={selectedSudokuDifficulty}
           selectedSudokuLevel={selectedSudokuLevel}
           selectedMathsPuzzle={selectedMathsPuzzle}
+          selectedCoachConcept={selectedCoachConcept}
+          setSelectedCoachConcept={setSelectedCoachConcept}
           setScreen={setScreen}
           setProfile={setProfile}
           setResult={setResult}
@@ -584,6 +589,8 @@ type AppShellProps = {
   selectedSudokuDifficulty: SudokuDifficulty | null;
   selectedSudokuLevel: number | null;
   selectedMathsPuzzle: number | null;
+  selectedCoachConcept: string | null;
+  setSelectedCoachConcept: (c: string | null) => void;
   setScreen: (s: Screen) => void;
   setProfile: (p: LocalProfile) => void;
   setResult: (r: GameResult | null) => void;
@@ -618,6 +625,7 @@ type AppShellProps = {
 function AppShell({
   screen, profile, result, newBest, challengeTier, challengeRapidFire,
   selectedSudokuDifficulty, selectedSudokuLevel, selectedMathsPuzzle,
+  selectedCoachConcept, setSelectedCoachConcept,
   setScreen, setProfile, setResult, setNewBest, setChallengeTier,
   setSelectedSudokuDifficulty, setSelectedSudokuLevel, setSelectedMathsPuzzle,
   startGame, finishGame, finishChallenge, finishDailyChallenge, openDailyChallenge, openLeaderboards,
@@ -628,6 +636,7 @@ function AppShell({
   const { isNight } = useTheme();
   const showNavBar =
     screen === "home" ||
+    screen === "ai-coach" ||
     screen === "sudoku-hub" ||
     screen === "puzzles-hub" ||
     screen === "leaderboards" ||
@@ -635,7 +644,9 @@ function AppShell({
     screen === "theme-store";
 
   const activeTab: NavTab =
-    screen === "sudoku-hub"
+    screen === "ai-coach"
+      ? "ai-coach"
+      : screen === "sudoku-hub"
       ? "sudoku-hub"
       : screen === "puzzles-hub"
       ? "puzzles-hub"
@@ -661,6 +672,23 @@ function AppShell({
           onHowToPlay={() => setScreen("howto")}
           onSudoku={() => setScreen("sudoku-hub")}
           onMathsPuzzles={() => setScreen("puzzles-hub")}
+          onAICoach={(conceptId?: string) => {
+            setSelectedCoachConcept(conceptId || null);
+            setScreen("ai-coach");
+          }}
+        />
+      );
+    }
+
+    if (screen === "ai-coach") {
+      return (
+        <AICoachScreen
+          profile={profile}
+          initialConceptId={selectedCoachConcept}
+          onBack={() => {
+            setSelectedCoachConcept(null);
+            setScreen("home");
+          }}
         />
       );
     }
@@ -972,6 +1000,10 @@ function AppShell({
         onHowToPlay={() => setScreen("howto")}
         onSudoku={() => setScreen("sudoku-hub")}
         onMathsPuzzles={() => setScreen("puzzles-hub")}
+        onAICoach={(conceptId?: string) => {
+          setSelectedCoachConcept(conceptId || null);
+          setScreen("ai-coach");
+        }}
       />
     );
   };
@@ -983,7 +1015,12 @@ function AppShell({
       {showNavBar && (
         <BottomNavBar
           currentTab={activeTab}
-          onSelectTab={(tab) => setScreen(tab)}
+          onSelectTab={(tab) => {
+            if (tab === "ai-coach") {
+              setSelectedCoachConcept(null);
+            }
+            setScreen(tab);
+          }}
           vibrationEnabled={profile.settings.vibration}
         />
       )}

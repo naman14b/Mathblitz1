@@ -110,3 +110,56 @@ class UploadedFile(Base):
     content_type = Column(String(100), nullable=False)
     data = Column(LargeBinary, nullable=False)
     created_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
+
+
+# ── AI Coach Persistent Data Models ──────────────────────────────────────────
+
+class QuestionAttempt(Base):
+    """Records every question answered across 60s Blitz, Daily Challenge, Puzzles, etc."""
+    __tablename__ = "question_attempts"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    player_id = Column(String(64), index=True, nullable=False)
+    game_mode = Column(String(32), default="classic", index=True, nullable=False)
+    topic = Column(String(64), index=True, nullable=False)
+    subtopic = Column(String(64), nullable=True)
+    difficulty = Column(Integer, default=1, nullable=False)
+    prompt = Column(Text, nullable=False)
+    player_answer = Column(String(255), nullable=False)
+    correct_answer = Column(String(255), nullable=False)
+    is_correct = Column(Boolean, index=True, nullable=False)
+    response_time_ms = Column(Integer, default=0, nullable=False)
+    error_category = Column(String(64), nullable=True)
+    error_hypothesis = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), default=utc_now, index=True, nullable=False)
+
+
+class PlayerLearningProfile(Base):
+    """Stores the aggregated mathematical mastery profile for each player."""
+    __tablename__ = "player_learning_profiles"
+
+    player_id = Column(String(64), primary_key=True)
+    overall_accuracy = Column(Integer, default=0, nullable=False)
+    total_attempts = Column(Integer, default=0, nullable=False)
+    total_correct = Column(Integer, default=0, nullable=False)
+    topic_metrics = Column(JSON, nullable=False, default=dict)
+    weak_areas = Column(JSON, nullable=False, default=list)
+    active_intervention = Column(JSON, nullable=True)
+    updated_at = Column(DateTime(timezone=True), default=utc_now, onupdate=utc_now, nullable=False)
+
+
+class CoachingSession(Base):
+    """Records an interactive coaching session and measured mastery improvement."""
+    __tablename__ = "coaching_sessions"
+
+    id = Column(String(64), primary_key=True)
+    player_id = Column(String(64), index=True, nullable=False)
+    concept_id = Column(String(64), nullable=False)
+    concept_name = Column(String(128), nullable=False)
+    mastery_before = Column(Integer, default=0, nullable=False)
+    mastery_after = Column(Integer, default=0, nullable=False)
+    mastery_delta = Column(Integer, default=0, nullable=False)
+    completed = Column(Boolean, default=False, nullable=False)
+    lesson_data = Column(JSON, nullable=True)
+    created_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
+

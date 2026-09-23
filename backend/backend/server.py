@@ -38,13 +38,22 @@ from .models import (
     AdminQuestion as AdminQuestionModel,
     AdminSetting,
     ChallengeQuestion as ChallengeQuestionModel,
+    CoachingSession as CoachingSessionModel,
     LeaderboardEntry as LeaderboardEntryModel,
     MathBossResult as MathBossResultModel,
+    PlayerLearningProfile as PlayerLearningProfileModel,
+    QuestionAttempt as QuestionAttemptModel,
     UploadedFile,
     utc_now,
 )
+from .learning_engine import LearningEngine, RawAttempt
+from .taxonomy import CONCEPT_TAXONOMY, classify_error
+from .ai_coach.graph import coaching_workflow, get_llm
+from .ai_coach.state import CoachingState
+from langchain_core.messages import HumanMessage, SystemMessage
 
 app = FastAPI(title="MathBlitz API")
+
 api_router = APIRouter(prefix="/api")
 logger = logging.getLogger(__name__)
 
@@ -666,7 +675,448 @@ async def math_boss_result(
     return result
 
 
+# ── AI Coach Endpoints ────────────────────────────────────────────────────────
+
+class QuestionAttemptPayload(BaseModel):
+    prompt: str
+    player_answer: str
+    correct_answer: str
+    is_correct: bool
+    topic: str
+    subtopic: Optional[str] = None
+    difficulty: int = 1
+    response_time_ms: int = 0
+    game_mode: str = "classic"
+
+
+class BatchAttemptsPayload(BaseModel):
+    player_id: str
+    player_name: Optional[str] = "Player"
+    game_mode: str = "classic"
+    attempts: List[QuestionAttemptPayload]
+
+
+class StartCoachSessionPayload(BaseModel):
+    player_id: str
+    player_name: Optional[str] = "Player"
+    concept_id: Optional[str] = None
+
+
+class SubmitPracticePayload(BaseModel):
+    session_id: str
+    player_id: str
+    question_index: int
+    student_answer: str
+
+
+class ContextualQueryPayload(BaseModel):
+    player_id: str
+    prompt: str
+    correct_answer: str
+    player_answer: str
+    topic: str
+    subtopic: Optional[str] = None
+    query: str
+
+
+@api_router.post("/coach/record-attempts")
+async def record_attempts(
+    payload: BatchAttemptsPayload,
+    session: AsyncSession = Depends(get_db),
+):
+    """Record a batch of question attempts from a game session and update learning metrics."""
+    if not payload.attempts:
+        return {"recorded": 0}
+
+    # Deterministically classify errors and insert records
+    db_records = []
+    for att in payload.attempts:
+        err_cat, err_hyp, _ = classify_error(
+            prompt=att.prompt,
+            player_answer=att.player_answer,
+            correct_answer=att.correct_answer,
+            topic=att.topic,
+            subtopic=att.subtopic,
+            response_time_ms=att.response_time_ms,
+        )
+        rec = QuestionAttemptModel(
+            player_id=payload.player_id,
+            game_mode=att.game_mode or payload.game_mode,
+            topic=att.topic,
+            subtopic=att.subtopic,
+            difficulty=att.difficulty,
+            prompt=att.prompt,
+            player_answer=str(att.player_answer),
+            correct_answer=str(att.correct_answer),
+            is_correct=att.is_correct,
+            response_time_ms=att.response_time_ms,
+            error_category=err_cat.value if not att.is_correct else None,
+            error_hypothesis=err_hyp if not att.is_correct else None,
+            created_at=utc_now(),
+        )
+        session.add(rec)
+        db_records.append(rec)
+
+    await session.commit()
+
+    # Recompute and update PlayerLearningProfile cache
+    result = await session.execute(
+        select(QuestionAttemptModel)
+        .where(QuestionAttemptModel.player_id == payload.player_id)
+        .order_by(QuestionAttemptModel.created_at.desc())
+        .limit(100)
+    )
+    all_attempts = result.scalars().all()
+
+    raw_attempts = [
+        RawAttempt(
+            prompt=a.prompt,
+            player_answer=a.player_answer,
+            correct_answer=a.correct_answer,
+            is_correct=a.is_correct,
+            topic=a.topic,
+            subtopic=a.subtopic,
+            difficulty=a.difficulty,
+            response_time_ms=a.response_time_ms,
+            error_category=a.error_category,
+            error_hypothesis=a.error_hypothesis,
+        )
+        for a in reversed(all_attempts)
+    ]
+
+    profile_data = LearningEngine.build_profile(payload.player_id, raw_attempts)
+
+    # Upsert learning profile
+    prof_res = await session.execute(
+        select(PlayerLearningProfileModel).where(PlayerLearningProfileModel.player_id == payload.player_id)
+    )
+    prof_rec = prof_res.scalar_one_or_none()
+
+    serialized_metrics = {
+        cid: {
+            "concept_id": m.concept_id,
+            "concept_name": m.concept_name,
+            "topic": m.topic,
+            "subtopic": m.subtopic,
+            "accuracy": m.accuracy,
+            "recent_accuracy": m.recent_accuracy,
+            "trend": m.trend,
+            "mastery_score": m.mastery_score,
+            "confidence_level": m.confidence_level,
+            "primary_error": m.primary_error,
+            "primary_mistake_desc": m.primary_mistake_desc,
+            "total_attempts": m.total_attempts,
+            "correct_attempts": m.correct_attempts,
+        }
+        for cid, m in profile_data.topic_metrics.items()
+    }
+
+    weak_list = [
+        {
+            "concept_id": w.concept_id,
+            "concept_name": w.concept_name,
+            "topic": w.topic,
+            "subtopic": w.subtopic,
+            "accuracy": w.accuracy,
+            "recent_accuracy": w.recent_accuracy,
+            "severity": w.severity,
+            "primary_error_category": w.primary_error_category,
+            "common_mistake": w.common_mistake,
+            "recommended_action": w.recommended_action,
+            "mastery_score": w.mastery_score,
+            "total_attempts": w.total_attempts,
+        }
+        for w in profile_data.weak_areas
+    ]
+
+    active_int = weak_list[0] if weak_list else None
+
+    if prof_rec:
+        prof_rec.overall_accuracy = int(profile_data.overall_accuracy)
+        prof_rec.total_attempts = profile_data.total_attempts
+        prof_rec.total_correct = profile_data.total_correct
+        prof_rec.topic_metrics = serialized_metrics
+        prof_rec.weak_areas = weak_list
+        prof_rec.active_intervention = active_int
+        prof_rec.updated_at = utc_now()
+    else:
+        prof_rec = PlayerLearningProfileModel(
+            player_id=payload.player_id,
+            overall_accuracy=int(profile_data.overall_accuracy),
+            total_attempts=profile_data.total_attempts,
+            total_correct=profile_data.total_correct,
+            topic_metrics=serialized_metrics,
+            weak_areas=weak_list,
+            active_intervention=active_int,
+            updated_at=utc_now(),
+        )
+        session.add(prof_rec)
+
+    await session.commit()
+    return {"recorded": len(payload.attempts), "weak_areas_count": len(weak_list)}
+
+
+@api_router.get("/coach/profile/{player_id}")
+async def get_coach_profile(
+    player_id: str,
+    session: AsyncSession = Depends(get_db),
+):
+    """Retrieve the player's persistent mathematical profile and weak areas."""
+    res = await session.execute(
+        select(PlayerLearningProfileModel).where(PlayerLearningProfileModel.player_id == player_id)
+    )
+    prof = res.scalar_one_or_none()
+
+    if prof:
+        return {
+            "player_id": prof.player_id,
+            "overall_accuracy": prof.overall_accuracy,
+            "total_attempts": prof.total_attempts,
+            "total_correct": prof.total_correct,
+            "topic_metrics": prof.topic_metrics or {},
+            "weak_areas": prof.weak_areas or [],
+            "active_intervention": prof.active_intervention,
+            "updated_at": prof.updated_at.isoformat() if prof.updated_at else None,
+        }
+
+    # Return empty profile template if not yet recorded
+    return {
+        "player_id": player_id,
+        "overall_accuracy": 0,
+        "total_attempts": 0,
+        "total_correct": 0,
+        "topic_metrics": {},
+        "weak_areas": [],
+        "active_intervention": None,
+        "updated_at": utc_now().isoformat(),
+    }
+
+
+@api_router.get("/coach/proactive-insight/{player_id}")
+async def get_proactive_insight(
+    player_id: str,
+    session: AsyncSession = Depends(get_db),
+):
+    """Return a proactive coaching notification card if player has an active weakness."""
+    res = await session.execute(
+        select(PlayerLearningProfileModel).where(PlayerLearningProfileModel.player_id == player_id)
+    )
+    prof = res.scalar_one_or_none()
+
+    if not prof or not prof.weak_areas:
+        return {"has_insight": False}
+
+    top_weakness = prof.weak_areas[0]
+    total_att = top_weakness.get("total_attempts", 0)
+    acc = top_weakness.get("accuracy", 0.0)
+
+    return {
+        "has_insight": True,
+        "concept_id": top_weakness.get("concept_id"),
+        "concept_name": top_weakness.get("concept_name"),
+        "headline": f"🧠 MathBlitz Coach noticed something",
+        "message": f"You've answered {total_att} {top_weakness.get('concept_name')} questions recently with {acc:.0f}% accuracy. {top_weakness.get('common_mistake', '')}. Spend 2 minutes practicing this concept to level up!",
+        "mastery_score": top_weakness.get("mastery_score", 50.0),
+        "cta_label": "Fix This Weakness",
+        "severity": top_weakness.get("severity", "medium"),
+    }
+
+
+@api_router.post("/coach/start-session")
+async def start_coach_session(
+    payload: StartCoachSessionPayload,
+    session: AsyncSession = Depends(get_db),
+):
+    """Trigger the LangGraph coaching workflow to generate a personalized 5-step lesson."""
+    # Fetch recent attempts for this player
+    att_res = await session.execute(
+        select(QuestionAttemptModel)
+        .where(QuestionAttemptModel.player_id == payload.player_id)
+        .order_by(QuestionAttemptModel.created_at.desc())
+        .limit(50)
+    )
+    db_attempts = att_res.scalars().all()
+
+    recent_perf = [
+        {
+            "prompt": a.prompt,
+            "player_answer": a.player_answer,
+            "correct_answer": a.correct_answer,
+            "is_correct": a.is_correct,
+            "topic": a.topic,
+            "subtopic": a.subtopic,
+            "difficulty": a.difficulty,
+            "response_time_ms": a.response_time_ms,
+            "error_category": a.error_category,
+            "error_hypothesis": a.error_hypothesis,
+        }
+        for a in reversed(db_attempts)
+    ]
+
+    initial_state: CoachingState = {
+        "player_id": payload.player_id,
+        "player_name": payload.player_name or "Player",
+        "current_concept_id": payload.concept_id or "",
+        "recent_performance": recent_perf,
+        "topic_metrics": {},
+        "weak_topics": [],
+        "detected_errors": [],
+        "practice_questions": [],
+        "verified_practice": [],
+        "current_question_index": 0,
+        "mastery_before": 50.0,
+        "mastery_after": 50.0,
+        "mastery_delta": 0.0,
+        "next_action": "show_step_1",
+    }
+
+    # Execute LangGraph workflow
+    final_state = coaching_workflow.invoke(initial_state)
+
+    session_id = f"cs_{secrets.token_hex(8)}"
+
+    lesson_data = {
+        "concept_id": final_state.get("current_concept_id"),
+        "concept_name": final_state.get("current_concept_name"),
+        "topic": final_state.get("current_topic"),
+        "subtopic": final_state.get("current_subtopic"),
+        "common_mistake": final_state.get("common_mistake"),
+        "learning_objective": final_state.get("learning_objective"),
+        "concept_explanation": final_state.get("concept_explanation"),
+        "formula_breakdown": final_state.get("formula_breakdown"),
+        "example_problem": final_state.get("example_problem"),
+        "example_solution": final_state.get("example_solution"),
+        "verified_practice": final_state.get("verified_practice", []),
+        "mastery_before": final_state.get("mastery_before", 50.0),
+    }
+
+    # Save session to DB
+    session_rec = CoachingSessionModel(
+        id=session_id,
+        player_id=payload.player_id,
+        concept_id=final_state.get("current_concept_id") or "percentages.conversion",
+        concept_name=final_state.get("current_concept_name") or "Math Concept",
+        mastery_before=int(final_state.get("mastery_before", 50.0)),
+        mastery_after=int(final_state.get("mastery_before", 50.0)),
+        mastery_delta=0,
+        completed=False,
+        lesson_data=lesson_data,
+        created_at=utc_now(),
+    )
+    session.add(session_rec)
+    await session.commit()
+
+    return {
+        "session_id": session_id,
+        **lesson_data,
+    }
+
+
+@api_router.post("/coach/submit-practice")
+async def submit_practice(
+    payload: SubmitPracticePayload,
+    session: AsyncSession = Depends(get_db),
+):
+    """Evaluate an answer to a practice problem and update mastery improvement."""
+    sess_res = await session.execute(
+        select(CoachingSessionModel).where(CoachingSessionModel.id == payload.session_id)
+    )
+    sess_rec = sess_res.scalar_one_or_none()
+
+    if not sess_rec or not sess_rec.lesson_data:
+        raise HTTPException(status_code=404, detail="Coaching session not found")
+
+    lesson_data = sess_rec.lesson_data
+    practice_questions = lesson_data.get("verified_practice", [])
+
+    if payload.question_index >= len(practice_questions):
+        raise HTTPException(status_code=400, detail="Invalid question index")
+
+    curr_q = practice_questions[payload.question_index]
+    correct_ans = str(curr_q.get("correct_answer")).strip()
+    student_ans = str(payload.student_answer).strip()
+
+    is_correct = False
+    try:
+        is_correct = abs(float(student_ans) - float(correct_ans)) < 0.01
+    except ValueError:
+        is_correct = student_ans.lower() == correct_ans.lower()
+
+    # Generate friendly pedagogical feedback
+    llm = get_llm(temperature=0.3, max_tokens=200)
+    feedback_text = ""
+    if is_correct:
+        feedback_text = f"Spot on! {curr_q.get('solution_method', '')}. You applied the rule correctly!"
+    else:
+        if llm:
+            try:
+                sys_prompt = "You are MathBlitz AI Coach. Explain why the correct answer is right in 1-2 friendly, encouraging sentences."
+                u_prompt = f"Problem: {curr_q['prompt']}\nStudent Answer: {student_ans}\nCorrect Answer: {correct_ans}\nMethod: {curr_q.get('solution_method')}"
+                resp = llm.invoke([SystemMessage(content=sys_prompt), HumanMessage(content=u_prompt)])
+                feedback_text = resp.content.strip()
+            except Exception:
+                pass
+        if not feedback_text:
+            feedback_text = f"The correct answer is {correct_ans}. Remember: {curr_q.get('solution_method', '')}."
+
+    # Update session mastery
+    mastery_before = sess_rec.mastery_before
+    gain = 18 if is_correct else 6
+    mastery_after = min(100, mastery_before + gain)
+    mastery_delta = mastery_after - mastery_before
+
+    sess_rec.mastery_after = mastery_after
+    sess_rec.mastery_delta = mastery_delta
+    sess_rec.completed = True
+    await session.commit()
+
+    return {
+        "is_correct": is_correct,
+        "correct_answer": correct_ans,
+        "feedback": feedback_text,
+        "mastery_before": mastery_before,
+        "mastery_after": mastery_after,
+        "mastery_delta": mastery_delta,
+        "next_step": "challenge" if payload.question_index < len(practice_questions) - 1 else "summary",
+    }
+
+
+@api_router.post("/coach/contextual-query")
+async def contextual_query(
+    payload: ContextualQueryPayload,
+):
+    """Contextual Q&A on why an answer was wrong with access to the question & error history (NOT a blank chatbot)."""
+    llm = get_llm(temperature=0.4, max_tokens=300)
+
+    if not llm:
+        return {
+            "answer": f"For {payload.prompt}, the correct answer is {payload.correct_answer}. When calculating this, ensure you double-check each operation step-by-step."
+        }
+
+    sys_prompt = (
+        "You are MathBlitz AI Coach. You only answer questions strictly about the provided mathematics problem and the student's solution. "
+        "Explain clearly, step-by-step, in 2 to 3 friendly sentences. Never deviate into non-mathematical topics."
+    )
+    user_prompt = (
+        f"Math Problem: {payload.prompt}\n"
+        f"Correct Answer: {payload.correct_answer}\n"
+        f"Student Answer: {payload.player_answer}\n"
+        f"Topic: {payload.topic}\n"
+        f"Student's Question: {payload.query}\n"
+        "Explain why their answer is incorrect and guide them on the correct method."
+    )
+
+    try:
+        resp = llm.invoke([SystemMessage(content=sys_prompt), HumanMessage(content=user_prompt)])
+        return {"answer": resp.content.strip()}
+    except Exception as exc:
+        return {
+            "answer": f"For '{payload.prompt}', the correct result is {payload.correct_answer}. Review the order of operations and inverse operations."
+        }
+
+
 app.include_router(api_router)
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,

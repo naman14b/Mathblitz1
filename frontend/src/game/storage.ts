@@ -97,3 +97,28 @@ export function isMathsPuzzleCompleted(profile: LocalProfile, id: number): boole
 export function getSudokuHintsUsed(profile: LocalProfile, id: string): number {
   return profile.sudokuHintsUsed?.[id] ?? 0;
 }
+
+// ─── AI Coach Telemetry Storage ───────────────────────────────────────────────
+const ATTEMPTS_KEY = "mathblitz.attempts.v1";
+const COACH_INSIGHT_KEY = "mathblitz.coach_insight.v1";
+
+export async function saveAttempts(newAttempts: any[]): Promise<void> {
+  if (!newAttempts || !newAttempts.length) return;
+  const existing = (await storage.getItem<any[]>(ATTEMPTS_KEY, [])) || [];
+  const merged = [...existing, ...newAttempts].slice(-200); // Keep last 200 attempts locally
+  await storage.setItem(ATTEMPTS_KEY, merged);
+}
+
+export async function loadRecentAttempts(limit: number = 50): Promise<any[]> {
+  const existing = (await storage.getItem<any[]>(ATTEMPTS_KEY, [])) || [];
+  return existing.slice(-limit);
+}
+
+export async function saveCachedInsight(insight: any): Promise<void> {
+  await storage.setItem(COACH_INSIGHT_KEY, insight);
+}
+
+export async function loadCachedInsight(): Promise<any | null> {
+  return await storage.getItem(COACH_INSIGHT_KEY, null);
+}
+

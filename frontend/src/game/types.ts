@@ -46,8 +46,12 @@ export type Question = {
   answer: number;
   options: string[];
   topic: string;
+  subtopic?: string;
+  difficulty?: number;
+  concepts_tested?: string[];
   benchmarkSeconds: number;
 };
+
 
 export type GameResult = {
   score: number;
@@ -348,3 +352,102 @@ export const PREMIUM_BADGES: PremiumBadge[] = [
   { id: "cyber-grid",    name: "Cyber Grid",    description: "Neon blue circuit board hexagonal frame",    price: 49, borderColor: "#00F0FF", gradient: ["#0C4A6E", "#0EA5E9"] },
   { id: "shadow-king",   name: "Shadow King",   description: "Dark obsidian and crimson gothic frame",     price: 49, borderColor: "#DC2626", gradient: ["#1C0A00", "#7F1D1D"] },
 ];
+
+
+// ─── AI Coach Types ──────────────────────────────────────────────────────────
+
+export type QuestionAttempt = {
+  prompt: string;
+  player_answer: string;
+  correct_answer: string;
+  is_correct: boolean;
+  topic: string;
+  subtopic?: string;
+  difficulty?: number;
+  response_time_ms: number;
+  game_mode?: string;
+  timestamp?: string;
+  error_category?: string;
+  error_hypothesis?: string;
+};
+
+export type TopicMetric = {
+  concept_id: string;
+  concept_name: string;
+  topic: string;
+  subtopic: string;
+  accuracy: number;
+  recent_accuracy: number;
+  trend: "improving" | "declining" | "stable";
+  mastery_score: number;
+  confidence_level: "High" | "Medium" | "Low";
+  total_attempts: number;
+  correct_attempts: number;
+  primary_error?: string;
+  primary_mistake_desc?: string;
+};
+
+export type DetectedWeakness = {
+  concept_id: string;
+  concept_name: string;
+  topic: string;
+  subtopic: string;
+  accuracy: number;
+  recent_accuracy: number;
+  total_attempts: number;
+  severity: "high" | "medium" | "low";
+  primary_error_category: string;
+  common_mistake: string;
+  recommended_action: string;
+  mastery_score: number;
+};
+
+export type LearningProfile = {
+  player_id: string;
+  overall_accuracy: number;
+  total_attempts: number;
+  total_correct: number;
+  topic_metrics: Record<string, TopicMetric>;
+  weak_areas: DetectedWeakness[];
+  active_intervention: DetectedWeakness | null;
+  updated_at?: string;
+};
+
+export type CoachingPracticeItem = {
+  id: string;
+  difficulty: number;
+  prompt: string;
+  options: string[];
+  correct_answer: string;
+  solution_method: string;
+  concept_tested: string;
+  verified: boolean;
+};
+
+export type CoachingSessionData = {
+  session_id: string;
+  concept_id: string;
+  concept_name: string;
+  topic: string;
+  subtopic: string;
+  common_mistake: string;
+  learning_objective: string;
+  concept_explanation: string;
+  formula_breakdown: string;
+  example_problem: string;
+  example_solution: string;
+  verified_practice: CoachingPracticeItem[];
+  mastery_before: number;
+};
+
+export type CoachingInsight = {
+  has_insight: boolean;
+  concept_id?: string;
+  concept_name?: string;
+  headline?: string;
+  message?: string;
+  mastery_score?: number;
+  cta_label?: string;
+  severity?: "high" | "medium" | "low";
+};
+

@@ -5,7 +5,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { makeStyles, useTheme } from "@/src/theme";
 
-export type NavTab = "home" | "sudoku-hub" | "puzzles-hub" | "leaderboards" | "achievements";
+export type NavTab = "home" | "ai-coach" | "sudoku-hub" | "puzzles-hub" | "leaderboards" | "achievements";
 
 type BottomNavBarProps = {
   currentTab: NavTab;
@@ -15,11 +15,13 @@ type BottomNavBarProps = {
 
 const TABS: { id: NavTab; label: string; activeIcon: keyof typeof Ionicons.glyphMap; inactiveIcon: keyof typeof Ionicons.glyphMap }[] = [
   { id: "home", label: "Blitz", activeIcon: "rocket", inactiveIcon: "rocket-outline" },
+  { id: "ai-coach", label: "Coach", activeIcon: "school", inactiveIcon: "school-outline" },
   { id: "sudoku-hub", label: "Sudoku", activeIcon: "grid", inactiveIcon: "grid-outline" },
   { id: "puzzles-hub", label: "Puzzles", activeIcon: "shapes", inactiveIcon: "shapes-outline" },
   { id: "leaderboards", label: "Rankings", activeIcon: "trophy", inactiveIcon: "trophy-outline" },
   { id: "achievements", label: "Badges", activeIcon: "ribbon", inactiveIcon: "ribbon-outline" },
 ];
+
 
 export function BottomNavBar({ currentTab, onSelectTab, vibrationEnabled = true }: BottomNavBarProps) {
   const insets = useSafeAreaInsets();

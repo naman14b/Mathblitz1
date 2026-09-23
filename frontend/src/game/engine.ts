@@ -20,28 +20,84 @@ function questionFor(age: AgeGroupId, level: number): Omit<Question, "id"> {
     const b = rand(1, Math.min(a, 10 + scale * 2));
     const add = Math.random() > 0.45;
     const answer = add ? a + b : a - b;
-    return { prompt: `${a} ${add ? "+" : "−"} ${b} = ?`, answer, options: choices(answer, 4), topic: add ? "addition" : "subtraction", benchmarkSeconds: 2.1 };
+    return {
+      prompt: `${a} ${add ? "+" : "−"} ${b} = ?`,
+      answer,
+      options: choices(answer, 4),
+      topic: "arithmetic",
+      subtopic: add ? "addition" : "subtraction",
+      difficulty: 1 + scale,
+      concepts_tested: [add ? "Single-digit addition" : "Single-digit subtraction"],
+      benchmarkSeconds: 2.1,
+    };
   }
   if (age === "8-10") {
     const type = rand(0, 2);
     if (type === 2) {
       const divisor = rand(2, 10);
       const answer = rand(2, 10 + scale * 2);
-      return { prompt: `${divisor * answer} ÷ ${divisor} = ?`, answer, options: choices(answer, 5), topic: "division", benchmarkSeconds: 2.2 };
+      return {
+        prompt: `${divisor * answer} ÷ ${divisor} = ?`,
+        answer,
+        options: choices(answer, 5),
+        topic: "arithmetic",
+        subtopic: "division",
+        difficulty: 2 + scale,
+        concepts_tested: ["Mental division", "Times tables"],
+        benchmarkSeconds: 2.2,
+      };
     }
     const a = rand(4, 20 + scale * 5);
     const b = rand(2, 12 + scale * 3);
     const answer = type === 0 ? a + b : a * b;
-    return { prompt: `${a} ${type === 0 ? "+" : "×"} ${b} = ?`, answer, options: choices(answer, type === 0 ? 6 : 10), topic: type === 0 ? "addition" : "multiplication", benchmarkSeconds: 1.8 };
+    return {
+      prompt: `${a} ${type === 0 ? "+" : "×"} ${b} = ?`,
+      answer,
+      options: choices(answer, type === 0 ? 6 : 10),
+      topic: "arithmetic",
+      subtopic: type === 0 ? "addition" : "multiplication",
+      difficulty: 2 + scale,
+      concepts_tested: [type === 0 ? "Two-digit addition" : "Multiplication tables"],
+      benchmarkSeconds: 1.8,
+    };
   }
   if (age === "11-13") {
     const type = rand(0, 3);
     const a = rand(3, 18 + scale * 6);
     const b = rand(2, 12 + scale * 4);
-    if (type === 0) return { prompt: `${a} × ${b} = ?`, answer: a * b, options: choices(a * b, 14), topic: "multiplication", benchmarkSeconds: 2.4 };
-    if (type === 1) return { prompt: `${a * b} ÷ ${b} = ?`, answer: a, options: choices(a, 8), topic: "division", benchmarkSeconds: 2.3 };
+    if (type === 0)
+      return {
+        prompt: `${a} × ${b} = ?`,
+        answer: a * b,
+        options: choices(a * b, 14),
+        topic: "arithmetic",
+        subtopic: "multiplication",
+        difficulty: 3 + scale,
+        concepts_tested: ["Mental multiplication"],
+        benchmarkSeconds: 2.4,
+      };
+    if (type === 1)
+      return {
+        prompt: `${a * b} ÷ ${b} = ?`,
+        answer: a,
+        options: choices(a, 8),
+        topic: "arithmetic",
+        subtopic: "division",
+        difficulty: 3 + scale,
+        concepts_tested: ["Division factors"],
+        benchmarkSeconds: 2.3,
+      };
     const answer = type === 2 ? a + b : a - b;
-    return { prompt: `${a} ${type === 2 ? "+" : "−"} ${b} = ?`, answer, options: choices(answer, 10), topic: "mixed arithmetic", benchmarkSeconds: 2.1 };
+    return {
+      prompt: `${a} ${type === 2 ? "+" : "−"} ${b} = ?`,
+      answer,
+      options: choices(answer, 10),
+      topic: "arithmetic",
+      subtopic: type === 2 ? "addition" : "subtraction",
+      difficulty: 3 + scale,
+      concepts_tested: ["Mixed arithmetic"],
+      benchmarkSeconds: 2.1,
+    };
   }
   if (age === "14-16") {
     const type = rand(0, 2);
@@ -49,19 +105,47 @@ function questionFor(age: AgeGroupId, level: number): Omit<Question, "id"> {
       const base = rand(20, 90);
       const percent = [10, 15, 20, 25, 30, 50][rand(0, 5)];
       const answer = safeNumber((base * percent) / 100);
-      return { prompt: `${percent}% of ${base} = ?`, answer, options: choices(answer, 8, !Number.isInteger(answer)), topic: "percentages", benchmarkSeconds: 3.1 };
+      return {
+        prompt: `${percent}% of ${base} = ?`,
+        answer,
+        options: choices(answer, 8, !Number.isInteger(answer)),
+        topic: "percentages",
+        subtopic: "conversion",
+        difficulty: 3 + scale,
+        concepts_tested: ["Percentage to fraction conversion", "Percentage calculation"],
+        benchmarkSeconds: 3.1,
+      };
     }
     const a = rand(5, 25 + scale * 5);
     const b = rand(2, 12);
     const answer = type === 1 ? a * b : a + b;
-    return { prompt: `${a} ${type === 1 ? "×" : "+"} ${b} = ?`, answer, options: choices(answer, 12), topic: type === 1 ? "multiplication" : "ratios", benchmarkSeconds: 2.7 };
+    return {
+      prompt: `${a} ${type === 1 ? "×" : "+"} ${b} = ?`,
+      answer,
+      options: choices(answer, 12),
+      topic: "arithmetic",
+      subtopic: type === 1 ? "multiplication" : "addition",
+      difficulty: 3 + scale,
+      concepts_tested: ["Rapid arithmetic"],
+      benchmarkSeconds: 2.7,
+    };
   }
   const x = rand(2, 12 + scale * 3);
   const coefficient = rand(2, 8);
   const constant = rand(2, 20);
   const answer = x;
-  return { prompt: `If ${coefficient}x + ${constant} = ${coefficient * x + constant}, x = ?`, answer, options: choices(answer, 5), topic: "algebra", benchmarkSeconds: 3.4 };
+  return {
+    prompt: `If ${coefficient}x + ${constant} = ${coefficient * x + constant}, x = ?`,
+    answer,
+    options: choices(answer, 5),
+    topic: "algebra",
+    subtopic: "linear_equations",
+    difficulty: 4 + scale,
+    concepts_tested: ["Linear equations", "Inverse operations"],
+    benchmarkSeconds: 3.4,
+  };
 }
+
 
 export function createQuestion(age: AgeGroupId, level: number, recentIds: string[], answeredCount = 0): Question {
   const effectiveLevel = answeredCount < 10 ? 0 : level;

@@ -11,7 +11,9 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createQuestion, scoreAnswer } from "@/src/game/engine";
 import { playSound, unloadSounds } from "@/src/game/sounds";
-import { AgeGroupId, GameResult, LocalProfile, Question } from "@/src/game/types";
+import { AgeGroupId, GameResult, LocalProfile, Question, QuestionAttempt } from "@/src/game/types";
+import { saveAttempts } from "@/src/game/storage";
+import { aiCoachApi } from "@/src/api/aiCoach";
 import { IconButton } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
 import { TokenFlyAnimation, TokenFlyRef } from "@/src/components/TokenFlyAnimation";
@@ -38,6 +40,7 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
   const [lives, setLives] = useState(3);
   const stats = useRef<LiveStats>({ score: 0, correct: 0, answered: 0, combo: 0, bestCombo: 0, tokens: 0 });
   const recentIds = useRef<string[]>([]);
+  const sessionAttempts = useRef<QuestionAttempt[]>([]);
   const questionStarted = useRef(Date.now());
   const finished = useRef(false);
   const pop = useRef(new RNAnimated.Value(1)).current;
@@ -69,11 +72,23 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
     if (profile.settings.vibration) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
     const current = stats.current;
     
+    // Save attempts locally and sync with AI Coach in background
+    if (sessionAttempts.current.length > 0) {
+      saveAttempts(sessionAttempts.current).catch(() => {});
+      aiCoachApi.recordAttempts(
+        profile.playerName || "player_local",
+        sessionAttempts.current,
+        "classic",
+        profile.playerName || "Player"
+      ).catch(() => {});
+    }
+
     // Show Interstitial Ad at natural break before result screen
     await showInterstitialAd();
 
     onFinish({ ...current, accuracy: current.answered ? Math.round((current.correct / current.answered) * 100) : 0, xp: Math.max(20, current.score + current.correct * 3), tokens: tokensAvailable ? Math.max(0, current.tokens) : 0, tokensClaimed: tokensAvailable });
-  }, [onFinish, profile.settings.sound, profile.settings.vibration, tokensAvailable]);
+  }, [onFinish, profile.settings.sound, profile.settings.vibration, profile.playerName, tokensAvailable]);
+
 
   useEffect(() => {
     const timer = setInterval(() => setTimeLeft((value) => {
@@ -93,6 +108,21 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
     current.answered += 1;
     setSelected(option);
     setFeedback(isCorrect ? "correct" : "wrong");
+
+    // Push attempt telemetry for AI Coach
+    sessionAttempts.current.push({
+      prompt: question.prompt,
+      player_answer: option,
+      correct_answer: String(question.answer),
+      is_correct: isCorrect,
+      topic: question.topic,
+      subtopic: question.subtopic,
+      difficulty: question.difficulty || 1,
+      response_time_ms: elapsed,
+      game_mode: "classic",
+      timestamp: new Date().toISOString(),
+    });
+
     if (isCorrect) {
       current.correct += 1; current.combo += 1; current.bestCombo = Math.max(current.bestCombo, current.combo);
       current.tokens += 2;

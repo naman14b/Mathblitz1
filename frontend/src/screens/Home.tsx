@@ -11,16 +11,19 @@ import Animated, {
   Easing,
 } from "react-native-reanimated";
 import { useEffect, useState } from "react";
-import { AGE_GROUPS, AVATARS, LocalProfile, ACHIEVEMENTS, PREMIUM_BADGES, STREAK_MILESTONES } from "@/src/game/types";
+import { AGE_GROUPS, AVATARS, LocalProfile, ACHIEVEMENTS, PREMIUM_BADGES, STREAK_MILESTONES, CoachingInsight } from "@/src/game/types";
 import { BrandMark, IconButton, ScreenTitle, SoftButton, StatTile } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
 import { AdBanner } from "@/src/components/AdBanner";
+import { ProactiveCoachCard } from "@/src/components/ProactiveCoachCard";
+import { aiCoachApi } from "@/src/api/aiCoach";
 
 type HomeProps = {
   profile: LocalProfile;
   onPlay: () => void;
   onSudoku: () => void;
   onMathsPuzzles: () => void;
+  onAICoach: (conceptId?: string) => void;
   onSettings: () => void;
   onAge: () => void;
   onChallenge: (tier: any, rapid?: boolean) => void;
@@ -30,6 +33,7 @@ type HomeProps = {
   onThemeStore: () => void;
   onHowToPlay: () => void;
 };
+
 
 // Interactive card component that rises 3px on press
 function AnimatedPressableCard({
@@ -120,6 +124,7 @@ export function Home({
   onChallenge,
   onDailyChallenge,
   onHowToPlay,
+  onAICoach,
 }: HomeProps) {
   const insets = useSafeAreaInsets();
   const { colors, isNight, toggleThemeMode } = useTheme();
@@ -210,6 +215,15 @@ export function Home({
   // Animated number counters on screen mount
   const [displayBest, setDisplayBest] = useState(0);
   const [displayXp, setDisplayXp] = useState(0);
+  const [coachInsight, setCoachInsight] = useState<CoachingInsight | null>(null);
+
+  useEffect(() => {
+    // Check for proactive coaching recommendations
+    const playerId = profile.playerName || "player_local";
+    aiCoachApi.getProactiveInsight(playerId).then((ins) => {
+      if (ins?.has_insight) setCoachInsight(ins);
+    }).catch(() => {});
+  }, [profile.playerName]);
 
   useEffect(() => {
     let bestFrame: any;
@@ -332,8 +346,18 @@ export function Home({
           </View>
         </View>
 
+        {/* Proactive AI Coach Recommendation Card */}
+        {coachInsight && coachInsight.has_insight ? (
+          <ProactiveCoachCard
+            insight={coachInsight}
+            onFixWeakness={(cid) => onAICoach(cid)}
+            onDismiss={() => setCoachInsight({ has_insight: false })}
+          />
+        ) : null}
+
         {/* Streak System Card with 3-Day & 7-Day Interactive Challenges */}
         <View style={[styles.streakCard, isNight ? styles.streakCardNight : styles.streakCardDay]}>
+
           <View style={styles.streakHeader}>
             <Animated.View style={[styles.streakIcon, flameAnimatedStyle]}>
               <Ionicons name="flame" size={24} color={colors.warning} />
