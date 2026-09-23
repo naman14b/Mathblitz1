@@ -40,10 +40,18 @@ async_session_factory = async_sessionmaker(
 
 
 async def init_db() -> None:
-    """Create all tables in PostgreSQL if they do not exist."""
+    """Create all tables in PostgreSQL if they do not exist and ensure columns exist."""
     try:
+        from sqlalchemy import text
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
+            # Safe non-destructive column migrations
+            try:
+                await conn.execute(text("ALTER TABLE question_attempts ADD COLUMN IF NOT EXISTS attempt_id VARCHAR(128);"))
+                await conn.execute(text("CREATE INDEX IF NOT EXISTS ix_question_attempts_attempt_id ON question_attempts (attempt_id);"))
+                await conn.execute(text("ALTER TABLE coaching_sessions ADD COLUMN IF NOT EXISTS target_learning_concept_id VARCHAR(64);"))
+            except Exception as mig_err:
+                logger.warning(f"Column migration skipped or already applied: {mig_err}")
         logger.info("Database tables initialized successfully.")
     except Exception as exc:
         logger.error(f"Failed to initialize database tables: {exc}")

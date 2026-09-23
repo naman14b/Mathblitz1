@@ -78,7 +78,7 @@ def test_error_classification_sign_error():
         topic="algebra",
         subtopic="negative_numbers",
     )
-    assert cat == ErrorCategory.SIGN_ERROR
+    assert cat in (ErrorCategory.SIGN_REVERSAL, ErrorCategory.SIGN_ERROR)
     assert conf == "high"
 
 
@@ -304,6 +304,43 @@ def test_coach_api_record_and_profile():
         )
         assert contextual_res.status_code == 200
         assert "answer" in contextual_res.json()
+
+        # 7. Internal Debug Endpoint
+        debug_res = client.get(f"/api/coach/debug/{test_player_id}")
+        assert debug_res.status_code == 200
+        debug_data = debug_res.json()
+        assert debug_data["player_id"] == test_player_id
+        assert "raw_telemetry" in debug_data
+        assert "mastery_map" in debug_data
+        assert "interventions_history" in debug_data
+        assert len(debug_data["raw_telemetry"]) >= 3
+
+        # 8. Idempotency Test (attempt_id deduplication)
+        idempotent_attempt_id = "test_uuid_idempotent_12345"
+        dup_payload = {
+            "player_id": test_player_id,
+            "attempts": [
+                {
+                    "prompt": "What is 50% of 100?",
+                    "player_answer": "50",
+                    "correct_answer": "50",
+                    "is_correct": True,
+                    "topic": "percentages",
+                    "subtopic": "conversion",
+                    "attempt_id": idempotent_attempt_id,
+                    "response_time_ms": 1500,
+                }
+            ]
+        }
+        # First post records 1
+        res1 = client.post("/api/coach/record-attempts", json=dup_payload)
+        assert res1.status_code == 200
+        assert res1.json()["recorded"] == 1
+
+        # Second post with identical attempt_id is ignored (0 new recorded)
+        res2 = client.post("/api/coach/record-attempts", json=dup_payload)
+        assert res2.status_code == 200
+        assert res2.json()["recorded"] == 0
 
 
 

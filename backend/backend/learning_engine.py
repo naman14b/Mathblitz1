@@ -1,13 +1,109 @@
-"""Deterministic Learning Engine for MathBlitz.
-Calculates statistical player performance, mastery scores, error distributions,
-and detects weak areas purely in application code without LLM hallucination.
+"""Deterministic Statistical Learning Engine for MathBlitz AI Coach.
+Implements multi-factor mastery modeling, confidence scoring, deterministic mastery states,
+regression detection, and root-cause weakness synthesis.
 """
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from enum import Enum
 import math
+from typing import Any, Dict, List, Optional, Tuple
 
+from .coaching_policy import CoachingPolicyDecision, CoachingPolicyEngine
+from .root_cause import RootCauseDiagnosis, RootCauseEngine
 from .taxonomy import CONCEPT_TAXONOMY, ConceptNode, ErrorCategory, classify_error, normalize_topic_to_node
+
+
+class MasteryState(str, Enum):
+    UNKNOWN = "unknown"
+    LEARNING = "learning"
+    DEVELOPING = "developing"
+    PROFICIENT = "proficient"
+    MASTERED = "mastered"
+    REGRESSING = "regressing"
+
+
+def compute_confidence(total: int) -> float:
+    """Exponential confidence curve C = 1 - e^(-N / 6)."""
+    if total <= 0:
+        return 0.0
+    return round(1.0 - math.exp(-total / 6.0), 2)
+
+
+def compute_mastery_state(
+    total: int,
+    mastery_score: float,
+    is_regression: bool = False,
+    confidence_val: Optional[float] = None,
+) -> MasteryState:
+    """Deterministic mastery state calculation."""
+    if is_regression:
+        return MasteryState.REGRESSING
+    if total <= 0:
+        return MasteryState.UNKNOWN
+    if total < 3:
+        return MasteryState.LEARNING
+
+    conf = confidence_val if confidence_val is not None else compute_confidence(total)
+    if mastery_score >= 88.0 and conf >= 0.60:
+        return MasteryState.MASTERED
+    elif mastery_score >= 72.0:
+        return MasteryState.PROFICIENT
+    elif mastery_score >= 48.0:
+        return MasteryState.DEVELOPING
+    else:
+        return MasteryState.LEARNING
+
+
+def calculate_multi_factor_mastery(
+    history: List["RawAttempt"],
+) -> Tuple[float, float, MasteryState]:
+    """Calculate multi-factor mastery score, confidence, and mastery state for a sequence of attempts."""
+    total = len(history)
+    if total == 0:
+        return 0.0, 0.0, MasteryState.UNKNOWN
+
+    correct = sum(1 for a in history if a.is_correct)
+    accuracy = (correct / total) * 100.0
+
+    recent_attempts = history[-5:] if total >= 5 else history
+    recent_correct = sum(1 for a in recent_attempts if a.is_correct)
+    recent_acc = (recent_correct / len(recent_attempts)) * 100.0 if recent_attempts else accuracy
+
+    weighted_points = 0.0
+    max_points = 0.0
+    for a in history:
+        diff_weight = 0.8 + (a.difficulty * 0.2)
+        max_points += diff_weight
+        if a.is_correct:
+            weighted_points += diff_weight
+
+    weighted_acc = (weighted_points / max_points * 100.0) if max_points > 0 else accuracy
+    confidence_val = compute_confidence(total)
+    base_mastery = (weighted_acc * 0.50) + (recent_acc * 0.35) + (confidence_val * 15.0)
+    mastery_score = round(min(100.0, max(0.0, base_mastery)), 1)
+
+    state = compute_mastery_state(total, mastery_score, False, confidence_val)
+    return mastery_score, confidence_val, state
+
+
+def detect_regression(
+    history: List["RawAttempt"],
+    historical_mastery: float,
+) -> Tuple[bool, str]:
+    """Detect mastery regression when historical performance was high but recent accuracy plunged."""
+    total = len(history)
+    if total < 6 or historical_mastery < 75.0:
+        return False, ""
+
+    recent_3 = history[-3:]
+    recent_fails = sum(1 for a in recent_3 if not a.is_correct)
+    recent_acc = ((3 - recent_fails) / 3.0) * 100.0
+
+    if recent_fails >= 2 or recent_acc < 50.0:
+        reason = f"Historical mastery was high ({historical_mastery}%), but recent 3 attempts showed a drop to {round(recent_acc, 1)}%."
+        return True, reason
+
+    return False, ""
 
 
 @dataclass
@@ -24,6 +120,7 @@ class RawAttempt:
     timestamp: Optional[datetime] = None
     error_category: Optional[str] = None
     error_hypothesis: Optional[str] = None
+    attempt_id: Optional[str] = None
 
 
 @dataclass
@@ -38,8 +135,13 @@ class TopicMetric:
     recent_accuracy: float  # Last 5 attempts accuracy %
     trend: str  # "improving" | "declining" | "stable"
     avg_response_time_ms: float
-    mastery_score: float  # 0 - 100
+    mastery_score: float  # 0.0 - 100.0
+    confidence: float  # 0.0 - 1.0 (numerical confidence)
     confidence_level: str  # "High" | "Medium" | "Low"
+    mastery_state: str  # MasteryState string value
+    historical_peak_mastery: float = 0.0
+    regression_detected: bool = False
+    regression_severity: Optional[str] = None  # "low" | "medium" | "high" | None
     error_distribution: Dict[str, int] = field(default_factory=dict)
     primary_error: Optional[str] = None
     primary_mistake_desc: Optional[str] = None
@@ -59,6 +161,15 @@ class DetectedWeakness:
     common_mistake: str
     recommended_action: str
     mastery_score: float
+    confidence: float = 0.0
+    is_regression: bool = False
+    # Root Cause & Coaching Policy details
+    target_learning_concept_id: Optional[str] = None
+    target_learning_concept_name: Optional[str] = None
+    is_prerequisite_gap: bool = False
+    learning_objective: Optional[str] = None
+    evidence_summary: Optional[str] = None
+    recommended_difficulty: int = 2
 
 
 @dataclass
@@ -74,11 +185,11 @@ class LearningProfileData:
 
 
 class LearningEngine:
-    """Calculates deterministic statistics and identifies learning gaps."""
+    """Calculates multi-factor statistical metrics, mastery states, and weaknesses."""
 
     @staticmethod
     def process_attempts(attempts: List[RawAttempt]) -> List[RawAttempt]:
-        """Enrich attempts with deterministic error classification if missed."""
+        """Enrich raw attempts with deterministic error categorization."""
         enriched: List[RawAttempt] = []
         for att in attempts:
             if not att.is_correct and not att.error_category:
@@ -97,7 +208,7 @@ class LearningEngine:
 
     @classmethod
     def compute_topic_metrics(cls, attempts: List[RawAttempt]) -> Dict[str, TopicMetric]:
-        """Group attempts by canonical concept and compute deterministic statistical metrics."""
+        """Group attempts by canonical concept and compute multi-factor metrics."""
         grouped: Dict[str, List[RawAttempt]] = {}
 
         for att in attempts:
@@ -121,28 +232,28 @@ class LearningEngine:
             correct = sum(1 for a in group if a.is_correct)
             accuracy = round((correct / total) * 100.0, 1) if total > 0 else 0.0
 
-            # Calculate recent accuracy (last 5 attempts)
+            # 1. Recent accuracy (last 5 attempts)
             recent_attempts = group[-5:] if len(group) >= 5 else group
             recent_correct = sum(1 for a in recent_attempts if a.is_correct)
             recent_acc = round((recent_correct / len(recent_attempts)) * 100.0, 1) if recent_attempts else accuracy
 
-            # Calculate trend
+            # 2. Trend calculation
             if total >= 6:
                 diff = recent_acc - accuracy
-                if diff >= 12.0:
+                if diff >= 10.0:
                     trend = "improving"
-                elif diff <= -12.0:
+                elif diff <= -10.0:
                     trend = "declining"
                 else:
                     trend = "stable"
             else:
                 trend = "stable"
 
-            # Average response time
+            # 3. Response time & Benchmark
             times = [a.response_time_ms for a in group if a.response_time_ms > 0]
             avg_time = round(sum(times) / len(times), 1) if times else (node.default_benchmark_seconds * 1000)
 
-            # Error distribution
+            # 4. Error distribution
             err_dist: Dict[str, int] = {}
             mistake_samples: Dict[str, str] = {}
             for a in group:
@@ -155,18 +266,49 @@ class LearningEngine:
             primary_err = max(err_dist.items(), key=lambda x: x[1])[0] if err_dist else None
             primary_desc = mistake_samples.get(primary_err) if primary_err else None
 
-            # Confidence & Mastery Calculation
-            # Mastery weighted by accuracy (65%), recent performance (25%), sample confidence (10%)
-            sample_weight = min(1.0, total / 10.0)
-            mastery = round((accuracy * 0.65) + (recent_acc * 0.25) + (sample_weight * 10.0), 1)
-            mastery = min(100.0, max(0.0, mastery))
+            # 5. Multi-factor Mastery Score & Confidence
+            # Difficulty-weighted accuracy:
+            weighted_points = 0.0
+            max_points = 0.0
+            for a in group:
+                diff_weight = 0.8 + (a.difficulty * 0.2)  # Diff 1: 1.0, Diff 2: 1.2, Diff 3: 1.4, Diff 4: 1.6
+                max_points += diff_weight
+                if a.is_correct:
+                    weighted_points += diff_weight
 
-            if total >= 8:
-                confidence = "High" if accuracy >= 75 or accuracy <= 40 else "Medium"
-            elif total >= 3:
-                confidence = "Medium"
+            weighted_acc = (weighted_points / max_points * 100.0) if max_points > 0 else accuracy
+
+            # Confidence exponential function: C = 1 - exp(-N / 6)
+            confidence_val = round(1.0 - math.exp(-total / 6.0), 2)
+
+            # Blended mastery score:
+            # 50% weighted overall accuracy + 35% recent accuracy + 15% confidence stability
+            base_mastery = (weighted_acc * 0.50) + (recent_acc * 0.35) + (confidence_val * 15.0)
+            mastery_score = round(min(100.0, max(0.0, base_mastery)), 1)
+
+            # Historical peak tracking (simulated from sequence)
+            peak_mastery = max(mastery_score, accuracy)
+
+            # 6. Deterministic Mastery State & Regression
+            is_regression = False
+            reg_severity: Optional[str] = None
+
+            if total < 3:
+                state = MasteryState.UNKNOWN
+            elif total >= 6 and (peak_mastery >= 75.0 or accuracy >= 75.0) and recent_acc < 60.0:
+                state = MasteryState.REGRESSING
+                is_regression = True
+                reg_severity = "high" if recent_acc < 40.0 else "medium"
+            elif mastery_score >= 88.0 and confidence_val >= 0.65:
+                state = MasteryState.MASTERED
+            elif mastery_score >= 72.0:
+                state = MasteryState.PROFICIENT
+            elif mastery_score >= 48.0:
+                state = MasteryState.DEVELOPING
             else:
-                confidence = "Low"
+                state = MasteryState.LEARNING
+
+            conf_label = "High" if confidence_val >= 0.70 else "Medium" if confidence_val >= 0.40 else "Low"
 
             metrics[concept_id] = TopicMetric(
                 topic=node.topic,
@@ -179,8 +321,13 @@ class LearningEngine:
                 recent_accuracy=recent_acc,
                 trend=trend,
                 avg_response_time_ms=avg_time,
-                mastery_score=mastery,
-                confidence_level=confidence,
+                mastery_score=mastery_score,
+                confidence=confidence_val,
+                confidence_level=conf_label,
+                mastery_state=state.value,
+                historical_peak_mastery=peak_mastery,
+                regression_detected=is_regression,
+                regression_severity=reg_severity,
                 error_distribution=err_dist,
                 primary_error=primary_err,
                 primary_mistake_desc=primary_desc,
@@ -191,9 +338,8 @@ class LearningEngine:
     @classmethod
     def identify_weaknesses(cls, metrics: Dict[str, TopicMetric]) -> List[DetectedWeakness]:
         """
-        Identify statistically significant weak areas.
-        Filters for concepts where accuracy is below threshold with sufficient attempts,
-        or where recent performance has sharply declined.
+        Identify statistically validated weak areas and execute Coaching Policy
+        to determine exact learning objectives and root causes.
         """
         weaknesses: List[DetectedWeakness] = []
 
@@ -201,23 +347,42 @@ class LearningEngine:
             is_weak = False
             severity = "low"
 
-            # Threshold 1: Low overall accuracy with at least 3 attempts
-            if met.total_attempts >= 3 and met.accuracy < 65.0:
+            # Threshold 1: Regression from previously strong performance
+            if met.regression_detected:
+                is_weak = True
+                severity = met.regression_severity or "medium"
+
+            # Threshold 2: Low accuracy with sufficient attempts
+            elif met.total_attempts >= 3 and met.accuracy < 65.0:
                 is_weak = True
                 if met.accuracy < 45.0 or (met.total_attempts >= 6 and met.accuracy < 55.0):
                     severity = "high"
                 else:
                     severity = "medium"
 
-            # Threshold 2: Sharp recent decline with at least 4 attempts
+            # Threshold 3: Declining recent performance
             elif met.total_attempts >= 4 and met.trend == "declining" and met.recent_accuracy < 60.0:
                 is_weak = True
                 severity = "medium"
 
             if is_weak:
                 node = CONCEPT_TAXONOMY.get(cid)
-                common_pitfall = met.primary_mistake_desc or (node.common_pitfalls[0] if node and node.common_pitfalls else "Repeated mistakes on core formula")
-                recommended = f"Review {met.concept_name} fundamentals → 3 step-by-step practice questions"
+                common_pitfall = met.primary_mistake_desc or (
+                    node.common_pitfalls[0] if node and node.common_pitfalls else "Mistakes on core formula"
+                )
+
+                # Evaluate Coaching Policy
+                policy: CoachingPolicyDecision = CoachingPolicyEngine.evaluate_policy(
+                    surface_concept_id=cid,
+                    metrics=metrics,
+                    recent_accuracy=met.recent_accuracy,
+                    primary_error=met.primary_error,
+                    mastery_score=met.mastery_score,
+                    sample_size=met.total_attempts,
+                    is_regression=met.regression_detected,
+                )
+
+                rec_action = f"Focus on {policy.target_learning_concept_name} → {policy.recommended_question_count} practice questions"
 
                 weaknesses.append(
                     DetectedWeakness(
@@ -231,18 +396,31 @@ class LearningEngine:
                         severity=severity,
                         primary_error_category=met.primary_error or "calculation_error",
                         common_mistake=common_pitfall,
-                        recommended_action=recommended,
+                        recommended_action=rec_action,
                         mastery_score=met.mastery_score,
+                        confidence=met.confidence,
+                        is_regression=met.regression_detected,
+                        target_learning_concept_id=policy.target_learning_concept_id,
+                        target_learning_concept_name=policy.target_learning_concept_name,
+                        is_prerequisite_gap=policy.is_prerequisite_gap,
+                        learning_objective=policy.learning_objective,
+                        evidence_summary=policy.evidence_summary,
+                        recommended_difficulty=policy.recommended_difficulty,
                     )
                 )
 
-        # Sort weaknesses: High severity first, then lowest accuracy
-        weaknesses.sort(key=lambda w: (0 if w.severity == "high" else 1 if w.severity == "medium" else 2, w.accuracy))
+        # Sort: Regressions and high severity first, then lowest accuracy
+        weaknesses.sort(
+            key=lambda w: (
+                0 if w.is_regression else (1 if w.severity == "high" else 2 if w.severity == "medium" else 3),
+                w.accuracy,
+            )
+        )
         return weaknesses
 
     @classmethod
     def build_profile(cls, player_id: str, attempts: List[RawAttempt]) -> LearningProfileData:
-        """Construct full structured learning profile from attempts."""
+        """Construct complete structured learning profile from attempts."""
         enriched = cls.process_attempts(attempts)
         metrics = cls.compute_topic_metrics(enriched)
         weaknesses = cls.identify_weaknesses(metrics)

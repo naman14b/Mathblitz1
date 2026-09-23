@@ -38,6 +38,7 @@ from .models import (
     AdminQuestion as AdminQuestionModel,
     AdminSetting,
     ChallengeQuestion as ChallengeQuestionModel,
+    CoachingIntervention as CoachingInterventionModel,
     CoachingSession as CoachingSessionModel,
     LeaderboardEntry as LeaderboardEntryModel,
     MathBossResult as MathBossResultModel,
@@ -678,6 +679,7 @@ async def math_boss_result(
 # ── AI Coach Endpoints ────────────────────────────────────────────────────────
 
 class QuestionAttemptPayload(BaseModel):
+    attempt_id: Optional[str] = None
     prompt: str
     player_answer: str
     correct_answer: str
@@ -724,13 +726,28 @@ async def record_attempts(
     payload: BatchAttemptsPayload,
     session: AsyncSession = Depends(get_db),
 ):
-    """Record a batch of question attempts from a game session and update learning metrics."""
+    """Record a batch of question attempts from a game session idempotently and update learning metrics."""
     if not payload.attempts:
         return {"recorded": 0}
 
-    # Deterministically classify errors and insert records
+    # Fetch existing attempt_ids for deduplication
+    incoming_ids = [att.attempt_id for att in payload.attempts if att.attempt_id]
+    existing_ids_set = set()
+    if incoming_ids:
+        ex_res = await session.execute(
+            select(QuestionAttemptModel.attempt_id).where(
+                QuestionAttemptModel.player_id == payload.player_id,
+                QuestionAttemptModel.attempt_id.in_(incoming_ids),
+            )
+        )
+        existing_ids_set = set(ex_res.scalars().all())
+
+    # Deterministically classify errors and insert new records
     db_records = []
     for att in payload.attempts:
+        if att.attempt_id and att.attempt_id in existing_ids_set:
+            continue
+
         err_cat, err_hyp, _ = classify_error(
             prompt=att.prompt,
             player_answer=att.player_answer,
@@ -740,6 +757,7 @@ async def record_attempts(
             response_time_ms=att.response_time_ms,
         )
         rec = QuestionAttemptModel(
+            attempt_id=att.attempt_id,
             player_id=payload.player_id,
             game_mode=att.game_mode or payload.game_mode,
             topic=att.topic,
@@ -780,6 +798,7 @@ async def record_attempts(
             response_time_ms=a.response_time_ms,
             error_category=a.error_category,
             error_hypothesis=a.error_hypothesis,
+            attempt_id=a.attempt_id,
         )
         for a in reversed(all_attempts)
     ]
@@ -802,7 +821,11 @@ async def record_attempts(
             "recent_accuracy": m.recent_accuracy,
             "trend": m.trend,
             "mastery_score": m.mastery_score,
+            "confidence": m.confidence,
             "confidence_level": m.confidence_level,
+            "mastery_state": m.mastery_state,
+            "regression_detected": m.regression_detected,
+            "regression_severity": m.regression_severity,
             "primary_error": m.primary_error,
             "primary_mistake_desc": m.primary_mistake_desc,
             "total_attempts": m.total_attempts,
@@ -824,6 +847,14 @@ async def record_attempts(
             "common_mistake": w.common_mistake,
             "recommended_action": w.recommended_action,
             "mastery_score": w.mastery_score,
+            "confidence": w.confidence,
+            "is_regression": w.is_regression,
+            "target_learning_concept_id": w.target_learning_concept_id,
+            "target_learning_concept_name": w.target_learning_concept_name,
+            "is_prerequisite_gap": w.is_prerequisite_gap,
+            "learning_objective": w.learning_objective,
+            "evidence_summary": w.evidence_summary,
+            "recommended_difficulty": w.recommended_difficulty,
             "total_attempts": w.total_attempts,
         }
         for w in profile_data.weak_areas
@@ -853,7 +884,7 @@ async def record_attempts(
         session.add(prof_rec)
 
     await session.commit()
-    return {"recorded": len(payload.attempts), "weak_areas_count": len(weak_list)}
+    return {"recorded": len(db_records), "weak_areas_count": len(weak_list)}
 
 
 @api_router.get("/coach/profile/{player_id}")
@@ -879,7 +910,6 @@ async def get_coach_profile(
             "updated_at": prof.updated_at.isoformat() if prof.updated_at else None,
         }
 
-    # Return empty profile template if not yet recorded
     return {
         "player_id": player_id,
         "overall_accuracy": 0,
@@ -897,7 +927,7 @@ async def get_proactive_insight(
     player_id: str,
     session: AsyncSession = Depends(get_db),
 ):
-    """Return a proactive coaching notification card if player has an active weakness."""
+    """Return a proactive coaching notification card if player has an active weakness or regression."""
     res = await session.execute(
         select(PlayerLearningProfileModel).where(PlayerLearningProfileModel.player_id == player_id)
     )
@@ -909,16 +939,29 @@ async def get_proactive_insight(
     top_weakness = prof.weak_areas[0]
     total_att = top_weakness.get("total_attempts", 0)
     acc = top_weakness.get("accuracy", 0.0)
+    is_reg = top_weakness.get("is_regression", False)
+
+    headline = "🧠 MathBlitz Coach: Skill Refresher Needed" if is_reg else "🧠 MathBlitz Coach noticed something"
+    msg = (
+        f"We noticed a slight regression in {top_weakness.get('concept_name')}. {top_weakness.get('common_mistake', '')}. Take a 2-minute refresher!"
+        if is_reg
+        else f"You've answered {total_att} {top_weakness.get('concept_name')} questions with {acc:.0f}% accuracy. {top_weakness.get('common_mistake', '')}. Let's fix this together!"
+    )
 
     return {
         "has_insight": True,
         "concept_id": top_weakness.get("concept_id"),
         "concept_name": top_weakness.get("concept_name"),
-        "headline": f"🧠 MathBlitz Coach noticed something",
-        "message": f"You've answered {total_att} {top_weakness.get('concept_name')} questions recently with {acc:.0f}% accuracy. {top_weakness.get('common_mistake', '')}. Spend 2 minutes practicing this concept to level up!",
+        "headline": headline,
+        "message": msg,
         "mastery_score": top_weakness.get("mastery_score", 50.0),
         "cta_label": "Fix This Weakness",
         "severity": top_weakness.get("severity", "medium"),
+        "is_regression": is_reg,
+        "target_learning_concept_id": top_weakness.get("target_learning_concept_id"),
+        "target_learning_concept_name": top_weakness.get("target_learning_concept_name"),
+        "is_prerequisite_gap": top_weakness.get("is_prerequisite_gap", False),
+        "evidence_summary": top_weakness.get("evidence_summary"),
     }
 
 
@@ -928,7 +971,6 @@ async def start_coach_session(
     session: AsyncSession = Depends(get_db),
 ):
     """Trigger the LangGraph coaching workflow to generate a personalized 5-step lesson."""
-    # Fetch recent attempts for this player
     att_res = await session.execute(
         select(QuestionAttemptModel)
         .where(QuestionAttemptModel.player_id == payload.player_id)
@@ -963,16 +1005,17 @@ async def start_coach_session(
         "detected_errors": [],
         "practice_questions": [],
         "verified_practice": [],
+        "fingerprints_seen": [],
         "current_question_index": 0,
         "mastery_before": 50.0,
+        "confidence_before": 0.3,
         "mastery_after": 50.0,
+        "confidence_after": 0.3,
         "mastery_delta": 0.0,
         "next_action": "show_step_1",
     }
 
-    # Execute LangGraph workflow
     final_state = coaching_workflow.invoke(initial_state)
-
     session_id = f"cs_{secrets.token_hex(8)}"
 
     lesson_data = {
@@ -980,6 +1023,12 @@ async def start_coach_session(
         "concept_name": final_state.get("current_concept_name"),
         "topic": final_state.get("current_topic"),
         "subtopic": final_state.get("current_subtopic"),
+        "target_learning_concept_id": final_state.get("target_learning_concept_id"),
+        "target_learning_concept_name": final_state.get("target_learning_concept_name"),
+        "is_prerequisite_gap": final_state.get("is_prerequisite_gap", False),
+        "root_cause_error": final_state.get("root_cause_error"),
+        "evidence_summary": final_state.get("evidence_summary"),
+        "intervention_type": final_state.get("intervention_type", "teach_then_practice"),
         "common_mistake": final_state.get("common_mistake"),
         "learning_objective": final_state.get("learning_objective"),
         "concept_explanation": final_state.get("concept_explanation"),
@@ -988,9 +1037,10 @@ async def start_coach_session(
         "example_solution": final_state.get("example_solution"),
         "verified_practice": final_state.get("verified_practice", []),
         "mastery_before": final_state.get("mastery_before", 50.0),
+        "confidence_before": final_state.get("confidence_before", 0.3),
     }
 
-    # Save session to DB
+    # Save session and intervention records
     session_rec = CoachingSessionModel(
         id=session_id,
         player_id=payload.player_id,
@@ -1004,6 +1054,29 @@ async def start_coach_session(
         created_at=utc_now(),
     )
     session.add(session_rec)
+
+    intervention_rec = CoachingInterventionModel(
+        id=session_id,
+        player_id=payload.player_id,
+        focus_concept_id=final_state.get("current_concept_id") or "percentages.conversion",
+        target_learning_concept_id=final_state.get("target_learning_concept_id") or final_state.get("current_concept_id") or "percentages.conversion",
+        root_cause_error=final_state.get("root_cause_error"),
+        learning_objective=final_state.get("learning_objective"),
+        is_prerequisite_gap=final_state.get("is_prerequisite_gap", False),
+        intervention_type=final_state.get("intervention_type", "teach_then_practice"),
+        mastery_before=float(final_state.get("mastery_before", 50.0)),
+        confidence_before=float(final_state.get("confidence_before", 0.3)),
+        mastery_after=float(final_state.get("mastery_before", 50.0)),
+        confidence_after=float(final_state.get("confidence_before", 0.3)),
+        mastery_delta=0.0,
+        accuracy_before=float(final_state.get("mastery_before", 50.0)),
+        accuracy_during=0.0,
+        observed_improvement="in_progress",
+        completed=False,
+        created_at=utc_now(),
+    )
+    session.add(intervention_rec)
+
     await session.commit()
 
     return {
@@ -1068,6 +1141,21 @@ async def submit_practice(
     sess_rec.mastery_after = mastery_after
     sess_rec.mastery_delta = mastery_delta
     sess_rec.completed = True
+
+    # Update CoachingIntervention record
+    int_res = await session.execute(
+        select(CoachingInterventionModel).where(CoachingInterventionModel.id == payload.session_id)
+    )
+    int_rec = int_res.scalar_one_or_none()
+    if int_rec:
+        int_rec.mastery_after = float(mastery_after)
+        int_rec.mastery_delta = float(mastery_delta)
+        int_rec.confidence_after = min(1.0, int_rec.confidence_before + 0.1)
+        int_rec.accuracy_during = 100.0 if is_correct else 0.0
+        int_rec.observed_improvement = f"+{mastery_delta}% mastery improvement observed"
+        int_rec.completed = True
+        int_rec.completed_at = utc_now()
+
     await session.commit()
 
     return {
@@ -1079,6 +1167,8 @@ async def submit_practice(
         "mastery_delta": mastery_delta,
         "next_step": "challenge" if payload.question_index < len(practice_questions) - 1 else "summary",
     }
+
+
 
 
 @api_router.post("/coach/contextual-query")
@@ -1113,6 +1203,113 @@ async def contextual_query(
         return {
             "answer": f"For '{payload.prompt}', the correct result is {payload.correct_answer}. Review the order of operations and inverse operations."
         }
+
+
+@api_router.get("/coach/debug/{player_id}")
+async def debug_coach_state(
+    player_id: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Internal developer diagnostic endpoint for inspecting learning engine, mastery, and interventions."""
+    # 1. Fetch raw telemetry
+    query = (
+        select(QuestionAttemptModel)
+        .where(QuestionAttemptModel.player_id == player_id)
+        .order_by(desc(QuestionAttemptModel.created_at))
+        .limit(50)
+    )
+    res = await db.execute(query)
+    attempts_db = res.scalars().all()
+
+    raw_attempts = [
+        RawAttempt(
+            prompt=a.prompt,
+            player_answer=a.player_answer,
+            correct_answer=a.correct_answer,
+            is_correct=a.is_correct,
+            topic=a.topic,
+            subtopic=a.subtopic,
+            difficulty=a.difficulty,
+            response_time_ms=a.response_time_ms,
+            game_mode=a.game_mode,
+            timestamp=a.created_at,
+            error_category=a.error_category,
+            error_hypothesis=a.error_hypothesis,
+            attempt_id=a.attempt_id,
+        )
+        for a in reversed(attempts_db)
+    ]
+
+    profile_data = LearningEngine.build_profile(player_id, raw_attempts)
+
+    # 2. Fetch interventions history
+    int_query = (
+        select(CoachingInterventionModel)
+        .where(CoachingInterventionModel.player_id == player_id)
+        .order_by(desc(CoachingInterventionModel.created_at))
+        .limit(20)
+    )
+    int_res = await db.execute(int_query)
+    interventions_db = int_res.scalars().all()
+
+    return {
+        "player_id": player_id,
+        "raw_telemetry": [
+            {
+                "prompt": a.prompt,
+                "player_answer": a.player_answer,
+                "correct_answer": a.correct_answer,
+                "is_correct": a.is_correct,
+                "topic": a.topic,
+                "subtopic": a.subtopic,
+                "response_time_ms": a.response_time_ms,
+                "error_category": a.error_category,
+                "created_at": a.created_at.isoformat() if a.created_at else None,
+                "attempt_id": a.attempt_id,
+            }
+            for a in attempts_db
+        ],
+        "mastery_map": {
+            cid: {
+                "name": m.concept_name,
+                "mastery_score": m.mastery_score,
+                "confidence": m.confidence,
+                "mastery_state": m.mastery_state,
+                "regression_detected": m.regression_detected,
+                "total_attempts": m.total_attempts,
+                "accuracy": m.accuracy,
+                "recent_accuracy": m.recent_accuracy,
+                "trend": m.trend,
+            }
+            for cid, m in profile_data.topic_metrics.items()
+        },
+        "weak_areas": [
+            {
+                "concept_id": w.concept_id,
+                "concept_name": w.concept_name,
+                "severity": w.severity,
+                "target_learning_concept_id": w.target_learning_concept_id,
+                "is_prerequisite_gap": w.is_prerequisite_gap,
+                "learning_objective": w.learning_objective,
+                "evidence_summary": w.evidence_summary,
+            }
+            for w in profile_data.weak_areas
+        ],
+        "interventions_history": [
+            {
+                "session_id": i.id,
+                "concept_id": i.focus_concept_id,
+                "target_learning_concept_id": i.target_learning_concept_id,
+                "intervention_type": i.intervention_type,
+                "is_prerequisite_gap": i.is_prerequisite_gap,
+                "mastery_before": i.mastery_before,
+                "mastery_after": i.mastery_after,
+                "mastery_delta": i.mastery_delta,
+                "created_at": i.created_at.isoformat() if i.created_at else None,
+            }
+            for i in interventions_db
+        ],
+    }
 
 
 app.include_router(api_router)

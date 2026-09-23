@@ -367,6 +367,7 @@ export type QuestionAttempt = {
   response_time_ms: number;
   game_mode?: string;
   timestamp?: string;
+  attempt_id?: string;
   error_category?: string;
   error_hypothesis?: string;
 };
@@ -380,7 +381,12 @@ export type TopicMetric = {
   recent_accuracy: number;
   trend: "improving" | "declining" | "stable";
   mastery_score: number;
+  confidence?: number;
   confidence_level: "High" | "Medium" | "Low";
+  mastery_state?: "unknown" | "learning" | "developing" | "proficient" | "mastered" | "regressing";
+  is_regression?: boolean;
+  regression_detected?: boolean;
+  regression_severity?: string;
   total_attempts: number;
   correct_attempts: number;
   primary_error?: string;
@@ -400,6 +406,14 @@ export type DetectedWeakness = {
   common_mistake: string;
   recommended_action: string;
   mastery_score: number;
+  confidence?: number;
+  is_regression?: boolean;
+  target_learning_concept_id?: string;
+  target_learning_concept_name?: string;
+  is_prerequisite_gap?: boolean;
+  learning_objective?: string;
+  evidence_summary?: string;
+  recommended_difficulty?: number;
 };
 
 export type LearningProfile = {
@@ -430,6 +444,12 @@ export type CoachingSessionData = {
   concept_name: string;
   topic: string;
   subtopic: string;
+  target_learning_concept_id?: string;
+  target_learning_concept_name?: string;
+  is_prerequisite_gap?: boolean;
+  root_cause_error?: string;
+  evidence_summary?: string;
+  intervention_type?: string;
   common_mistake: string;
   learning_objective: string;
   concept_explanation: string;
@@ -438,6 +458,7 @@ export type CoachingSessionData = {
   example_solution: string;
   verified_practice: CoachingPracticeItem[];
   mastery_before: number;
+  confidence_before?: number;
 };
 
 export type CoachingInsight = {
@@ -449,5 +470,11 @@ export type CoachingInsight = {
   mastery_score?: number;
   cta_label?: string;
   severity?: "high" | "medium" | "low";
+  is_regression?: boolean;
+  target_learning_concept_id?: string;
+  target_learning_concept_name?: string;
+  is_prerequisite_gap?: boolean;
+  evidence_summary?: string;
 };
+
 

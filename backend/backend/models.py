@@ -6,6 +6,8 @@ from sqlalchemy import (
     Boolean,
     Column,
     DateTime,
+    Float,
+    Index,
     Integer,
     LargeBinary,
     String,
@@ -119,6 +121,7 @@ class QuestionAttempt(Base):
     __tablename__ = "question_attempts"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+    attempt_id = Column(String(64), unique=True, nullable=True, index=True)
     player_id = Column(String(64), index=True, nullable=False)
     game_mode = Column(String(32), default="classic", index=True, nullable=False)
     topic = Column(String(64), index=True, nullable=False)
@@ -132,6 +135,12 @@ class QuestionAttempt(Base):
     error_category = Column(String(64), nullable=True)
     error_hypothesis = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=utc_now, index=True, nullable=False)
+
+    __table_args__ = (
+        Index("ix_qa_player_created", "player_id", "created_at"),
+        Index("ix_qa_player_topic", "player_id", "topic"),
+        Index("ix_qa_player_correct", "player_id", "is_correct"),
+    )
 
 
 class PlayerLearningProfile(Base):
@@ -163,3 +172,34 @@ class CoachingSession(Base):
     lesson_data = Column(JSON, nullable=True)
     created_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
 
+
+class CoachingIntervention(Base):
+    """Comprehensive historical record of coaching interventions and measured effectiveness."""
+    __tablename__ = "coaching_interventions"
+
+    id = Column(String(64), primary_key=True)
+    player_id = Column(String(64), index=True, nullable=False)
+    focus_concept_id = Column(String(64), nullable=False)
+    target_learning_concept_id = Column(String(64), nullable=False)
+    root_cause_error = Column(String(64), nullable=True)
+    learning_objective = Column(Text, nullable=True)
+    is_prerequisite_gap = Column(Boolean, default=False, nullable=False)
+    intervention_type = Column(String(32), default="teach_then_practice", nullable=False)
+
+    mastery_before = Column(Float, default=0.0, nullable=False)
+    confidence_before = Column(Float, default=0.0, nullable=False)
+    mastery_after = Column(Float, default=0.0, nullable=False)
+    confidence_after = Column(Float, default=0.0, nullable=False)
+    mastery_delta = Column(Float, default=0.0, nullable=False)
+
+    accuracy_before = Column(Float, default=0.0, nullable=False)
+    accuracy_during = Column(Float, default=0.0, nullable=False)
+    observed_improvement = Column(String(64), default="in_progress", nullable=False)
+
+    completed = Column(Boolean, default=False, nullable=False)
+    created_at = Column(DateTime(timezone=True), default=utc_now, index=True, nullable=False)
+    completed_at = Column(DateTime(timezone=True), nullable=True)
+
+    __table_args__ = (
+        Index("ix_ci_player_created", "player_id", "created_at"),
+    )

@@ -20,6 +20,7 @@ import {
 import Animated, { FadeIn, FadeInDown, FadeInUp } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { aiCoachApi } from "../api/aiCoach";
+import { CoachDebugModal } from "./CoachDebugModal";
 import { IconButton } from "../components/ui";
 import {
   CoachingPracticeItem,
@@ -49,6 +50,7 @@ export function AICoachScreen({
 
   const [loading, setLoading] = useState(true);
   const [learningProfile, setLearningProfile] = useState<LearningProfile | null>(null);
+  const [showDebugModal, setShowDebugModal] = useState(false);
 
   // Active Session State
   const [activeSession, setActiveSession] = useState<CoachingSessionData | null>(null);
@@ -237,6 +239,19 @@ export function AICoachScreen({
                 <Ionicons name="bulb" size={16} color="#FF6B00" />
                 <Text style={styles.stepBadgePillText}>STEP 1 · UNDERSTAND THE CONCEPT</Text>
               </View>
+
+              {/* Prerequisite Foundation Notice if active */}
+              {activeSession.is_prerequisite_gap && (
+                <View style={styles.prereqNotice}>
+                  <Ionicons name="git-network-outline" size={20} color="#8B5CF6" />
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.prereqTitle}>Foundational Skill Needed</Text>
+                    <Text style={styles.prereqText}>
+                      {activeSession.evidence_summary || `We identified a prerequisite gap in ${activeSession.concept_name}. Let's master this foundation first!`}
+                    </Text>
+                  </View>
+                </View>
+              )}
 
               <Text style={styles.stepHeadline}>Why this mistake happens</Text>
               {activeSession.common_mistake ? (
@@ -513,9 +528,13 @@ export function AICoachScreen({
         <IconButton name="arrow-back" label="Back" onPress={onBack} />
         <View style={styles.dashboardTitleWrap}>
           <Text style={styles.dashboardTitle}>Math Profile & Coach</Text>
-          <Text style={styles.dashboardSub}>Personalized Learning Hub</Text>
+          <Text style={styles.dashboardSub}>Adaptive Learning Intelligence</Text>
         </View>
-        <View style={{ width: 40 }} />
+        <IconButton
+          name="bug-outline"
+          label="Debug diagnostics"
+          onPress={() => setShowDebugModal(true)}
+        />
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
@@ -538,7 +557,7 @@ export function AICoachScreen({
         {/* Section: Detected Weak Areas */}
         <View style={styles.sectionHeader}>
           <Ionicons name="flash" size={18} color="#FF6B00" />
-          <Text style={styles.sectionTitle}>Detected Weak Areas</Text>
+          <Text style={styles.sectionTitle}>Detected Weak Areas & Root Causes</Text>
         </View>
 
         {weakAreas.length === 0 ? (
@@ -572,6 +591,15 @@ export function AICoachScreen({
                   </Text>
                 </View>
               </View>
+
+              {weak.target_learning_concept_id && weak.target_learning_concept_id !== weak.concept_id && (
+                <View style={styles.prereqTag}>
+                  <Ionicons name="git-branch" size={13} color="#8B5CF6" />
+                  <Text style={styles.prereqTagText}>
+                    Root Cause Prerequisite: {weak.target_learning_concept_id}
+                  </Text>
+                </View>
+              )}
 
               <Text style={styles.weakMistake}>⚠️ {weak.common_mistake}</Text>
 
@@ -611,8 +639,25 @@ export function AICoachScreen({
           Object.values(metrics).map((m, idx) => (
             <View key={`metric-${m.concept_id}-${idx}`} style={styles.metricCard}>
               <View style={styles.metricHeader}>
-                <Text style={styles.metricName}>{m.concept_name}</Text>
-                <Text style={styles.metricScore}>{Math.round(m.mastery_score)}% Mastery</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.metricName}>{m.concept_name}</Text>
+                  {m.is_regression && (
+                    <View style={styles.regressionPill}>
+                      <Ionicons name="refresh-circle" size={12} color="#DC2626" />
+                      <Text style={styles.regressionPillText}>Regression Refresher Needed</Text>
+                    </View>
+                  )}
+                </View>
+                <View style={{ alignItems: "flex-end", gap: 2 }}>
+                  <Text style={styles.metricScore}>{Math.round(m.mastery_score)}% Mastery</Text>
+                  {m.mastery_state && (
+                    <View style={styles.masteryStatePill}>
+                      <Text style={styles.masteryStatePillText}>
+                        {m.mastery_state.toUpperCase()}
+                      </Text>
+                    </View>
+                  )}
+                </View>
               </View>
               <View style={styles.metricBarBg}>
                 <View
@@ -634,12 +679,24 @@ export function AICoachScreen({
                 <Text style={styles.metricMetaText}>
                   {m.correct_attempts}/{m.total_attempts} Correct · {m.accuracy}% Acc
                 </Text>
+                {m.confidence !== undefined && (
+                  <Text style={styles.metricMetaText}>
+                    Confidence: {Math.round(m.confidence * 100)}%
+                  </Text>
+                )}
                 <Text style={styles.metricMetaText}>Trend: {m.trend.toUpperCase()}</Text>
               </View>
             </View>
           ))
         )}
       </ScrollView>
+
+      {/* Internal AI Coach Debug Modal */}
+      <CoachDebugModal
+        visible={showDebugModal}
+        playerId={profile.playerName || "player_local"}
+        onClose={() => setShowDebugModal(false)}
+      />
     </View>
   );
 }
@@ -1261,5 +1318,74 @@ const useStyles = makeStyles((colors) => ({
     fontSize: 11,
     color: colors.muted,
     fontWeight: "600",
+  },
+  prereqNotice: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    backgroundColor: "rgba(139, 92, 246, 0.12)",
+    padding: 12,
+    borderRadius: 14,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: "rgba(139, 92, 246, 0.3)",
+  },
+  prereqTitle: {
+    fontSize: 12,
+    fontWeight: "800",
+    color: "#8B5CF6",
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    marginBottom: 2,
+  },
+  prereqText: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: colors.onSurface,
+    lineHeight: 18,
+  },
+  prereqTag: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    backgroundColor: "rgba(139, 92, 246, 0.12)",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+    alignSelf: "flex-start",
+    marginBottom: 8,
+  },
+  prereqTagText: {
+    fontSize: 11,
+    fontWeight: "700",
+    color: "#8B5CF6",
+  },
+  regressionPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    backgroundColor: "rgba(220, 38, 38, 0.12)",
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 6,
+    alignSelf: "flex-start",
+    marginTop: 2,
+  },
+  regressionPillText: {
+    fontSize: 10,
+    fontWeight: "800",
+    color: "#DC2626",
+  },
+  masteryStatePill: {
+    backgroundColor: "rgba(0, 0, 0, 0.06)",
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 6,
+  },
+  masteryStatePillText: {
+    fontSize: 9,
+    fontWeight: "800",
+    color: colors.muted,
+    letterSpacing: 0.5,
   },
 }));

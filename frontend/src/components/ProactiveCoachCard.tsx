@@ -1,6 +1,6 @@
 /**
  * ProactiveCoachCard Component
- * Displays actionable AI Coach insights on the Home screen when a mathematical weakness is detected.
+ * Displays actionable AI Coach insights on the Home screen when a mathematical weakness or regression is detected.
  */
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
@@ -41,15 +41,21 @@ export function ProactiveCoachCard({
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.badgeRow}>
-            <View style={styles.iconCircle}>
-              <Ionicons name="sparkles" size={16} color="#FF6B00" />
+            <View style={[styles.iconCircle, insight.is_regression && { backgroundColor: "rgba(244, 63, 94, 0.15)" }]}>
+              <Ionicons
+                name={insight.is_regression ? "refresh" : "sparkles"}
+                size={16}
+                color={insight.is_regression ? "#F43F5E" : "#FF6B00"}
+              />
             </View>
-            <Text style={styles.headerTitle}>MathBlitz Coach</Text>
+            <Text style={[styles.headerTitle, insight.is_regression && { color: "#F43F5E" }]}>
+              {insight.is_regression ? "Skill Refresher" : "MathBlitz Coach"}
+            </Text>
           </View>
 
           {insight.mastery_score !== undefined && (
-            <View style={styles.masteryPill}>
-              <Text style={styles.masteryText}>
+            <View style={[styles.masteryPill, insight.is_regression && { backgroundColor: "rgba(244, 63, 94, 0.15)" }]}>
+              <Text style={[styles.masteryText, insight.is_regression && { color: "#F43F5E" }]}>
                 Mastery {Math.round(insight.mastery_score)}%
               </Text>
             </View>
@@ -58,11 +64,22 @@ export function ProactiveCoachCard({
 
         {/* Message */}
         <Text style={styles.headline}>
-          {insight.concept_name
+          {insight.is_prerequisite_gap && insight.target_learning_concept_name
+            ? `Foundation Focus: ${insight.target_learning_concept_name}`
+            : insight.concept_name
             ? `Focus on ${insight.concept_name}`
-            : "Targeted Math Practice Ready"}
+            : "Targeted Math Practice"}
         </Text>
+
         <Text style={styles.message}>{insight.message}</Text>
+
+        {/* Evidence / Reason summary pill if available */}
+        {insight.evidence_summary ? (
+          <View style={styles.reasonPill}>
+            <Ionicons name="information-circle-outline" size={14} color={isNight ? "#FFB067" : "#C2410C"} />
+            <Text style={styles.reasonText}>{insight.evidence_summary}</Text>
+          </View>
+        ) : null}
 
         {/* Action Button */}
         <View style={styles.actionRow}>
@@ -73,11 +90,12 @@ export function ProactiveCoachCard({
             onPress={handlePressFix}
             style={({ pressed }) => [
               styles.ctaButton,
+              insight.is_regression && { backgroundColor: "#F43F5E" },
               pressed && { opacity: 0.85, transform: [{ scale: 0.98 }] },
             ]}
           >
             <Ionicons name="school" size={18} color="#FFFFFF" style={{ marginRight: 6 }} />
-            <Text style={styles.ctaText}>{insight.cta_label || "Fix This Weakness"}</Text>
+            <Text style={styles.ctaText}>{insight.is_regression ? "Start Refresher" : (insight.cta_label || "Fix This Weakness")}</Text>
             <Ionicons name="arrow-forward" size={16} color="#FFFFFF" style={{ marginLeft: 6 }} />
           </Pressable>
 
@@ -149,54 +167,73 @@ const useStyles = makeStyles((colors) => ({
   masteryPill: {
     backgroundColor: "rgba(255, 107, 0, 0.15)",
     paddingHorizontal: 10,
-    paddingVertical: 3,
+    paddingVertical: 4,
     borderRadius: 12,
   },
   masteryText: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: "700",
     color: "#FF6B00",
   },
   headline: {
-    fontSize: 16,
-    fontWeight: "900",
+    fontSize: 17,
+    fontWeight: "800",
     color: colors.onSurface,
-    marginBottom: 4,
+    marginBottom: 6,
+    letterSpacing: -0.2,
   },
   message: {
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 13.5,
+    lineHeight: 19,
     color: colors.muted,
-    marginBottom: 14,
+    marginBottom: 10,
+  },
+  reasonPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: "rgba(255, 107, 0, 0.08)",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 10,
+    marginBottom: 12,
+  },
+  reasonText: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: colors.muted,
+    flex: 1,
   },
   actionRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: 10,
   },
   ctaButton: {
     flex: 1,
-    backgroundColor: "#FF6B00",
-    borderRadius: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#FF6B00",
+    paddingVertical: 11,
+    paddingHorizontal: 16,
+    borderRadius: 14,
     shadowColor: "#FF6B00",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 3,
   },
   ctaText: {
     color: "#FFFFFF",
     fontSize: 14,
     fontWeight: "800",
+    letterSpacing: 0.2,
   },
   dismissBtn: {
-    paddingVertical: 10,
+    paddingVertical: 11,
     paddingHorizontal: 14,
+    borderRadius: 14,
   },
   dismissText: {
     color: colors.muted,

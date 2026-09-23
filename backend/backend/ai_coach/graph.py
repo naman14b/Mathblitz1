@@ -1,6 +1,6 @@
 """LangGraph Stateful Workflow for MathBlitz AI Coach.
-Orchestrates player analysis, lesson generation, deterministic math verification,
-and targeted interactive practice.
+Orchestrates player analysis, root-cause diagnosis, policy execution, lesson generation,
+deterministic math verification, fingerprinting, and targeted interactive practice.
 """
 import json
 import logging
@@ -12,15 +12,16 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import END, StateGraph
 
 from ..config import OPENROUTER_API_KEY, OPENROUTER_BASE_URL, OPENROUTER_MODEL
+from ..coaching_policy import CoachingPolicyDecision, CoachingPolicyEngine
 from ..learning_engine import LearningEngine, RawAttempt, TopicMetric
 from ..taxonomy import CONCEPT_TAXONOMY, ConceptNode
-from .math_verifier import format_number, verify_math_question
+from .math_verifier import compute_question_fingerprint, format_number, verify_explanation_consistency, verify_math_question
 from .state import CoachingState, PracticeQuestion
 
 logger = logging.getLogger(__name__)
 
 
-def get_llm(temperature: float = 0.5, max_tokens: int = 700) -> Optional[ChatOpenAI]:
+def get_llm(temperature: float = 0.4, max_tokens: int = 700) -> Optional[ChatOpenAI]:
     """Instantiate LangChain ChatOpenAI configured for OpenRouter."""
     if not OPENROUTER_API_KEY:
         return None
@@ -31,6 +32,7 @@ def get_llm(temperature: float = 0.5, max_tokens: int = 700) -> Optional[ChatOpe
             openai_api_base=OPENROUTER_BASE_URL,
             temperature=temperature,
             max_tokens=max_tokens,
+            request_timeout=8,
             default_headers={
                 "HTTP-Referer": "https://mathblitz.app",
                 "X-Title": "MathBlitz AI Coach",
@@ -42,7 +44,6 @@ def get_llm(temperature: float = 0.5, max_tokens: int = 700) -> Optional[ChatOpe
 
 
 # ── Built-in Deterministic Curated Fallbacks ──────────────────────────────────
-# Used for instantaneous zero-latency response or when OpenRouter is offline
 CURATED_LESSONS: Dict[str, Dict[str, Any]] = {
     "percentages.conversion": {
         "concept_explanation": "A percentage literally means 'parts per hundred'. To convert a percentage to a fraction or decimal, divide the number by 100.",
@@ -66,6 +67,17 @@ CURATED_LESSONS: Dict[str, Dict[str, Any]] = {
             {"prompt": "What is 15% of 60?", "answer": "9", "options": ["9", "15", "6", "12"], "method": "0.15 × 60 = 9"},
         ],
     },
+    "percentages.increase_decrease": {
+        "concept_explanation": "To increase or decrease a quantity by a percentage, calculate the percentage amount and add or subtract it from the original base.",
+        "formula_breakdown": "New Value = Original × (1 ± P/100)",
+        "example_problem": "What is 80 increased by 20%?",
+        "example_solution": "20% of 80 = 16. New value = 80 + 16 = 96.",
+        "practice_templates": [
+            {"prompt": "What is 50 increased by 10%?", "answer": "55", "options": ["55", "50", "60", "65"], "method": "50 + (0.10 × 50) = 55"},
+            {"prompt": "What is 100 decreased by 25%?", "answer": "75", "options": ["75", "80", "70", "85"], "method": "100 - (0.25 × 100) = 75"},
+            {"prompt": "What is 60 increased by 15%?", "answer": "69", "options": ["69", "75", "65", "70"], "method": "60 + 9 = 69"},
+        ],
+    },
     "algebra.linear_equations": {
         "concept_explanation": "To solve two-step linear equations, apply inverse operations in reverse order: first undo addition/subtraction, then undo multiplication/division.",
         "formula_breakdown": "ax + b = c ⇒ ax = c - b ⇒ x = (c - b) / a",
@@ -77,6 +89,17 @@ CURATED_LESSONS: Dict[str, Dict[str, Any]] = {
             {"prompt": "Solve for x: 5x + 10 = 45", "answer": "7", "options": ["7", "9", "8", "5"], "method": "5x = 35 ⇒ x = 7"},
         ],
     },
+    "algebra.basic_equations": {
+        "concept_explanation": "In single-step equations, isolate the variable by performing the opposite mathematical operation on both sides.",
+        "formula_breakdown": "x + a = b ⇒ x = b - a,  a × x = b ⇒ x = b ÷ a",
+        "example_problem": "Solve for x: x + 8 = 23",
+        "example_solution": "Subtract 8 from both sides: x = 23 - 8 = 15.",
+        "practice_templates": [
+            {"prompt": "Solve for x: x + 12 = 30", "answer": "18", "options": ["18", "12", "22", "42"], "method": "x = 30 - 12 = 18"},
+            {"prompt": "Solve for x: 6x = 48", "answer": "8", "options": ["8", "6", "9", "7"], "method": "x = 48 ÷ 6 = 8"},
+            {"prompt": "Solve for x: x - 9 = 15", "answer": "24", "options": ["24", "6", "22", "18"], "method": "x = 15 + 9 = 24"},
+        ],
+    },
     "algebra.negative_numbers": {
         "concept_explanation": "When multiplying two negative numbers, the result is positive. When multiplying a positive and negative, the result is negative.",
         "formula_breakdown": "(-) × (-) = (+),  (-) × (+) = (-)",
@@ -86,6 +109,28 @@ CURATED_LESSONS: Dict[str, Dict[str, Any]] = {
             {"prompt": "Calculate: (-3) × (-7)", "answer": "21", "options": ["21", "-21", "10", "-10"], "method": "Negative × Negative = +21"},
             {"prompt": "Calculate: -12 + (-8)", "answer": "-20", "options": ["-20", "-4", "20", "4"], "method": "-12 - 8 = -20"},
             {"prompt": "Calculate: 15 - (-9)", "answer": "24", "options": ["24", "6", "-24", "-6"], "method": "Subtracting negative adds: 15 + 9 = 24"},
+        ],
+    },
+    "fractions.multiplication_division": {
+        "concept_explanation": "To multiply fractions, multiply across the top and bottom. To divide fractions, flip the second fraction (reciprocal) and multiply.",
+        "formula_breakdown": "(a/b) × (c/d) = (ac)/(bd),  (a/b) ÷ (c/d) = (ad)/(bc)",
+        "example_problem": "Calculate: 2/3 × 3/4",
+        "example_solution": "Multiply numerators: 2 × 3 = 6. Multiply denominators: 3 × 4 = 12. Simplify: 6/12 = 1/2.",
+        "practice_templates": [
+            {"prompt": "Calculate: 1/2 × 4/5", "answer": "2/5", "options": ["2/5", "4/10", "1/5", "5/8"], "method": "4/10 = 2/5"},
+            {"prompt": "Calculate: 3/4 ÷ 1/2", "answer": "3/2", "options": ["3/2", "3/8", "1/2", "2/3"], "method": "3/4 × 2/1 = 6/4 = 3/2"},
+            {"prompt": "Calculate: 2/5 × 5/6", "answer": "1/3", "options": ["1/3", "2/6", "1/2", "10/30"], "method": "10/30 = 1/3"},
+        ],
+    },
+    "arithmetic.order_of_operations": {
+        "concept_explanation": "Always evaluate mathematical expressions in PEMDAS/BODMAS order: Brackets first, then Exponents, then Multiplication & Division left-to-right, then Addition & Subtraction.",
+        "formula_breakdown": "Parentheses → Exponents → Multiplication/Division → Addition/Subtraction",
+        "example_problem": "Calculate: 4 + 6 × 3",
+        "example_solution": "Multiplication first: 6 × 3 = 18. Then addition: 4 + 18 = 22 (NOT (4+6)×3=30).",
+        "practice_templates": [
+            {"prompt": "Calculate: 5 + 3 × 4", "answer": "17", "options": ["17", "32", "20", "15"], "method": "3 × 4 = 12, 5 + 12 = 17"},
+            {"prompt": "Calculate: 20 - 8 ÷ 2", "answer": "16", "options": ["16", "6", "14", "18"], "method": "8 ÷ 2 = 4, 20 - 4 = 16"},
+            {"prompt": "Calculate: 2 × 5 + 4 × 3", "answer": "22", "options": ["22", "42", "26", "18"], "method": "10 + 12 = 22"},
         ],
     },
 }
@@ -105,376 +150,278 @@ def node_load_player_profile(state: CoachingState) -> Dict[str, Any]:
             subtopic=a.get("subtopic"),
             difficulty=a.get("difficulty", 1),
             response_time_ms=a.get("response_time_ms", 0),
+            game_mode=a.get("game_mode", "classic"),
             error_category=a.get("error_category"),
             error_hypothesis=a.get("error_hypothesis"),
         )
         for a in state.get("recent_performance", [])
     ]
 
-    profile = LearningEngine.build_profile(state.get("player_id", "guest"), raw_attempts)
+    profile = LearningEngine.build_profile(state.get("player_id", "anon"), raw_attempts)
 
-    # Convert topic metrics to serializable dicts
-    serialized_metrics = {
-        cid: {
-            "concept_id": m.concept_id,
-            "concept_name": m.concept_name,
-            "topic": m.topic,
-            "subtopic": m.subtopic,
-            "accuracy": m.accuracy,
-            "recent_accuracy": m.recent_accuracy,
-            "trend": m.trend,
-            "mastery_score": m.mastery_score,
-            "confidence_level": m.confidence_level,
-            "primary_error": m.primary_error,
-            "primary_mistake_desc": m.primary_mistake_desc,
-            "total_attempts": m.total_attempts,
-            "correct_attempts": m.correct_attempts,
-        }
-        for cid, m in profile.topic_metrics.items()
-    }
+    # Determine focus concept
+    focus_cid = state.get("current_concept_id")
+    weakness_match = next((w for w in profile.weak_areas if w.concept_id == focus_cid), None)
 
-    weak_list = [
-        {
-            "concept_id": w.concept_id,
-            "concept_name": w.concept_name,
-            "topic": w.topic,
-            "subtopic": w.subtopic,
-            "accuracy": w.accuracy,
-            "recent_accuracy": w.recent_accuracy,
-            "severity": w.severity,
-            "primary_error_category": w.primary_error_category,
-            "common_mistake": w.common_mistake,
-            "recommended_action": w.recommended_action,
-            "mastery_score": w.mastery_score,
-            "total_attempts": w.total_attempts,
-        }
-        for w in profile.weak_areas
-    ]
-
-    return {
-        "topic_metrics": serialized_metrics,
-        "weak_topics": weak_list,
-    }
-
-
-def node_identify_weakness(state: CoachingState) -> Dict[str, Any]:
-    """Select the target concept to coach."""
-    target_cid = state.get("current_concept_id")
-    weak_topics = state.get("weak_topics", [])
-    topic_metrics = state.get("topic_metrics", {})
-
-    chosen_weakness: Optional[Dict[str, Any]] = None
-
-    if target_cid and target_cid in topic_metrics:
-        # User explicitly requested this concept
-        m = topic_metrics[target_cid]
-        chosen_weakness = {
-            "concept_id": m["concept_id"],
-            "concept_name": m["concept_name"],
-            "topic": m["topic"],
-            "subtopic": m["subtopic"],
-            "accuracy": m["accuracy"],
-            "mastery_score": m["mastery_score"],
-            "common_mistake": m.get("primary_mistake_desc") or "Core formula application",
-            "primary_error_category": m.get("primary_error") or "calculation_error",
-        }
-    elif weak_topics:
-        # Pick the most severe detected weakness
-        chosen_weakness = weak_topics[0]
-    else:
-        # Default to a core high-value concept
-        chosen_weakness = {
-            "concept_id": "percentages.conversion",
-            "concept_name": "Percentage to Fraction Conversion",
-            "topic": "percentages",
-            "subtopic": "conversion",
-            "accuracy": 50.0,
-            "mastery_score": 50.0,
-            "common_mistake": "Treating percentage number as direct multiplier",
-            "primary_error_category": "percentage_conversion_error",
-        }
-
-    concept_id = chosen_weakness["concept_id"]
-    mastery_before = chosen_weakness.get("mastery_score", 50.0)
-
-    return {
-        "current_concept_id": concept_id,
-        "current_concept_name": chosen_weakness["concept_name"],
-        "current_topic": chosen_weakness["topic"],
-        "current_subtopic": chosen_weakness["subtopic"],
-        "common_mistake": chosen_weakness.get("common_mistake", ""),
-        "mastery_before": mastery_before,
-        "learning_objective": f"Master {chosen_weakness['concept_name']} and prevent {chosen_weakness.get('common_mistake', 'mistakes')}",
-    }
-
-
-def node_generate_lesson(state: CoachingState) -> Dict[str, Any]:
-    """Generate Step 1 (Understand) and Step 2 (Example) using LangChain with fallback."""
-    concept_id = state.get("current_concept_id", "percentages.conversion")
-    concept_name = state.get("current_concept_name", "Math Concept")
-    common_mistake = state.get("common_mistake", "")
-    llm = get_llm(temperature=0.3, max_tokens=600)
-
-    lesson_data: Optional[Dict[str, Any]] = None
-
-    if llm:
-        system_prompt = (
-            "You are MathBlitz AI Coach, a friendly, concise, expert math tutor. "
-            "Your output must be strict valid JSON with keys: "
-            "'concept_explanation' (2-3 punchy sentences), 'formula_breakdown' (key rule/formula), "
-            "'example_problem' (short question), 'example_solution' (clear 1-2 line solution showing the step)."
-        )
-        user_prompt = (
-            f"Concept: {concept_name} (ID: {concept_id})\n"
-            f"Observed Player Mistake: {common_mistake}\n"
-            "Teach the player how to fix this exact mistake. Provide clear, simple math."
-        )
-
-        try:
-            resp = llm.invoke([
-                SystemMessage(content=system_prompt),
-                HumanMessage(content=user_prompt),
-            ])
-            text = resp.content.strip()
-            # Parse JSON block
-            if text.startswith("```json"):
-                text = text[7:]
-            if text.endswith("```"):
-                text = text[:-3]
-            lesson_data = json.loads(text.strip())
-        except Exception as exc:
-            logger.warning(f"[AICoach] Lesson LLM generation failed: {exc}")
-
-    # Fallback to curated lesson template if LLM failed or offline
-    if not lesson_data or not lesson_data.get("concept_explanation"):
-        template = CURATED_LESSONS.get(concept_id) or CURATED_LESSONS["percentages.conversion"]
-        lesson_data = {
-            "concept_explanation": template["concept_explanation"],
-            "formula_breakdown": template["formula_breakdown"],
-            "example_problem": template["example_problem"],
-            "example_solution": template["example_solution"],
-        }
-
-    return {
-        "concept_explanation": lesson_data["concept_explanation"],
-        "formula_breakdown": lesson_data["formula_breakdown"],
-        "example_problem": lesson_data["example_problem"],
-        "example_solution": lesson_data["example_solution"],
-    }
-
-
-def node_generate_practice(state: CoachingState) -> Dict[str, Any]:
-    """Generate 3 targeted practice questions for the interactive coaching session."""
-    concept_id = state.get("current_concept_id", "percentages.conversion")
-    concept_name = state.get("current_concept_name", "Math Concept")
-    llm = get_llm(temperature=0.4, max_tokens=700)
-
-    practice_items: List[PracticeQuestion] = []
-
-    if llm:
-        system_prompt = (
-            "You are MathBlitz Question Generator. Output strict valid JSON array containing exactly 3 practice questions. "
-            "Each question object must have: "
-            "'id' (string), 'difficulty' (1=warmup, 2=core, 3=challenge), 'prompt' (string), "
-            "'options' (array of 4 distinct numerical strings), 'correct_answer' (string matching one option), "
-            "'solution_method' (1-sentence explanation), 'concept_tested' (string)."
-        )
-        user_prompt = f"Generate 3 progressive questions for concept '{concept_name}'."
-
-        try:
-            resp = llm.invoke([
-                SystemMessage(content=system_prompt),
-                HumanMessage(content=user_prompt),
-            ])
-            text = resp.content.strip()
-            if text.startswith("```json"):
-                text = text[7:]
-            if text.endswith("```"):
-                text = text[:-3]
-            parsed = json.loads(text.strip())
-            if isinstance(parsed, list) and len(parsed) >= 3:
-                practice_items = [
-                    {
-                        "id": f"coach-q-{i+1}",
-                        "difficulty": q.get("difficulty", i + 1),
-                        "prompt": str(q.get("prompt", "")),
-                        "options": [str(opt) for opt in q.get("options", [])],
-                        "correct_answer": str(q.get("correct_answer", "")),
-                        "solution_method": str(q.get("solution_method", "")),
-                        "concept_tested": concept_name,
-                        "verified": False,
-                    }
-                    for i, q in enumerate(parsed[:3])
-                ]
-        except Exception as exc:
-            logger.warning(f"[AICoach] Practice LLM generation failed: {exc}")
-
-    # Fallback to curated templates if generation failed
-    if len(practice_items) < 3:
-        template = CURATED_LESSONS.get(concept_id) or CURATED_LESSONS["percentages.conversion"]
-        practice_items = [
-            {
-                "id": f"curated-{i+1}",
-                "difficulty": i + 1,
-                "prompt": t["prompt"],
-                "options": t["options"],
-                "correct_answer": t["answer"],
-                "solution_method": t["method"],
-                "concept_tested": concept_name,
-                "verified": True,
-            }
-            for i, t in enumerate(template["practice_templates"][:3])
-        ]
-
-    return {
-        "practice_questions": practice_items,
-        "current_question_index": 0,
-    }
-
-
-def node_verify_math(state: CoachingState) -> Dict[str, Any]:
-    """
-    Deterministically verify all generated practice questions.
-    Filters or replaces any question with a verified mathematical result.
-    """
-    raw_questions = state.get("practice_questions", [])
-    concept_id = state.get("current_concept_id", "percentages.conversion")
-    verified_list: List[PracticeQuestion] = []
-
-    for q in raw_questions:
-        is_valid, msg, calculated_ans = verify_math_question(
-            prompt=q["prompt"],
-            claimed_answer=q["correct_answer"],
-            options=q["options"],
-        )
-
-        if is_valid:
-            q["verified"] = True
-            verified_list.append(q)
+    if not weakness_match:
+        if profile.weak_areas:
+            weakness_match = profile.weak_areas[0]
+            focus_cid = weakness_match.concept_id
         else:
-            logger.warning(f"[AICoach] Question failed verification: {q['prompt']} ({msg}). Using certified fallback.")
-            # Fall back to a guaranteed certified template
-            template = CURATED_LESSONS.get(concept_id) or CURATED_LESSONS["percentages.conversion"]
-            idx = min(len(verified_list), len(template["practice_templates"]) - 1)
-            t = template["practice_templates"][idx]
-            verified_list.append({
-                "id": f"certified-{len(verified_list)+1}",
-                "difficulty": len(verified_list) + 1,
-                "prompt": t["prompt"],
-                "options": t["options"],
-                "correct_answer": t["answer"],
-                "solution_method": t["method"],
-                "concept_tested": state.get("current_concept_name", "Math"),
-                "verified": True,
-            })
+            focus_cid = focus_cid or "percentages.conversion"
+            node = CONCEPT_TAXONOMY.get(focus_cid)
+            weakness_match = None
+
+    node = CONCEPT_TAXONOMY.get(focus_cid) or CONCEPT_TAXONOMY["percentages.conversion"]
+    metric = profile.topic_metrics.get(focus_cid)
+
+    # Execute Coaching Policy
+    policy: CoachingPolicyDecision = CoachingPolicyEngine.evaluate_policy(
+        surface_concept_id=focus_cid,
+        metrics=profile.topic_metrics,
+        recent_accuracy=metric.recent_accuracy if metric else 0.0,
+        primary_error=metric.primary_error if metric else None,
+        mastery_score=metric.mastery_score if metric else 50.0,
+        sample_size=metric.total_attempts if metric else 0,
+        is_regression=metric.regression_detected if metric else False,
+    )
+
+    target_node = CONCEPT_TAXONOMY.get(policy.target_learning_concept_id) or node
 
     return {
-        "verified_practice": verified_list,
-        "practice_questions": verified_list,
+        "topic_metrics": {k: vars(v) for k, v in profile.topic_metrics.items()},
+        "weak_topics": [vars(w) for w in profile.weak_areas],
+        "current_concept_id": focus_cid,
+        "current_concept_name": node.name,
+        "current_topic": node.topic,
+        "current_subtopic": node.subtopic,
+        "target_learning_concept_id": policy.target_learning_concept_id,
+        "target_learning_concept_name": policy.target_learning_concept_name,
+        "is_prerequisite_gap": policy.is_prerequisite_gap,
+        "root_cause_error": policy.root_cause_error,
+        "common_mistake": (metric.primary_mistake_desc if metric and metric.primary_mistake_desc else (node.common_pitfalls[0] if node.common_pitfalls else "Formula calculation errors")),
+        "learning_objective": policy.learning_objective,
+        "evidence_summary": policy.evidence_summary,
+        "intervention_type": policy.intervention_type,
+        "mastery_before": metric.mastery_score if metric else 50.0,
+        "confidence_before": metric.confidence if metric else 0.3,
+        "retry_count": 0,
+    }
+
+
+def node_generate_and_verify_lesson(state: CoachingState) -> Dict[str, Any]:
+    """Generate structured lesson and practice with deterministic SymPy verification & fingerprinting."""
+    target_cid = state.get("target_learning_concept_id") or state.get("current_concept_id") or "percentages.conversion"
+    target_node = CONCEPT_TAXONOMY.get(target_cid) or CONCEPT_TAXONOMY["percentages.conversion"]
+    common_mistake = state.get("common_mistake", "")
+    objective = state.get("learning_objective", "")
+    fingerprints_seen: List[str] = list(state.get("fingerprints_seen") or [])
+
+    llm = get_llm(temperature=0.3)
+
+    if llm:
+        system_prompt = (
+            "You are MathBlitz AI Coach, a world-class, engaging mathematics coach. "
+            "Generate an interactive, crystal-clear 5-step math lesson in strict JSON format.\n\n"
+            "Format schema:\n"
+            "{\n"
+            '  "concept_explanation": "2-3 intuitive sentences explaining the core concept.",\n'
+            '  "formula_breakdown": "Clear standard formula.",\n'
+            '  "example_problem": "An explicit math question (e.g. Solve for x: 3x + 7 = 22).",\n'
+            '  "example_solution": "Step 1: ... Step 2: ... Final answer: ...",\n'
+            '  "practice_questions": [\n'
+            '    {\n'
+            '      "prompt": "Exact math question string",\n'
+            '      "correct_answer": "Exact numerical or simplified answer",\n'
+            '      "options": ["correct_answer", "distractor1", "distractor2", "distractor3"],\n'
+            '      "solution_method": "1-sentence calculation step"\n'
+            '    }\n'
+            '  ]\n'
+            "}\n"
+            "CRITICAL RULES:\n"
+            "1. practice_questions MUST contain exactly 3 questions.\n"
+            "2. All options MUST be mathematically distinct and contain the exact correct_answer.\n"
+            "3. Calculations MUST be 100% accurate."
+        )
+
+        user_content = (
+            f"Concept: {target_node.name} ({target_cid})\n"
+            f"Formula: {target_node.formula or 'Standard'}\n"
+            f"Target Learning Objective: {objective}\n"
+            f"Student Common Pitfall: {common_mistake}\n"
+            f"Examples for reference: {target_node.examples}\n"
+            "Output JSON only."
+        )
+
+        try:
+            response = llm.invoke([
+                SystemMessage(content=system_prompt),
+                HumanMessage(content=user_content),
+            ])
+
+            raw_json = response.content.strip()
+            if raw_json.startswith("```json"):
+                raw_json = raw_json[7:]
+            if raw_json.endswith("```"):
+                raw_json = raw_json[:-3]
+            raw_json = raw_json.strip()
+
+            parsed = json.loads(raw_json)
+
+            # Deterministic Verification Pipeline
+            verified_practice: List[PracticeQuestion] = []
+            cand_questions = parsed.get("practice_questions", [])
+
+            for idx, q in enumerate(cand_questions):
+                prompt = q.get("prompt", "")
+                claimed_ans = str(q.get("correct_answer", "")).strip()
+                options = [str(o).strip() for o in q.get("options", [])]
+                method = q.get("solution_method", "")
+
+                is_valid, msg, verified_ans = verify_math_question(prompt, claimed_ans, options, topic=target_node.topic)
+
+                if is_valid and verified_ans:
+                    fp = compute_question_fingerprint(prompt, target_cid)
+                    # Check fingerprint to prevent repetition
+                    if fp not in fingerprints_seen:
+                        fingerprints_seen.append(fp)
+                        verified_practice.append(
+                            PracticeQuestion(
+                                id=f"q_{idx+1}_{random.randint(100, 999)}",
+                                difficulty=idx + 1,
+                                prompt=prompt,
+                                options=options,
+                                correct_answer=verified_ans,
+                                solution_method=method or f"Verified solution = {verified_ans}",
+                                concept_tested=target_node.name,
+                                verified=True,
+                                fingerprint=fp,
+                            )
+                        )
+
+            # If all 3 practice questions passed SymPy validation
+            if len(verified_practice) == 3:
+                # Verify explanation consistency
+                exp_valid, _ = verify_explanation_consistency(
+                    prompt=parsed.get("example_problem", ""),
+                    correct_answer=verified_practice[0]["correct_answer"],
+                    explanation=parsed.get("concept_explanation", ""),
+                    example_solution=parsed.get("example_solution", ""),
+                )
+
+                return {
+                    "concept_explanation": parsed.get("concept_explanation", target_node.description),
+                    "formula_breakdown": parsed.get("formula_breakdown", target_node.formula or "Standard formula"),
+                    "example_problem": parsed.get("example_problem", target_node.examples[0] if target_node.examples else ""),
+                    "example_solution": parsed.get("example_solution", ""),
+                    "verified_practice": verified_practice,
+                    "fingerprints_seen": fingerprints_seen,
+                    "next_action": "show_step_1",
+                }
+            else:
+                logger.warning(f"[AICoach] LLM produced only {len(verified_practice)}/3 verified questions. Using curated fallback.")
+        except Exception as exc:
+            logger.warning(f"[AICoach] Lesson generation failed: {exc}. Using curated fallback.")
+
+    # ── Deterministic Curated Fallback ──
+    fallback_data = CURATED_LESSONS.get(target_cid) or CURATED_LESSONS.get("percentages.conversion")
+    curated_practice: List[PracticeQuestion] = []
+
+    for idx, item in enumerate(fallback_data["practice_templates"]):
+        fp = compute_question_fingerprint(item["prompt"], target_cid)
+        fingerprints_seen.append(fp)
+        curated_practice.append(
+            PracticeQuestion(
+                id=f"curated_{idx+1}",
+                difficulty=idx + 1,
+                prompt=item["prompt"],
+                options=item["options"],
+                correct_answer=item["answer"],
+                solution_method=item["method"],
+                concept_tested=target_node.name,
+                verified=True,
+                fingerprint=fp,
+            )
+        )
+
+    return {
+        "concept_explanation": fallback_data["concept_explanation"],
+        "formula_breakdown": fallback_data["formula_breakdown"],
+        "example_problem": fallback_data["example_problem"],
+        "example_solution": fallback_data["example_solution"],
+        "verified_practice": curated_practice,
+        "fingerprints_seen": fingerprints_seen,
         "next_action": "show_step_1",
     }
 
 
-def node_evaluate_response(state: CoachingState) -> Dict[str, Any]:
-    """Evaluate player's practice attempt and provide supportive pedagogical feedback."""
-    q_idx = state.get("current_question_index", 0)
-    questions = state.get("verified_practice", [])
-    student_ans = str(state.get("student_response", "")).strip()
+def node_evaluate_practice_answer(state: CoachingState) -> Dict[str, Any]:
+    """Deterministically evaluate student answer and calculate mastery delta."""
+    idx = state.get("current_question_index", 0)
+    practice_list = state.get("verified_practice", [])
 
-    if not questions or q_idx >= len(questions):
-        return {
-            "is_response_correct": False,
-            "pedagogical_feedback": "Session complete.",
-            "next_action": "complete_session",
-        }
+    if idx < 0 or idx >= len(practice_list):
+        return {"next_action": "complete_session"}
 
-    curr_q = questions[q_idx]
-    correct_ans = str(curr_q["correct_answer"]).strip()
-    is_correct = student_ans == correct_ans
+    question = practice_list[idx]
+    student_ans = str(state.get("student_response", "")).strip().lower()
+    correct_ans = str(question["correct_answer"]).strip().lower()
 
-    llm = get_llm(temperature=0.3, max_tokens=250)
-    feedback_text = ""
+    is_correct = False
+    try:
+        s_num = float(student_ans)
+        c_num = float(correct_ans)
+        is_correct = abs(s_num - c_num) < 0.001
+    except ValueError:
+        is_correct = student_ans == correct_ans
+
+    # Mastery Delta Calculation
+    before = state.get("mastery_before", 50.0)
+    conf_before = state.get("confidence_before", 0.3)
 
     if is_correct:
-        feedback_text = f"Spot on! {curr_q['solution_method']}. You applied the concept perfectly."
+        delta = 6.0 + (question["difficulty"] * 2.0)  # +8 to +12
+        conf_after = min(1.0, conf_before + 0.08)
+        feedback = f"✨ Correct! {question['solution_method']}"
     else:
-        if llm:
-            try:
-                system_prompt = (
-                    "You are MathBlitz AI Coach. The student made a mistake on a practice question. "
-                    "In 1 to 2 warm, encouraging sentences: explain WHY the correct answer is right and guide them gently."
-                )
-                user_prompt = (
-                    f"Question: {curr_q['prompt']}\n"
-                    f"Student chosen answer: {student_ans}\n"
-                    f"Correct answer: {correct_ans}\n"
-                    f"Method: {curr_q['solution_method']}"
-                )
-                resp = llm.invoke([
-                    SystemMessage(content=system_prompt),
-                    HumanMessage(content=user_prompt),
-                ])
-                feedback_text = resp.content.strip()
-            except Exception:
-                pass
+        delta = -2.0
+        conf_after = conf_before
+        feedback = f"Incorrect. Correct answer was {question['correct_answer']}. Method: {question['solution_method']}"
 
-        if not feedback_text:
-            feedback_text = f"The correct answer is {correct_ans}. Remember: {curr_q['solution_method']}. Keep this rule in mind for the next one!"
+    after = min(100.0, max(0.0, before + delta))
 
     return {
         "is_response_correct": is_correct,
-        "pedagogical_feedback": feedback_text,
-    }
-
-
-def node_update_learning_profile(state: CoachingState) -> Dict[str, Any]:
-    """Calculate mastery score delta and prepare session completion."""
-    mastery_before = state.get("mastery_before", 50.0)
-    is_correct = state.get("is_response_correct", False)
-
-    # Positive boost on correct answer (+15% to +20%), modest adjustment on mistake (+5% for effort/review)
-    gain = 18.0 if is_correct else 6.0
-    mastery_after = min(100.0, round(mastery_before + gain, 1))
-    delta = round(mastery_after - mastery_before, 1)
-
-    return {
-        "mastery_after": mastery_after,
+        "pedagogical_feedback": feedback,
+        "mastery_after": after,
+        "confidence_after": conf_after,
         "mastery_delta": delta,
-        "next_action": "complete_session",
+        "next_action": "give_feedback",
     }
 
 
-# ── Build Graph ───────────────────────────────────────────────────────────────
+# ── LangGraph Workflow Construction ──────────────────────────────────────────
 
 def build_coaching_graph():
-    """Construct the LangGraph StateGraph with explicit nodes and transitions."""
-    builder = StateGraph(CoachingState)
+    """Build the stateful LangGraph for MathBlitz AI Coach."""
+    workflow = StateGraph(CoachingState)
 
-    # Add nodes
-    builder.add_node("load_player_profile", node_load_player_profile)
-    builder.add_node("identify_weakness", node_identify_weakness)
-    builder.add_node("generate_lesson", node_generate_lesson)
-    builder.add_node("generate_practice", node_generate_practice)
-    builder.add_node("verify_math", node_verify_math)
-    builder.add_node("evaluate_response", node_evaluate_response)
-    builder.add_node("update_learning_profile", node_update_learning_profile)
+    workflow.add_node("analyze_profile", node_load_player_profile)
+    workflow.add_node("generate_lesson", node_generate_and_verify_lesson)
+    workflow.add_node("evaluate_answer", node_evaluate_practice_answer)
 
-    # Set entry point
-    builder.set_entry_point("load_player_profile")
+    workflow.set_entry_point("analyze_profile")
+    workflow.add_edge("analyze_profile", "generate_lesson")
+    workflow.add_edge("generate_lesson", END)
+    workflow.add_edge("evaluate_answer", END)
 
-    # Transitions for lesson generation
-    builder.add_edge("load_player_profile", "identify_weakness")
-    builder.add_edge("identify_weakness", "generate_lesson")
-    builder.add_edge("generate_lesson", "generate_practice")
-    builder.add_edge("generate_practice", "verify_math")
-    builder.add_edge("verify_math", END)
-
-    # Transitions for answer evaluation
-    builder.add_edge("evaluate_response", "update_learning_profile")
-    builder.add_edge("update_learning_profile", END)
-
-    return builder.compile()
+    return workflow.compile()
 
 
-# Singleton compiled graph instance
-coaching_workflow = build_coaching_graph()
+coaching_graph = build_coaching_graph()
+coaching_workflow = coaching_graph
+
+
+def run_coaching_graph(initial_state: CoachingState) -> CoachingState:
+    """Execute stateful LangGraph workflow synchronously."""
+    return coaching_graph.invoke(initial_state)

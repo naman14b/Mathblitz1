@@ -98,15 +98,37 @@ export function getSudokuHintsUsed(profile: LocalProfile, id: string): number {
   return profile.sudokuHintsUsed?.[id] ?? 0;
 }
 
-// ─── AI Coach Telemetry Storage ───────────────────────────────────────────────
+// ─── AI Coach Telemetry Storage & Offline Sync Queue ────────────────────────
 const ATTEMPTS_KEY = "mathblitz.attempts.v1";
+const PENDING_SYNC_KEY = "mathblitz.pending_sync_attempts.v1";
 const COACH_INSIGHT_KEY = "mathblitz.coach_insight.v1";
 
 export async function saveAttempts(newAttempts: any[]): Promise<void> {
   if (!newAttempts || !newAttempts.length) return;
+  const enriched = newAttempts.map((a) => ({
+    ...a,
+    attempt_id: a.attempt_id || `att_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
+  }));
   const existing = (await storage.getItem<any[]>(ATTEMPTS_KEY, [])) || [];
-  const merged = [...existing, ...newAttempts].slice(-200); // Keep last 200 attempts locally
+  const merged = [...existing, ...enriched].slice(-200); // Keep last 200 attempts locally
   await storage.setItem(ATTEMPTS_KEY, merged);
+
+  // Also queue for server sync
+  const pending = (await storage.getItem<any[]>(PENDING_SYNC_KEY, [])) || [];
+  const mergedPending = [...pending, ...enriched].slice(-100);
+  await storage.setItem(PENDING_SYNC_KEY, mergedPending);
+}
+
+export async function getPendingSyncAttempts(): Promise<any[]> {
+  return (await storage.getItem<any[]>(PENDING_SYNC_KEY, [])) || [];
+}
+
+export async function clearSyncedAttempts(syncedIds: string[]): Promise<void> {
+  if (!syncedIds || !syncedIds.length) return;
+  const idSet = new Set(syncedIds);
+  const pending = (await storage.getItem<any[]>(PENDING_SYNC_KEY, [])) || [];
+  const remaining = pending.filter((a) => !idSet.has(a.attempt_id));
+  await storage.setItem(PENDING_SYNC_KEY, remaining);
 }
 
 export async function loadRecentAttempts(limit: number = 50): Promise<any[]> {
@@ -121,4 +143,5 @@ export async function saveCachedInsight(insight: any): Promise<void> {
 export async function loadCachedInsight(): Promise<any | null> {
   return await storage.getItem(COACH_INSIGHT_KEY, null);
 }
+
 

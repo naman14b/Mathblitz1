@@ -11,6 +11,7 @@ class PracticeQuestion(TypedDict):
     solution_method: str
     concept_tested: str
     verified: bool
+    fingerprint: Optional[str]
 
 
 class CoachingState(TypedDict, total=False):
@@ -22,13 +23,19 @@ class CoachingState(TypedDict, total=False):
     weak_topics: List[Dict[str, Any]]
     detected_errors: List[Dict[str, Any]]
 
-    # Current coaching target
+    # Current coaching target & Root-cause resolution
     current_concept_id: str
     current_concept_name: str
     current_topic: str
     current_subtopic: str
+    target_learning_concept_id: str
+    target_learning_concept_name: str
+    is_prerequisite_gap: bool
+    root_cause_error: str
     common_mistake: str
     learning_objective: str
+    evidence_summary: str
+    intervention_type: str
 
     # Teaching material generated
     concept_explanation: str
@@ -40,6 +47,7 @@ class CoachingState(TypedDict, total=False):
     # Practice items (verified deterministically)
     practice_questions: List[PracticeQuestion]
     verified_practice: List[PracticeQuestion]
+    fingerprints_seen: List[str]
 
     # Student interactive response & evaluation
     current_question_index: int
@@ -47,11 +55,14 @@ class CoachingState(TypedDict, total=False):
     is_response_correct: Optional[bool]
     pedagogical_feedback: Optional[str]
 
-    # Mastery scores
+    # Mastery & Confidence scores
     mastery_before: float
+    confidence_before: float
     mastery_after: float
+    confidence_after: float
     mastery_delta: float
 
     # Workflow controls
+    retry_count: int
     next_action: str  # "show_step_1" | "await_student_answer" | "give_feedback" | "complete_session" | "fallback"
     error_message: Optional[str]

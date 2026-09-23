@@ -8,6 +8,7 @@ import {
   LearningProfile,
   QuestionAttempt,
 } from "../game/types";
+import { clearSyncedAttempts, getPendingSyncAttempts, loadCachedInsight, saveCachedInsight } from "../game/storage";
 
 const backendUrl =
   Constants.expoConfig?.extra?.backendUrl ?? process.env.EXPO_PUBLIC_BACKEND_URL;
@@ -41,6 +42,12 @@ function createOfflineFallbackLesson(conceptId?: string): CoachingSessionData {
       concept_name: "Linear Equations",
       topic: "algebra",
       subtopic: "linear_equations",
+      target_learning_concept_id: "algebra.linear_equations",
+      target_learning_concept_name: "Linear Equations",
+      is_prerequisite_gap: false,
+      root_cause_error: "algebraic_manipulation_error",
+      evidence_summary: "Inverse operation errors on multi-step equations.",
+      intervention_type: "teach_then_practice",
       common_mistake: "Adding instead of using inverse operations",
       learning_objective: "Master isolating variables by applying inverse operations step-by-step.",
       concept_explanation:
@@ -81,6 +88,7 @@ function createOfflineFallbackLesson(conceptId?: string): CoachingSessionData {
         },
       ],
       mastery_before: 45,
+      confidence_before: 0.4,
     };
   }
 
@@ -90,6 +98,12 @@ function createOfflineFallbackLesson(conceptId?: string): CoachingSessionData {
     concept_name: "Percentage ↔ Fraction Conversion",
     topic: "percentages",
     subtopic: "conversion",
+    target_learning_concept_id: "percentages.conversion",
+    target_learning_concept_name: "Percentage ↔ Fraction Conversion",
+    is_prerequisite_gap: false,
+    root_cause_error: "percentage_conversion_error",
+    evidence_summary: "Treating percentage numbers directly without dividing by 100.",
+    intervention_type: "teach_then_practice",
     common_mistake: "Treating 15% as 15 instead of 15/100",
     learning_objective: "Understand percent means 'per hundred' and divide by 100 before multiplying.",
     concept_explanation:
@@ -104,8 +118,8 @@ function createOfflineFallbackLesson(conceptId?: string): CoachingSessionData {
         prompt: "What is 20% of 150?",
         options: ["30", "20", "25", "35"],
         correct_answer: "30",
-        solution_method: "0.20 × 150 = 30",
-        concept_tested: "Percentages",
+        solution_method: "20% = 0.20 × 150 = 30",
+        concept_tested: "Percentage Conversion",
         verified: true,
       },
       {
@@ -114,8 +128,8 @@ function createOfflineFallbackLesson(conceptId?: string): CoachingSessionData {
         prompt: "What is 25% of 80?",
         options: ["20", "25", "16", "30"],
         correct_answer: "20",
-        solution_method: "0.25 × 80 = 20",
-        concept_tested: "Percentages",
+        solution_method: "25% = 1/4 of 80 = 20",
+        concept_tested: "Percentage Conversion",
         verified: true,
       },
       {
@@ -124,12 +138,13 @@ function createOfflineFallbackLesson(conceptId?: string): CoachingSessionData {
         prompt: "What is 15% of 120?",
         options: ["18", "15", "22", "12"],
         correct_answer: "18",
-        solution_method: "0.15 × 120 = 18",
-        concept_tested: "Percentages",
+        solution_method: "10% is 12, 5% is 6 ⇒ 12 + 6 = 18",
+        concept_tested: "Percentage Conversion",
         verified: true,
       },
     ],
-    mastery_before: 42,
+    mastery_before: 50,
+    confidence_before: 0.4,
   };
 }
 
@@ -141,15 +156,22 @@ export const aiCoachApi = {
     playerName: string = "Player"
   ): Promise<{ recorded: number }> => {
     try {
-      return await request<{ recorded: number }>("/coach/record-attempts", {
+      // Drain any pending sync attempts as well
+      const pending = await getPendingSyncAttempts();
+      const allToSync = [...pending, ...attempts];
+      const res = await request<{ recorded: number }>("/coach/record-attempts", {
         method: "POST",
         body: JSON.stringify({
           player_id: playerId,
           player_name: playerName,
           game_mode: gameMode,
-          attempts,
+          attempts: allToSync,
         }),
       });
+      // Clear synced IDs from queue
+      const syncedIds = allToSync.map((a) => a.attempt_id).filter(Boolean) as string[];
+      await clearSyncedAttempts(syncedIds);
+      return res;
     } catch {
       return { recorded: attempts.length };
     }
@@ -173,8 +195,14 @@ export const aiCoachApi = {
 
   getProactiveInsight: async (playerId: string): Promise<CoachingInsight> => {
     try {
-      return await request<CoachingInsight>(`/coach/proactive-insight/${encodeURIComponent(playerId)}`);
+      const insight = await request<CoachingInsight>(`/coach/proactive-insight/${encodeURIComponent(playerId)}`);
+      if (insight && insight.has_insight) {
+        await saveCachedInsight(insight);
+      }
+      return insight;
     } catch {
+      const cached = await loadCachedInsight();
+      if (cached) return cached;
       return { has_insight: false };
     }
   },
@@ -260,6 +288,17 @@ export const aiCoachApi = {
     } catch {
       return {
         answer: `For ${prompt}, the correct answer is ${correctAnswer}. Make sure you apply inverse operations and calculate step-by-step.`,
+      };
+    }
+  },
+
+  getDebugState: async (playerId: string): Promise<any> => {
+    try {
+      return await request<any>(`/coach/debug/${encodeURIComponent(playerId)}`);
+    } catch (err) {
+      return {
+        player_id: playerId,
+        error: "Debug state unavailable offline",
       };
     }
   },
