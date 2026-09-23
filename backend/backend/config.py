@@ -12,13 +12,14 @@ load_dotenv()
 # Root directory for the repo
 ROOT_DIR = PROJECT_ROOT
 
-# Database Configuration (PostgreSQL / Neon)
-DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+# Database Configuration (PostgreSQL / Neon with SQLite fallback)
+DEFAULT_DATABASE_URL = "sqlite+aiosqlite:///./mathblitz.db"
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip().strip("\"'")
 
 def get_async_database_url(url: str = "") -> str:
-    raw = (url or DATABASE_URL).strip()
+    raw = (url or DATABASE_URL).strip().strip("\"'")
     if not raw:
-        return ""
+        return DEFAULT_DATABASE_URL
     base_url = raw.split("?")[0]
     if base_url.startswith("postgres://"):
         return "postgresql+asyncpg://" + base_url[len("postgres://"):]
@@ -26,6 +27,10 @@ def get_async_database_url(url: str = "") -> str:
         return "postgresql+asyncpg://" + base_url[len("postgresql://"):]
     elif base_url.startswith("sqlite:///"):
         return "sqlite+aiosqlite:///" + base_url[len("sqlite:///"):]
+    elif base_url.startswith("sqlite+aiosqlite://"):
+        return base_url
+    elif base_url.startswith("postgresql+asyncpg://"):
+        return base_url
     return base_url
 
 # OpenRouter AI Configuration
