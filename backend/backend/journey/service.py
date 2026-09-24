@@ -130,7 +130,7 @@ async def submit_journey_level_result(
     best_times = dict(progress.best_times_by_level or {})
     unlocked_worlds = dict(progress.unlocked_worlds or {})
 
-    is_completed = accuracy >= 0.50
+    is_completed = accuracy >= 0.75
     xp_delta = 0
     tokens_delta = 0
     unlocked_next_level = False

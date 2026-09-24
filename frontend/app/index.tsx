@@ -714,6 +714,7 @@ function AppShell({
     if (screen === "journey-play") {
       return (
         <JourneyPlayScreen
+          key={selectedJourneyLevel || 1}
           levelId={selectedJourneyLevel || 1}
           profile={profile}
           onUpdateProfile={async (updater) => {

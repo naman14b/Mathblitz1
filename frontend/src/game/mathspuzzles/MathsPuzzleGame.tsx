@@ -242,6 +242,9 @@ export function MathsPuzzleGame({
         setHintsUsed((current) => current + 1);
     };
 
+    const rawPrevBest = profile.mathsPuzzleBestTime?.[puzzle.level] ?? (profile.mathsPuzzleBestTime as any)?.[String(puzzle.level)];
+    const prevBestTime = typeof rawPrevBest === "number" ? rawPrevBest : (rawPrevBest ? Number(rawPrevBest) : 0);
+
     return (
         <View style={styles.container}>
             <TokenFlyAnimation ref={tokenFlyRef} />
@@ -253,7 +256,14 @@ export function MathsPuzzleGame({
                 </Pressable>
                 <View style={styles.headerCenter}>
                     <Text style={styles.title}>Maths Puzzle</Text>
-                    <Text style={styles.subtitle}>Level {puzzle.level}/100</Text>
+                    <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginTop: 2 }}>
+                        <Text style={styles.subtitle}>Level {puzzle.level}/100</Text>
+                        {prevBestTime > 0 ? (
+                            <Text style={[styles.subtitle, { color: "#38BDF8", fontWeight: "900" }]}>
+                                • ⏱ Best: {formatTime(prevBestTime)}
+                            </Text>
+                        ) : null}
+                    </View>
                 </View>
                 <View style={styles.timer}>
                     <Text style={[styles.timerText, secondsLeft < 30 && { color: colors.error }]}>{formatTime(secondsLeft)}</Text>
@@ -303,6 +313,12 @@ export function MathsPuzzleGame({
                             <View style={styles.victoryStatCard}>
                                 <Text style={styles.victoryStatLabel}>⏱ Time</Text>
                                 <Text style={styles.victoryStatVal}>{formatTime(finalElapsed)}</Text>
+                            </View>
+                            <View style={styles.victoryStatCard}>
+                                <Text style={styles.victoryStatLabel}>🏆 Best</Text>
+                                <Text style={[styles.victoryStatVal, { color: "#38BDF8" }]}>
+                                    {formatTime(prevBestTime > 0 ? Math.min(prevBestTime, finalElapsed) : finalElapsed)}
+                                </Text>
                             </View>
                             <View style={styles.victoryStatCard}>
                                 <Text style={styles.victoryStatLabel}>❌ Mistakes</Text>

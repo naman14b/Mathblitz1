@@ -136,7 +136,7 @@ export async function submitLocalLevelResult(
   const world = getWorldForLevel(result.levelId);
 
   const accuracy = result.totalQuestions > 0 ? result.correctAnswers / result.totalQuestions : 0;
-  const isCompleted = accuracy >= 0.5; // At least 50% to clear level
+  const isCompleted = accuracy >= 0.75; // At least 75% accuracy to clear level
 
   // Star calculation
   let stars: StarRating = 0;

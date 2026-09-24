@@ -89,8 +89,7 @@ export function JourneyPlayScreen({
 
   const timerRef = useRef<any>(null);
 
-  // Initialize questions
-  useEffect(() => {
+  const handleRestartLevel = useCallback(() => {
     const generated = JourneyQuestionEngine.generateQuestionsForLevel(levelId);
     setQuestions(generated);
     setCurrentIndex(0);
@@ -116,7 +115,12 @@ export function JourneyPlayScreen({
     livesRef.current = 3;
     isGameOverRef.current = false;
     hasUsedReviveRef.current = false;
-  }, [levelId]);
+  }, [levelId, levelDef.timeLimitSeconds]);
+
+  // Initialize questions on level change
+  useEffect(() => {
+    handleRestartLevel();
+  }, [levelId, handleRestartLevel]);
 
   const handleFinishLevel = useCallback(
     async (finalCorrect?: number, finalScore?: number, finalTime?: number) => {
@@ -514,7 +518,7 @@ export function JourneyPlayScreen({
         visible={isGameOver && resultData !== null}
         result={resultData}
         onNextLevel={() => onNavigateToLevel(levelId + 1)}
-        onReplay={() => onNavigateToLevel(levelId)}
+        onReplay={handleRestartLevel}
         onBackToMap={onBackToMap}
       />
     </View>

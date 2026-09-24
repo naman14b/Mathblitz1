@@ -149,6 +149,15 @@ export function MathsPuzzlesHub({
                                     <View style={styles.levelBadge}>
                                         <Text style={styles.levelBadgeText}>{level}</Text>
                                     </View>
+
+                                    {/* Prominent Best Time Badge on Level Image */}
+                                    {typeof bestTime === "number" && bestTime > 0 ? (
+                                        <View style={styles.imageTimeBadge}>
+                                            <Text style={styles.imageTimeText}>
+                                                ⏱ {formatSecondsToTime(bestTime)}
+                                            </Text>
+                                        </View>
+                                    ) : null}
                                 </View>
 
                                 {/* Bottom Info Base */}
@@ -411,6 +420,22 @@ const useStyles = makeStyles((colors) => ({
     levelBadgeText: {
         color: "#FFFFFF",
         fontSize: 10,
+        fontWeight: "900",
+    },
+    imageTimeBadge: {
+        position: "absolute",
+        bottom: 3,
+        right: 3,
+        backgroundColor: "rgba(15, 23, 42, 0.92)",
+        borderColor: "rgba(56, 189, 248, 0.6)",
+        borderWidth: 1,
+        borderRadius: 6,
+        paddingHorizontal: 3.5,
+        paddingVertical: 1,
+    },
+    imageTimeText: {
+        color: "#38BDF8",
+        fontSize: 8.5,
         fontWeight: "900",
     },
     cardBottom: {

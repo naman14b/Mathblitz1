@@ -116,7 +116,7 @@ export function JourneyLevelCompleteModal({
             </View>
           ) : (
             <Text style={styles.tryAgainText}>
-              You need at least 50% accuracy to clear this level. Try again!
+              You need at least 75% accuracy to clear this level. Try again!
             </Text>
           )}
 
@@ -165,7 +165,7 @@ export function JourneyLevelCompleteModal({
 
             <Pressable onPress={onReplay} style={styles.secondaryBtn}>
               <Ionicons name="refresh" size={18} color="#9CA3AF" />
-              <Text style={styles.secondaryBtnText}>Replay</Text>
+              <Text style={styles.secondaryBtnText}>Play Again</Text>
             </Pressable>
 
             {result.completed && (
