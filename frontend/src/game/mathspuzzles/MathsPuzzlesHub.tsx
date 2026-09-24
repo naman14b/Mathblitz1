@@ -174,15 +174,6 @@ export function MathsPuzzlesHub({
                                         ))}
                                     </View>
 
-                                    {/* Best time (if completed / recorded) */}
-                                    {typeof bestTime === "number" && bestTime > 0 ? (
-                                        <View style={styles.bestTimePill}>
-                                            <Text style={styles.bestTimeText}>
-                                                ⏱ {formatSecondsToTime(bestTime)}
-                                            </Text>
-                                        </View>
-                                    ) : null}
-
                                     {/* Action row */}
                                     {unlocked ? (
                                         <View style={[styles.playPill, completed && styles.playPillCompleted]}>

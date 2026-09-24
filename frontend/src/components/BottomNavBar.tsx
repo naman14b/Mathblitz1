@@ -16,10 +16,10 @@ type BottomNavBarProps = {
 const TABS: { id: NavTab; label: string; activeIcon: keyof typeof Ionicons.glyphMap; inactiveIcon: keyof typeof Ionicons.glyphMap }[] = [
   { id: "home", label: "Blitz", activeIcon: "rocket", inactiveIcon: "rocket-outline" },
   { id: "journey", label: "Kingdom", activeIcon: "map", inactiveIcon: "map-outline" },
-  { id: "ai-coach", label: "Coach", activeIcon: "school", inactiveIcon: "school-outline" },
   { id: "sudoku-hub", label: "Sudoku", activeIcon: "grid", inactiveIcon: "grid-outline" },
   { id: "puzzles-hub", label: "Puzzles", activeIcon: "shapes", inactiveIcon: "shapes-outline" },
   { id: "achievements", label: "Badges", activeIcon: "ribbon", inactiveIcon: "ribbon-outline" },
+  { id: "ai-coach", label: "Coach", activeIcon: "school", inactiveIcon: "school-outline" },
 ];
 
 
