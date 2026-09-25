@@ -25,6 +25,7 @@ import { Leaderboards } from "@/src/screens/Leaderboards";
 import { ChallengeTier } from "@/src/api/types";
 import { leaderboardApi } from "@/src/api/admin";
 import { loadProfile, resetProfile, saveProfile } from "@/src/game/storage";
+import { loadJourneyState } from "@/src/game/journey/storage";
 import { checkAchievements, applyAchievements } from "@/src/game/achievements";
 import { MathBossScreen } from "@/src/screens/MathBoss";
 import { AICoachScreen } from "@/src/screens/AICoachScreen";
@@ -34,6 +35,7 @@ import { BottomNavBar, NavTab } from "@/src/components/BottomNavBar";
 import { AgeGroupId, AchievementId, ACHIEVEMENTS, AppSettings, AvatarId, AVATARS, DEFAULT_PROFILE, GameResult, LocalProfile, PremiumBadgeId, PREMIUM_BADGES, STREAK_MILESTONES, ThemeId, ThemeMode } from "@/src/game/types";
 import { ThemeContext, getThemeColors, isNightTime, makeStyles, useTheme } from "@/src/theme";
 import { SurrealBackground } from "@/src/components/SurrealBackground";
+import { initAdMob, updateAdMobAudienceForAge } from "@/src/services/adMobService";
 
 type Screen =
   | "splash"
@@ -295,6 +297,8 @@ export default function Index() {
 
   useEffect(() => {
     let active = true;
+    initAdMob().catch(() => {});
+    loadJourneyState().catch(() => {});
     loadProfile().then((saved) => {
       if (!active) return;
       setProfile({
@@ -317,6 +321,9 @@ export default function Index() {
         streakMilestone: saved.streakMilestone ?? 3,
         avatar: saved.avatar,
       });
+      if (saved.ageGroup) {
+        updateAdMobAudienceForAge(saved.ageGroup).catch(() => {});
+      }
       setTimeout(() => {
         if (!saved.playerName) {
           setScreen("name");
@@ -343,6 +350,7 @@ export default function Index() {
   };
 
   const chooseAge = async (ageGroup: AgeGroupId) => {
+    updateAdMobAudienceForAge(ageGroup).catch(() => {});
     const next = { ...profile, hasOnboarded: true, ageGroup };
     setProfile(next); await saveProfile(next); setScreen("home");
   };
@@ -507,7 +515,6 @@ export default function Index() {
     return (
       <ThemeContext.Provider value={themeContextValue}>
         <PhoneScreenWrapper isNight={isNight}>
-          <SurrealBackground />
           <Splash />
         </PhoneScreenWrapper>
       </ThemeContext.Provider>
@@ -517,7 +524,6 @@ export default function Index() {
     return (
       <ThemeContext.Provider value={themeContextValue}>
         <PhoneScreenWrapper isNight={isNight}>
-          <SurrealBackground />
           <NameEntry onSave={saveName} />
         </PhoneScreenWrapper>
       </ThemeContext.Provider>
@@ -527,7 +533,6 @@ export default function Index() {
     return (
       <ThemeContext.Provider value={themeContextValue}>
         <PhoneScreenWrapper isNight={isNight}>
-          <SurrealBackground />
           <AgeSelection onSelect={chooseAge} />
         </PhoneScreenWrapper>
       </ThemeContext.Provider>
@@ -669,48 +674,180 @@ function AppShell({
       ? "achievements"
       : "home";
 
-  const renderContent = () => {
-    if (screen === "home") {
-      return (
-        <Home
-          profile={profile}
-          onPlay={startGame}
-          onJourney={() => setScreen("journey-map")}
-          onSettings={() => setScreen("settings")}
-          onAge={() => setScreen("age")}
-          onChallenge={openChallenge}
-          onDailyChallenge={openDailyChallenge}
-          onLeaderboards={openLeaderboards}
-          onAchievements={() => setScreen("achievements")}
-          onThemeStore={() => setScreen("theme-store")}
-          onHowToPlay={() => setScreen("howto")}
-          onSudoku={() => setScreen("sudoku-hub")}
-          onMathsPuzzles={() => setScreen("puzzles-hub")}
-          onAICoach={(conceptId?: string) => {
-            setSelectedCoachConcept(conceptId || null);
-            setScreen("ai-coach");
-          }}
-        />
-      );
-    }
+  const [visitedTabs, setVisitedTabs] = useState<Record<string, boolean>>({ home: true });
 
-    if (screen === "journey-map") {
-      return (
-        <JourneyMapScreen
-          profile={profile}
-          onPlayLevel={(lvl) => {
-            setSelectedJourneyLevel(lvl);
-            setScreen("journey-play");
-          }}
-          onSpeedGate={() => {
-            startGame();
-          }}
-          onDailyChallenge={openDailyChallenge}
-          onBackHome={() => setScreen("home")}
-        />
-      );
+  useEffect(() => {
+    if (
+      screen === "home" ||
+      screen === "journey-map" ||
+      screen === "sudoku-hub" ||
+      screen === "puzzles-hub" ||
+      screen === "achievements" ||
+      screen === "ai-coach" ||
+      screen === "leaderboards"
+    ) {
+      setVisitedTabs((prev) => (prev[screen] ? prev : { ...prev, [screen]: true }));
     }
+  }, [screen]);
 
+  const isHubScreen =
+    screen === "home" ||
+    screen === "journey-map" ||
+    screen === "sudoku-hub" ||
+    screen === "puzzles-hub" ||
+    screen === "achievements" ||
+    screen === "ai-coach" ||
+    screen === "leaderboards";
+
+  const renderHubTabs = () => (
+    <View style={[{ flex: 1 }, !isHubScreen && { display: "none" }]}>
+      {visitedTabs["home"] && (
+        <View style={[{ flex: 1 }, screen !== "home" && { display: "none" }]}>
+          <Home
+            profile={profile}
+            onPlay={startGame}
+            onJourney={() => setScreen("journey-map")}
+            onSettings={() => setScreen("settings")}
+            onAge={() => setScreen("age")}
+            onChallenge={openChallenge}
+            onDailyChallenge={openDailyChallenge}
+            onLeaderboards={openLeaderboards}
+            onAchievements={() => setScreen("achievements")}
+            onThemeStore={() => setScreen("theme-store")}
+            onHowToPlay={() => setScreen("howto")}
+            onSudoku={() => setScreen("sudoku-hub")}
+            onMathsPuzzles={() => setScreen("puzzles-hub")}
+            onAICoach={(conceptId?: string) => {
+              setSelectedCoachConcept(conceptId || null);
+              setScreen("ai-coach");
+            }}
+          />
+        </View>
+      )}
+
+      {visitedTabs["journey-map"] && (
+        <View style={[{ flex: 1 }, screen !== "journey-map" && { display: "none" }]}>
+          <JourneyMapScreen
+            profile={profile}
+            isActive={screen === "journey-map"}
+            onPlayLevel={(lvl) => {
+              setSelectedJourneyLevel(lvl);
+              setScreen("journey-play");
+            }}
+            onSpeedGate={() => {
+              startGame();
+            }}
+            onDailyChallenge={openDailyChallenge}
+            onBackHome={() => setScreen("home")}
+          />
+        </View>
+      )}
+
+      {visitedTabs["sudoku-hub"] && (
+        <View style={[{ flex: 1 }, screen !== "sudoku-hub" && { display: "none" }]}>
+          <SudokuHub
+            profile={profile}
+            onBack={() => setScreen("home")}
+            onPlay={async (difficulty, level) => {
+              const tier = SUDOKU_TIERS.find(
+                (item) => item.difficulty === difficulty,
+              );
+
+              if (!tier) return;
+
+              const id = `sudoku-${difficulty}-${level}`;
+              const unlocked = level === 1 || isSudokuUnlocked(profile, id);
+
+              if (!unlocked) {
+                if (profile.tokens < tier.unlockCost) {
+                  return;
+                }
+
+                const next = {
+                  ...profile,
+                  tokens: profile.tokens - tier.unlockCost,
+                  unlockedSudoku: {
+                    ...profile.unlockedSudoku,
+                    [id]: true,
+                  },
+                };
+
+                setProfile(next);
+                await saveProfile(next);
+              }
+
+              setSelectedSudokuDifficulty(difficulty);
+              setSelectedSudokuLevel(level);
+              setScreen("sudoku-game");
+            }}
+          />
+        </View>
+      )}
+
+      {visitedTabs["puzzles-hub"] && (
+        <View style={[{ flex: 1 }, screen !== "puzzles-hub" && { display: "none" }]}>
+          <MathsPuzzlesHub
+            profile={profile}
+            onBack={() => setScreen("home")}
+            onPlay={async (level, unlockCost) => {
+              const unlocked = level === 1 || profile.unlockedMathsPuzzles?.[level];
+
+              if (!unlocked) {
+                if (profile.tokens < unlockCost) return;
+                const next = {
+                  ...profile,
+                  tokens: profile.tokens - unlockCost,
+                  unlockedMathsPuzzles: {
+                    ...profile.unlockedMathsPuzzles,
+                    [level]: true,
+                  },
+                };
+                setProfile(next);
+                await saveProfile(next);
+              }
+
+              setSelectedMathsPuzzle(level);
+              setScreen("puzzle-game");
+            }}
+          />
+        </View>
+      )}
+
+      {visitedTabs["achievements"] && (
+        <View style={[{ flex: 1 }, screen !== "achievements" && { display: "none" }]}>
+          <Achievements
+            profile={profile}
+            onBack={() => setScreen("home")}
+            onEquipAchievementBadge={equipAchievementBadge}
+            onEquipPremiumBadge={equipPremiumBadge}
+            onToggleEquipBadge={toggleEquipBadge}
+            onPurchasePremiumBadge={purchasePremiumBadge}
+          />
+        </View>
+      )}
+
+      {visitedTabs["ai-coach"] && (
+        <View style={[{ flex: 1 }, screen !== "ai-coach" && { display: "none" }]}>
+          <AICoachScreen
+            profile={profile}
+            initialConceptId={selectedCoachConcept}
+            onBack={() => {
+              setSelectedCoachConcept(null);
+              setScreen("home");
+            }}
+          />
+        </View>
+      )}
+
+      {visitedTabs["leaderboards"] && (
+        <View style={[{ flex: 1 }, screen !== "leaderboards" && { display: "none" }]}>
+          <Leaderboards profile={profile} onBack={() => setScreen("home")} />
+        </View>
+      )}
+    </View>
+  );
+
+  const renderModalOrGame = () => {
     if (screen === "journey-play") {
       return (
         <JourneyPlayScreen
@@ -726,19 +863,6 @@ function AppShell({
           onNavigateToLevel={(nextLvl) => {
             setSelectedJourneyLevel(nextLvl);
             setScreen("journey-play");
-          }}
-        />
-      );
-    }
-
-    if (screen === "ai-coach") {
-      return (
-        <AICoachScreen
-          profile={profile}
-          initialConceptId={selectedCoachConcept}
-          onBack={() => {
-            setSelectedCoachConcept(null);
-            setScreen("home");
           }}
         />
       );
@@ -770,9 +894,7 @@ function AppShell({
         />
       );
     }
-    if (screen === "leaderboards") {
-      return <Leaderboards profile={profile} onBack={() => setScreen("home")} />;
-    }
+
     if (screen === "daily-challenge") {
       return (
         <DailyChallenge
@@ -781,46 +903,7 @@ function AppShell({
         />
       );
     }
-    if (screen === "sudoku-hub") {
-      return (
-        <SudokuHub
-          profile={profile}
-          onBack={() => setScreen("home")}
-          onPlay={async (difficulty, level) => {
-            const tier = SUDOKU_TIERS.find(
-              (item) => item.difficulty === difficulty,
-            );
 
-            if (!tier) return;
-
-            const id = `sudoku-${difficulty}-${level}`;
-            const unlocked = level === 1 || isSudokuUnlocked(profile, id);
-
-            if (!unlocked) {
-              if (profile.tokens < tier.unlockCost) {
-                return;
-              }
-
-              const next = {
-                ...profile,
-                tokens: profile.tokens - tier.unlockCost,
-                unlockedSudoku: {
-                  ...profile.unlockedSudoku,
-                  [id]: true,
-                },
-              };
-
-              setProfile(next);
-              await saveProfile(next);
-            }
-
-            setSelectedSudokuDifficulty(difficulty);
-            setSelectedSudokuLevel(level);
-            setScreen("sudoku-game");
-          }}
-        />
-      );
-    }
     if (
       screen === "sudoku-game" &&
       selectedSudokuDifficulty &&
@@ -870,35 +953,6 @@ function AppShell({
             };
 
             void processWinAndNavigate(next, "sudoku-hub");
-          }}
-        />
-      );
-    }
-
-    if (screen === "puzzles-hub") {
-      return (
-        <MathsPuzzlesHub
-          profile={profile}
-          onBack={() => setScreen("home")}
-          onPlay={async (level, unlockCost) => {
-            const unlocked = level === 1 || profile.unlockedMathsPuzzles?.[level];
-
-            if (!unlocked) {
-              if (profile.tokens < unlockCost) return;
-              const next = {
-                ...profile,
-                tokens: profile.tokens - unlockCost,
-                unlockedMathsPuzzles: {
-                  ...profile.unlockedMathsPuzzles,
-                  [level]: true,
-                }
-              };
-              setProfile(next);
-              await saveProfile(next);
-            }
-
-            setSelectedMathsPuzzle(level);
-            setScreen("puzzle-game");
           }}
         />
       );
@@ -1013,19 +1067,6 @@ function AppShell({
       return <HowToPlay onBack={() => setScreen("home")} />;
     }
 
-    if (screen === "achievements") {
-      return (
-        <Achievements
-          profile={profile}
-          onBack={() => setScreen("home")}
-          onEquipAchievementBadge={equipAchievementBadge}
-          onEquipPremiumBadge={equipPremiumBadge}
-          onToggleEquipBadge={toggleEquipBadge}
-          onPurchasePremiumBadge={purchasePremiumBadge}
-        />
-      );
-    }
-
     if (screen === "theme-store") {
       return (
         <ThemeStore
@@ -1037,32 +1078,13 @@ function AppShell({
       );
     }
 
-    return (
-      <Home
-        profile={profile}
-        onPlay={startGame}
-        onSettings={() => setScreen("settings")}
-        onAge={() => setScreen("age")}
-        onChallenge={openChallenge}
-        onDailyChallenge={openDailyChallenge}
-        onLeaderboards={openLeaderboards}
-        onAchievements={() => setScreen("achievements")}
-        onThemeStore={() => setScreen("theme-store")}
-        onHowToPlay={() => setScreen("howto")}
-        onSudoku={() => setScreen("sudoku-hub")}
-        onMathsPuzzles={() => setScreen("puzzles-hub")}
-        onAICoach={(conceptId?: string) => {
-          setSelectedCoachConcept(conceptId || null);
-          setScreen("ai-coach");
-        }}
-      />
-    );
+    return null;
   };
 
   return (
     <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
-      <SurrealBackground />
-      {renderContent()}
+      {renderHubTabs()}
+      {!isHubScreen && renderModalOrGame()}
       {showNavBar && (
         <BottomNavBar
           currentTab={activeTab}

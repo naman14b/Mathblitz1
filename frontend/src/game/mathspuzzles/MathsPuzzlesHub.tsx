@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { Image as ExpoImage } from "expo-image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MATHS_CATALOGUE } from "./catalogue";
 import type { LocalProfile } from "@/src/game/types";
@@ -71,10 +72,10 @@ export function MathsPuzzlesHub({
 
                     {/* Mascot illustration */}
                     <View style={styles.mascotWrapper}>
-                        <Image
+                        <ExpoImage
                             source={ASTRONAUT_HEADER}
                             style={styles.mascotImage}
-                            resizeMode="cover"
+                            contentFit="cover"
                         />
                     </View>
                 </View>
@@ -140,10 +141,10 @@ export function MathsPuzzlesHub({
                             >
                                 {/* Top: Image & Badge */}
                                 <View style={styles.cardImageContainer}>
-                                    <Image
+                                    <ExpoImage
                                         source={getLevelImage(level)}
                                         style={styles.cardImage}
-                                        resizeMode="cover"
+                                        contentFit="cover"
                                     />
                                     {/* Level Number Pill */}
                                     <View style={styles.levelBadge}>

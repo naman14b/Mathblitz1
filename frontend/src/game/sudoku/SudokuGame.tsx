@@ -491,7 +491,7 @@ export function SudokuGame({
 const useStyles = makeStyles((colors: any) => ({
     container: {
         flex: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: colors.surface,
     },
     header: {
         paddingHorizontal: 16,
@@ -501,7 +501,7 @@ const useStyles = makeStyles((colors: any) => ({
         alignItems: "center",
         borderBottomWidth: 1,
         borderBottomColor: colors.divider,
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        backgroundColor: colors.surfaceSecondary,
     },
     backButton: {
         minWidth: 60,
@@ -591,11 +591,15 @@ const useStyles = makeStyles((colors: any) => ({
         aspectRatio: 1,
         flexDirection: "row",
         flexWrap: "wrap",
-        borderWidth: 2,
-        borderColor: colors.borderStrong,
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-        borderRadius: 8,
-        overflow: 'hidden'
+        borderWidth: 2.5,
+        borderColor: colors.onSurface,
+        backgroundColor: colors.surface,
+        borderRadius: 10,
+        overflow: 'hidden',
+        shadowColor: "#000",
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        elevation: 4,
     },
     cell: {
         width: "11.111%",
@@ -604,8 +608,8 @@ const useStyles = makeStyles((colors: any) => ({
         justifyContent: "center",
         borderRightWidth: 1,
         borderBottomWidth: 1,
-        borderColor: 'rgba(255,255,255,0.1)',
-        backgroundColor: 'transparent',
+        borderColor: colors.divider,
+        backgroundColor: colors.surface,
     },
     rightBorder: {
         borderRightWidth: 3,
@@ -616,10 +620,9 @@ const useStyles = makeStyles((colors: any) => ({
         borderBottomColor: colors.onSurface,
     },
     selectedCell: {
-        backgroundColor: colors.brandSecondary,
-        shadowColor: colors.brandPrimary,
-        shadowOpacity: 0.8,
-        shadowRadius: 10
+        backgroundColor: colors.brandSecondary + "33",
+        borderWidth: 1.5,
+        borderColor: colors.brandPrimary,
     },
     mistakeCell: {
         backgroundColor: colors.error,
@@ -666,11 +669,15 @@ const useStyles = makeStyles((colors: any) => ({
         width: "30%",
         minHeight: 52,
         borderRadius: 14,
-        backgroundColor: colors.surfaceTertiary,
+        backgroundColor: colors.surfaceSecondary,
         alignItems: "center",
         justifyContent: "center",
-        borderWidth: 1,
-        borderColor: colors.border
+        borderWidth: 1.5,
+        borderColor: colors.border,
+        shadowColor: "#000",
+        shadowOpacity: 0.06,
+        shadowRadius: 4,
+        elevation: 2,
     },
     numberText: {
         color: colors.brandPrimary,

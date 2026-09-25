@@ -17,6 +17,7 @@ import { makeStyles, useTheme } from "@/src/theme";
 import { AdBanner } from "@/src/components/AdBanner";
 import { ProactiveCoachCard } from "@/src/components/ProactiveCoachCard";
 import { aiCoachApi } from "@/src/api/aiCoach";
+import { SurrealBackground } from "@/src/components/SurrealBackground";
 
 type HomeProps = {
   profile: LocalProfile;
@@ -268,6 +269,7 @@ export function Home({
 
   return (
     <View style={styles.root}>
+      <SurrealBackground />
       <ScrollView
         contentContainerStyle={{
           paddingTop: insets.top + 10,

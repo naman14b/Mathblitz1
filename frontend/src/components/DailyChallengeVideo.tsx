@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Platform, StyleSheet, View } from "react-native";
+import { VideoView, useVideoPlayer } from "expo-video";
+import { Asset } from "expo-asset";
 
 export type AnimationState = "chase" | "win" | "jail";
 
@@ -12,6 +14,111 @@ type Props = {
   onAnimationEnd?: () => void;
 };
 
+function NativeDailyChallengeVideo({ state, onAnimationEnd }: Props) {
+  const [resolvedSources, setResolvedSources] = useState<{
+    chase: any;
+    win: any;
+    jail: any;
+  }>({
+    chase: CHASE_VIDEO,
+    win: WIN_VIDEO,
+    jail: JAIL_VIDEO,
+  });
+
+  useEffect(() => {
+    let mounted = true;
+    async function preloadAssets() {
+      try {
+        const [chaseAsset, winAsset, jailAsset] = await Asset.loadAsync([
+          CHASE_VIDEO,
+          WIN_VIDEO,
+          JAIL_VIDEO,
+        ]);
+        if (mounted) {
+          setResolvedSources({
+            chase: chaseAsset?.localUri || chaseAsset?.uri || CHASE_VIDEO,
+            win: winAsset?.localUri || winAsset?.uri || WIN_VIDEO,
+            jail: jailAsset?.localUri || jailAsset?.uri || JAIL_VIDEO,
+          });
+        }
+      } catch (err) {
+        // Fallback to numeric require IDs
+      }
+    }
+    preloadAssets();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  // Single video player prevents exceeding Android hardware video decoder limits
+  const player = useVideoPlayer(resolvedSources.chase, (p) => {
+    p.loop = true;
+    p.muted = true;
+    p.play();
+  });
+
+  useEffect(() => {
+    if (!player) return;
+
+    if (state === "chase") {
+      player.loop = true;
+      player.replace(resolvedSources.chase);
+      player.play();
+    } else if (state === "win") {
+      player.loop = false;
+      player.replace(resolvedSources.win);
+      player.play();
+    } else if (state === "jail") {
+      player.loop = false;
+      player.replace(resolvedSources.jail);
+      player.play();
+    }
+  }, [state, resolvedSources, player]);
+
+  useEffect(() => {
+    if (!player || !onAnimationEnd) return;
+    const sub = player.addListener("playToEnd", () => {
+      if (state === "win" || state === "jail") {
+        onAnimationEnd();
+      }
+    });
+    return () => {
+      sub.remove();
+    };
+  }, [player, state, onAnimationEnd]);
+
+  return (
+    <View style={styles.container} pointerEvents="none">
+      <VideoView
+        player={player}
+        contentFit="cover"
+        nativeControls={false}
+        style={StyleSheet.absoluteFill}
+      />
+
+      {/* Darkening tint scrim during gameplay; fades to 0 during win / jail animation */}
+      <View
+        style={[
+          styles.overlayScrim,
+          (state === "win" || state === "jail") && { opacity: 0 },
+        ]}
+      />
+    </View>
+  );
+}
+
+function resolveWebVideoSrc(moduleSource: any, fallbackPath: string): string {
+  try {
+    const asset = Asset.fromModule(moduleSource);
+    if (asset?.uri) return asset.uri;
+  } catch {}
+  if (typeof moduleSource === "string") return moduleSource;
+  if (moduleSource?.uri) return moduleSource.uri;
+  if (moduleSource?.default) return moduleSource.default;
+  return fallbackPath;
+}
+
 export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
   const chaseRef = useRef<HTMLVideoElement | null>(null);
   const winRef = useRef<HTMLVideoElement | null>(null);
@@ -19,9 +126,9 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
 
   // Web Implementation using HTML5 Video elements for seamless instant playback
   if (Platform.OS === "web") {
-    const chaseSrc = typeof CHASE_VIDEO === "string" ? CHASE_VIDEO : CHASE_VIDEO?.default || CHASE_VIDEO;
-    const winSrc = typeof WIN_VIDEO === "string" ? WIN_VIDEO : WIN_VIDEO?.default || WIN_VIDEO;
-    const jailSrc = typeof JAIL_VIDEO === "string" ? JAIL_VIDEO : JAIL_VIDEO?.default || JAIL_VIDEO;
+    const chaseSrc = resolveWebVideoSrc(CHASE_VIDEO, "/assets/videos/snake_chase.mp4");
+    const winSrc = resolveWebVideoSrc(WIN_VIDEO, "/assets/videos/snake_win.mp4");
+    const jailSrc = resolveWebVideoSrc(JAIL_VIDEO, "/assets/videos/snake_jail.mp4");
 
     useEffect(() => {
       if (state === "chase") {
@@ -33,9 +140,7 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
         if (jailRef.current) jailRef.current.pause();
       } else if (state === "win") {
         if (winRef.current) {
-          const currentPos = chaseRef.current ? chaseRef.current.currentTime : 0;
-          // Synchronize with already playing chase video to transition smoothly to trick & jump ending
-          winRef.current.currentTime = currentPos < 4.5 ? currentPos : 4.5;
+          winRef.current.currentTime = 0;
           winRef.current.play().catch(() => {});
         }
         if (chaseRef.current) {
@@ -46,9 +151,7 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
         if (jailRef.current) jailRef.current.pause();
       } else if (state === "jail") {
         if (jailRef.current) {
-          const currentPos = chaseRef.current ? chaseRef.current.currentTime : 0;
-          // Synchronize with already playing chase video to transition smoothly to cage/jail ending
-          jailRef.current.currentTime = currentPos < 4.5 ? currentPos : 4.5;
+          jailRef.current.currentTime = 0;
           jailRef.current.play().catch(() => {});
         }
         if (chaseRef.current) {
@@ -60,9 +163,18 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
       }
     }, [state]);
 
+    useEffect(() => {
+      if (!onAnimationEnd) return;
+      if (state === "win" || state === "jail") {
+        const timer = setTimeout(() => {
+          onAnimationEnd();
+        }, 5200);
+        return () => clearTimeout(timer);
+      }
+    }, [state, onAnimationEnd]);
+
     return (
       <View style={styles.container} pointerEvents="none">
-        {/* Chase Video (Looping background during gameplay) */}
         <video
           ref={chaseRef}
           src={chaseSrc}
@@ -83,7 +195,6 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
           }}
         />
 
-        {/* Win Video (Boy tricks snake to cross bridge) */}
         <video
           ref={winRef}
           src={winSrc}
@@ -103,7 +214,6 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
           }}
         />
 
-        {/* Jail Video (Snake chases boy into jail cell) */}
         <video
           ref={jailRef}
           src={jailSrc}
@@ -123,7 +233,6 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
           }}
         />
 
-        {/* Darkening tint scrim during gameplay; fades to 0 during win / jail animation */}
         <View
           style={[
             styles.overlayScrim,
@@ -134,17 +243,8 @@ export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
     );
   }
 
-  // Native fallback (using expo-video when available or native video container)
-  return (
-    <View style={styles.container} pointerEvents="none">
-      <View
-        style={[
-          styles.overlayScrim,
-          (state === "win" || state === "jail") && { opacity: 0 },
-        ]}
-      />
-    </View>
-  );
+  // Native Android & iOS Implementation using expo-video
+  return <NativeDailyChallengeVideo state={state} onAnimationEnd={onAnimationEnd} />;
 }
 
 const styles = StyleSheet.create({

@@ -1,72 +1,32 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
-  ActivityIndicator,
-  Alert,
-  Image,
   Modal,
   Pressable,
   ScrollView,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LocalProfile, THEMES, ThemeDef, ThemeId } from "@/src/game/types";
 import { makeStyles, useTheme } from "@/src/theme";
 
-const PAYMENT_QR = require("@/assets/images/payment_qr.jpg");
-
 type ThemeStoreProps = {
   profile: LocalProfile;
   onBack: () => void;
   onActivateTheme: (id: ThemeId) => void;
-  onPurchaseTheme: (id: ThemeId, utr?: string) => void;
+  onPurchaseTheme?: (id: ThemeId, utr?: string) => void;
 };
 
-export function ThemeStore({ profile, onBack, onActivateTheme, onPurchaseTheme }: ThemeStoreProps) {
+export function ThemeStore({ profile, onBack, onActivateTheme }: ThemeStoreProps) {
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
   const styles = useStyles();
 
   const [selectedTheme, setSelectedTheme] = useState<ThemeDef | null>(null);
-  const [showQR, setShowQR] = useState(false);
-  const [pendingTheme, setPendingTheme] = useState<ThemeId | null>(null);
-  const [utr, setUtr] = useState("");
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [utrError, setUtrError] = useState("");
 
   const purchased = profile.purchasedThemes ?? [];
   const active = profile.activeTheme ?? "classic";
-
-  const handleBuy = (theme: ThemeDef) => {
-    setPendingTheme(theme.id);
-    setSelectedTheme(null);
-    setUtr("");
-    setUtrError("");
-    setShowQR(true);
-  };
-
-  const handleVerifyPayment = () => {
-    const cleanUtr = utr.trim();
-    if (!/^\d{12}$/.test(cleanUtr)) {
-      setUtrError("Please enter a valid 12-digit UPI reference number (UTR).");
-      return;
-    }
-    setUtrError("");
-    setIsVerifying(true);
-    setTimeout(() => {
-      setIsVerifying(false);
-      if (pendingTheme) {
-        onPurchaseTheme(pendingTheme, cleanUtr);
-        onActivateTheme(pendingTheme);
-        Alert.alert("Payment Verified!", "Your theme has been verified and activated successfully!");
-      }
-      setShowQR(false);
-      setPendingTheme(null);
-      setUtr("");
-    }, 1500);
-  };
 
   const festivals = THEMES.filter((t) => t.tag === "Festival");
   const standard = THEMES.filter((t) => t.tag !== "Festival");
@@ -103,8 +63,8 @@ export function ThemeStore({ profile, onBack, onActivateTheme, onPurchaseTheme }
               </Text>
             </View>
           ) : (
-            <View style={[styles.pill, { backgroundColor: theme.accentColor }]}>
-              <Text style={styles.pillText}>₹49</Text>
+            <View style={[styles.pill, { backgroundColor: colors.surfaceTertiary }]}>
+              <Text style={[styles.pillText, { color: colors.muted }]}>Locked</Text>
             </View>
           )}
         </View>
@@ -166,12 +126,9 @@ export function ThemeStore({ profile, onBack, onActivateTheme, onPurchaseTheme }
                       <Text style={styles.modalBtnText}>{isActive ? "✓ Currently Active" : "Apply Theme"}</Text>
                     </Pressable>
                   ) : (
-                    <Pressable
-                      style={[styles.modalBtn, { backgroundColor: selectedTheme.accentColor }]}
-                      onPress={() => handleBuy(selectedTheme)}
-                    >
-                      <Text style={styles.modalBtnText}>Buy for ₹{selectedTheme.price}</Text>
-                    </Pressable>
+                    <View style={[styles.lockedPill, { backgroundColor: colors.surfaceSecondary }]}>
+                      <Text style={[styles.lockedPillText, { color: colors.muted }]}>🔒 Available in future update</Text>
+                    </View>
                   )}
                   <Pressable style={styles.modalClose} onPress={() => setSelectedTheme(null)}>
                     <Text style={styles.modalCloseText}>Close</Text>
@@ -179,47 +136,6 @@ export function ThemeStore({ profile, onBack, onActivateTheme, onPurchaseTheme }
                 </>
               );
             })()}
-          </Pressable>
-        </Pressable>
-      </Modal>
-
-      {/* QR Payment Modal */}
-      <Modal visible={showQR} transparent animationType="slide" onRequestClose={() => setShowQR(false)}>
-        <Pressable style={styles.overlay} onPress={() => setShowQR(false)}>
-          <Pressable style={styles.qrModal} onPress={(e) => e.stopPropagation()}>
-            <Text style={styles.qrTitle}>Complete Payment</Text>
-            <Text style={styles.qrSubtitle}>Scan the QR code and pay ₹49 via UPI</Text>
-            <View style={styles.qrFrame}>
-              <Image source={PAYMENT_QR} style={styles.qrImage} resizeMode="contain" />
-            </View>
-            <Text style={styles.qrNote}>Enter your 12-digit UPI reference number (UTR) to verify:</Text>
-            <TextInput
-              style={styles.utrInput}
-              placeholder="12-digit UPI UTR / Ref No."
-              placeholderTextColor={colors.muted}
-              value={utr}
-              onChangeText={(text) => {
-                setUtr(text);
-                if (utrError) setUtrError("");
-              }}
-              keyboardType="numeric"
-              maxLength={12}
-            />
-            {utrError ? <Text style={styles.errorText}>{utrError}</Text> : null}
-            <Pressable
-              style={[styles.paidBtn, isVerifying && { opacity: 0.7 }]}
-              onPress={handleVerifyPayment}
-              disabled={isVerifying}
-            >
-              {isVerifying ? (
-                <ActivityIndicator color="#FFFFFF" />
-              ) : (
-                <Text style={styles.paidBtnText}>✓ Verify & Unlock Theme</Text>
-              )}
-            </Pressable>
-            <Pressable style={styles.modalClose} onPress={() => setShowQR(false)}>
-              <Text style={styles.modalCloseText}>Cancel</Text>
-            </Pressable>
           </Pressable>
         </Pressable>
       </Modal>
@@ -251,7 +167,7 @@ const useStyles = makeStyles((colors) => ({
   cardName: { color: colors.onSurface, fontSize: 15, fontWeight: "900" },
   activeTag: { color: colors.success, fontSize: 11, fontWeight: "800", marginTop: 2 },
   pill: { borderRadius: 99, paddingHorizontal: 12, paddingVertical: 6 },
-  pillText: { color: "#FFFFFF", fontSize: 12, fontWeight: "900" },
+  pillText: { fontSize: 12, fontWeight: "900" },
   overlay: { flex: 1, backgroundColor: "#00000088", alignItems: "center", justifyContent: "center", padding: 24 },
   modal: { width: "100%", backgroundColor: colors.surface, borderRadius: 28, padding: 28, alignItems: "center", gap: 12 },
   previewSwatch: { width: 80, height: 80, borderRadius: 24, alignItems: "center", justifyContent: "center" },
@@ -261,34 +177,8 @@ const useStyles = makeStyles((colors) => ({
   festivalTagText: { color: "#FFFFFF", fontSize: 11, fontWeight: "900" },
   modalBtn: { width: "100%", paddingVertical: 15, borderRadius: 16, alignItems: "center", marginTop: 8 },
   modalBtnText: { color: "#FFFFFF", fontSize: 16, fontWeight: "900" },
+  lockedPill: { width: "100%", paddingVertical: 14, borderRadius: 16, alignItems: "center", marginTop: 8 },
+  lockedPillText: { fontSize: 14, fontWeight: "800" },
   modalClose: { paddingVertical: 10 },
   modalCloseText: { color: colors.muted, fontSize: 14, fontWeight: "700" },
-  qrModal: { width: "100%", backgroundColor: colors.surface, borderRadius: 28, padding: 24, alignItems: "center", gap: 14 },
-  qrTitle: { color: colors.onSurface, fontSize: 22, fontWeight: "900" },
-  qrSubtitle: { color: colors.muted, fontSize: 13, fontWeight: "600", textAlign: "center" },
-  qrFrame: { width: 220, height: 290, borderRadius: 16, overflow: "hidden", backgroundColor: "#FFFFFF" },
-  qrImage: { width: 220, height: 290 },
-  qrNote: { color: colors.muted, fontSize: 12, fontWeight: "600", textAlign: "center" },
-  paidBtn: { width: "100%", paddingVertical: 15, borderRadius: 16, backgroundColor: "#16A34A", alignItems: "center" },
-  paidBtnText: { color: "#FFFFFF", fontSize: 16, fontWeight: "900" },
-  utrInput: {
-    width: "100%",
-    backgroundColor: colors.surfaceSecondary,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    borderColor: colors.divider,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 15,
-    fontWeight: "700",
-    color: colors.onSurface,
-    textAlign: "center",
-    letterSpacing: 1.5,
-  },
-  errorText: {
-    color: colors.error || "#EF4444",
-    fontSize: 12,
-    fontWeight: "700",
-    textAlign: "center",
-  },
 }));

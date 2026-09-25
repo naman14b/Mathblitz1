@@ -1,229 +1,60 @@
-type AdMobModule = typeof import("react-native-google-mobile-ads");
+/**
+ * Unified AdMob Services Interface
+ *
+ * Bridges all app ad calls to the centralized adMobService and adMob config.
+ */
+import {
+  initAdMob,
+  preloadMidtermInterstitial,
+  showDailyChallengeRewardedAd,
+  showKingdomRewardedAd,
+  showMidtermInterstitial,
+  showPrivacyOptionsForm,
+} from "./adMobService";
+import {
+  ADMOB_CONFIG,
+  ADMOB_PRODUCTION_IDS,
+  ADMOB_TEST_IDS,
+  getActiveAdUnits,
+  isTestMode,
+} from "@/src/config/adMob";
 
-export const TEST_AD_UNITS = {
-  BANNER: "ca-app-pub-3940256099942544/9214589741",
-  INTERSTITIAL: "ca-app-pub-3940256099942544/1033173712",
-  REWARDED: "ca-app-pub-3940256099942544/5224354917",
-  REWARDED_INTERSTITIAL: "ca-app-pub-3940256099942544/5354046379",
+export {
+  initAdMob,
+  preloadMidtermInterstitial,
+  showDailyChallengeRewardedAd,
+  showKingdomRewardedAd,
+  showMidtermInterstitial,
+  showPrivacyOptionsForm,
+  ADMOB_CONFIG,
+  ADMOB_PRODUCTION_IDS,
+  ADMOB_TEST_IDS,
+  getActiveAdUnits,
+  isTestMode,
 };
 
-let isInitialized = false;
-
-function getAdMob(): AdMobModule | null {
-  try {
-    const ads = require("react-native-google-mobile-ads");
-    if (ads && !isInitialized) {
-      if (typeof ads.default === "function") {
-        ads.default().initialize().catch((err: unknown) => {
-          console.log("[AdMob] SDK initialization error:", err);
-        });
-      }
-      isInitialized = true;
-    }
-    return ads;
-  } catch (error) {
-    console.log("[AdMob] Native module unavailable. Skipping ad.");
-    return null;
-  }
-}
+// Legacy constant for backwards compatibility
+export const TEST_AD_UNITS = ADMOB_TEST_IDS;
 
 /**
  * Show an Interstitial Ad at natural transition breaks.
+ * Routes to showMidtermInterstitial (frequency capped & preloaded).
  */
-export function showInterstitialAd(): Promise<boolean> {
-  return new Promise((resolve) => {
-    const ads = getAdMob();
-
-    if (!ads) {
-      resolve(false);
-      return;
-    }
-
-    try {
-      const adUnitId = ads.TestIds?.INTERSTITIAL || TEST_AD_UNITS.INTERSTITIAL;
-      const interstitial = ads.InterstitialAd.createForAdRequest(
-        adUnitId,
-        { requestNonPersonalizedAdsOnly: true }
-      );
-
-      const unsubscribeLoaded = interstitial.addAdEventListener(
-        ads.AdEventType.LOADED,
-        () => {
-          try {
-            interstitial.show();
-          } catch {
-            resolve(false);
-          }
-        }
-      );
-
-      const unsubscribeClosed = interstitial.addAdEventListener(
-        ads.AdEventType.CLOSED,
-        () => {
-          unsubscribeLoaded();
-          unsubscribeClosed();
-          resolve(true);
-        }
-      );
-
-      const unsubscribeError = interstitial.addAdEventListener(
-        ads.AdEventType.ERROR,
-        (error: unknown) => {
-          console.log("[AdMob] Interstitial error:", error);
-          unsubscribeLoaded();
-          unsubscribeClosed();
-          unsubscribeError();
-          resolve(false);
-        }
-      );
-
-      interstitial.load();
-    } catch (error) {
-      console.log("[AdMob] Interstitial exception:", error);
-      resolve(false);
-    }
-  });
+export async function showInterstitialAd(): Promise<boolean> {
+  return showMidtermInterstitial();
 }
 
 /**
  * Show a Rewarded Ad.
+ * Routes to showDailyChallengeRewardedAd.
  */
-export function showRewardedAd(onReward: () => void): Promise<boolean> {
-  return new Promise((resolve) => {
-    const ads = getAdMob();
-
-    if (!ads) {
-      resolve(false);
-      return;
-    }
-
-    try {
-      const adUnitId = ads.TestIds?.REWARDED || TEST_AD_UNITS.REWARDED;
-      const rewarded = ads.RewardedAd.createForAdRequest(
-        adUnitId,
-        { requestNonPersonalizedAdsOnly: true }
-      );
-
-      let rewardEarned = false;
-
-      const unsubscribeLoaded = rewarded.addAdEventListener(
-        ads.AdEventType.LOADED,
-        () => {
-          try {
-            rewarded.show();
-          } catch {
-            resolve(false);
-          }
-        }
-      );
-
-      const unsubscribeEarned = rewarded.addAdEventListener(
-        ads.RewardedAdEventType.EARNED_REWARD,
-        () => {
-          rewardEarned = true;
-          onReward();
-        }
-      );
-
-      const unsubscribeClosed = rewarded.addAdEventListener(
-        ads.AdEventType.CLOSED,
-        () => {
-          unsubscribeLoaded();
-          unsubscribeEarned();
-          unsubscribeClosed();
-          resolve(rewardEarned);
-        }
-      );
-
-      const unsubscribeError = rewarded.addAdEventListener(
-        ads.AdEventType.ERROR,
-        (error: unknown) => {
-          console.log("[AdMob] Rewarded error:", error);
-          unsubscribeLoaded();
-          unsubscribeEarned();
-          unsubscribeClosed();
-          unsubscribeError();
-          resolve(false);
-        }
-      );
-
-      rewarded.load();
-    } catch (error) {
-      console.log("[AdMob] Rewarded exception:", error);
-      resolve(false);
-    }
-  });
+export async function showRewardedAd(onReward: () => void): Promise<boolean> {
+  return showDailyChallengeRewardedAd(onReward);
 }
 
 /**
- * Show a Rewarded Interstitial Ad.
+ * Show a Rewarded Interstitial Ad (Used in Sudoku if needed).
  */
-export function showRewardedInterstitialAd(
-  onReward: () => void
-): Promise<boolean> {
-  return new Promise((resolve) => {
-    const ads = getAdMob();
-
-    if (!ads) {
-      resolve(false);
-      return;
-    }
-
-    try {
-      const adUnitId = ads.TestIds?.REWARDED_INTERSTITIAL || TEST_AD_UNITS.REWARDED_INTERSTITIAL;
-      const rewardedInterstitial =
-        ads.RewardedInterstitialAd.createForAdRequest(
-          adUnitId,
-          { requestNonPersonalizedAdsOnly: true }
-        );
-
-      let rewardEarned = false;
-
-      const unsubscribeLoaded = rewardedInterstitial.addAdEventListener(
-        ads.AdEventType.LOADED,
-        () => {
-          try {
-            rewardedInterstitial.show();
-          } catch {
-            resolve(false);
-          }
-        }
-      );
-
-      const unsubscribeEarned = rewardedInterstitial.addAdEventListener(
-        ads.RewardedAdEventType.EARNED_REWARD,
-        () => {
-          rewardEarned = true;
-          onReward();
-        }
-      );
-
-      const unsubscribeClosed = rewardedInterstitial.addAdEventListener(
-        ads.AdEventType.CLOSED,
-        () => {
-          unsubscribeLoaded();
-          unsubscribeEarned();
-          unsubscribeClosed();
-          resolve(rewardEarned);
-        }
-      );
-
-      const unsubscribeError = rewardedInterstitial.addAdEventListener(
-        ads.AdEventType.ERROR,
-        (error: unknown) => {
-          console.log("[AdMob] Rewarded Interstitial error:", error);
-          unsubscribeLoaded();
-          unsubscribeEarned();
-          unsubscribeClosed();
-          unsubscribeError();
-          resolve(false);
-        }
-      );
-
-      rewardedInterstitial.load();
-    } catch (error) {
-      console.log("[AdMob] Rewarded Interstitial exception:", error);
-      resolve(false);
-    }
-  });
+export async function showRewardedInterstitialAd(onReward: () => void): Promise<boolean> {
+  return showDailyChallengeRewardedAd(onReward);
 }

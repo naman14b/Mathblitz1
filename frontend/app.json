@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "MathBlitz 60s",
+    "name": "MathBlitz",
     "slug": "mathblitz-60s",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/mathblitz-icon.jpg",
-    "scheme": "frontend",
+    "scheme": "mathblitz",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.emergent.applaunchstage.v80bbd",
+      "bundleIdentifier": "com.naman.mathblitz",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Pick images for admin challenge questions"
       }
@@ -19,9 +19,20 @@
         "foregroundImage": "./assets/images/mathblitz-icon.jpg",
         "backgroundColor": "#FF6B35"
       },
-      "package": "com.emergent.applaunchstage.v80bbd",
+      "package": "com.naman.mathblitz",
+      "compileSdkVersion": 36,
+      "targetSdkVersion": 36,
       "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "VIBRATE",
         "READ_MEDIA_IMAGES"
+      ],
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
       ]
     },
     "web": {

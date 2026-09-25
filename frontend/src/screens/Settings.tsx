@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useCallback, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, Linking, Modal, Platform, Pressable, ScrollView, Text, View } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -14,6 +14,7 @@ import Animated, {
 import { AGE_GROUPS, AppSettings, AvatarId, AVATARS, LocalProfile } from "@/src/game/types";
 import { IconButton, PrimaryButton, ScreenTitle, SoftButton } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
+import { showPrivacyOptionsForm } from "@/src/services/adMobService";
 
 type SettingsProps = {
   profile: LocalProfile;
@@ -31,6 +32,7 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
   const age = AGE_GROUPS.find((item) => item.id === profile.ageGroup);
   const toggle = (key: keyof AppSettings) => onSave({ ...profile.settings, [key]: !profile.settings[key] });
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const currentAvatar = AVATARS.find((a) => a.id === profile.avatar);
 
   const handleAvatarSelect = async (id: AvatarId) => {
@@ -190,9 +192,30 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
 
         <Text style={styles.section}>DATA & PRIVACY</Text>
         <View style={styles.card}>
-          <Pressable style={styles.linkRow} onPress={() => Alert.alert("Privacy", "MathBlitz keeps gameplay progress on this device. No account or precise location is required.")}>
+          <Pressable
+            testID="settings-privacy-data"
+            style={styles.linkRow}
+            onPress={() => setShowPrivacyModal(true)}
+          >
             <Ionicons name="shield-checkmark-outline" size={20} color={colors.success} />
             <Text style={styles.linkText}>Privacy & data</Text>
+            <Ionicons name="chevron-forward" size={20} color={colors.muted} />
+          </Pressable>
+          <View style={styles.divider} />
+          <Pressable
+            style={styles.linkRow}
+            onPress={async () => {
+              const shown = await showPrivacyOptionsForm();
+              if (!shown) {
+                Alert.alert(
+                  "Ad Privacy Choices",
+                  "MathBlitz only serves family-friendly, non-personalized ads. All advertising complies with the Google Play Families Policy."
+                );
+              }
+            }}
+          >
+            <Ionicons name="options-outline" size={20} color={colors.brandPrimary} />
+            <Text style={styles.linkText}>Ad privacy choices</Text>
             <Ionicons name="chevron-forward" size={20} color={colors.muted} />
           </Pressable>
           <View style={styles.divider} />
@@ -246,6 +269,126 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
                 />
               ))}
             </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* In-App Privacy Policy Modal */}
+      <Modal
+        visible={showPrivacyModal}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setShowPrivacyModal(false)}
+      >
+        <View style={styles.privacyModalOverlay}>
+          <View style={styles.privacyModalCard}>
+            <View style={styles.modalHeader}>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+                <View style={{ width: 36, height: 36, borderRadius: 12, backgroundColor: "rgba(16, 185, 129, 0.16)", alignItems: "center", justifyContent: "center" }}>
+                  <Ionicons name="shield-checkmark" size={20} color={colors.success} />
+                </View>
+                <View>
+                  <Text style={styles.modalTitle}>Privacy Policy</Text>
+                  <Text style={{ fontSize: 11, color: colors.muted, fontWeight: "600" }}>MathBlitz Mobile Application</Text>
+                </View>
+              </View>
+              <Pressable onPress={() => setShowPrivacyModal(false)} hitSlop={12}>
+                <Ionicons name="close-circle" size={28} color={colors.muted} />
+              </Pressable>
+            </View>
+
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 12, paddingBottom: 10, borderBottomWidth: 1, borderColor: colors.divider }}>
+              <Text style={{ fontSize: 12, color: colors.muted }}>Updated: Sep 25, 2026</Text>
+              <Pressable
+                onPress={async () => {
+                  const url = "https://mathblitz1-eta.vercel.app/privacy-policy.html";
+                  try {
+                    if (Platform.OS === "web" && typeof window !== "undefined") {
+                      window.open("/privacy-policy.html", "_blank");
+                      return;
+                    }
+                    const can = await Linking.canOpenURL(url);
+                    if (can) await Linking.openURL(url);
+                  } catch {}
+                }}
+                style={{ flexDirection: "row", alignItems: "center", gap: 4, backgroundColor: colors.brandTertiary, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 12 }}
+              >
+                <Text style={{ fontSize: 12, fontWeight: "800", color: colors.brandPrimary }}>Open Web Page ↗</Text>
+              </Pressable>
+            </View>
+
+            <ScrollView showsVerticalScrollIndicator={true} style={{ flex: 1, paddingRight: 4 }}>
+              <Text style={styles.policyHeading}>Overview</Text>
+              <Text style={styles.policyParagraph}>
+                This Privacy Policy explains how MathBlitz handles information when you use the MathBlitz mobile application. MathBlitz is a math-learning and puzzle game that includes mental-math challenges, daily challenges, journey progression, Sudoku, math puzzles, leaderboards, optional AI coaching, and advertising features.
+              </Text>
+
+              <Text style={styles.policyHeading}>1. Information We Collect</Text>
+              <Text style={styles.policySubheading}>Information you provide in the app:</Text>
+              <Text style={styles.policyBullet}>• <Text style={styles.policyBold}>Player name:</Text> Stored locally and sent to our server for leaderboards, AI coaching, and Math Boss results.</Text>
+              <Text style={styles.policyBullet}>• <Text style={styles.policyBold}>Age group:</Text> Selected during onboarding. Used to tailor math difficulty and advertising treatment (child-directed treatment for younger players).</Text>
+              <Text style={styles.policyBullet}>• <Text style={styles.policyBold}>Game progress:</Text> Scores, streaks, tokens, achievements, puzzles, and journey progression stored locally on your device.</Text>
+              <Text style={styles.policyBullet}>• <Text style={styles.policyBold}>Gameplay performance:</Text> Questions attempted, answers, correctness, response time, and learning progress for AI coaching.</Text>
+
+              <Text style={styles.policySubheading}>Leaderboard & AI Coach information:</Text>
+              <Text style={styles.policyParagraph}>
+                Leaderboards display your player name, score, age group, and game mode. AI Coach features process math questions, answers, and response times to generate learning insights and personalized math explanations.
+              </Text>
+
+              <Text style={styles.policySubheading}>Technical and advertising information:</Text>
+              <Text style={styles.policyParagraph}>
+                MathBlitz uses Google Mobile Ads (AdMob). AdMob may process device identifiers, IP address, and ad interactions according to Google's Families Policy and consent choices.
+              </Text>
+
+              <Text style={styles.policyHeading}>2. How We Use Information</Text>
+              <Text style={styles.policyBullet}>• Provide and operate MathBlitz gameplay and progression.</Text>
+              <Text style={styles.policyBullet}>• Save and restore player progress, settings, and leaderboards.</Text>
+              <Text style={styles.policyBullet}>• Analyze math performance and provide AI Coach learning insights.</Text>
+              <Text style={styles.policyBullet}>• Deliver family-friendly, non-personalized advertisements.</Text>
+
+              <Text style={styles.policyHeading}>3. Local Storage</Text>
+              <Text style={styles.policyParagraph}>
+                MathBlitz stores game and profile information directly on your device using secure local storage. You can delete locally stored data at any time using the "Reset local progress" button in Settings or by uninstalling the application.
+              </Text>
+
+              <Text style={styles.policyHeading}>4. Third-Party Services</Text>
+              <Text style={styles.policyBullet}>• <Text style={styles.policyBold}>Google AdMob:</Text> Serves family-safe ads compliant with Google Play Families Policy.</Text>
+              <Text style={styles.policyBullet}>• <Text style={styles.policyBold}>OpenRouter / AI Models:</Text> Used to generate educational AI coaching responses.</Text>
+              <Text style={styles.policyBullet}>• <Text style={styles.policyBold}>Google Play:</Text> Prepared for secure Google Play purchases when enabled.</Text>
+
+              <Text style={styles.policyHeading}>5. Children's Privacy</Text>
+              <Text style={styles.policyParagraph}>
+                MathBlitz includes age groups for children. We configure advertising requests with child-directed treatment (COPPA compliant) and under-age-of-consent protections. We do not require an account with an email address, telephone number, or password to play.
+              </Text>
+
+              <Text style={styles.policyHeading}>6. Data Deletion & Privacy Requests</Text>
+              <Text style={styles.policyParagraph}>
+                You may request deletion of server-side leaderboard or coaching records associated with your player name by contacting us at naman14b@gmail.com.
+              </Text>
+
+              <Text style={styles.policyHeading}>7. Contact Us</Text>
+              <Text style={styles.policyParagraph}>
+                For privacy questions, data deletion requests, or feedback, please contact:
+              </Text>
+              <Text style={[styles.policyParagraph, { fontWeight: "700", color: colors.brandPrimary }]}>
+                MathBlitz · naman14b@gmail.com
+              </Text>
+            </ScrollView>
+
+            <Pressable
+              onPress={() => setShowPrivacyModal(false)}
+              style={{
+                marginTop: 12,
+                backgroundColor: colors.brandPrimary,
+                paddingVertical: 13,
+                borderRadius: 14,
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: colors.onBrandPrimary, fontWeight: "900", fontSize: 15 }}>
+                Close
+              </Text>
+            </Pressable>
           </View>
         </View>
       </Modal>
@@ -370,6 +513,24 @@ const useStyles = makeStyles((colors) => ({
     paddingBottom: 40,
     maxHeight: "80%",
   },
+  privacyModalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    justifyContent: Platform.OS === "web" ? "center" : "flex-end",
+    alignItems: "center",
+    padding: Platform.OS === "web" ? 20 : 0,
+  },
+  privacyModalCard: {
+    backgroundColor: colors.surface,
+    width: "100%",
+    maxWidth: 640,
+    height: Platform.OS === "web" ? "88%" : "85%",
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    borderRadius: Platform.OS === "web" ? 28 : undefined,
+    padding: 22,
+    paddingBottom: 24,
+  },
   modalHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -415,5 +576,36 @@ const useStyles = makeStyles((colors) => ({
     fontSize: 10,
     fontWeight: "700",
     textAlign: "center",
+  },
+  policyHeading: {
+    color: colors.onSurface,
+    fontSize: 15,
+    fontWeight: "900",
+    marginTop: 14,
+    marginBottom: 6,
+  },
+  policySubheading: {
+    color: colors.onSurface,
+    fontSize: 13,
+    fontWeight: "800",
+    marginTop: 10,
+    marginBottom: 4,
+  },
+  policyParagraph: {
+    color: colors.muted,
+    fontSize: 13,
+    lineHeight: 20,
+    marginBottom: 8,
+  },
+  policyBullet: {
+    color: colors.muted,
+    fontSize: 13,
+    lineHeight: 20,
+    marginBottom: 6,
+    paddingLeft: 4,
+  },
+  policyBold: {
+    color: colors.onSurface,
+    fontWeight: "800",
   },
 }));

@@ -1,14 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   Alert,
   Image,
   Modal,
   Pressable,
   ScrollView,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -33,7 +31,6 @@ import { makeStyles, useTheme } from "@/src/theme";
 
 const BADGE_SHEET = require("@/assets/badges/achievement_badges_sheet.jpg");
 const PREMIUM_SHEET = require("@/assets/badges/premium_badges_sheet.jpg");
-const PAYMENT_QR = require("@/assets/images/payment_qr.jpg");
 
 function UnlockedBadgeIcon({ emoji }: { emoji: string }) {
   const rotation = useSharedValue(0);
@@ -66,7 +63,7 @@ type AchievementsProps = {
   onEquipAchievementBadge: (id: AchievementId | null) => void;
   onEquipPremiumBadge: (id: PremiumBadgeId | null) => void;
   onToggleEquipBadge?: (id: string) => Promise<boolean> | void;
-  onPurchasePremiumBadge: (id: PremiumBadgeId, utr?: string) => void;
+  onPurchasePremiumBadge?: (id: PremiumBadgeId, utr?: string) => void;
 };
 
 type Tab = "achievements" | "premium";
@@ -74,10 +71,7 @@ type Tab = "achievements" | "premium";
 export function Achievements({
   profile,
   onBack,
-  onEquipAchievementBadge,
-  onEquipPremiumBadge,
   onToggleEquipBadge,
-  onPurchasePremiumBadge,
 }: AchievementsProps) {
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
@@ -85,11 +79,6 @@ export function Achievements({
   const [tab, setTab] = useState<Tab>("achievements");
   const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
   const [selectedPremium, setSelectedPremium] = useState<PremiumBadge | null>(null);
-  const [showQR, setShowQR] = useState(false);
-  const [pendingBadge, setPendingBadge] = useState<PremiumBadgeId | null>(null);
-  const [utr, setUtr] = useState("");
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [utrError, setUtrError] = useState("");
 
   const earned = profile.earnedAchievements ?? {};
   const earnedCount = Object.keys(earned).length;
@@ -109,34 +98,6 @@ export function Achievements({
     }
   };
 
-  const handleBuyPremium = (badge: PremiumBadge) => {
-    setPendingBadge(badge.id);
-    setSelectedPremium(null);
-    setUtr("");
-    setUtrError("");
-    setShowQR(true);
-  };
-
-  const handleVerifyPayment = () => {
-    const cleanUtr = utr.trim();
-    if (!/^\d{12}$/.test(cleanUtr)) {
-      setUtrError("Please enter a valid 12-digit UPI reference number (UTR).");
-      return;
-    }
-    setUtrError("");
-    setIsVerifying(true);
-    setTimeout(() => {
-      setIsVerifying(false);
-      if (pendingBadge) {
-        onPurchasePremiumBadge(pendingBadge, cleanUtr);
-        Alert.alert("Payment Verified!", "Your premium frame has been verified and unlocked.");
-      }
-      setShowQR(false);
-      setPendingBadge(null);
-      setUtr("");
-    }, 1500);
-  };
-
   return (
     <View style={[styles.root, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       {/* Header */}
@@ -145,30 +106,40 @@ export function Achievements({
           <Ionicons name="arrow-back" size={22} color={colors.onSurface} />
         </Pressable>
         <View style={styles.headerText}>
-          <Text style={styles.title}>Collectibles</Text>
+          <Text style={styles.title}>Badges & Frames</Text>
           <Text style={styles.subtitle}>
-            {earnedCount}/{ACHIEVEMENTS.length} unlocked · Equipped: {equippedBadges.length}/2 badges
+            {tab === "achievements" ? `${earnedCount}/${ACHIEVEMENTS.length} unlocked` : "Exclusive avatar frames"}
           </Text>
         </View>
         <View style={styles.badgeBadge}>
-          <Text style={styles.badgeBadgeText}>🏆</Text>
+          <Text style={styles.badgeBadgeText}>{tab === "achievements" ? "🎖️" : "👑"}</Text>
         </View>
       </View>
 
       {/* Tabs */}
       <View style={styles.tabs}>
-        <Pressable onPress={() => setTab("achievements")} style={[styles.tab, tab === "achievements" && styles.tabActive]}>
-          <Text style={[styles.tabText, tab === "achievements" && styles.tabTextActive]}>🏅 Achievements</Text>
+        <Pressable
+          style={[styles.tab, tab === "achievements" && styles.tabActive]}
+          onPress={() => setTab("achievements")}
+        >
+          <Text style={[styles.tabText, tab === "achievements" && styles.tabTextActive]}>
+            Achievements ({earnedCount})
+          </Text>
         </Pressable>
-        <Pressable onPress={() => setTab("premium")} style={[styles.tab, tab === "premium" && styles.tabActive]}>
-          <Text style={[styles.tabText, tab === "premium" && styles.tabTextActive]}>💎 Premium Frames</Text>
+        <Pressable
+          style={[styles.tab, tab === "premium" && styles.tabActive]}
+          onPress={() => setTab("premium")}
+        >
+          <Text style={[styles.tabText, tab === "premium" && styles.tabTextActive]}>
+            Premium Frames
+          </Text>
         </Pressable>
       </View>
 
+      {/* Content */}
       {tab === "achievements" ? (
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.grid}>
-          {/* Badge sheet preview */}
-          <Image source={BADGE_SHEET} style={styles.badgeSheet} resizeMode="contain" />
+          <Image source={BADGE_SHEET} style={styles.badgeSheet} resizeMode="cover" />
 
           {ACHIEVEMENTS.map((achievement) => {
             const isEarned = Boolean(earned[achievement.id]);
@@ -198,7 +169,7 @@ export function Achievements({
         </ScrollView>
       ) : (
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.premiumGrid}>
-          <Text style={styles.sectionNote}>Exclusive avatar frames · ₹49 each · Equip next to your name</Text>
+          <Text style={styles.sectionNote}>Exclusive avatar frames · Equip next to your name</Text>
           <Image source={PREMIUM_SHEET} style={styles.premiumSheet} resizeMode="contain" />
 
           {PREMIUM_BADGES.map((badge) => {
@@ -223,8 +194,8 @@ export function Achievements({
                       <Text style={styles.ownedBadgeText}>{isEquipped ? "✓ ON" : "Owned"}</Text>
                     </View>
                   ) : (
-                    <View style={[styles.priceBadge, { backgroundColor: badge.gradient[1] }]}>
-                      <Text style={styles.priceBadgeText}>₹{badge.price}</Text>
+                    <View style={[styles.priceBadge, { backgroundColor: colors.surfaceTertiary }]}>
+                      <Text style={[styles.priceBadgeText, { color: colors.muted }]}>Locked</Text>
                     </View>
                   )}
                 </View>
@@ -292,9 +263,9 @@ export function Achievements({
                       <Text style={styles.modalBtnText}>{isEquipped ? "Unequip Frame" : "Equip Frame (Max 2)"}</Text>
                     </Pressable>
                   ) : (
-                    <Pressable style={[styles.modalBtn, { backgroundColor: selectedPremium.gradient[1] }]} onPress={() => handleBuyPremium(selectedPremium)}>
-                      <Text style={styles.modalBtnText}>Buy for ₹{selectedPremium.price}</Text>
-                    </Pressable>
+                    <View style={[styles.lockedPill, { backgroundColor: colors.surfaceSecondary }]}>
+                      <Text style={[styles.lockedPillText, { color: colors.muted }]}>🔒 Available in future update</Text>
+                    </View>
                   )}
                   <Pressable style={styles.modalClose} onPress={() => setSelectedPremium(null)}>
                     <Text style={styles.modalCloseText}>Close</Text>
@@ -302,47 +273,6 @@ export function Achievements({
                 </>
               );
             })()}
-          </Pressable>
-        </Pressable>
-      </Modal>
-
-      {/* QR Payment Modal */}
-      <Modal visible={showQR} transparent animationType="slide" onRequestClose={() => setShowQR(false)}>
-        <Pressable style={styles.overlay} onPress={() => setShowQR(false)}>
-          <Pressable style={styles.qrModal} onPress={(e) => e.stopPropagation()}>
-            <Text style={styles.qrTitle}>Complete Payment</Text>
-            <Text style={styles.qrSubtitle}>Scan the QR code below and pay ₹49 via UPI</Text>
-            <View style={styles.qrFrame}>
-              <Image source={PAYMENT_QR} style={styles.qrImage} resizeMode="contain" />
-            </View>
-            <Text style={styles.qrNote}>Enter your 12-digit UPI reference number (UTR) to verify:</Text>
-            <TextInput
-              style={styles.utrInput}
-              placeholder="12-digit UPI UTR / Ref No."
-              placeholderTextColor={colors.muted}
-              value={utr}
-              onChangeText={(text) => {
-                setUtr(text);
-                if (utrError) setUtrError("");
-              }}
-              keyboardType="numeric"
-              maxLength={12}
-            />
-            {utrError ? <Text style={styles.errorText}>{utrError}</Text> : null}
-            <Pressable
-              style={[styles.paidBtn, isVerifying && { opacity: 0.7 }]}
-              onPress={handleVerifyPayment}
-              disabled={isVerifying}
-            >
-              {isVerifying ? (
-                <ActivityIndicator color="#FFFFFF" />
-              ) : (
-                <Text style={styles.paidBtnText}>✓ Verify & Unlock Frame</Text>
-              )}
-            </Pressable>
-            <Pressable style={styles.modalClose} onPress={() => setShowQR(false)}>
-              <Text style={styles.modalCloseText}>Cancel</Text>
-            </Pressable>
           </Pressable>
         </Pressable>
       </Modal>
@@ -397,7 +327,7 @@ const useStyles = makeStyles((colors) => ({
   equippedBadge: { backgroundColor: colors.brandPrimary },
   ownedBadgeText: { color: colors.onSurface, fontSize: 11, fontWeight: "900" },
   priceBadge: { borderRadius: 99, paddingHorizontal: 10, paddingVertical: 5 },
-  priceBadgeText: { color: "#FFFFFF", fontSize: 12, fontWeight: "900" },
+  priceBadgeText: { fontSize: 11, fontWeight: "900" },
   // Modals
   overlay: { flex: 1, backgroundColor: "#00000088", alignItems: "center", justifyContent: "center", padding: 24 },
   modal: {
@@ -413,40 +343,10 @@ const useStyles = makeStyles((colors) => ({
   },
   modalBtnActive: { backgroundColor: colors.success },
   modalBtnText: { color: colors.onBrandPrimary, fontSize: 16, fontWeight: "900" },
+  lockedPill: { width: "100%", paddingVertical: 14, borderRadius: 16, alignItems: "center", marginTop: 8 },
+  lockedPillText: { fontSize: 14, fontWeight: "800" },
   modalClose: { paddingVertical: 10 },
   modalCloseText: { color: colors.muted, fontSize: 14, fontWeight: "700" },
   premiumPreview: { width: 80, height: 80, borderRadius: 40, alignItems: "center", justifyContent: "center", borderWidth: 3, marginBottom: 4 },
   premiumDotLg: { width: 32, height: 32, borderRadius: 16 },
-  // QR modal
-  qrModal: { width: "100%", backgroundColor: colors.surface, borderRadius: 28, padding: 24, alignItems: "center", gap: 14 },
-  qrTitle: { color: colors.onSurface, fontSize: 22, fontWeight: "900" },
-  qrSubtitle: { color: colors.muted, fontSize: 13, fontWeight: "600", textAlign: "center" },
-  qrFrame: { width: 220, height: 290, borderRadius: 16, overflow: "hidden", backgroundColor: "#FFFFFF" },
-  qrImage: { width: 220, height: 290 },
-  qrNote: { color: colors.muted, fontSize: 12, fontWeight: "600", textAlign: "center" },
-  paidBtn: {
-    width: "100%", paddingVertical: 15, borderRadius: 16,
-    backgroundColor: "#16A34A", alignItems: "center",
-  },
-  paidBtnText: { color: "#FFFFFF", fontSize: 16, fontWeight: "900" },
-  utrInput: {
-    width: "100%",
-    backgroundColor: colors.surfaceSecondary,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    borderColor: colors.divider,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 15,
-    fontWeight: "700",
-    color: colors.onSurface,
-    textAlign: "center",
-    letterSpacing: 1.5,
-  },
-  errorText: {
-    color: colors.error || "#EF4444",
-    fontSize: 12,
-    fontWeight: "700",
-    textAlign: "center",
-  },
 }));

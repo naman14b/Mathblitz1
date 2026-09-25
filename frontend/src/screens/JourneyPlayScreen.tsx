@@ -30,6 +30,7 @@ import { JourneyLevelCompleteModal } from "./JourneyLevelCompleteModal";
 import { playSound } from "@/src/game/sounds";
 import { LocalProfile } from "@/src/game/types";
 import { getLevelImage } from "@/src/game/levelAssets";
+import { showRewardedAd } from "@/src/services/ads";
 
 interface JourneyPlayScreenProps {
   levelId: number;
@@ -71,8 +72,7 @@ export function JourneyPlayScreen({
   // Revive & Ad Watch state
   const [showReviveModal, setShowReviveModal] = useState(false);
   const [reviveReason, setReviveReason] = useState<"timeout" | "lives">("timeout");
-  const [isWatchingAd, setIsWatchingAd] = useState(false);
-  const [adCountdown, setAdCountdown] = useState(3);
+  const [isLoadingAd, setIsLoadingAd] = useState(false);
   const [hasUsedRevive, setHasUsedRevive] = useState(false);
 
   // Synchronized refs to eliminate race conditions and stale closures
@@ -105,7 +105,7 @@ export function JourneyPlayScreen({
     setIsAnswered(false);
     setBossHealth(generated.length);
     setShowReviveModal(false);
-    setIsWatchingAd(false);
+    setIsLoadingAd(false);
     setHasUsedRevive(false);
 
     correctCountRef.current = 0;
@@ -128,7 +128,7 @@ export function JourneyPlayScreen({
       isGameOverRef.current = true;
       setIsGameOver(true);
       setShowReviveModal(false);
-      setIsWatchingAd(false);
+      setIsLoadingAd(false);
       if (timerRef.current) clearInterval(timerRef.current);
 
       const resolvedCorrect = typeof finalCorrect === "number" ? finalCorrect : correctCountRef.current;
@@ -175,7 +175,7 @@ export function JourneyPlayScreen({
 
   // Main countdown timer
   useEffect(() => {
-    if (isGameOver || showReviveModal || isWatchingAd || questions.length === 0) return;
+    if (isGameOver || showReviveModal || isLoadingAd || questions.length === 0) return;
 
     timerRef.current = setInterval(() => {
       setTimeRemaining((prev) => {
@@ -196,39 +196,53 @@ export function JourneyPlayScreen({
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isGameOver, showReviveModal, isWatchingAd, questions.length, handleTriggerDefeatOrRevive]);
+  }, [isGameOver, showReviveModal, isLoadingAd, questions.length, handleTriggerDefeatOrRevive]);
 
-  // Handle Watch Ad Revive Simulation
-  const handleStartWatchAd = () => {
-    setShowReviveModal(false);
-    setIsWatchingAd(true);
-    setAdCountdown(3);
+  // Handle Watch Ad to Continue with +30 Seconds
+  const handleStartWatchAd = async () => {
+    if (isLoadingAd || hasUsedReviveRef.current) return;
+    setIsLoadingAd(true);
 
-    let count = 3;
-    const interval = setInterval(() => {
-      count -= 1;
-      setAdCountdown(count);
-      if (count <= 0) {
-        clearInterval(interval);
-        // Grant Revive Reward: +30 seconds & +1 Life!
-        setIsWatchingAd(false);
+    try {
+      let rewardEarned = false;
+      const success = await showRewardedAd(() => {
+        rewardEarned = true;
+      });
+
+      if (success && rewardEarned) {
+        // Anti-abuse: Allowed only ONCE per level attempt
         hasUsedReviveRef.current = true;
         setHasUsedRevive(true);
-        livesRef.current = Math.max(1, livesRef.current + 1);
-        setLives(livesRef.current);
+        setShowReviveModal(false);
+
+        // Exactly 30 additional seconds
         setTimeRemaining((prev) => prev + 30);
+
+        // If level failed from running out of lives, grant 1 life buffer back so player can continue
+        if (livesRef.current <= 0) {
+          livesRef.current = 1;
+          setLives(1);
+        }
+
         setIsAnswered(false);
         setSelectedChoiceId(null);
         playSound("levelup");
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      } else {
+        // If player closes, skips, fails to load, fails to show, or no EARNED_REWARD:
+        // Give NO extra time, do NOT resume the level, leave failure state intact.
       }
-    }, 1000);
+    } catch (err) {
+      console.log("[Kingdom] Rewarded ad continue exception:", err);
+    } finally {
+      setIsLoadingAd(false);
+    }
   };
 
   const currentQ = questions[currentIndex];
 
   const handleSelectChoice = (choiceId: string, choiceValue: string | number) => {
-    if (isAnswered || isGameOver || showReviveModal || isWatchingAd || !currentQ) return;
+    if (isAnswered || isGameOver || showReviveModal || isLoadingAd || !currentQ) return;
 
     setSelectedChoiceId(choiceId);
     setIsAnswered(true);
@@ -459,7 +473,7 @@ export function JourneyPlayScreen({
         </View>
       </View>
 
-      {/* Second Chance Revive Modal (+30s & +1 Life) */}
+      {/* Second Chance Revive Modal (+30s) */}
       <Modal visible={showReviveModal} transparent animationType="fade">
         <View style={styles.modalBackdrop}>
           <View style={styles.reviveCard}>
@@ -470,45 +484,42 @@ export function JourneyPlayScreen({
               {reviveReason === "timeout" ? "OUT OF TIME!" : "NO LIVES REMAINING!"}
             </Text>
             <Text style={styles.reviveSubtitle}>
-              Don't lose your progress in {world.name}! Watch a short video to revive and claim victory.
+              Need another chance?{"\n"}Watch an ad to get +30 seconds
             </Text>
 
             <View style={styles.rewardBanner}>
-              <Text style={styles.rewardBannerText}>🎁 REWARD: +30 SECONDS & +1 LIFE ❤️</Text>
+              <Text style={styles.rewardBannerText}>🎁 REWARD: +30 SECONDS</Text>
             </View>
 
-            <Pressable onPress={handleStartWatchAd} style={styles.watchAdBtn}>
-              <Ionicons name="play-circle" size={22} color="#FFFFFF" />
-              <Text style={styles.watchAdBtnText}>WATCH AD TO CONTINUE (+30s)</Text>
+            <Pressable
+              onPress={handleStartWatchAd}
+              disabled={isLoadingAd}
+              style={({ pressed }) => [
+                styles.watchAdBtn,
+                isLoadingAd && { opacity: 0.6 },
+                pressed && { opacity: 0.85 },
+              ]}
+            >
+              {isLoadingAd ? (
+                <ActivityIndicator size="small" color="#FFFFFF" />
+              ) : (
+                <>
+                  <Ionicons name="play-circle" size={22} color="#FFFFFF" />
+                  <Text style={styles.watchAdBtnText}>Watch Ad +30s</Text>
+                </>
+              )}
             </Pressable>
 
-            <Pressable onPress={() => handleFinishLevel()} style={styles.giveUpBtn}>
+            <Pressable
+              onPress={() => {
+                setShowReviveModal(false);
+                handleFinishLevel();
+              }}
+              disabled={isLoadingAd}
+              style={styles.giveUpBtn}
+            >
               <Text style={styles.giveUpBtnText}>Give Up</Text>
             </Pressable>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Rewarded Video Ad Simulation Overlay */}
-      <Modal visible={isWatchingAd} transparent animationType="fade">
-        <View style={styles.adBackdrop}>
-          <View style={styles.adHeader}>
-            <View style={styles.adTagPill}>
-              <Text style={styles.adTagText}>SPONSOR ADVERTISEMENT</Text>
-            </View>
-            <View style={styles.adCountdownPill}>
-              <Text style={styles.adCountdownText}>Reward in {adCountdown}s</Text>
-            </View>
-          </View>
-
-          <View style={styles.adContentCard}>
-            <Text style={styles.adBrandEmoji}>🚀</Text>
-            <Text style={styles.adBrandTitle}>MathBlitz Kingdom Pro</Text>
-            <Text style={styles.adBrandSubtitle}>
-              Master Speed Math, Solve Mind-Bending Puzzles & Conquer the Realms!
-            </Text>
-            <ActivityIndicator size="large" color="#F59E0B" style={{ marginTop: 24 }} />
-            <Text style={styles.adLoadingHint}>Granting +30s Kingdom Revival...</Text>
           </View>
         </View>
       </Modal>
@@ -870,68 +881,5 @@ const styles = StyleSheet.create({
     color: "#64748B",
     fontSize: 14,
     fontWeight: "700",
-  },
-  adBackdrop: {
-    flex: 1,
-    backgroundColor: "#0B0F19",
-    justifyContent: "space-between",
-    padding: 24,
-  },
-  adHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  adTagPill: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  adTagText: {
-    color: "#94A3B8",
-    fontSize: 10,
-    fontWeight: "800",
-    letterSpacing: 1,
-  },
-  adCountdownPill: {
-    backgroundColor: "#F59E0B",
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  adCountdownText: {
-    color: "#0F172A",
-    fontSize: 12,
-    fontWeight: "900",
-  },
-  adContentCard: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 20,
-  },
-  adBrandEmoji: {
-    fontSize: 64,
-    marginBottom: 16,
-  },
-  adBrandTitle: {
-    color: "#FFFFFF",
-    fontSize: 24,
-    fontWeight: "900",
-    textAlign: "center",
-  },
-  adBrandSubtitle: {
-    color: "#94A3B8",
-    fontSize: 14,
-    textAlign: "center",
-    marginTop: 8,
-    lineHeight: 20,
-  },
-  adLoadingHint: {
-    color: "#F59E0B",
-    fontSize: 13,
-    fontWeight: "700",
-    marginTop: 16,
   },
 });

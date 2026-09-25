@@ -16,7 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { JourneyLevelDef, PlayerJourneyState } from "../game/journey/types";
 import { getWorldForLevel, getLevelDef } from "../game/journey/worlds";
-import { loadJourneyState } from "../game/journey/storage";
+import { loadJourneyState, getCachedJourneyState } from "../game/journey/storage";
 import { WorldMap } from "../game/journey/components/WorldMap";
 import { DailyJourneyWidget } from "../game/journey/components/DailyJourneyWidget";
 import { LocalProfile } from "@/src/game/types";
@@ -24,6 +24,7 @@ import { ASTRONAUT_HEADER, getLevelImage } from "@/src/game/levelAssets";
 
 interface JourneyMapScreenProps {
   profile: LocalProfile;
+  isActive?: boolean;
   onPlayLevel: (levelId: number) => void;
   onSpeedGate: (speedGateId?: string) => void;
   onDailyChallenge: () => void;
@@ -32,13 +33,14 @@ interface JourneyMapScreenProps {
 
 export function JourneyMapScreen({
   profile,
+  isActive = true,
   onPlayLevel,
   onSpeedGate,
   onDailyChallenge,
   onBackHome,
 }: JourneyMapScreenProps) {
   const insets = useSafeAreaInsets();
-  const [journeyState, setJourneyState] = useState<PlayerJourneyState | null>(null);
+  const [journeyState, setJourneyState] = useState<PlayerJourneyState | null>(() => getCachedJourneyState());
   const [showQuestDrawer, setShowQuestDrawer] = useState(false);
 
   // Load state on focus/mount
@@ -48,8 +50,10 @@ export function JourneyMapScreen({
   }, []);
 
   useEffect(() => {
-    refreshState();
-  }, [refreshState]);
+    if (isActive) {
+      refreshState();
+    }
+  }, [isActive, refreshState]);
 
   if (!journeyState) {
     return (

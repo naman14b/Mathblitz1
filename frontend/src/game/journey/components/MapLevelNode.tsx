@@ -39,7 +39,40 @@ interface MapLevelNodeProps {
   y: number; // Absolute Y
 }
 
-export function MapLevelNode({
+function ActiveBeaconRing({ size }: { size: number }) {
+  const pulseScale = useSharedValue(1);
+  React.useEffect(() => {
+    pulseScale.value = withRepeat(
+      withSequence(
+        withTiming(1.12, { duration: 900, easing: Easing.inOut(Easing.ease) }),
+        withTiming(1.0, { duration: 900, easing: Easing.inOut(Easing.ease) })
+      ),
+      -1,
+      true
+    );
+  }, [pulseScale]);
+
+  const animatedPulse = useAnimatedStyle(() => ({
+    transform: [{ scale: pulseScale.value }],
+  }));
+
+  return (
+    <Animated.View
+      style={[
+        styles.beaconRing,
+        {
+          width: size + 16,
+          height: size + 16,
+          borderRadius: (size + 16) / 2,
+          borderColor: "#FBBF24",
+        },
+        animatedPulse,
+      ]}
+    />
+  );
+}
+
+export const MapLevelNode = React.memo(function MapLevelNode({
   level,
   isUnlocked,
   isCompleted,
@@ -54,29 +87,7 @@ export function MapLevelNode({
   const isBoss = level.levelType === "boss";
   const isSpeedGate = level.levelType === "speed_gate";
 
-  // Pulse animation for active current level
-  const pulseScale = useSharedValue(1);
-  React.useEffect(() => {
-    if (isCurrent) {
-      pulseScale.value = withRepeat(
-        withSequence(
-          withTiming(1.12, { duration: 900, easing: Easing.inOut(Easing.ease) }),
-          withTiming(1.0, { duration: 900, easing: Easing.inOut(Easing.ease) })
-        ),
-        -1,
-        true
-      );
-    } else {
-      pulseScale.value = 1;
-    }
-  }, [isCurrent]);
-
-  const animatedPulse = useAnimatedStyle(() => ({
-    transform: [{ scale: pulseScale.value }],
-  }));
-
   const size = isBoss ? 80 : 70;
-  const radius = size / 2;
 
   return (
     <View
@@ -89,21 +100,8 @@ export function MapLevelNode({
         },
       ]}
     >
-      {/* Active pulsating glowing beacon ring */}
-      {isCurrent && (
-        <Animated.View
-          style={[
-            styles.beaconRing,
-            {
-              width: size + 16,
-              height: size + 16,
-              borderRadius: (size + 16) / 2,
-              borderColor: "#FBBF24",
-            },
-            animatedPulse,
-          ]}
-        />
-      )}
+      {/* Active pulsating glowing beacon ring (only mounted on current level) */}
+      {isCurrent && <ActiveBeaconRing size={size} />}
 
       {/* Main Ornate Compass Medallion */}
       <Pressable
@@ -260,7 +258,7 @@ export function MapLevelNode({
       )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

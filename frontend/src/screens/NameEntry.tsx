@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View, useWindowDimensions } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -18,7 +18,8 @@ type Step = "name" | "avatar";
 
 export function NameEntry({ onSave }: { onSave: (name: string, avatar: AvatarId) => void }) {
   const insets = useSafeAreaInsets();
-  const { colors } = useTheme();
+  const { height: windowHeight } = useWindowDimensions();
+  const { colors, isNight } = useTheme();
   const styles = useStyles();
   const [name, setName] = useState("");
   const [step, setStep] = useState<Step>("name");
@@ -38,52 +39,64 @@ export function NameEntry({ onSave }: { onSave: (name: string, avatar: AvatarId)
   };
 
   if (step === "name") {
+    // Position comfortably in the blue landscape region below the boy (around 44% down the screen)
+    const topSpacing = Math.max(240, windowHeight * 0.44);
+
     return (
       <View style={styles.root}>
         <ScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{
-            paddingTop: insets.top + 20,
+            paddingTop: topSpacing,
             paddingBottom: insets.bottom + 28,
-            paddingHorizontal: 20,
+            paddingHorizontal: 22,
           }}
           showsVerticalScrollIndicator={false}
         >
-          <BrandMark />
-          <View style={styles.header}>
-            <ScreenTitle
-              eyebrow="Welcome to MathBlitz"
-              title="What's your name?"
-              subtitle="Enter your name to start tracking your progress and high scores."
-            />
+          {/* Welcoming message & Name Question placed in the clear blue region below the boy */}
+          <View style={styles.blueRegionCard}>
+            <View style={styles.welcomePill}>
+              <Text style={styles.welcomePillText}>✨ WELCOME TO MATHBLITZ</Text>
+            </View>
+
+            <Text style={[styles.blueRegionTitle, { color: isNight ? "#FFFFFF" : "#0F172A" }]}>
+              What's your name?
+            </Text>
+
+            <Text style={[styles.blueRegionSubtitle, { color: isNight ? "#CBD5E1" : "#334155" }]}>
+              Enter your name to start tracking your progress and high scores.
+            </Text>
+
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={[
+                  styles.input,
+                  {
+                    color: isNight ? "#FFFFFF" : "#0F172A",
+                    backgroundColor: isNight ? "rgba(15, 23, 42, 0.88)" : "rgba(255, 255, 255, 0.95)",
+                    borderColor: isNight ? "rgba(255, 255, 255, 0.2)" : "rgba(255, 255, 255, 0.8)",
+                  },
+                ]}
+                placeholder="Your name"
+                placeholderTextColor={isNight ? "#94A3B8" : "#64748B"}
+                value={name}
+                onChangeText={setName}
+                maxLength={20}
+                autoFocus
+                onSubmitEditing={handleNameContinue}
+                returnKeyType="done"
+              />
+            </View>
+
+            <PrimaryButton
+              onPress={handleNameContinue}
+              disabled={name.trim().length === 0}
+              icon="arrow-forward"
+              style={styles.continueButton}
+            >
+              Continue
+            </PrimaryButton>
           </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={[
-                styles.input,
-                {
-                  color: colors.onSurface,
-                  backgroundColor: colors.surfaceSecondary,
-                  borderColor: colors.border,
-                },
-              ]}
-              placeholder="Your name"
-              placeholderTextColor={colors.muted}
-              value={name}
-              onChangeText={setName}
-              maxLength={20}
-              autoFocus
-              onSubmitEditing={handleNameContinue}
-              returnKeyType="done"
-            />
-          </View>
-          <PrimaryButton
-            onPress={handleNameContinue}
-            disabled={name.trim().length === 0}
-            icon="arrow-forward"
-          >
-            Continue
-          </PrimaryButton>
         </ScrollView>
       </View>
     );
@@ -233,15 +246,58 @@ function AvatarOption({
 
 const useStyles = makeStyles((colors) => ({
   root: { flex: 1, backgroundColor: "transparent" },
+  blueRegionCard: {
+    backgroundColor: "rgba(255, 255, 255, 0.18)",
+    borderRadius: 24,
+    padding: 20,
+    borderWidth: 1.5,
+    borderColor: "rgba(255, 255, 255, 0.45)",
+    shadowColor: "#000",
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 4,
+  },
+  welcomePill: {
+    alignSelf: "flex-start",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderRadius: 20,
+    marginBottom: 8,
+  },
+  welcomePillText: {
+    color: colors.brandPrimary,
+    fontSize: 11,
+    fontWeight: "900",
+    letterSpacing: 1.1,
+  },
+  blueRegionTitle: {
+    fontSize: 26,
+    fontWeight: "900",
+    letterSpacing: -0.5,
+    marginBottom: 4,
+  },
+  blueRegionSubtitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  continueButton: {
+    minHeight: 54,
+    borderRadius: 18,
+    marginTop: 2,
+  },
   header: { marginTop: 38, marginBottom: 24 },
-  inputContainer: { marginBottom: 24 },
+  inputContainer: { marginBottom: 18 },
   input: {
-    height: 58,
+    height: 56,
     borderRadius: 16,
-    borderWidth: 1,
-    paddingHorizontal: 16,
+    borderWidth: 1.5,
+    paddingHorizontal: 18,
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: "800",
   },
   genderLabel: {
     color: colors.muted,

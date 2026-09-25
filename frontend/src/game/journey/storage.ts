@@ -52,10 +52,24 @@ export const DEFAULT_JOURNEY_STATE: PlayerJourneyState = {
   },
 };
 
+let inMemoryJourneyState: PlayerJourneyState | null = null;
+
+export function getCachedJourneyState(): PlayerJourneyState | null {
+  return inMemoryJourneyState;
+}
+
+export function setCachedJourneyState(state: PlayerJourneyState): void {
+  inMemoryJourneyState = state;
+}
+
 export async function loadJourneyState(): Promise<PlayerJourneyState> {
   try {
     const raw = await AsyncStorage.getItem(JOURNEY_STATE_STORAGE_KEY);
-    if (!raw) return { ...DEFAULT_JOURNEY_STATE };
+    if (!raw) {
+      const defaultState = { ...DEFAULT_JOURNEY_STATE };
+      inMemoryJourneyState = defaultState;
+      return defaultState;
+    }
     const state: PlayerJourneyState = JSON.parse(raw);
 
     // Refresh daily quest if date changed
@@ -90,13 +104,17 @@ export async function loadJourneyState(): Promise<PlayerJourneyState> {
       };
     }
 
+    inMemoryJourneyState = state;
     return state;
   } catch {
-    return { ...DEFAULT_JOURNEY_STATE };
+    const defaultState = { ...DEFAULT_JOURNEY_STATE };
+    inMemoryJourneyState = defaultState;
+    return defaultState;
   }
 }
 
 export async function saveJourneyState(state: PlayerJourneyState): Promise<void> {
+  inMemoryJourneyState = state;
   try {
     await AsyncStorage.setItem(JOURNEY_STATE_STORAGE_KEY, JSON.stringify(state));
   } catch {}
@@ -324,3 +342,43 @@ export async function clearSyncedJourneySubmissions(submissionIds: string[]): Pr
     await AsyncStorage.setItem(JOURNEY_SYNC_QUEUE_KEY, JSON.stringify(remaining));
   } catch {}
 }
+
+export async function syncPendingJourneySubmissions(backendUrl?: string): Promise<number> {
+  const url = backendUrl || process.env.EXPO_PUBLIC_BACKEND_URL;
+  if (!url) return 0;
+  const pending = await getPendingJourneySubmissions();
+  if (!pending.length) return 0;
+
+  const successfulIds: string[] = [];
+  for (const item of pending) {
+    try {
+      const res = await fetch(`${url}/api/journey/submit-level`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          submission_id: item.submissionId,
+          player_id: item.playerId,
+          level_id: item.levelId,
+          world_id: item.worldId,
+          score: item.score,
+          stars: item.stars,
+          correct_count: item.correctCount,
+          total_count: item.totalCount,
+          time_taken_seconds: item.timeTakenSeconds,
+          accuracy: item.accuracy,
+        }),
+      });
+      if (res.ok) {
+        successfulIds.push(item.submissionId);
+      }
+    } catch {
+      // Network failure or timeout - keep in queue for next sync opportunity
+      break;
+    }
+  }
+  if (successfulIds.length > 0) {
+    await clearSyncedJourneySubmissions(successfulIds);
+  }
+  return successfulIds.length;
+}
+

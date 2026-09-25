@@ -52,6 +52,7 @@ from .taxonomy import CONCEPT_TAXONOMY, classify_error
 from .ai_coach.graph import coaching_workflow, get_llm
 from .ai_coach.state import CoachingState
 from .journey.routes import router as journey_router
+from .billing.routes import router as billing_router
 from langchain_core.messages import HumanMessage, SystemMessage
 
 app = FastAPI(title="MathBlitz API")
@@ -1315,6 +1316,7 @@ async def debug_coach_state(
 
 app.include_router(api_router)
 app.include_router(journey_router)
+app.include_router(billing_router)
 
 app.add_middleware(
     CORSMiddleware,

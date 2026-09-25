@@ -80,6 +80,14 @@ memory/test_credentials.md
 
 # Mobile development
 android-sdk/
+frontend/android/
+*.keystore
+!debug.keystore
+*.jks
+*.p12
+*.key
+keystore.properties
+
 # Environment files
 .env
 .env.*
@@ -87,3 +95,8 @@ android-sdk/
 
 # Emergent internal files
 .emergent/
+
+# Local media scratch
+WhatsApp*.mp4
+
+

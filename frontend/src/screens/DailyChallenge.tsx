@@ -129,7 +129,6 @@ export default function DailyChallenge({ onComplete, onBack }: Props) {
     // 2. Play 5.2s of the full-screen cinematic video before revealing jail results
     setTimeout(() => {
       setGameStatus("lost");
-      onComplete(finalScore);
     }, 5200);
   };
 

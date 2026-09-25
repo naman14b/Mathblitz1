@@ -6,13 +6,13 @@
 
 import React, { useRef, useEffect, useMemo } from "react";
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   View,
   useWindowDimensions,
 } from "react-native";
+import { Image as ExpoImage } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import Svg, {
   Path as SvgPath,
@@ -114,51 +114,88 @@ export function WorldMap({
     y: totalMapHeight - 200,
   };
 
-  // Scroll to active level on mount or level change
-  useEffect(() => {
+  // Pre-calculate initial scroll offset so ScrollView opens immediately at player's level
+  const initialOffset = useMemo(() => {
     const pos = levelPositions.get(journeyState.currentLevel);
-    if (pos && scrollViewRef.current) {
-      setTimeout(() => {
-        scrollViewRef.current?.scrollTo({
+    return {
+      x: 0,
+      y: pos ? Math.max(0, pos.y - 320) : totalMapHeight - 800,
+    };
+  }, []);
+
+  const prevLevelRef = useRef(journeyState.currentLevel);
+
+  // Smooth scroll ONLY on level advancement (not on initial mount)
+  useEffect(() => {
+    if (prevLevelRef.current !== journeyState.currentLevel) {
+      prevLevelRef.current = journeyState.currentLevel;
+      const pos = levelPositions.get(journeyState.currentLevel);
+      if (pos && scrollViewRef.current) {
+        scrollViewRef.current.scrollTo({
           y: Math.max(0, pos.y - 320),
           animated: true,
         });
-      }, 300);
+      }
     }
   }, [journeyState.currentLevel, levelPositions]);
 
-  // Generate continuous SVG Bezier path for the entire 100-level stone viaduct bridge
-  const viaductPathD = useMemo(() => {
-    const sortedLevels = [...CURATED_LEVELS].sort((a, b) => a.id - b.id);
-    if (sortedLevels.length === 0) return "";
+  // Generate GPU-optimized per-world SVG Bezier paths instead of one single 13,490px canvas
+  const worldViaductSegments = useMemo(() => {
+    const segments: Array<{ worldId: string; topY: number; height: number; d: string }> = [];
 
-    let d = "";
-    for (let i = 0; i < sortedLevels.length - 1; i++) {
-      const currentLvl = sortedLevels[i];
-      const nextLvl = sortedLevels[i + 1];
-      const p1 = levelPositions.get(currentLvl.id);
-      const p2 = levelPositions.get(nextLvl.id);
+    for (const world of WORLDS) {
+      const startLevel = world.levelsRange[0];
+      const endLevel = world.levelsRange[1];
+      const maxLevel = endLevel < 100 ? endLevel + 1 : endLevel;
 
-      if (!p1 || !p2) continue;
+      let minY = Infinity;
+      let maxY = -Infinity;
 
-      const x1 = p1.x * windowWidth;
-      const y1 = p1.y + 35; // Center of node
-      const x2 = p2.x * windowWidth;
-      const y2 = p2.y + 35;
-
-      // Smooth vertical curve control points
-      const cy1 = y1 - (y1 - y2) * 0.5;
-      const cx1 = x1;
-      const cy2 = y2 + (y1 - y2) * 0.5;
-      const cx2 = x2;
-
-      if (i === 0) {
-        d += `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2} `;
-      } else {
-        d += `C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2} `;
+      for (let lvl = startLevel; lvl <= maxLevel; lvl++) {
+        const p = levelPositions.get(lvl);
+        if (p) {
+          if (p.y < minY) minY = p.y;
+          if (p.y > maxY) maxY = p.y;
+        }
       }
+
+      if (minY === Infinity || maxY === -Infinity) continue;
+
+      const segmentTopY = Math.max(0, minY);
+      const segmentHeight = (maxY - minY) + 90;
+
+      let d = "";
+      for (let lvl = startLevel; lvl < maxLevel; lvl++) {
+        const p1 = levelPositions.get(lvl);
+        const p2 = levelPositions.get(lvl + 1);
+        if (!p1 || !p2) continue;
+
+        const x1 = p1.x * windowWidth;
+        const y1 = p1.y + 35 - segmentTopY;
+        const x2 = p2.x * windowWidth;
+        const y2 = p2.y + 35 - segmentTopY;
+
+        const cy1 = y1 - (y1 - y2) * 0.5;
+        const cx1 = x1;
+        const cy2 = y2 + (y1 - y2) * 0.5;
+        const cx2 = x2;
+
+        if (lvl === startLevel) {
+          d += `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2} `;
+        } else {
+          d += `C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2} `;
+        }
+      }
+
+      segments.push({
+        worldId: world.id,
+        topY: segmentTopY,
+        height: segmentHeight,
+        d,
+      });
     }
-    return d;
+
+    return segments;
   }, [levelPositions, windowWidth]);
 
   return (
@@ -166,6 +203,7 @@ export function WorldMap({
       <ScrollView
         ref={scrollViewRef}
         style={styles.scrollView}
+        contentOffset={initialOffset}
         contentContainerStyle={[styles.mapContainer, { height: totalMapHeight }]}
         showsVerticalScrollIndicator={false}
       >
@@ -187,11 +225,11 @@ export function WorldMap({
                 },
               ]}
             >
-              {/* Theme Artwork Background - Clearly Visible */}
-              <Image
+              {/* Theme Artwork Background - Clearly Visible with hardware caching */}
+              <ExpoImage
                 source={worldThemeImage}
                 style={styles.worldThemeImage}
-                resizeMode="cover"
+                contentFit="cover"
               />
 
               {/* Translucent Atmospheric Gradient Overlay */}
@@ -262,95 +300,103 @@ export function WorldMap({
           );
         })}
 
-        {/* Layer 2: 3D Ancient Golden Stone Viaduct Bridge Path (Unbroken from Level 1 to 100) */}
-        {viaductPathD ? (
-          <Svg
-            style={styles.svgPathOverlay}
-            width={windowWidth}
-            height={totalMapHeight}
-            viewBox={`0 0 ${windowWidth} ${totalMapHeight}`}
-          >
-            <Defs>
-              {/* Golden Cobblestone Roadbed Gradient */}
-              <SvgLinearGradient id="viaductGoldGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-                <Stop offset="0%" stopColor="#FEF08A" />
-                <Stop offset="30%" stopColor="#F59E0B" />
-                <Stop offset="70%" stopColor="#B45309" />
-                <Stop offset="100%" stopColor="#D97706" />
-              </SvgLinearGradient>
+        {/* Layer 2: 3D Ancient Golden Stone Viaduct Bridge Path (Segmented per world for GPU performance) */}
+        {worldViaductSegments.map((segment) => {
+          if (!segment.d) return null;
+          return (
+            <Svg
+              key={`viaduct_${segment.worldId}`}
+              style={[
+                styles.svgPathOverlay,
+                {
+                  top: segment.topY,
+                  height: segment.height,
+                },
+              ]}
+              width={windowWidth}
+              height={segment.height}
+              viewBox={`0 0 ${windowWidth} ${segment.height}`}
+            >
+              <Defs>
+                <SvgLinearGradient id={`viaductGoldGlow_${segment.worldId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                  <Stop offset="0%" stopColor="#FEF08A" />
+                  <Stop offset="30%" stopColor="#F59E0B" />
+                  <Stop offset="70%" stopColor="#B45309" />
+                  <Stop offset="100%" stopColor="#D97706" />
+                </SvgLinearGradient>
 
-              {/* Stone Wall Side Parapet Gradient */}
-              <SvgLinearGradient id="stoneWallGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <Stop offset="0%" stopColor="#0F172A" />
-                <Stop offset="50%" stopColor="#334155" />
-                <Stop offset="100%" stopColor="#1E293B" />
-              </SvgLinearGradient>
-            </Defs>
+                <SvgLinearGradient id={`stoneWallGrad_${segment.worldId}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                  <Stop offset="0%" stopColor="#0F172A" />
+                  <Stop offset="50%" stopColor="#334155" />
+                  <Stop offset="100%" stopColor="#1E293B" />
+                </SvgLinearGradient>
+              </Defs>
 
-            {/* Layer 2a: Bridge Deep Ambient Drop Shadow */}
-            <SvgPath
-              d={viaductPathD}
-              stroke="rgba(0, 0, 0, 0.7)"
-              strokeWidth={38}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-              transform="translate(0, 6)"
-            />
+              {/* Layer 2a: Bridge Deep Ambient Drop Shadow */}
+              <SvgPath
+                d={segment.d}
+                stroke="rgba(0, 0, 0, 0.7)"
+                strokeWidth={38}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+                transform="translate(0, 6)"
+              />
 
-            {/* Layer 2b: 3D Ancient Stone Viaduct Foundation & Masonry Wall */}
-            <SvgPath
-              d={viaductPathD}
-              stroke="url(#stoneWallGrad)"
-              strokeWidth={32}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-            />
+              {/* Layer 2b: 3D Ancient Stone Viaduct Foundation & Masonry Wall */}
+              <SvgPath
+                d={segment.d}
+                stroke={`url(#stoneWallGrad_${segment.worldId})`}
+                strokeWidth={32}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
 
-            {/* Layer 2c: Stone Parapet Outer Railing Curb */}
-            <SvgPath
-              d={viaductPathD}
-              stroke="#64748B"
-              strokeWidth={26}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-            />
+              {/* Layer 2c: Stone Parapet Outer Railing Curb */}
+              <SvgPath
+                d={segment.d}
+                stroke="#64748B"
+                strokeWidth={26}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
 
-            {/* Layer 2d: Glowing Golden Cobblestone Road Surface */}
-            <SvgPath
-              d={viaductPathD}
-              stroke="url(#viaductGoldGlow)"
-              strokeWidth={18}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-            />
+              {/* Layer 2d: Glowing Golden Cobblestone Road Surface */}
+              <SvgPath
+                d={segment.d}
+                stroke={`url(#viaductGoldGlow_${segment.worldId})`}
+                strokeWidth={18}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
 
-            {/* Layer 2e: Cobblestone Block Seam Texture (Intermittent Paver Grooves) */}
-            <SvgPath
-              d={viaductPathD}
-              stroke="#78350F"
-              strokeWidth={17}
-              strokeDasharray="4,8"
-              strokeLinecap="butt"
-              fill="none"
-              opacity={0.6}
-            />
+              {/* Layer 2e: Cobblestone Block Seam Texture */}
+              <SvgPath
+                d={segment.d}
+                stroke="#78350F"
+                strokeWidth={17}
+                strokeDasharray="4,8"
+                strokeLinecap="butt"
+                fill="none"
+                opacity={0.6}
+              />
 
-            {/* Layer 2f: Radiant Central Golden Energy Spine */}
-            <SvgPath
-              d={viaductPathD}
-              stroke="#FEF08A"
-              strokeWidth={3}
-              strokeDasharray="10,6"
-              strokeLinecap="round"
-              fill="none"
-              opacity={0.9}
-            />
-          </Svg>
-        ) : null}
+              {/* Layer 2f: Radiant Central Golden Energy Spine */}
+              <SvgPath
+                d={segment.d}
+                stroke="#FEF08A"
+                strokeWidth={3}
+                strokeDasharray="10,6"
+                strokeLinecap="round"
+                fill="none"
+                opacity={0.9}
+              />
+            </Svg>
+          );
+        })}
 
         {/* Layer 3: Majestic Non-Overlapping World Gateway Archways (Rendered above road for clean pass-under) */}
         {WORLDS.map((world) => {

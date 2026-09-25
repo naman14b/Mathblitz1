@@ -19,6 +19,7 @@ import { makeStyles, useTheme } from "@/src/theme";
 import { TokenFlyAnimation, TokenFlyRef } from "@/src/components/TokenFlyAnimation";
 import { ComboDisplay } from "@/src/components/ComboDisplay";
 import { showInterstitialAd } from "@/src/services/ads";
+import { DailyChallengeVideo } from "@/src/components/DailyChallengeVideo";
 
 type LiveStats = { score: number; correct: number; answered: number; combo: number; bestCombo: number; tokens: number };
 const TIME_PRESSURE: Record<AgeGroupId, number> = { "6-7": 1, "8-10": 2, "11-13": 3, "14-16": 4, "17-20": 5, "21+": 6 };
@@ -38,6 +39,7 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
   const [paceDeduction, setPaceDeduction] = useState(0);
   const [paceNotice, setPaceNotice] = useState("");
   const [lives, setLives] = useState(3);
+  const [isJailLoss, setIsJailLoss] = useState(false);
   const stats = useRef<LiveStats>({ score: 0, correct: 0, answered: 0, combo: 0, bestCombo: 0, tokens: 0 });
   const recentIds = useRef<string[]>([]);
   const sessionAttempts = useRef<QuestionAttempt[]>([]);
@@ -157,11 +159,77 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
     }
     RNAnimated.sequence([RNAnimated.spring(pop, { toValue: 1.06, useNativeDriver: true }), RNAnimated.spring(pop, { toValue: 1, useNativeDriver: true })]).start();
     setTimeout(() => {
-      if (lives <= 1 && !isCorrect) { finish(); return; }
+      if (lives <= 1 && !isCorrect) {
+        setIsJailLoss(true);
+        return;
+      }
       recentIds.current = [question.id, ...recentIds.current].slice(0, 6);
       setQuestion(createQuestion(age, nextLevel, recentIds.current, current.answered)); questionStarted.current = Date.now(); setSelected(null); setFeedback(null);
     }, 720);
   };
+
+  useEffect(() => {
+    if (!isJailLoss) return;
+    const timer = setTimeout(() => {
+      finish();
+    }, 5500);
+    return () => clearTimeout(timer);
+  }, [isJailLoss, finish]);
+
+  if (isJailLoss) {
+    return (
+      <View style={{ flex: 1, backgroundColor: "#070B16" }}>
+        <DailyChallengeVideo state="jail" onAnimationEnd={finish} />
+        <View
+          style={{
+            position: "absolute",
+            top: insets.top + 20,
+            left: 20,
+            right: 20,
+            alignItems: "center",
+            zIndex: 10,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "rgba(185, 28, 28, 0.92)",
+              paddingHorizontal: 16,
+              paddingVertical: 8,
+              borderRadius: 20,
+              borderWidth: 1.5,
+              borderColor: "#F87171",
+            }}
+          >
+            <Text style={{ color: "#FFFFFF", fontWeight: "900", fontSize: 15 }}>
+              ⛓️ CAPTURED! Trapped in jail...
+            </Text>
+          </View>
+        </View>
+        <Pressable
+          onPress={finish}
+          style={({ pressed }) => [
+            {
+              position: "absolute",
+              bottom: insets.bottom + 24,
+              alignSelf: "center",
+              backgroundColor: "rgba(15, 23, 42, 0.85)",
+              paddingHorizontal: 22,
+              paddingVertical: 10,
+              borderRadius: 24,
+              borderWidth: 1,
+              borderColor: "rgba(255, 255, 255, 0.25)",
+              zIndex: 10,
+              opacity: pressed ? 0.75 : 1,
+            },
+          ]}
+        >
+          <Text style={{ color: "#F1F5F9", fontWeight: "700", fontSize: 14 }}>
+            Skip to Results →
+          </Text>
+        </Pressable>
+      </View>
+    );
+  }
 
   const answerOf = String(question.answer);
   return <View style={[styles.root, { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 12 }]}>

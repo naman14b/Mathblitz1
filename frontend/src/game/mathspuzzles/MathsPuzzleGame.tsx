@@ -567,7 +567,7 @@ export function MathsPuzzleGame({
 }
 
 const useStyles = makeStyles((colors: any) => ({
-    container: { flex: 1, backgroundColor: 'transparent' },
+    container: { flex: 1, backgroundColor: colors.surface },
     header: { 
         paddingHorizontal: 16, 
         paddingTop: 12, 
@@ -576,7 +576,7 @@ const useStyles = makeStyles((colors: any) => ({
         alignItems: "center", 
         borderBottomWidth: 1, 
         borderBottomColor: colors.divider, 
-        backgroundColor: 'rgba(0,0,0,0.4)' 
+        backgroundColor: colors.surfaceSecondary 
     },
     backButton: { minWidth: 60, paddingVertical: 10 },
     backText: { color: colors.brandPrimary, fontSize: 16, fontWeight: "800" },

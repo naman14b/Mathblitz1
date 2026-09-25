@@ -252,3 +252,23 @@ class PlayerLevelResult(Base):
         Index("ix_plr_player_level", "player_id", "level_id"),
     )
 
+
+class GooglePlayPurchase(Base):
+    """Server-authoritative record for Google Play In-App Billing transactions."""
+    __tablename__ = "google_play_purchases"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    purchase_token = Column(String(512), unique=True, index=True, nullable=False)  # Idempotency key
+    player_id = Column(String(64), index=True, nullable=False)
+    product_id = Column(String(128), index=True, nullable=False)
+    order_id = Column(String(128), nullable=True)
+    package_name = Column(String(128), default="com.naman.mathblitz", nullable=False)
+    purchase_state = Column(String(32), default="pending", nullable=False)  # pending, verified, consumed, refunded
+    acknowledged = Column(Boolean, default=False, nullable=False)
+    entitlement_type = Column(String(64), nullable=True)  # theme, frame, token_pack
+    entitlement_id = Column(String(64), nullable=True)
+    created_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
+    processed_at = Column(DateTime(timezone=True), nullable=True)
+    updated_at = Column(DateTime(timezone=True), default=utc_now, onupdate=utc_now, nullable=False)
+
+
