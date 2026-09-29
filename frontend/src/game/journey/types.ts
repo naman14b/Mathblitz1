@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom Journey Data Types & Interfaces
+ * FunGanit Kingdom Journey Data Types & Interfaces
  */
 
 import { AvatarId } from "@/src/game/types";

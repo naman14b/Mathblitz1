@@ -509,7 +509,7 @@ export function Home({
           </View>
         </View>
 
-        {/* MathBlitz Kingdom Adventure Card */}
+        {/* FunGanit Kingdom Adventure Card */}
         {onJourney && (
           <AnimatedPressableCard
             testID="home-kingdom-journey"
@@ -526,7 +526,7 @@ export function Home({
             <View style={styles.dailyHeaderRow}>
               <View style={[styles.dailyTag, { backgroundColor: "rgba(99, 102, 241, 0.2)" }]}>
                 <Ionicons name="map" size={14} color="#818CF8" />
-                <Text style={[styles.dailyTagText, { color: "#A5B4FC" }]}>MATHBLITZ KINGDOM</Text>
+                <Text style={[styles.dailyTagText, { color: "#A5B4FC" }]}>FUNGANIT KINGDOM</Text>
               </View>
               <View style={[styles.dailyRewardPill, { backgroundColor: "rgba(245, 158, 11, 0.2)", borderColor: "#F59E0B" }]}>
                 <Text style={{ color: "#FCD34D", fontSize: 11, fontWeight: "800" }}>⭐ 5 Realms • 100 Levels</Text>

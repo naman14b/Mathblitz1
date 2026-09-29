@@ -81,7 +81,7 @@ export function ThemeStore({ profile, onBack, onActivateTheme }: ThemeStoreProps
         </Pressable>
         <View style={styles.headerText}>
           <Text style={styles.title}>Theme Store</Text>
-          <Text style={styles.subtitle}>Personalise your MathBlitz experience</Text>
+          <Text style={styles.subtitle}>Personalise your FunGanit experience</Text>
         </View>
         <View style={[styles.iconBadge, { backgroundColor: colors.brandPrimary }]}>
           <Text style={styles.iconBadgeText}>🎨</Text>

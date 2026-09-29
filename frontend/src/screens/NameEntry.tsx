@@ -56,7 +56,7 @@ export function NameEntry({ onSave }: { onSave: (name: string, avatar: AvatarId)
           {/* Welcoming message & Name Question placed in the clear blue region below the boy */}
           <View style={styles.blueRegionCard}>
             <View style={styles.welcomePill}>
-              <Text style={styles.welcomePillText}>✨ WELCOME TO MATHBLITZ</Text>
+              <Text style={styles.welcomePillText}>✨ WELCOME TO FUNGANIT</Text>
             </View>
 
             <Text style={[styles.blueRegionTitle, { color: isNight ? "#FFFFFF" : "#0F172A" }]}>

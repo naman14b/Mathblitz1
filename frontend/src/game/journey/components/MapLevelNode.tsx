@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Ornate Compass Medallion Level Node Component
+ * FunGanit Kingdom - Ornate Compass Medallion Level Node Component
  * Modeled precisely on the golden/bronze ancient compass medallion style.
  */
 

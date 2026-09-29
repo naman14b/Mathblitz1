@@ -1,5 +1,5 @@
 /**
- * MathBlitz Centralized Google AdMob Configuration
+ * FunGanit Centralized Google AdMob Configuration
  *
  * Centralizes:
  * - AdMob Android App ID
@@ -8,10 +8,10 @@
  * - Interstitial Ad Unit ID (Midterm)
  *
  * Supports seamless switching between Google Test Ads (for development/testing)
- * and MathBlitz Production IDs.
+ * and FunGanit Production IDs.
  */
 
-// MathBlitz Official Production AdMob IDs
+// FunGanit Official Production AdMob IDs
 export const ADMOB_PRODUCTION_IDS = {
   APP_ID: "ca-app-pub-1850810324754301~7809613303",
   BANNER: "ca-app-pub-1850810324754301/6609110069",

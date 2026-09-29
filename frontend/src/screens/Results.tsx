@@ -124,7 +124,7 @@ export function Results({
               {adRewardClaimed ? "Bonus Claimed! +10 Tokens" : isAdLoading ? "Loading Ad..." : "Watch Ad for +10 Bonus Tokens 🪙"}
             </Text>
             <Text style={styles.adRewardSub}>
-              {adRewardClaimed ? "Tokens added to your wallet" : "Support MathBlitz & double your reward!"}
+              {adRewardClaimed ? "Tokens added to your wallet" : "Support FunGanit & double your reward!"}
             </Text>
           </View>
         </Pressable>

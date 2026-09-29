@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Scrollable World Map Canvas
+ * FunGanit Kingdom - Scrollable World Map Canvas
  * Features an ancient 3D golden cobblestone viaduct bridge path
  * and ornate compass medallion level nodes matching the fantasy adventure design.
  */

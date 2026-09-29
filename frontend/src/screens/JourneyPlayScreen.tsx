@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Journey Play Screen
+ * FunGanit Kingdom - Journey Play Screen
  * Features 3-Lives mechanic, competitive timers, and "Watch Ad to Revive (+30s & +1 Life)" second chance recovery.
  */
 

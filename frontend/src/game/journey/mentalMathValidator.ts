@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Deterministic Mental Math Validator
+ * FunGanit Kingdom - Deterministic Mental Math Validator
  *
  * Guarantees all Journey questions are realistically solvable mentally
  * without paper, calculator, or excessive working memory load.

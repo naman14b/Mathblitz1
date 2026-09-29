@@ -194,7 +194,7 @@ export function AICoachScreen({
     return (
       <View style={[styles.root, styles.center, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
         <ActivityIndicator size="large" color="#FF6B00" />
-        <Text style={styles.loadingText}>MathBlitz Coach analyzing your gameplay...</Text>
+        <Text style={styles.loadingText}>FunGanit Coach analyzing your gameplay...</Text>
       </View>
     );
   }
@@ -565,7 +565,7 @@ export function AICoachScreen({
             <Ionicons name="checkmark-done-circle" size={36} color="#10B981" />
             <Text style={styles.emptyTitle}>No Critical Weaknesses Detected!</Text>
             <Text style={styles.emptySub}>
-              Keep playing Blitz, Daily Challenges, and Puzzles. As you answer questions, MathBlitz AI Coach will analyze your mistakes and offer targeted lessons.
+              Keep playing Blitz, Daily Challenges, and Puzzles. As you answer questions, FunGanit AI Coach will analyze your mistakes and offer targeted lessons.
             </Text>
           </View>
         ) : (

@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Level Complete & World Victory Modal
+ * FunGanit Kingdom - Level Complete & World Victory Modal
  */
 
 import React, { useEffect } from "react";

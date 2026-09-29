@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Player Character Token Component
+ * FunGanit Kingdom - Player Character Token Component
  *
  * Renders the player's equipped avatar on the map and animates
  * physical walking / hopping movement between level nodes.

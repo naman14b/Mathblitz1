@@ -49,7 +49,7 @@ export function ProactiveCoachCard({
               />
             </View>
             <Text style={[styles.headerTitle, insight.is_regression && { color: "#F43F5E" }]}>
-              {insight.is_regression ? "Skill Refresher" : "MathBlitz Coach"}
+              {insight.is_regression ? "Skill Refresher" : "FunGanit Coach"}
             </Text>
           </View>
 

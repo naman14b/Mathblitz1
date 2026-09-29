@@ -1,5 +1,5 @@
 /**
- * MathBlitz AI Coach API Client
+ * FunGanit AI Coach API Client
  */
 import Constants from "expo-constants";
 import {

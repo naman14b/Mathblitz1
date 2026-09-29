@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Daily & Weekly Journey Quest Widget
+ * FunGanit Kingdom - Daily & Weekly Journey Quest Widget
  */
 
 import React from "react";

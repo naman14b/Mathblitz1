@@ -209,7 +209,7 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
               if (!shown) {
                 Alert.alert(
                   "Ad Privacy Choices",
-                  "MathBlitz only serves family-friendly, non-personalized ads. All advertising complies with the Google Play Families Policy."
+                  "FunGanit only serves family-friendly, non-personalized ads. All advertising complies with the Google Play Families Policy."
                 );
               }
             }}
@@ -219,7 +219,7 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
             <Ionicons name="chevron-forward" size={20} color={colors.muted} />
           </Pressable>
           <View style={styles.divider} />
-          <Pressable style={styles.linkRow} onPress={() => Alert.alert("About MathBlitz", "A friendly 60-second maths challenge for every age.")}>
+          <Pressable style={styles.linkRow} onPress={() => Alert.alert("About FunGanit", "A friendly 60-second maths challenge for every age.")}>
             <Ionicons name="information-circle-outline" size={20} color={colors.info} />
             <Text style={styles.linkText}>About the game</Text>
             <Ionicons name="chevron-forward" size={20} color={colors.muted} />
@@ -289,7 +289,7 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
                 </View>
                 <View>
                   <Text style={styles.modalTitle}>Privacy Policy</Text>
-                  <Text style={{ fontSize: 11, color: colors.muted, fontWeight: "600" }}>MathBlitz Mobile Application</Text>
+                  <Text style={{ fontSize: 11, color: colors.muted, fontWeight: "600" }}>FunGanit Mobile Application</Text>
                 </View>
               </View>
               <Pressable onPress={() => setShowPrivacyModal(false)} hitSlop={12}>
@@ -320,7 +320,7 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
             <ScrollView showsVerticalScrollIndicator={true} style={{ flex: 1, paddingRight: 4 }}>
               <Text style={styles.policyHeading}>Overview</Text>
               <Text style={styles.policyParagraph}>
-                This Privacy Policy explains how MathBlitz handles information when you use the MathBlitz mobile application. MathBlitz is a math-learning and puzzle game that includes mental-math challenges, daily challenges, journey progression, Sudoku, math puzzles, leaderboards, optional AI coaching, and advertising features.
+                This Privacy Policy explains how FunGanit handles information when you use the FunGanit mobile application. FunGanit is a math-learning and puzzle game that includes mental-math challenges, daily challenges, journey progression, Sudoku, math puzzles, leaderboards, optional AI coaching, and advertising features.
               </Text>
 
               <Text style={styles.policyHeading}>1. Information We Collect</Text>
@@ -337,18 +337,18 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
 
               <Text style={styles.policySubheading}>Technical and advertising information:</Text>
               <Text style={styles.policyParagraph}>
-                MathBlitz uses Google Mobile Ads (AdMob). AdMob may process device identifiers, IP address, and ad interactions according to Google's Families Policy and consent choices.
+                FunGanit uses Google Mobile Ads (AdMob). AdMob may process device identifiers, IP address, and ad interactions according to Google's Families Policy and consent choices.
               </Text>
 
               <Text style={styles.policyHeading}>2. How We Use Information</Text>
-              <Text style={styles.policyBullet}>• Provide and operate MathBlitz gameplay and progression.</Text>
+              <Text style={styles.policyBullet}>• Provide and operate FunGanit gameplay and progression.</Text>
               <Text style={styles.policyBullet}>• Save and restore player progress, settings, and leaderboards.</Text>
               <Text style={styles.policyBullet}>• Analyze math performance and provide AI Coach learning insights.</Text>
               <Text style={styles.policyBullet}>• Deliver family-friendly, non-personalized advertisements.</Text>
 
               <Text style={styles.policyHeading}>3. Local Storage</Text>
               <Text style={styles.policyParagraph}>
-                MathBlitz stores game and profile information directly on your device using secure local storage. You can delete locally stored data at any time using the "Reset local progress" button in Settings or by uninstalling the application.
+                FunGanit stores game and profile information directly on your device using secure local storage. You can delete locally stored data at any time using the "Reset local progress" button in Settings or by uninstalling the application.
               </Text>
 
               <Text style={styles.policyHeading}>4. Third-Party Services</Text>
@@ -358,7 +358,7 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
 
               <Text style={styles.policyHeading}>5. Children's Privacy</Text>
               <Text style={styles.policyParagraph}>
-                MathBlitz includes age groups for children. We configure advertising requests with child-directed treatment (COPPA compliant) and under-age-of-consent protections. We do not require an account with an email address, telephone number, or password to play.
+                FunGanit includes age groups for children. We configure advertising requests with child-directed treatment (COPPA compliant) and under-age-of-consent protections. We do not require an account with an email address, telephone number, or password to play.
               </Text>
 
               <Text style={styles.policyHeading}>6. Data Deletion & Privacy Requests</Text>
@@ -371,7 +371,7 @@ export function Settings({ profile, onSave, onBack, onAge, onReset, onChangeAvat
                 For privacy questions, data deletion requests, or feedback, please contact:
               </Text>
               <Text style={[styles.policyParagraph, { fontWeight: "700", color: colors.brandPrimary }]}>
-                MathBlitz · naman14b@gmail.com
+                FunGanit · naman14b@gmail.com
               </Text>
             </ScrollView>
 

@@ -1,7 +1,7 @@
 /**
- * MathBlitz - Purchase Architecture & Google Play Billing Abstraction
+ * FunGanit - Purchase Architecture & Google Play Billing Abstraction
  *
- * This module prepares MathBlitz for Google Play In-App Billing (one-time digital products)
+ * This module prepares FunGanit for Google Play In-App Billing (one-time digital products)
  * in accordance with Google Play Developer Program Policies.
  *
  * Architecture Principles:

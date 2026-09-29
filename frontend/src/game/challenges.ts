@@ -1,7 +1,7 @@
 import { ChallengeQuestion, ChallengeTier } from "@/src/api/types";
 
 /**
- * MathBlitz In-Game Challenge Bank
+ * FunGanit In-Game Challenge Bank
  * 
  * You can add, edit, or customize challenge questions directly in this file!
  * - 3-day: Quickfire Streak Challenges (rapid mental arithmetic & speed logic)

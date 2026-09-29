@@ -9,7 +9,7 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
     <View style={styles.brandRow}>
       <View style={styles.brandIcon}><Ionicons name="flash" size={compact ? 18 : 22} color={colors.onBrandPrimary} /></View>
-      {!compact ? <Text style={styles.brandText}>MathBlitz</Text> : null}
+      {!compact ? <Text style={styles.brandText}>FunGanit</Text> : null}
     </View>
   );
 }

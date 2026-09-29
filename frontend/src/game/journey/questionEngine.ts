@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Deterministic Journey Question Generation Engine
+ * FunGanit Kingdom - Deterministic Journey Question Generation Engine
  *
  * Implements procedural, verified question generators across all 28 curriculum concepts.
  */

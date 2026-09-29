@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Journey Map Screen (Main Kingdom Hub)
+ * FunGanit Kingdom - Journey Map Screen (Main Kingdom Hub)
  * Enhanced with Sudoku & Puzzles themes and headers.
  */
 
@@ -58,7 +58,7 @@ export function JourneyMapScreen({
   if (!journeyState) {
     return (
       <View style={[styles.loadingContainer, { paddingTop: insets.top }]}>
-        <Text style={styles.loadingText}>Entering MathBlitz Kingdom...</Text>
+        <Text style={styles.loadingText}>Entering FunGanit Kingdom...</Text>
       </View>
     );
   }

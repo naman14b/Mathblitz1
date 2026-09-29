@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Local Storage & Offline Progression Synchronization
+ * FunGanit Kingdom - Local Storage & Offline Progression Synchronization
  */
 
 import AsyncStorage from "@react-native-async-storage/async-storage";

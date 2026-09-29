@@ -1,5 +1,5 @@
 /**
- * MathBlitz Kingdom - Worlds and Curated 100 Level Configurations
+ * FunGanit Kingdom - Worlds and Curated 100 Level Configurations
  */
 
 import { JourneyLevelDef, WorldDef, WorldId } from "./types";
@@ -193,7 +193,7 @@ export const WORLDS: WorldDef[] = [
       title: "Ruler of Mathematical Dimensions",
       quote: "Perfection is equilateral. Can you measure up to the ultimate throne?",
       introDialogue: "Enter the Grand Geometry Sanctum! Prove your mastery of all angles!",
-      victoryDialogue: "Magnificent! You have conquered the five realms of MathBlitz Kingdom!",
+      victoryDialogue: "Magnificent! You have conquered the five realms of FunGanit Kingdom!",
       defeatDialogue: "All symmetry bows to your mathematical supremacy!",
       colorScheme: {
         primary: "#EF4444",
@@ -1737,7 +1737,7 @@ export const CURATED_LEVELS: JourneyLevelDef[] = [
     rewardXp: 500,
     rewardTokens: 100,
     isMilestone: true,
-    description: "Defeat the Grand Architect to master the Five Realms of MathBlitz Kingdom!",
+    description: "Defeat the Grand Architect to master the Five Realms of FunGanit Kingdom!",
     boss: WORLDS[4].boss,
   },
 ];
