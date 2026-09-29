@@ -32,3 +32,4 @@ langchain-core>=0.2.0
 langchain-openai>=0.1.0
 langgraph>=0.1.0
 sympy>=1.12
+greenlet>=3.0.0
