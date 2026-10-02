@@ -100,3 +100,6 @@ keystore.properties
 WhatsApp*.mp4
 
 
+.env*
+*.aab
+*.apk

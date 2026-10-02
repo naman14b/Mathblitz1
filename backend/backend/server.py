@@ -13,7 +13,7 @@ import uuid
 from typing import List, Literal, Optional
 
 from fastapi import APIRouter, Depends, FastAPI, File, Header, HTTPException, Query, UploadFile, status
-from fastapi.responses import Response
+from fastapi.responses import HTMLResponse, Response
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from sqlalchemy import delete, desc, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -55,7 +55,7 @@ from .journey.routes import router as journey_router
 from .billing.routes import router as billing_router
 from langchain_core.messages import HumanMessage, SystemMessage
 
-app = FastAPI(title="MathBlitz API")
+app = FastAPI(title="FunGanit API")
 
 api_router = APIRouter(prefix="/api")
 logger = logging.getLogger(__name__)
@@ -184,11 +184,11 @@ def send_otp_email(otp: str) -> None:
         logger.warning("SMTP credentials not configured. Skipping email delivery.")
         return
     message = EmailMessage()
-    message["Subject"] = "Your MathBlitz admin verification code"
+    message["Subject"] = "Your FunGanit admin verification code"
     message["From"] = SMTP_USER
     message["To"] = ADMIN_EMAIL
     message.set_content(
-        f"Your MathBlitz administrator verification code is {otp}.\n\n"
+        f"Your FunGanit administrator verification code is {otp}.\n\n"
         "It expires in 10 minutes and can only be used once. If you did not request this, ignore this email."
     )
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=20) as smtp:
@@ -213,7 +213,7 @@ def require_setup(x_admin_token: Optional[str] = Header(default=None)) -> str:
 
 @api_router.get("/")
 async def root() -> dict[str, str]:
-    return {"message": "MathBlitz API", "openrouter_model": OPENROUTER_MODEL}
+    return {"message": "FunGanit API", "openrouter_model": OPENROUTER_MODEL}
 
 
 @api_router.post("/admin/request-otp")
@@ -943,7 +943,7 @@ async def get_proactive_insight(
     acc = top_weakness.get("accuracy", 0.0)
     is_reg = top_weakness.get("is_regression", False)
 
-    headline = "🧠 MathBlitz Coach: Skill Refresher Needed" if is_reg else "🧠 MathBlitz Coach noticed something"
+    headline = "🧠 FunGanit Coach: Skill Refresher Needed" if is_reg else "🧠 FunGanit Coach noticed something"
     msg = (
         f"We noticed a slight regression in {top_weakness.get('concept_name')}. {top_weakness.get('common_mistake', '')}. Take a 2-minute refresher!"
         if is_reg
@@ -1125,7 +1125,7 @@ async def submit_practice(
     else:
         if llm:
             try:
-                sys_prompt = "You are MathBlitz AI Coach. Explain why the correct answer is right in 1-2 friendly, encouraging sentences."
+                sys_prompt = "You are FunGanit AI Coach. Explain why the correct answer is right in 1-2 friendly, encouraging sentences."
                 u_prompt = f"Problem: {curr_q['prompt']}\nStudent Answer: {student_ans}\nCorrect Answer: {correct_ans}\nMethod: {curr_q.get('solution_method')}"
                 resp = llm.invoke([SystemMessage(content=sys_prompt), HumanMessage(content=u_prompt)])
                 feedback_text = resp.content.strip()
@@ -1186,7 +1186,7 @@ async def contextual_query(
         }
 
     sys_prompt = (
-        "You are MathBlitz AI Coach. You only answer questions strictly about the provided mathematics problem and the student's solution. "
+        "You are FunGanit AI Coach. You only answer questions strictly about the provided mathematics problem and the student's solution. "
         "Explain clearly, step-by-step, in 2 to 3 friendly sentences. Never deviate into non-mathematical topics."
     )
     user_prompt = (
@@ -1317,6 +1317,26 @@ async def debug_coach_state(
 app.include_router(api_router)
 app.include_router(journey_router)
 app.include_router(billing_router)
+
+
+@app.get("/", response_class=HTMLResponse)
+async def root_home():
+    policy_path = os.path.join(os.path.dirname(__file__), "privacy-policy.html")
+    if os.path.exists(policy_path):
+        with open(policy_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    return HTMLResponse("<h1>FunGanit API</h1><p>Online &amp; Operational</p>")
+
+
+@app.get("/privacy-policy", response_class=HTMLResponse)
+@app.get("/privacy-policy.html", response_class=HTMLResponse)
+async def privacy_policy():
+    policy_path = os.path.join(os.path.dirname(__file__), "privacy-policy.html")
+    if os.path.exists(policy_path):
+        with open(policy_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    return HTMLResponse("<h1>FunGanit Privacy Policy</h1>")
+
 
 app.add_middleware(
     CORSMiddleware,

@@ -1,4 +1,4 @@
-"""Backend tests for MathBlitz admin OTP + password reset flow.
+"""Backend tests for FunGanit admin OTP + password reset flow.
 
 Covers bug-fix verification for admin `Save new password` flow.
 """

@@ -1,4 +1,4 @@
-"""LangGraph Stateful Workflow for MathBlitz AI Coach.
+"""LangGraph Stateful Workflow for FunGanit AI Coach.
 Orchestrates player analysis, root-cause diagnosis, policy execution, lesson generation,
 deterministic math verification, fingerprinting, and targeted interactive practice.
 """
@@ -34,8 +34,8 @@ def get_llm(temperature: float = 0.4, max_tokens: int = 700) -> Optional[ChatOpe
             max_tokens=max_tokens,
             request_timeout=8,
             default_headers={
-                "HTTP-Referer": "https://mathblitz.app",
-                "X-Title": "MathBlitz AI Coach",
+                "HTTP-Referer": "https://funganit.app",
+                "X-Title": "FunGanit AI Coach",
             },
         )
     except Exception as exc:
@@ -221,7 +221,7 @@ def node_generate_and_verify_lesson(state: CoachingState) -> Dict[str, Any]:
 
     if llm:
         system_prompt = (
-            "You are MathBlitz AI Coach, a world-class, engaging mathematics coach. "
+            "You are FunGanit AI Coach, a world-class, engaging mathematics coach. "
             "Generate an interactive, crystal-clear 5-step math lesson in strict JSON format.\n\n"
             "Format schema:\n"
             "{\n"
@@ -403,7 +403,7 @@ def node_evaluate_practice_answer(state: CoachingState) -> Dict[str, Any]:
 # ── LangGraph Workflow Construction ──────────────────────────────────────────
 
 def build_coaching_graph():
-    """Build the stateful LangGraph for MathBlitz AI Coach."""
+    """Build the stateful LangGraph for FunGanit AI Coach."""
     workflow = StateGraph(CoachingState)
 
     workflow.add_node("analyze_profile", node_load_player_profile)

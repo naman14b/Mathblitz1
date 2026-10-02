@@ -103,8 +103,8 @@ export const SurrealBackground = React.memo(function SurrealBackground() {
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
   const isWidescreen = windowWidth > 640;
-  // Aspect ratio of the artwork is 1080 / 2400 = 0.45
-  const ART_ASPECT_RATIO = 1080 / 2400;
+  // Exact aspect ratio of the artwork (1263 / 2752)
+  const ART_ASPECT_RATIO = 1263 / 2752;
   const artWidth = isWidescreen ? Math.min(windowWidth, windowHeight * ART_ASPECT_RATIO) : "100%";
 
   return (
@@ -135,7 +135,7 @@ export const SurrealBackground = React.memo(function SurrealBackground() {
         <Image
           source={isNight ? BG_NIGHT : BG_DAY}
           style={styles.artImage}
-          resizeMode={isWidescreen ? "contain" : "cover"}
+          resizeMode="contain"
         />
 
         {/* Subtle readability scrim over the artwork */}

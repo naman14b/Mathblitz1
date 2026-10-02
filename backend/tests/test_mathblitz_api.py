@@ -8,7 +8,7 @@ BASE_URL = os.environ.get("EXPO_BACKEND_URL", "https://app-launch-stage-84.previ
 
 
 def test_admin_api_crud_and_protection():
-    assert requests.get(f"{BASE_URL}/api/").json() == {"message": "MathBlitz API"}
+    assert requests.get(f"{BASE_URL}/api/").json().get("message") in ["FunGanit API", "MathBlitz API"]
     assert requests.get(f"{BASE_URL}/api/admin/questions").status_code == 401
     bad = requests.post(f"{BASE_URL}/api/admin/login", json={"email": "bad@example.com", "password": "bad"})
     assert bad.status_code == 401

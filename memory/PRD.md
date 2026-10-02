@@ -1,4 +1,4 @@
-# MathBlitz 60s Product Requirements
+# FunGanit 60s Product Requirements
 
 ## Problem statement
 Build a polished, friendly Android-first maths game where a player selects an age group, answers validated timed multiple-choice questions, improves through adaptive difficulty, and returns daily for streak challenges. Version 1 is single-player, offline-first, and does not require an account.
@@ -28,7 +28,7 @@ Build a polished, friendly Android-first maths game where a player selects an ag
 ## Implemented
 
 ### 2026-09-18 — Version 1 foundation
-- Built MathBlitz 60s onboarding, home hub, streak banner, 60-second gameplay, feedback state, results, replay, and settings screens.
+- Built FunGanit 60s onboarding, home hub, streak banner, 60-second gameplay, feedback state, results, replay, and settings screens.
 - Added six age-group question pools with adaptive difficulty and validated numeric distractors.
 - Added local profile persistence for streak, personal best, XP, selected age, and preferences.
 - Added FastAPI admin authentication with environment credentials, Mongo-backed questions/challenges, and monetization settings.
@@ -61,7 +61,7 @@ Build a polished, friendly Android-first maths game where a player selects an ag
 - Home dashboard shows a running token balance + a "How to play" chip; the streak footer now advertises the +20 / +30 rewards inline so players can see what winning the streak unlocks.
 - Added a full How to Play screen covering scoring, tokens, streaks and unlocks.
 - The 60-second game now also flashes the correct answer in green when the player picks wrong (previously only the challenge screens did) and surfaces the ±token hint under the question.
-- Splash screen now leads with a bigger MathBlitz mark and a "Presented by Bansal Tutorials" line.
+- Splash screen now leads with a bigger FunGanit mark and a "Presented by Bansal Tutorials" line.
 
 ## Prioritized backlog
 

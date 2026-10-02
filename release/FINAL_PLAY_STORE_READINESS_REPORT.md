@@ -1,6 +1,6 @@
-# MathBlitz — Final Play Store Readiness Report
+# FunGanit — Final Play Store Readiness Report
 
-**Application Name:** MathBlitz  
+**Application Name:** FunGanit  
 **Application / Package ID:** `com.naman.mathblitz`  
 **Version:** 1.0.0 (Version Code: 1)  
 **Date:** September 2026  
@@ -30,7 +30,7 @@
 6. **Performance & Navigation Optimization:**
    - **Kingdom Map GPU Acceleration:** Segmented the viaduct bridge path into 5 independent per-world SVGs (~2,500px each) in [WorldMap.tsx](file:///c:/Users/Admin/Mathblitz1/frontend/src/game/journey/components/WorldMap.tsx), replacing the single monolithic 13,490px canvas that choked mobile GPU texture limits.
    - **Immediate Kingdom Mount:** Implemented `contentOffset` positioning directly at the player's active level in `WorldMap.tsx`, eliminating the 13,000px scroll thrashing.
-   - **Journey State Memory Cache:** Added in-memory caching and pre-warming in [storage.ts](file:///c:/Users/Admin/Mathblitz1/frontend/src/game/journey/storage.ts) and [JourneyMapScreen.tsx](file:///c:/Users/Admin/Mathblitz1/frontend/src/screens/JourneyMapScreen.tsx), removing the AsyncStorage read delay and `"Entering MathBlitz Kingdom..."` loading screen.
+   - **Journey State Memory Cache:** Added in-memory caching and pre-warming in [storage.ts](file:///c:/Users/Admin/Mathblitz1/frontend/src/game/journey/storage.ts) and [JourneyMapScreen.tsx](file:///c:/Users/Admin/Mathblitz1/frontend/src/screens/JourneyMapScreen.tsx), removing the AsyncStorage read delay and `"Entering FunGanit Kingdom..."` loading screen.
    - **MapLevelNode Optimization:** Isolated the Reanimated beacon pulse loop to only mount on the single active level node (`isCurrent === true`), eliminating 99 redundant animation loops, and memoized [MapLevelNode.tsx](file:///c:/Users/Admin/Mathblitz1/frontend/src/game/journey/components/MapLevelNode.tsx).
    - **Bottom Navigation Warm Persistence:** Implemented warm tab retention in [app/index.tsx](file:///c:/Users/Admin/Mathblitz1/frontend/app/index.tsx) with `display: "none"` toggles so switching between Blitz, Kingdom, Sudoku, Puzzles, Badges, and Coach is instantaneous with 0ms remount delay.
    - **Duplicate Background Removal:** Removed the redundant `<SurrealBackground />` from `AppShell` in `index.tsx`, eliminating 24 continuous background Reanimated loops.
@@ -82,7 +82,7 @@
 ## E. Android Configuration
 
 * **Application ID / Package:** `com.naman.mathblitz`
-* **Application Name:** `MathBlitz`
+* **Application Name:** `FunGanit`
 * **Version Name:** `1.0.0`
 * **Version Code:** `1`
 * **Minimum SDK:** `24` (Android 7.0 Nougat)
@@ -101,7 +101,7 @@
 | `android.permission.ACCESS_NETWORK_STATE` | **Retained** | Network connectivity detection for offline queue and ad loading. |
 | `android.permission.VIBRATE` | **Retained** | Tactile haptic feedback during quiz gameplay. |
 | `android.permission.READ_MEDIA_IMAGES` | **Retained** (maxSdk 32) | Image selection for admin challenge question creation. |
-| `android.permission.RECORD_AUDIO` | **REMOVED** | Blocked via `tools:node="remove"`. MathBlitz does not record audio. |
+| `android.permission.RECORD_AUDIO` | **REMOVED** | Blocked via `tools:node="remove"`. FunGanit does not record audio. |
 | `android.permission.SYSTEM_ALERT_WINDOW` | **REMOVED** | Blocked via `tools:node="remove"`. Development overlay permission. |
 | `android.permission.FOREGROUND_SERVICE` | **REMOVED** | Blocked via `tools:node="remove"`. Unnecessary background service. |
 | `android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK` | **REMOVED** | Blocked via `tools:node="remove"`. Background playback disabled. |
@@ -147,7 +147,7 @@
 
 ## J. Remaining Manual Google Play Console Tasks
 
-1. **Create Application:** Create app `MathBlitz: Brain Math Games` (Free, Game).
+1. **Create Application:** Create app `FunGanit: Brain Math Games` (Free, Game).
 2. **App Content Declarations:**
    - **Privacy Policy:** Enter public HTTPS URL hosting disclosures from `GOOGLE_PLAY_DATA_SAFETY_REPORT.md`.
    - **Ads:** Select "Yes, my app contains ads".

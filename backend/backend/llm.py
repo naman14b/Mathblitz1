@@ -1,4 +1,4 @@
-"""OpenRouter AI integration for MathBlitz using Qwen and other LLM models."""
+"""OpenRouter AI integration for FunGanit using Qwen and other LLM models."""
 import asyncio
 import logging
 import random
@@ -70,8 +70,8 @@ async def chat_completion(
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://mathblitz.app",
-        "X-Title": "MathBlitz",
+        "HTTP-Referer": "https://funganit.app",
+        "X-Title": "FunGanit",
     }
     payload = {
         "model": selected_model,
@@ -107,7 +107,7 @@ async def chat_completion(
 async def generate_boss_taunt(level: int, player_name: str = "Player", wins: int = 10) -> str:
     """Generate a dynamic, sassy Math Boss taunt using OpenRouter with fallback."""
     prompt = (
-        f"You are the Math Boss (Level {level}) in MathBlitz. "
+        f"You are the Math Boss (Level {level}) in FunGanit. "
         f"The player {player_name} has won {wins} games and now faces you in a rapid 2-minute arithmetic showdown. "
         f"Deliver a short, funny, 1-to-2 sentence theatrical taunt mocking their speed and challenging their math skills. "
         f"Do not include quotes or intro text, just the taunt."
@@ -138,7 +138,7 @@ async def generate_boss_reaction(
     outcome = "lost to" if won else "defeated"
     sentiment = "devastated, dramatic rage and shock" if won else "gloating, mocking triumph"
     prompt = (
-        f"You are the Math Boss (Level {level}) in MathBlitz. "
+        f"You are the Math Boss (Level {level}) in FunGanit. "
         f"Player {player_name} scored {correct}/{total} questions and {outcome} you. "
         f"Express {sentiment} in 1 to 2 funny, punchy sentences. "
         f"Do not include quotes or intro text."

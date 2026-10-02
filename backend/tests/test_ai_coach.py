@@ -1,4 +1,4 @@
-"""Comprehensive test suite for MathBlitz AI Coach:
+"""Comprehensive test suite for FunGanit AI Coach:
 Taxonomy, Learning Engine, Math Verifier, LangGraph Workflow, and Server API endpoints.
 """
 import pytest
@@ -260,7 +260,7 @@ def test_coach_api_record_and_profile():
         insight_data = insight_res.json()
         assert insight_data["has_insight"] is True
         assert insight_data["concept_id"] == "percentages.conversion"
-        assert "MathBlitz Coach" in insight_data["headline"]
+        assert "FunGanit Coach" in insight_data["headline"]
 
         # 4. Start Coaching Session
         session_res = client.post(

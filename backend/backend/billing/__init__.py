@@ -1,4 +1,4 @@
-"""MathBlitz Billing Package."""
+"""FunGanit Billing Package."""
 from .routes import router as billing_router
 
 __all__ = ["billing_router"]

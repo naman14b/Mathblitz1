@@ -1,4 +1,4 @@
-"""FastAPI Router for MathBlitz Kingdom Journey."""
+"""FastAPI Router for FunGanit Kingdom Journey."""
 from typing import Any, Dict
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field

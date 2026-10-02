@@ -301,6 +301,7 @@ export function Home({
             <View
               style={[
                 styles.playerAvatarContainer,
+                isNight ? styles.playerAvatarContainerNight : styles.playerAvatarContainerDay,
                 activePremiumFrame && {
                   borderColor: activePremiumFrame.borderColor,
                   borderWidth: 3.5,
@@ -405,11 +406,16 @@ export function Home({
 
           {/* Streak Challenges Section */}
           <View style={styles.streakChallengesBox}>
-            <Text style={styles.streakChallengesTitle}>STREAK CHALLENGES</Text>
+            <View style={[styles.headingPill, isNight ? styles.headingPillNightAmber : styles.headingPillDayAmber]}>
+              <Ionicons name="flash" size={12} color={isNight ? "#FCD34D" : "#D97706"} />
+              <Text style={[styles.headingPillText, { color: isNight ? "#FDE68A" : "#B45309" }]}>
+                STREAK CHALLENGES
+              </Text>
+            </View>
 
             {/* 3-Day Streak Challenge Card */}
             <View style={[styles.streakChallengeCard, isNight ? styles.streakChallengeCardNight : styles.streakChallengeCardDay]}>
-              <View style={styles.streakChallengeBadge}>
+              <View style={[styles.streakChallengeBadge, isNight ? styles.streakBadgeNight : styles.streakBadgeDayAmber]}>
                 <Text style={styles.streakChallengeBadgeText}>⚡</Text>
               </View>
               <View style={styles.streakChallengeInfo}>
@@ -440,16 +446,16 @@ export function Home({
                   </Pressable>
                 </View>
               ) : (
-                <View style={styles.challengeLockedPill}>
-                  <Text style={styles.challengeLockedText}>🔒 {daysTo3}d</Text>
-                  <Ionicons name="chevron-forward" size={13} color={colors.muted} />
+                <View style={[styles.challengeLockedPill, isNight ? styles.challengeLockedPillNight : styles.challengeLockedPillDay]}>
+                  <Text style={isNight ? styles.challengeLockedTextNight : styles.challengeLockedTextDay}>🔒 {daysTo3}d</Text>
+                  <Ionicons name="chevron-forward" size={13} color={isNight ? "#94A3B8" : "#64748B"} />
                 </View>
               )}
             </View>
 
             {/* 7-Day Blitz Master Challenge Card */}
             <View style={[styles.streakChallengeCard, isNight ? styles.streakChallengeCardNight : styles.streakChallengeCardDay]}>
-              <View style={styles.streakChallengeBadge}>
+              <View style={[styles.streakChallengeBadge, isNight ? styles.streakBadgeNight : styles.streakBadgeDayViolet]}>
                 <Text style={styles.streakChallengeBadgeText}>👑</Text>
               </View>
               <View style={styles.streakChallengeInfo}>
@@ -480,9 +486,9 @@ export function Home({
                   </Pressable>
                 </View>
               ) : (
-                <View style={styles.challengeLockedPill}>
-                  <Text style={styles.challengeLockedText}>🔒 {daysTo7}d</Text>
-                  <Ionicons name="chevron-forward" size={13} color={colors.muted} />
+                <View style={[styles.challengeLockedPill, isNight ? styles.challengeLockedPillNight : styles.challengeLockedPillDay]}>
+                  <Text style={isNight ? styles.challengeLockedTextNight : styles.challengeLockedTextDay}>🔒 {daysTo7}d</Text>
+                  <Ionicons name="chevron-forward" size={13} color={isNight ? "#94A3B8" : "#64748B"} />
                 </View>
               )}
             </View>
@@ -490,7 +496,7 @@ export function Home({
 
           {/* Tokens & How to Play Chip */}
           <View testID="home-token-badge" style={styles.tokenBar}>
-            <Animated.View style={[styles.tokenIcon, tokenAnimatedStyle]}>
+            <Animated.View style={[styles.tokenIcon, isNight ? styles.tokenIconNight : styles.tokenIconDay, tokenAnimatedStyle]}>
               <Ionicons name="star" size={15} color="#FFFFFF" />
             </Animated.View>
             <View style={styles.tokenCopy}>
@@ -500,11 +506,17 @@ export function Home({
             <Pressable
               testID="home-how-to-play"
               onPress={onHowToPlay}
-              style={({ pressed }) => [styles.howToChip, { opacity: pressed ? 0.7 : 1 }]}
+              style={({ pressed }) => [
+                styles.howToChip,
+                isNight ? styles.howToChipNight : styles.howToChipDay,
+                { opacity: pressed ? 0.75 : 1 },
+              ]}
             >
-              <Ionicons name="help-circle" size={15} color={colors.brandPrimary} />
-              <Text style={styles.howToChipText}>How to play</Text>
-              <Ionicons name="chevron-forward" size={13} color={colors.brandPrimary} />
+              <Ionicons name="help-circle" size={15} color={isNight ? "#A5B4FC" : "#D97706"} />
+              <Text style={[styles.howToChipText, isNight ? styles.howToChipTextNight : styles.howToChipTextDay]}>
+                How to play
+              </Text>
+              <Ionicons name="chevron-forward" size={13} color={isNight ? "#A5B4FC" : "#D97706"} />
             </Pressable>
           </View>
         </View>
@@ -516,30 +528,26 @@ export function Home({
             onPress={onJourney}
             style={[
               styles.dailyCard,
-              {
-                backgroundColor: isNight ? "#1E1B4B" : "#312E81",
-                borderColor: "#6366F1",
-                borderWidth: 2,
-              },
+              isNight ? styles.kingdomCardNight : styles.kingdomCardDay,
             ]}
           >
             <View style={styles.dailyHeaderRow}>
-              <View style={[styles.dailyTag, { backgroundColor: "rgba(99, 102, 241, 0.2)" }]}>
-                <Ionicons name="map" size={14} color="#818CF8" />
-                <Text style={[styles.dailyTagText, { color: "#A5B4FC" }]}>FUNGANIT KINGDOM</Text>
+              <View style={[styles.headingPill, isNight ? styles.headingPillNightIndigo : styles.headingPillDayIndigo]}>
+                <Ionicons name="map" size={13} color={isNight ? "#A5B4FC" : "#4F46E5"} />
+                <Text style={[styles.headingPillText, { color: isNight ? "#C7D2FE" : "#4338CA" }]}>FUNGANIT KINGDOM</Text>
               </View>
-              <View style={[styles.dailyRewardPill, { backgroundColor: "rgba(245, 158, 11, 0.2)", borderColor: "#F59E0B" }]}>
-                <Text style={{ color: "#FCD34D", fontSize: 11, fontWeight: "800" }}>⭐ 5 Realms • 100 Levels</Text>
+              <View style={[styles.dailyRewardPill, { backgroundColor: isNight ? "rgba(245, 158, 11, 0.2)" : "#FEF3C7", borderColor: isNight ? "#F59E0B" : "#FDE68A", borderWidth: 1 }]}>
+                <Text style={{ color: isNight ? "#FCD34D" : "#B45309", fontSize: 11, fontWeight: "800" }}>⭐ 5 Realms • 100 Levels</Text>
               </View>
             </View>
 
             <View style={styles.dailyBody}>
-              <View style={[styles.calendarDateBadge, { backgroundColor: "#4338CA", borderColor: "#818CF8" }]}>
+              <View style={[styles.calendarDateBadge, { backgroundColor: isNight ? "#4338CA" : "#E0E7FF", borderColor: "#818CF8" }]}>
                 <Text style={{ fontSize: 24 }}>🏰</Text>
               </View>
               <View style={styles.dailyCopy}>
-                <Text style={[styles.dailyTitle, { color: "#FFFFFF" }]}>Character Adventure</Text>
-                <Text style={[styles.dailySub, { color: "#C7D2FE" }]}>
+                <Text style={[styles.dailyTitle, { color: isNight ? "#FFFFFF" : "#1E1B4B" }]}>Character Adventure</Text>
+                <Text style={[styles.dailySub, { color: isNight ? "#C7D2FE" : "#4338CA" }]}>
                   Travel across realms with your hero, conquer bosses, and earn stars!
                 </Text>
               </View>
@@ -564,17 +572,19 @@ export function Home({
           style={[styles.dailyCard, isNight ? styles.dailyCardNight : styles.dailyCardDay]}
         >
           <View style={styles.dailyHeaderRow}>
-            <View style={styles.dailyTag}>
-              <Ionicons name="calendar" size={14} color={isNight ? "#60A5FA" : colors.brandPrimary} />
-              <Text style={[styles.dailyTagText, isNight && { color: "#60A5FA" }]}>DAILY CHALLENGE</Text>
+            <View style={[styles.headingPill, isNight ? styles.headingPillNightRed : styles.headingPillDayRed]}>
+              <Ionicons name="calendar" size={13} color={isNight ? "#FCA5A5" : "#EA580C"} />
+              <Text style={[styles.headingPillText, { color: isNight ? "#FECACA" : "#C2410C" }]}>
+                DAILY CHALLENGE
+              </Text>
             </View>
             <View style={[styles.dailyRewardPill, dailyDone && styles.dailyRewardPillDone]}>
               <Ionicons
                 name={dailyDone ? "checkmark-circle" : "flash"}
                 size={13}
-                color={dailyDone ? "#10B981" : "#D97706"}
+                color={dailyDone ? "#10B981" : isNight ? "#FCD34D" : "#D97706"}
               />
-              <Text style={[styles.dailyRewardText, dailyDone && { color: "#10B981" }]}>
+              <Text style={[styles.dailyRewardText, dailyDone && { color: "#10B981" }, !dailyDone && !isNight && { color: "#B45309" }]}>
                 {dailyDone ? `Done (${profile.dailyChallengeScore || 35} pts)` : "+5 Tokens"}
               </Text>
             </View>
@@ -625,15 +635,18 @@ export function Home({
         </AnimatedPressableCard>
 
         {/* Hero 60 SEC Challenge Card with Rising Hover Effect */}
-        <AnimatedPressableCard testID="play-challenge" onPress={onPlay} style={styles.hero}>
+        <AnimatedPressableCard testID="play-challenge" onPress={onPlay} style={[styles.hero, isNight ? styles.heroNight : styles.heroDay]}>
           <HeroParticles />
           <View style={styles.heroCopy}>
-            <Text style={styles.heroKicker}>60-SECOND CHALLENGE</Text>
+            <View style={styles.heroKickerPill}>
+              <Ionicons name="time" size={12} color="#FEF08A" />
+              <Text style={styles.heroKicker}>60-SECOND CHALLENGE</Text>
+            </View>
             <Text style={styles.heroTitle}>How fast can you think?</Text>
             <Text style={styles.heroSub}>Answer as many as you can before time runs out.</Text>
             <View style={styles.heroCta}>
               <Text style={styles.heroCtaText}>Play now</Text>
-              <Ionicons name="arrow-forward" size={18} color={colors.onBrandPrimary} />
+              <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
             </View>
           </View>
 
@@ -645,7 +658,12 @@ export function Home({
 
         {/* Progress & Stats Section directly adjacent to 60-sec challenge */}
         <View style={styles.sectionHeading}>
-          <Text style={styles.sectionTitle}>Your progress</Text>
+          <View style={[styles.headingPill, isNight ? styles.headingPillNightBlue : styles.headingPillDayBlue]}>
+            <Ionicons name="bar-chart" size={13} color={isNight ? "#93C5FD" : "#0284C7"} />
+            <Text style={[styles.headingPillText, { color: isNight ? "#BAE6FD" : "#0369A1" }]}>
+              YOUR PROGRESS
+            </Text>
+          </View>
           <SoftButton onPress={onAge} icon="options-outline">
             Change level
           </SoftButton>
@@ -655,19 +673,19 @@ export function Home({
             icon="trophy"
             value={String(displayBest)}
             label="Personal best"
-            color={colors.surfaceTertiary}
+            color={isNight ? "rgba(245, 158, 11, 0.15)" : "#FFFBEB"}
           />
           <StatTile
             icon="sparkles"
             value={String(displayXp)}
             label="Total XP"
-            color={colors.surfaceSecondary}
+            color={isNight ? "rgba(124, 58, 237, 0.15)" : "#F5F3FF"}
           />
           <StatTile
             icon="flash"
             value={String(profile.streak)}
             label="Best streak"
-            color={colors.brandTertiary}
+            color={isNight ? "rgba(16, 185, 129, 0.15)" : "#ECFDF5"}
           />
         </View>
 
@@ -744,11 +762,22 @@ const useStyles = makeStyles((colors: any) => ({
     width: 52,
     height: 52,
     borderRadius: 20,
-    backgroundColor: colors.surfaceSecondary,
-    borderWidth: 2,
-    borderColor: colors.divider,
     alignItems: "center",
     justifyContent: "center",
+  },
+  playerAvatarContainerDay: {
+    backgroundColor: "#EFF6FF",
+    borderWidth: 2,
+    borderColor: "#BFDBFE",
+    shadowColor: "#3B82F6",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+  },
+  playerAvatarContainerNight: {
+    backgroundColor: "rgba(30, 41, 59, 0.8)",
+    borderWidth: 2,
+    borderColor: "rgba(99, 102, 241, 0.4)",
   },
   playerAvatarEmoji: { fontSize: 26 },
   nameRow: { flexDirection: "row", alignItems: "center", gap: 8, flexWrap: "wrap" },
@@ -855,9 +884,23 @@ const useStyles = makeStyles((colors: any) => ({
     width: 36,
     height: 36,
     borderRadius: 12,
-    backgroundColor: colors.surface,
     alignItems: "center",
     justifyContent: "center",
+  },
+  streakBadgeNight: {
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.15)",
+  },
+  streakBadgeDayAmber: {
+    backgroundColor: "#FEF3C7",
+    borderWidth: 1,
+    borderColor: "#FDE68A",
+  },
+  streakBadgeDayViolet: {
+    backgroundColor: "#EDE9FE",
+    borderWidth: 1,
+    borderColor: "#DDD6FE",
   },
   streakChallengeBadgeText: {
     fontSize: 18,
@@ -921,13 +964,27 @@ const useStyles = makeStyles((colors: any) => ({
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    backgroundColor: colors.surfaceSecondary,
     paddingHorizontal: 9,
     paddingVertical: 6,
     borderRadius: 99,
   },
-  challengeLockedText: {
-    color: colors.muted,
+  challengeLockedPillDay: {
+    backgroundColor: "#F1F5F9",
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+  },
+  challengeLockedPillNight: {
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.12)",
+  },
+  challengeLockedTextDay: {
+    color: "#475569",
+    fontSize: 11,
+    fontWeight: "700",
+  },
+  challengeLockedTextNight: {
+    color: "#CBD5E1",
     fontSize: 11,
     fontWeight: "700",
   },
@@ -947,6 +1004,20 @@ const useStyles = makeStyles((colors: any) => ({
   dailyCardDay: {
     backgroundColor: "rgba(255, 255, 255, 0.90)",
     borderColor: "rgba(0, 0, 0, 0.06)",
+  },
+  kingdomCardDay: {
+    backgroundColor: "#EEF2FF",
+    borderColor: "#818CF8",
+    borderWidth: 2,
+    shadowColor: "#6366F1",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+  },
+  kingdomCardNight: {
+    backgroundColor: "#1E1B4B",
+    borderColor: "#6366F1",
+    borderWidth: 2,
   },
   dailyHeaderRow: {
     flexDirection: "row",
@@ -1091,9 +1162,18 @@ const useStyles = makeStyles((colors: any) => ({
     width: 32,
     height: 32,
     borderRadius: 12,
-    backgroundColor: colors.brandPrimary,
     alignItems: "center",
     justifyContent: "center",
+  },
+  tokenIconDay: {
+    backgroundColor: "#F59E0B",
+    shadowColor: "#F59E0B",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.35,
+    shadowRadius: 5,
+  },
+  tokenIconNight: {
+    backgroundColor: "#6366F1",
   },
   tokenCopy: { flex: 1 },
   tokenValue: { color: colors.onSurface, fontSize: 16, fontWeight: "900" },
@@ -1105,25 +1185,59 @@ const useStyles = makeStyles((colors: any) => ({
     paddingHorizontal: 12,
     minHeight: 32,
     borderRadius: 99,
-    backgroundColor: colors.surfaceTertiary,
   },
-  howToChipText: { color: colors.brandPrimary, fontSize: 12, fontWeight: "900" },
+  howToChipDay: {
+    backgroundColor: "#FEF3C7",
+    borderWidth: 1.2,
+    borderColor: "#FDE68A",
+    shadowColor: "#F59E0B",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.12,
+    shadowRadius: 3,
+  },
+  howToChipNight: {
+    backgroundColor: "rgba(99, 102, 241, 0.22)",
+    borderWidth: 1.2,
+    borderColor: "rgba(129, 140, 248, 0.4)",
+  },
+  howToChipText: { fontSize: 12, fontWeight: "900" },
+  howToChipTextDay: { color: "#B45309" },
+  howToChipTextNight: { color: "#E0E7FF" },
   hero: {
-    backgroundColor: colors.brandPrimary,
     minHeight: 184,
     borderRadius: 26,
     padding: 22,
     flexDirection: "row",
     overflow: "hidden",
     marginBottom: 16,
-    shadowColor: colors.brandPrimary,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
     elevation: 6,
   },
+  heroDay: {
+    backgroundColor: "#FF6B35",
+    shadowColor: "#FF6B35",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
+    shadowRadius: 12,
+  },
+  heroNight: {
+    backgroundColor: "#4F46E5",
+    shadowColor: "#4F46E5",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
+    shadowRadius: 12,
+  },
   heroCopy: { flex: 1, zIndex: 1, gap: 7 },
-  heroKicker: { color: colors.brandTertiary, fontSize: 11, fontWeight: "900", letterSpacing: 1.2 },
+  heroKickerPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    backgroundColor: "rgba(0, 0, 0, 0.18)",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 99,
+    alignSelf: "flex-start",
+  },
+  heroKicker: { color: "#FEF08A", fontSize: 11, fontWeight: "900", letterSpacing: 1.2 },
   heroTitle: { color: colors.onBrandPrimary, fontSize: 24, lineHeight: 29, fontWeight: "900", maxWidth: 215 },
   heroSub: { color: colors.brandTertiary, fontSize: 12, lineHeight: 17, maxWidth: 210 },
   heroCta: { flexDirection: "row", alignItems: "center", gap: 8, marginTop: 8 },
@@ -1144,6 +1258,60 @@ const useStyles = makeStyles((colors: any) => ({
   },
   heroOrbText: { color: colors.onBrandSecondary, fontSize: 40, lineHeight: 42, fontWeight: "900" },
   heroOrbLabel: { color: colors.onBrandSecondary, fontSize: 12, fontWeight: "900", letterSpacing: 2 },
+  headingPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 99,
+    alignSelf: "flex-start",
+  },
+  headingPillText: {
+    fontSize: 11,
+    fontWeight: "900",
+    letterSpacing: 0.8,
+  },
+  headingPillDayAmber: {
+    backgroundColor: "#FEF3C7",
+    borderWidth: 1,
+    borderColor: "#FDE68A",
+  },
+  headingPillNightAmber: {
+    backgroundColor: "rgba(245, 158, 11, 0.2)",
+    borderWidth: 1,
+    borderColor: "rgba(245, 158, 11, 0.4)",
+  },
+  headingPillDayIndigo: {
+    backgroundColor: "#EEF2FF",
+    borderWidth: 1,
+    borderColor: "#C7D2FE",
+  },
+  headingPillNightIndigo: {
+    backgroundColor: "rgba(99, 102, 241, 0.2)",
+    borderWidth: 1,
+    borderColor: "rgba(99, 102, 241, 0.4)",
+  },
+  headingPillDayRed: {
+    backgroundColor: "#FFF1F2",
+    borderWidth: 1,
+    borderColor: "#FECDD3",
+  },
+  headingPillNightRed: {
+    backgroundColor: "rgba(239, 68, 68, 0.2)",
+    borderWidth: 1,
+    borderColor: "rgba(239, 68, 68, 0.4)",
+  },
+  headingPillDayBlue: {
+    backgroundColor: "#F0F9FF",
+    borderWidth: 1,
+    borderColor: "#BAE6FD",
+  },
+  headingPillNightBlue: {
+    backgroundColor: "rgba(56, 189, 248, 0.2)",
+    borderWidth: 1,
+    borderColor: "rgba(56, 189, 248, 0.4)",
+  },
   sectionHeading: {
     flexDirection: "row",
     justifyContent: "space-between",

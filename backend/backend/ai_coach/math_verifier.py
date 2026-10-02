@@ -1,4 +1,4 @@
-"""Deterministic Mathematical Verifier and Fingerprinting for MathBlitz AI Coach.
+"""Deterministic Mathematical Verifier and Fingerprinting for FunGanit AI Coach.
 Uses SymPy, exact arithmetic evaluation, and step consistency checks to guarantee that
 every AI-generated math problem, option, and explanation is 100% mathematically sound.
 """

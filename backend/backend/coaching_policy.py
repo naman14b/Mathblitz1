@@ -1,4 +1,4 @@
-"""Coaching Policy Engine for MathBlitz AI Coach.
+"""Coaching Policy Engine for FunGanit AI Coach.
 Deterministic policy layer between the Learning Engine / Root Cause Engine and LangGraph.
 Decides the exact learning objective, intervention strategy, difficulty, and question count.
 """

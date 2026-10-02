@@ -1,4 +1,4 @@
-"""SQLAlchemy declarative models for MathBlitz."""
+"""SQLAlchemy declarative models for FunGanit."""
 from datetime import datetime, timezone
 from typing import Any, List, Optional
 
@@ -205,10 +205,10 @@ class CoachingIntervention(Base):
     )
 
 
-# ── MathBlitz Kingdom Journey Persistent Models ──────────────────────────────
+# ── FunGanit Kingdom Journey Persistent Models ──────────────────────────────
 
 class PlayerJourneyProgress(Base):
-    """Authoritative persistent state for a player's MathBlitz Kingdom Journey."""
+    """Authoritative persistent state for a player's FunGanit Kingdom Journey."""
     __tablename__ = "player_journey_progress"
 
     player_id = Column(String(64), primary_key=True)

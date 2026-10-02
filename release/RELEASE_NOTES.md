@@ -1,13 +1,23 @@
-# MathBlitz Release Notes
+# FunGanit Release Notes
+
+## Version 1.0.1 (Version Code: 2)
+
+### What's New in FunGanit 1.0.1
+* **Enhanced Visual Experience:** Updated surreal background art, high-resolution day imagery, and polished color system for a more immersive game environment.
+* **Improved Performance & Backend Connectivity:** Optimized cloud synchronization and live API connectivity with the upgraded production service.
+* **Refined Game Flow & Guides:** Streamlined "How To Play" tutorials and enhanced offline storage persistence across all game modes.
+* **Bug Fixes & Stability:** Improved transitions between Blitz, Kingdom Journey, Sudoku Hub, and Logic Puzzles.
+
+---
 
 ## Version 1.0.0 (Version Code: 1)
 
-### What's New in MathBlitz 1.0.0
+### What's New in FunGanit 1.0.0
 
-Welcome to the official launch of **MathBlitz** on Google Play! Train your brain, sharpen your mental calculation speed, and explore mathematical challenges in a beautifully crafted adventure.
+Welcome to the official launch of **FunGanit** on Google Play! Train your brain, sharpen your mental calculation speed, and explore mathematical challenges in a beautifully crafted adventure.
 
 #### Key Features & Game Modes:
-* **MathBlitz Kingdom (Journey Mode):** Embark on an epic 100-level quest across 5 distinct math worlds — Number Forest, Fraction Valley, Percentage City, Algebra Mountain, and Geometry Castle. Face off against challenging World Bosses, earn stars, and collect tokens!
+* **FunGanit Kingdom (Journey Mode):** Embark on an epic 100-level quest across 5 distinct math worlds — Number Forest, Fraction Valley, Percentage City, Algebra Mountain, and Geometry Castle. Face off against challenging World Bosses, earn stars, and collect tokens!
 * **60 Seconds Blitz:** Fast-paced arithmetic sprint against the clock. How many problems can you solve before time runs out?
 * **Sudoku Hub:** Classic and modern Sudoku puzzles across multiple difficulties with smart hints and best-time tracking.
 * **Maths Puzzles:** Engaging logic and brain-teaser numerical puzzles designed to test critical thinking.

@@ -1,6 +1,6 @@
-# Google Play Console Setup & Release Guide for MathBlitz
+# Google Play Console Setup & Release Guide for FunGanit
 
-**App Name:** MathBlitz  
+**App Name:** FunGanit  
 **Package / Application ID:** `com.naman.mathblitz`  
 **Initial Version:** 1.0.0 (Version Code: 1)  
 **Target SDK:** 36 (Android 16 / 15)  
@@ -11,7 +11,7 @@
 
 ## Overview
 
-This guide details the complete process for publishing MathBlitz to the Google Play Store. It distinguishes clearly between what has already been engineered in the codebase and the manual steps you must perform within your Google Play Console developer account.
+This guide details the complete process for publishing FunGanit to the Google Play Store. It distinguishes clearly between what has already been engineered in the codebase and the manual steps you must perform within your Google Play Console developer account.
 
 ---
 
@@ -32,7 +32,7 @@ This guide details the complete process for publishing MathBlitz to the Google P
 
 ### 16 KB Memory Page Size Compatibility
 > **Verified 16 KB Page-Size Compatible.**  
-> * MathBlitz uses React Native 0.86.3 and Hermes with modern NDK 27+ native binaries built with 16 KB ELF alignment (`-Wl,-z,max-page-size=16384`).  
+> * FunGanit uses React Native 0.86.3 and Hermes with modern NDK 27+ native binaries built with 16 KB ELF alignment (`-Wl,-z,max-page-size=16384`).  
 > * `useLegacyPackaging false` is enforced in `frontend/android/app/build.gradle` and `gradle.properties`, ensuring uncompressed and page-aligned `.so` native libraries inside the AAB.
 
 ---
@@ -42,7 +42,7 @@ This guide details the complete process for publishing MathBlitz to the Google P
 The following technical requirements and configurations are fully completed and verified in the codebase:
 
 1. **Production Identity & Versioning:**
-   - App Name set to **`MathBlitz`** (removed development suffix).
+   - App Name set to **`FunGanit`** (removed development suffix).
    - Package / Application ID standardized to **`com.naman.mathblitz`**.
    - Scheme configured to **`mathblitz`**.
    - Initial Version Code set to `1`, Version Name set to `"1.0.0"`.
@@ -74,13 +74,13 @@ The following technical requirements and configurations are fully completed and 
 
 ## Section B: Manual Steps You Must Complete in Google Play Console
 
-Follow this sequence to register and submit MathBlitz:
+Follow this sequence to register and submit FunGanit:
 
 ### Step 1: Create the Application
 1. Log in to [Google Play Console](https://play.google.com/console).
 2. Click **Create app** (top-right corner).
 3. Fill in the basic details:
-   - **App name:** `MathBlitz: Brain Math Games`
+   - **App name:** `FunGanit: Brain Math Games`
    - **Default language:** English (United States) — `en-US`
    - **App or game:** Select **Game**
    - **Free or paid:** Select **Free**
@@ -93,7 +93,7 @@ Under the left navigation menu, expand **Policy and programs** -> click **App co
    - Provide a publicly accessible HTTPS URL hosting your privacy policy.
    - Refer to `release/GOOGLE_PLAY_DATA_SAFETY_REPORT.md` for the exact disclosures to include.
 2. **Ads:**
-   - Select **Yes, my app contains ads** (MathBlitz integrates Google Mobile Ads AdMob).
+   - Select **Yes, my app contains ads** (FunGanit integrates Google Mobile Ads AdMob).
 3. **App Access:**
    - Select **All functionality is available without special access restrictions** (no player login credentials are required to play).
 4. **Content Ratings:**
@@ -123,12 +123,12 @@ Google requires an **Upload Key** to authenticate your `.aab` uploads. Google Pl
 Open a terminal (PowerShell or Command Prompt) and run:
 
 ```bash
-keytool -genkeypair -v -keystore mathblitz-upload-key.keystore -alias mathblitz-upload -keyalg RSA -keysize 2048 -validity 10000
+keytool -genkeypair -v -keystore funganit-upload-key.keystore -alias funganit-upload -keyalg RSA -keysize 2048 -validity 10000
 ```
 
 > [!WARNING]
 > * Store the `.keystore` file and its password in a secure password manager.
-> * **DO NOT** commit `mathblitz-upload-key.keystore` to GitHub.
+> * **DO NOT** commit upload keystores to public GitHub.
 
 ---
 
@@ -140,7 +140,7 @@ Run from the `frontend/` directory:
 npx eas-cli login
 npx eas-cli build --platform android --profile production
 ```
-EAS will manage the upload credentials securely and produce the download link for your `MathBlitz-release.aab`.
+EAS will manage the upload credentials securely and produce the download link for your `FunGanit-release.aab`.
 
 ### Method 2: Using Local Gradle Build
 ```powershell

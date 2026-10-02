@@ -19,6 +19,6 @@ export default ({ config }: { config: ExpoConfig }): ExpoConfig => ({
   ],
   extra: {
     ...config.extra,
-    backendUrl: process.env.EXPO_PUBLIC_BACKEND_URL || "https://mathblitz1.onrender.com",
+    backendUrl: process.env.EXPO_PUBLIC_BACKEND_URL || "https://mathblitz1-eta.vercel.app",
   },
 });

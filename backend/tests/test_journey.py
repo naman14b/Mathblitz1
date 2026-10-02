@@ -1,4 +1,4 @@
-"""Unit and API Integration Tests for MathBlitz Kingdom Journey."""
+"""Unit and API Integration Tests for FunGanit Kingdom Journey."""
 import pytest
 from unittest.mock import AsyncMock, MagicMock
 from fastapi.testclient import TestClient

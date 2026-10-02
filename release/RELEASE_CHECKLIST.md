@@ -1,6 +1,6 @@
-# MathBlitz — Google Play Release Checklist & Store Assets
+# FunGanit — Google Play Release Checklist & Store Assets
 
-**Application Name:** MathBlitz  
+**Application Name:** FunGanit  
 **Package / Application ID:** `com.naman.mathblitz`  
 **Target Release:** Production Track (v1.0.0, Version Code: 1)  
 **Target SDK:** 36 (Android 16 / 15)  
@@ -13,7 +13,7 @@
 
 ### App Title (Max 30 characters)
 ```text
-MathBlitz: Brain Math Games
+FunGanit: Brain Math Games
 ```
 
 ### Short Description (Max 80 characters)
@@ -24,7 +24,7 @@ Fast-paced mental math, 100-level kingdom journey, Sudoku, and logic puzzles!
 
 ### Full Description (Formatted for Google Play)
 ```text
-Sharpen your mind and boost your mental math calculation speed with MathBlitz! Whether you want a quick 60-second math sprint or an epic adventure through mathematical worlds, MathBlitz offers dynamic challenges designed for players of all ages.
+Sharpen your mind and boost your mental math calculation speed with FunGanit! Whether you want a quick 60-second math sprint or an epic adventure through mathematical worlds, FunGanit offers dynamic challenges designed for players of all ages.
 
 ⚡ FAST-PACED GAME MODES
 
@@ -34,7 +34,7 @@ Sharpen your mind and boost your mental math calculation speed with MathBlitz! W
 • Maths Puzzles: Challenge your deductive reasoning and pattern recognition with brain-teaser logic puzzles.
 • Daily Challenge: A fresh competitive math challenge every single day. Maintain your streak and climb the global leaderboards!
 
-🏰 MATHBLITZ KINGDOM — 100-LEVEL JOURNEY
+🏰 FUNGANIT KINGDOM — 100-LEVEL JOURNEY
 
 Embark on a structured 100-level mathematical quest across 5 vibrant worlds:
 1. Number Forest: Master fundamental operations, number patterns, and speed drills.
@@ -51,7 +51,7 @@ Earn up to 3 stars per level based on accuracy and speed. Defeat World Bosses to
 • Badges & Achievements: Unlock achievements as you master speed gates, complete streaks, and clear worlds.
 • Offline Support: Play your favorite puzzle modes on the go. Your progress synchronizes automatically when you reconnect.
 
-MathBlitz is free to play with optional non-intrusive rewarded ads. Download MathBlitz today and turn daily math practice into an exciting adventure!
+FunGanit is free to play with optional non-intrusive rewarded ads. Download FunGanit today and turn daily math practice into an exciting adventure!
 ```
 
 ---

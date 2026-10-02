@@ -1,4 +1,4 @@
-"""LangGraph Typed State for MathBlitz AI Coach."""
+"""LangGraph Typed State for FunGanit AI Coach."""
 from typing import Any, Dict, List, Optional, TypedDict
 
 

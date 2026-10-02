@@ -1,4 +1,4 @@
-"""Root-Cause Learning Engine for MathBlitz AI Coach.
+"""Root-Cause Learning Engine for FunGanit AI Coach.
 Distinguishes surface weaknesses from underlying foundational skill gaps and recurring error patterns.
 """
 from dataclasses import dataclass

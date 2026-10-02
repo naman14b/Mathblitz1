@@ -1,4 +1,4 @@
-"""Hierarchical extensible Concept Taxonomy and rule-based deterministic Error Classification for MathBlitz."""
+"""Hierarchical extensible Concept Taxonomy and rule-based deterministic Error Classification for FunGanit."""
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple

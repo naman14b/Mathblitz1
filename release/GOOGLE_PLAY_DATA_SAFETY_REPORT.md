@@ -1,6 +1,6 @@
-# MathBlitz — Google Play Data Safety Report
+# FunGanit — Google Play Data Safety Report
 
-**Application Name:** MathBlitz  
+**Application Name:** FunGanit  
 **Application / Package ID:** `com.naman.mathblitz`  
 **Version:** 1.0.0 (Version Code: 1)  
 **Target SDK:** 36 (Android 16 / 15)  
@@ -10,11 +10,11 @@
 
 ## Executive Summary
 
-This document provides the exact, factual data disclosures required to complete the **Data safety** section in the Google Play Console for MathBlitz. All disclosures are derived strictly from the actual codebase inspection of the frontend React Native / Expo application, native Android plugins, and the backend FastAPI / Neon PostgreSQL service.
+This document provides the exact, factual data disclosures required to complete the **Data safety** section in the Google Play Console for FunGanit. All disclosures are derived strictly from the actual codebase inspection of the frontend React Native / Expo application, native Android plugins, and the backend FastAPI / Neon PostgreSQL service.
 
 **Direct UPI/QR purchases have been completely removed from the Google Play build.** No financial or payment data (such as bank details, credit card numbers, or transaction reference numbers) is collected or processed by the application.
 
-MathBlitz does **not** sell user personal data. It uses non-personalized ads, strictly limits device permissions, and minimizes server-side telemetry.
+FunGanit does **not** sell user personal data. It uses non-personalized ads, strictly limits device permissions, and minimizes server-side telemetry.
 
 ---
 
@@ -72,7 +72,7 @@ MathBlitz does **not** sell user personal data. It uses non-personalized ads, st
 
 ## 3. Security Practices
 
-- **Data Encryption in Transit:** All network communication between the MathBlitz Android client and backend services (`https://mathblitz1.onrender.com`) is strictly enforced over **HTTPS (TLS 1.2+)**. Cleartext HTTP traffic is blocked.
+- **Data Encryption in Transit:** All network communication between the FunGanit Android client and backend services (`https://mathblitz1-eta.vercel.app`) is strictly enforced over **HTTPS (TLS 1.2+)**. Cleartext HTTP traffic is blocked.
 - **Data Encryption at Rest:** Sensitive tokens and keys use Android Keystore backed storage via `expo-secure-store`.
 - **Data Deletion Mechanism:** Players can reset their local profile and cached progress at any time through the in-app Settings menu ("Reset Profile").
 

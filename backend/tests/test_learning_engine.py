@@ -1,5 +1,5 @@
 """
-Unit and integration tests for MathBlitz Adaptive Learning Intelligence:
+Unit and integration tests for FunGanit Adaptive Learning Intelligence:
 - Multi-factor Mastery Calculation
 - Sample Size & Exponential Confidence Scoring
 - Deterministic Mastery States & State Transitions

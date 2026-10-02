@@ -1,4 +1,4 @@
-"""MathBlitz Kingdom - Journey Backend Service & Authoritative Progression Engine."""
+"""FunGanit Kingdom - Journey Backend Service & Authoritative Progression Engine."""
 from datetime import datetime, timezone, timedelta
 from typing import Any, Dict, Optional, Tuple
 

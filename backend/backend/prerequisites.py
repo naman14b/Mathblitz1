@@ -1,4 +1,4 @@
-"""Prerequisite DAG Traversal and Dependency Engine for MathBlitz AI Coach.
+"""Prerequisite DAG Traversal and Dependency Engine for FunGanit AI Coach.
 Manages concept dependencies, identifies prerequisite chains, and finds the earliest
 unmastered foundational skill contributing to player weaknesses.
 """

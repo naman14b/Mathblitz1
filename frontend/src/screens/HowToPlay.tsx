@@ -53,7 +53,7 @@ const SECTIONS: Section[] = [
 
 export function HowToPlay({ onBack }: { onBack: () => void }) {
   const insets = useSafeAreaInsets();
-  const { colors } = useTheme();
+  const { colors, isNight } = useTheme();
   const styles = useStyles();
   return <View style={styles.root}>
     <ScrollView contentContainerStyle={{ paddingTop: insets.top + 15, paddingBottom: insets.bottom + 28, paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
@@ -62,8 +62,8 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
         <View style={styles.heroIcon}><Ionicons name="book-outline" size={26} color={colors.onBrandPrimary} /></View>
         <ScreenTitle eyebrow="Quick guide" title="Play smart. Earn tokens." subtitle="A quick tour of scoring, tokens and how to unlock what's next." />
       </View>
-      {SECTIONS.map((section) => <View key={section.title} testID={`howto-section-${section.title.split(" ")[0].toLowerCase()}`} style={styles.card}>
-        <View style={styles.cardHead}><View style={styles.cardIcon}><Ionicons name={section.icon} size={20} color={colors.brandPrimary} /></View><Text style={styles.cardTitle}>{section.title}</Text></View>
+      {SECTIONS.map((section) => <View key={section.title} testID={`howto-section-${section.title.split(" ")[0].toLowerCase()}`} style={[styles.card, isNight ? styles.cardNight : styles.cardDay]}>
+        <View style={styles.cardHead}><View style={[styles.cardIcon, isNight ? styles.cardIconNight : styles.cardIconDay]}><Ionicons name={section.icon} size={20} color={isNight ? colors.brandPrimary : "#D97706"} /></View><Text style={styles.cardTitle}>{section.title}</Text></View>
         {section.bullets.map((line) => <View key={line} style={styles.bullet}><Ionicons name="ellipse" size={7} color={colors.brandPrimary} style={styles.bulletDot} /><Text style={styles.bulletText}>{line}</Text></View>)}
       </View>)}
       <View style={styles.footerNote}><Ionicons name="information-circle-outline" size={17} color={colors.info} /><Text style={styles.footerNoteText}>Progress and tokens are stored on this device only.</Text></View>
@@ -79,9 +79,13 @@ const useStyles = makeStyles((colors) => ({
   spacer: { width: 44 },
   hero: { marginTop: 32, marginBottom: 24, gap: 16 },
   heroIcon: { width: 56, height: 56, borderRadius: 18, backgroundColor: colors.brandPrimary, alignItems: "center", justifyContent: "center" },
-  card: { backgroundColor: colors.surfaceSecondary, borderRadius: 22, padding: 18, marginBottom: 14 },
+  card: { borderRadius: 22, padding: 18, marginBottom: 14, borderWidth: 1.5 },
+  cardDay: { backgroundColor: "rgba(255, 255, 255, 0.94)", borderColor: "rgba(0, 0, 0, 0.06)" },
+  cardNight: { backgroundColor: "rgba(18, 24, 52, 0.85)", borderColor: "rgba(59, 130, 246, 0.25)" },
   cardHead: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 12 },
-  cardIcon: { width: 40, height: 40, borderRadius: 14, backgroundColor: colors.surfaceTertiary, alignItems: "center", justifyContent: "center" },
+  cardIcon: { width: 40, height: 40, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  cardIconDay: { backgroundColor: "#FEF3C7" },
+  cardIconNight: { backgroundColor: "rgba(255, 255, 255, 0.12)" },
   cardTitle: { color: colors.onSurface, fontSize: 16, fontWeight: "900", flex: 1 },
   bullet: { flexDirection: "row", alignItems: "flex-start", gap: 10, paddingVertical: 5 },
   bulletDot: { marginTop: 8 },

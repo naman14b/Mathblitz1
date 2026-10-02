@@ -1,4 +1,4 @@
-"""PostgreSQL database engine and session management for MathBlitz using SQLAlchemy 2.0."""
+"""PostgreSQL database engine and session management for FunGanit using SQLAlchemy 2.0."""
 import logging
 import ssl
 from typing import AsyncGenerator

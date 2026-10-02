@@ -1,5 +1,5 @@
 """
-Automated Simulated Player Test Harness for MathBlitz AI Coach Phase 2:
+Automated Simulated Player Test Harness for FunGanit AI Coach Phase 2:
 Tests synthetic telemetry sequences against 6 distinct student personas (A-F).
 Verifies deterministic root-cause diagnosis, prerequisite DAG traversal, and coaching policy selection.
 """

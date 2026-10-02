@@ -1,4 +1,4 @@
-"""Utility functions and helpers for MathBlitz backend."""
+"""Utility functions and helpers for FunGanit backend."""
 import hashlib
 import hmac
 from datetime import datetime, timezone

@@ -1,4 +1,4 @@
-"""Deterministic Statistical Learning Engine for MathBlitz AI Coach.
+"""Deterministic Statistical Learning Engine for FunGanit AI Coach.
 Implements multi-factor mastery modeling, confidence scoring, deterministic mastery states,
 regression detection, and root-cause weakness synthesis.
 """

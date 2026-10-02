@@ -1,7 +1,7 @@
 import { storage } from "@/src/utils/storage";
 import { AvatarId, AVATARS, DEFAULT_PROFILE, LocalProfile } from "./types";
-
-const PROFILE_KEY = "mathblitz.profile.v1";
+const PRIMARY_PROFILE_KEY = "funganit.profile.v1";
+const LEGACY_PROFILE_KEY = "mathblitz.profile.v1";
 
 /**
  * Normalizes any loaded profile data (including legacy profiles) into a
@@ -65,16 +65,20 @@ export function migrateProfile(raw: unknown): LocalProfile {
 }
 
 export async function loadProfile(): Promise<LocalProfile> {
-  const raw = await storage.getItem(PROFILE_KEY, DEFAULT_PROFILE);
-  return migrateProfile(raw);
+  let raw = await storage.getItem<any>(PRIMARY_PROFILE_KEY, null);
+  if (!raw) {
+    raw = await storage.getItem<any>(LEGACY_PROFILE_KEY, null);
+  }
+  return migrateProfile(raw ?? DEFAULT_PROFILE);
 }
 
 export async function saveProfile(profile: LocalProfile): Promise<void> {
-  await storage.setItem(PROFILE_KEY, profile);
+  await storage.setItem(PRIMARY_PROFILE_KEY, profile);
 }
 
 export async function resetProfile(): Promise<void> {
-  await storage.removeItem(PROFILE_KEY);
+  await storage.removeItem(PRIMARY_PROFILE_KEY);
+  await storage.removeItem(LEGACY_PROFILE_KEY);
 }
 
 // --- Query Helpers ------------------------------------------------------------
