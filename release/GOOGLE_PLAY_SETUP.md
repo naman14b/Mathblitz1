@@ -1,8 +1,8 @@
 # Google Play Console Setup & Release Guide for FunGanit
 
 **App Name:** FunGanit  
-**Package / Application ID:** `com.naman.mathblitz`  
-**Initial Version:** 1.0.0 (Version Code: 1)  
+**Package / Application ID:** `com.funganit.app`  
+**Initial Version:** 1.0.1 (Version Code: 1)  
 **Target SDK:** 36 (Android 16 / 15)  
 **Compile SDK:** 36  
 **Min SDK:** 24 (Android 7.0 Nougat)  
@@ -43,7 +43,7 @@ The following technical requirements and configurations are fully completed and 
 
 1. **Production Identity & Versioning:**
    - App Name set to **`FunGanit`** (removed development suffix).
-   - Package / Application ID standardized to **`com.naman.mathblitz`**.
+   - Package / Application ID standardized to **`com.funganit.app`**.
    - Scheme configured to **`mathblitz`**.
    - Initial Version Code set to `1`, Version Name set to `"1.0.0"`.
 
@@ -58,8 +58,7 @@ The following technical requirements and configurations are fully completed and 
    - Offline & online progress queue with backend sync (`POST /api/journey/submit-level`) added to prevent data loss or duplicate rewards.
 
 4. **Android Permissions Pruned to Minimum Required:**
-   - Removed invasive permissions: `RECORD_AUDIO` (microphone), `SYSTEM_ALERT_WINDOW`, `FOREGROUND_SERVICE`, and `FOREGROUND_SERVICE_MEDIA_PLAYBACK`.
-   - Retained only essential, justified permissions: `INTERNET`, `ACCESS_NETWORK_STATE`, `VIBRATE`, and optional `READ_MEDIA_IMAGES` (for admin question photo uploads).
+   - Retained only essential, justified permissions: `INTERNET`, `ACCESS_NETWORK_STATE`, and `VIBRATE`. Removed `READ_MEDIA_IMAGES` in favor of the privacy-compliant Android Photo Picker (`PickVisualMedia`).
 
 5. **Release Signing Security:**
    - Production signing block configured in `frontend/android/app/build.gradle` to accept release upload keystores via environment variables or Gradle project properties.

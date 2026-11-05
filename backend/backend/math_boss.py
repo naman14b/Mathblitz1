@@ -5,7 +5,7 @@ Each subsequent boss is harder than the last.
 """
 import random
 import secrets
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from pydantic import BaseModel
 
@@ -36,7 +36,12 @@ class BossResult(BaseModel):
     total: int
     won: bool
     boss_message: str
+    message: Optional[str] = None
     token_change: int  # +10 or -10
+
+    def model_post_init(self, __context: Any) -> None:
+        if self.message is None:
+            self.message = self.boss_message
 
 
 # ---------------------------------------------------------------------------

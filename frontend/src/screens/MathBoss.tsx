@@ -237,7 +237,7 @@ export function MathBossScreen({ profile, onComplete }: MathBossProps) {
     // Try backend result call
     try {
       const res = await mathBossApi.submitResult(level, finalCorrect, total);
-      setBossMessage(res.message);
+      setBossMessage(res.boss_message || res.message || "");
     } catch {
       if (won) {
         setBossMessage(`Kicked ${challenge?.boss_name || "Math Boss"} into orbit! You won +10 Tokens!`);

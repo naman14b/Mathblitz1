@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo } from "react";
 import { StyleSheet } from "react-native";
-import type { ThemeId } from "@/src/game/types";
+import type { ThemeId, ThemeMode } from "@/src/game/types";
 
 export type ColorScheme = "light" | "dark";
 
@@ -289,7 +289,6 @@ const THEME_NIGHT_PALETTES: Partial<Record<ThemeId, ThemeColors>> = {
   }),
 };
 
-import type { ThemeMode } from "@/src/game/types";
 
 export function isNightTime(): boolean {
   const hour = new Date().getHours();

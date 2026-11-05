@@ -53,8 +53,11 @@ export function Results({
 
   const titleText = useMemo(() => {
     const array = isNewBest ? SARCASM_BEST : SARCASM_NORMAL;
-    return array[Math.floor(Math.random() * array.length)];
-  }, [isNewBest]);
+    const seed = Math.abs(
+      ((result.score * 31) ^ (result.xp * 17) ^ ((result.answered || 0) * 7) ^ (result.correct || 0)) | 0
+    );
+    return array[seed % array.length];
+  }, [isNewBest, result.score, result.xp, result.answered, result.correct]);
 
   const handleWatchAd = async () => {
     if (adRewardClaimed || isAdLoading) return;

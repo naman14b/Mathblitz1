@@ -94,7 +94,7 @@ export const MapLevelNode = React.memo(function MapLevelNode({
       style={[
         styles.container,
         {
-          left: `${Math.round(x * 100)}%`,
+          left: `${x * 100}%`,
           top: y,
           transform: [{ translateX: -size / 2 }],
         },

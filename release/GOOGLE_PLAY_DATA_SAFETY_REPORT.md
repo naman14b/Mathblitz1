@@ -1,8 +1,8 @@
 # FunGanit — Google Play Data Safety Report
 
 **Application Name:** FunGanit  
-**Application / Package ID:** `com.naman.mathblitz`  
-**Version:** 1.0.0 (Version Code: 1)  
+**Application / Package ID:** `com.funganit.app`  
+**Version:** 1.0.1 (Version Code: 1)  
 **Target SDK:** 36 (Android 16 / 15)  
 **Date:** September 2026  
 

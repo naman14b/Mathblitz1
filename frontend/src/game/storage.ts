@@ -30,6 +30,7 @@ export function migrateProfile(raw: unknown): LocalProfile {
     settings: {
       sound: saved.settings?.sound ?? DEFAULT_PROFILE.settings.sound,
       vibration: saved.settings?.vibration ?? DEFAULT_PROFILE.settings.vibration,
+      themeMode: (saved.settings as any)?.themeMode ?? DEFAULT_PROFILE.settings?.themeMode ?? "auto",
     },
     tokens: typeof saved.tokens === "number" ? Math.max(0, saved.tokens) : 0,
     speedClaims: saved.speedClaims && typeof saved.speedClaims === "object" ? { ...saved.speedClaims } : {},

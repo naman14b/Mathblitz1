@@ -139,7 +139,7 @@ export function Achievements({
       {/* Content */}
       {tab === "achievements" ? (
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.grid}>
-          <Image source={BADGE_SHEET} style={styles.badgeSheet} resizeMode="cover" />
+          <Image source={BADGE_SHEET} style={styles.badgeSheet} resizeMode="contain" />
 
           {ACHIEVEMENTS.map((achievement) => {
             const isEarned = Boolean(earned[achievement.id]);
@@ -155,7 +155,7 @@ export function Achievements({
                 ) : (
                   <Text style={styles.achievementEmoji}>🔒</Text>
                 )}
-                <Text style={[styles.achievementTitle, !isEarned && styles.lockedText]} numberOfLines={1}>
+                <Text style={[styles.achievementTitle, !isEarned && styles.lockedText]} numberOfLines={2}>
                   {isEarned ? achievement.title : "???"}
                 </Text>
                 {isEquipped && (
@@ -295,24 +295,37 @@ const useStyles = makeStyles((colors) => ({
   tabText: { color: colors.muted, fontSize: 12, fontWeight: "800" },
   tabTextActive: { color: colors.onBrandPrimary },
   grid: { paddingHorizontal: 16, paddingBottom: 95, flexDirection: "row", flexWrap: "wrap" },
-  badgeSheet: { width: "100%", height: 200, borderRadius: 16, marginBottom: 16 },
+  badgeSheet: {
+    width: "100%",
+    aspectRatio: 1376 / 768,
+    borderRadius: 16,
+    marginBottom: 16,
+    backgroundColor: "#0B0F19",
+  },
   achievementCard: {
     width: "46%", margin: "2%", aspectRatio: 1,
     borderRadius: 18, backgroundColor: colors.surfaceSecondary,
     alignItems: "center", justifyContent: "center", gap: 6,
     borderWidth: 1.5, borderColor: "transparent",
+    paddingHorizontal: 6,
   },
   cardEquipped: { borderColor: colors.brandPrimary, backgroundColor: colors.brandPrimary + "18" },
   cardLocked: { opacity: 0.55 },
   achievementEmoji: { fontSize: 36 },
-  achievementTitle: { color: colors.onSurface, fontSize: 11, fontWeight: "800", textAlign: "center" },
+  achievementTitle: { color: colors.onSurface, fontSize: 11, fontWeight: "800", textAlign: "center", paddingHorizontal: 4 },
   lockedText: { color: colors.muted },
   equippedPill: { backgroundColor: colors.brandPrimary, borderRadius: 99, paddingHorizontal: 8, paddingVertical: 2 },
   equippedPillText: { color: colors.onBrandPrimary, fontSize: 9, fontWeight: "900" },
   // Premium
   premiumGrid: { paddingHorizontal: 16, paddingBottom: 95, gap: 10 },
   sectionNote: { color: colors.muted, fontSize: 12, fontWeight: "600", textAlign: "center", marginBottom: 4 },
-  premiumSheet: { width: "100%", height: 220, borderRadius: 16, marginBottom: 8 },
+  premiumSheet: {
+    width: "100%",
+    aspectRatio: 1376 / 768,
+    borderRadius: 16,
+    marginBottom: 12,
+    backgroundColor: "#0B0F19",
+  },
   premiumCard: {
     flexDirection: "row", alignItems: "center", gap: 14,
     padding: 14, borderRadius: 18, backgroundColor: colors.surfaceSecondary,

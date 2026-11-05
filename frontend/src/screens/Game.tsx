@@ -10,7 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createQuestion, scoreAnswer } from "@/src/game/engine";
-import { playSound, unloadSounds } from "@/src/game/sounds";
+import { playSound } from "@/src/game/sounds";
 import { AgeGroupId, GameResult, LocalProfile, Question, QuestionAttempt } from "@/src/game/types";
 import { saveAttempts } from "@/src/game/storage";
 import { aiCoachApi } from "@/src/api/aiCoach";
@@ -91,15 +91,34 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
     onFinish({ ...current, accuracy: current.answered ? Math.round((current.correct / current.answered) * 100) : 0, xp: Math.max(20, current.score + current.correct * 3), tokens: tokensAvailable ? Math.max(0, current.tokens) : 0, tokensClaimed: tokensAvailable });
   }, [onFinish, profile.settings.sound, profile.settings.vibration, profile.playerName, tokensAvailable]);
 
+  const finishRef = useRef(finish);
+  useEffect(() => {
+    finishRef.current = finish;
+  }, [finish]);
+
+  const soundEnabledRef = useRef(profile.settings.sound);
+  useEffect(() => {
+    soundEnabledRef.current = profile.settings.sound;
+  }, [profile.settings.sound]);
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeLeft((value) => {
-      if (value <= 1) { clearInterval(timer); finish(); return 0; }
-      if (value <= 6) { playSound("tick", profile.settings.sound); }
-      return value - 1;
-    }), 1000);
-    return () => { clearInterval(timer); unloadSounds(); };
-  }, [finish, profile.settings.sound]);
+    const timer = setInterval(() => {
+      setTimeLeft((value) => {
+        if (value <= 1) {
+          clearInterval(timer);
+          finishRef.current();
+          return 0;
+        }
+        if (value <= 6) {
+          playSound("tick", soundEnabledRef.current);
+        }
+        return value - 1;
+      });
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   const answer = async (option: string, event: any) => {
     if (feedback || finished.current) return;
@@ -171,15 +190,15 @@ export function Game({ age, profile, onFinish, onBack }: { age: AgeGroupId; prof
   useEffect(() => {
     if (!isJailLoss) return;
     const timer = setTimeout(() => {
-      finish();
+      finishRef.current();
     }, 5500);
     return () => clearTimeout(timer);
-  }, [isJailLoss, finish]);
+  }, [isJailLoss]);
 
   if (isJailLoss) {
     return (
       <View style={{ flex: 1, backgroundColor: "#070B16" }}>
-        <DailyChallengeVideo state="jail" onAnimationEnd={finish} />
+        <DailyChallengeVideo state="jail" onAnimationEnd={() => finishRef.current()} />
         <View
           style={{
             position: "absolute",

@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import * as ImagePicker from "expo-image-picker";
 import { Platform } from "react-native";
 import { AdminQuestion, BossChallenge, BossResult, ChallengeQuestion, ChallengeTier, LeaderboardRow, LeaderboardTimeframe, MonetizationSettings, UploadResult } from "./types";
 
@@ -29,6 +30,26 @@ async function uploadImage(token: string, uri: string, name: string, type: strin
   return response.json() as Promise<UploadResult>;
 }
 
+async function pickQuestionImage(): Promise<ImagePicker.ImagePickerAsset | null> {
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ["images"],
+    allowsEditing: false,
+    quality: 0.8,
+  });
+  if (result.canceled || !result.assets || result.assets.length === 0) {
+    return null;
+  }
+  return result.assets[0];
+}
+
+async function pickAndUploadQuestionImage(token: string): Promise<UploadResult | null> {
+  const asset = await pickQuestionImage();
+  if (!asset) return null;
+  const name = asset.fileName || `question_${Date.now()}.jpg`;
+  const type = asset.mimeType || "image/jpeg";
+  return uploadImage(token, asset.uri, name, type);
+}
+
 export function fileUrl(pathOrUrl: string | null | undefined): string | null {
   if (!pathOrUrl) return null;
   if (pathOrUrl.startsWith("http")) return pathOrUrl;
@@ -49,6 +70,8 @@ export const adminApi = {
   deleteChallengeQuestion: (token: string, id: string) => request<{ deleted: boolean }>(`/admin/challenge-questions/${id}`, { method: "DELETE" }, token),
   publicChallengeQuestions: (tier: ChallengeTier) => request<ChallengeQuestion[]>(`/challenge-questions/${encodeURIComponent(tier)}`),
   uploadImage,
+  pickQuestionImage,
+  pickAndUploadQuestionImage,
   monetization: (token: string) => request<MonetizationSettings>("/admin/monetization", {}, token),
   saveMonetization: (token: string, settings: MonetizationSettings) => request<MonetizationSettings>("/admin/monetization", { method: "PUT", body: JSON.stringify(settings) }, token),
 };

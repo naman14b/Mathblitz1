@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, Text, Image, useWindowDimensions, Platform } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, Image, useWindowDimensions, Platform, AppState, AppStateStatus } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Animated, {
   useSharedValue,
@@ -8,6 +8,7 @@ import Animated, {
   withTiming,
   Easing,
   withDelay,
+  cancelAnimation,
 } from "react-native-reanimated";
 import { useTheme } from "@/src/theme";
 
@@ -65,6 +66,11 @@ const SmoothParticle = React.memo(({
         false
       )
     );
+
+    return () => {
+      cancelAnimation(translateY);
+      cancelAnimation(rotation);
+    };
   }, [config.delay, config.duration, rotation, translateY]);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -98,14 +104,30 @@ const SmoothParticle = React.memo(({
   );
 });
 
-export const SurrealBackground = React.memo(function SurrealBackground() {
+export const SurrealBackground = React.memo(function SurrealBackground({
+  paused = false,
+}: {
+  paused?: boolean;
+}) {
   const { isNight } = useTheme();
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const [isAppActive, setIsAppActive] = useState(true);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextState: AppStateStatus) => {
+      setIsAppActive(nextState === "active");
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   const isWidescreen = windowWidth > 640;
   // Exact aspect ratio of the artwork (1263 / 2752)
   const ART_ASPECT_RATIO = 1263 / 2752;
   const artWidth = isWidescreen ? Math.min(windowWidth, windowHeight * ART_ASPECT_RATIO) : "100%";
+
+  const shouldAnimateParticles = isAppActive && !paused;
 
   return (
     <View style={styles.container} pointerEvents="none">
@@ -147,16 +169,17 @@ export const SurrealBackground = React.memo(function SurrealBackground() {
         />
       </View>
 
-      {/* Layer 3: Smooth floating math particles across full screen width */}
-      {PARTICLES_CONFIG.map((config) => (
-        <SmoothParticle
-          key={config.id}
-          config={config}
-          isNight={isNight}
-          screenWidth={windowWidth}
-          screenHeight={windowHeight}
-        />
-      ))}
+      {/* Layer 3: Smooth floating math particles - active only on hub/menu screens and when app is foregrounded */}
+      {shouldAnimateParticles &&
+        PARTICLES_CONFIG.map((config) => (
+          <SmoothParticle
+            key={config.id}
+            config={config}
+            isNight={isNight}
+            screenWidth={windowWidth}
+            screenHeight={windowHeight}
+          />
+        ))}
     </View>
   );
 });

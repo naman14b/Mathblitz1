@@ -51,6 +51,7 @@ from .learning_engine import LearningEngine, RawAttempt
 from .taxonomy import CONCEPT_TAXONOMY, classify_error
 from .ai_coach.graph import coaching_workflow, get_llm
 from .ai_coach.state import CoachingState
+from .ai.llm_service import llm_service
 from .journey.routes import router as journey_router
 from .billing.routes import router as billing_router
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -1117,22 +1118,17 @@ async def submit_practice(
     except ValueError:
         is_correct = student_ans.lower() == correct_ans.lower()
 
-    # Generate friendly pedagogical feedback
-    llm = get_llm(temperature=0.3, max_tokens=200)
+    # Generate friendly pedagogical feedback with caching & mobile latency guardrails
     feedback_text = ""
     if is_correct:
         feedback_text = f"Spot on! {curr_q.get('solution_method', '')}. You applied the rule correctly!"
     else:
-        if llm:
-            try:
-                sys_prompt = "You are FunGanit AI Coach. Explain why the correct answer is right in 1-2 friendly, encouraging sentences."
-                u_prompt = f"Problem: {curr_q['prompt']}\nStudent Answer: {student_ans}\nCorrect Answer: {correct_ans}\nMethod: {curr_q.get('solution_method')}"
-                resp = llm.invoke([SystemMessage(content=sys_prompt), HumanMessage(content=u_prompt)])
-                feedback_text = resp.content.strip()
-            except Exception:
-                pass
-        if not feedback_text:
-            feedback_text = f"The correct answer is {correct_ans}. Remember: {curr_q.get('solution_method', '')}."
+        feedback_text = await llm_service.get_coach_feedback(
+            prompt=curr_q["prompt"],
+            student_ans=student_ans,
+            correct_ans=correct_ans,
+            method=curr_q.get("solution_method", ""),
+        )
 
     # Update session mastery
     mastery_before = sess_rec.mastery_before
@@ -1178,33 +1174,14 @@ async def contextual_query(
     payload: ContextualQueryPayload,
 ):
     """Contextual Q&A on why an answer was wrong with access to the question & error history (NOT a blank chatbot)."""
-    llm = get_llm(temperature=0.4, max_tokens=300)
-
-    if not llm:
-        return {
-            "answer": f"For {payload.prompt}, the correct answer is {payload.correct_answer}. When calculating this, ensure you double-check each operation step-by-step."
-        }
-
-    sys_prompt = (
-        "You are FunGanit AI Coach. You only answer questions strictly about the provided mathematics problem and the student's solution. "
-        "Explain clearly, step-by-step, in 2 to 3 friendly sentences. Never deviate into non-mathematical topics."
+    ans = await llm_service.get_coach_qa(
+        prompt=payload.prompt,
+        correct_ans=payload.correct_answer,
+        student_ans=payload.player_answer,
+        topic=payload.topic,
+        query=payload.query,
     )
-    user_prompt = (
-        f"Math Problem: {payload.prompt}\n"
-        f"Correct Answer: {payload.correct_answer}\n"
-        f"Student Answer: {payload.player_answer}\n"
-        f"Topic: {payload.topic}\n"
-        f"Student's Question: {payload.query}\n"
-        "Explain why their answer is incorrect and guide them on the correct method."
-    )
-
-    try:
-        resp = llm.invoke([SystemMessage(content=sys_prompt), HumanMessage(content=user_prompt)])
-        return {"answer": resp.content.strip()}
-    except Exception as exc:
-        return {
-            "answer": f"For '{payload.prompt}', the correct result is {payload.correct_answer}. Review the order of operations and inverse operations."
-        }
+    return {"answer": ans}
 
 
 @api_router.get("/coach/debug/{player_id}")

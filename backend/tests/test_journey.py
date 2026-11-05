@@ -152,6 +152,35 @@ async def test_journey_boss_unlocks_next_world(mock_db):
 
 
 @pytest.mark.anyio
+async def test_journey_level_100_unlocks_chapter_2_world_6(mock_db):
+    """Verify completing level 100 Grand Architect boss unlocks Chapter 2 / World 6 (crystal_matrix) and Level 101."""
+    progress = await get_or_create_journey_progress(mock_db, "test_hero_100")
+    progress.highest_unlocked_level = 100
+
+    boss_payload = {
+        "submission_id": "sub_boss_100",
+        "player_id": "test_hero_100",
+        "level_id": 100,
+        "world_id": "geometry_castle",
+        "score": 1200,
+        "stars": 3,
+        "correct_count": 5,
+        "total_count": 5,
+        "time_taken_seconds": 30,
+        "accuracy": 1.0,
+    }
+
+    res = await submit_journey_level_result(mock_db, boss_payload)
+    assert res["status"] == "success"
+    assert res["unlocked_next_world"] is True
+    assert res["highest_unlocked_level"] == 101
+
+    refreshed = await get_or_create_journey_progress(mock_db, "test_hero_100")
+    assert refreshed.unlocked_worlds.get("crystal_matrix") is True
+    assert refreshed.highest_unlocked_level == 101
+
+
+@pytest.mark.anyio
 async def test_daily_journey_streak_completion(mock_db):
     """Verify completing 3 levels in a day triggers daily goal and increments streak."""
     for lvl in [1, 2, 3]:

@@ -62,8 +62,10 @@ export type BossChallenge = {
 
 export type BossResult = {
   won: boolean;
-  boss_name: string;
-  message: string;
-  tokens_change: number;
+  boss_name?: string;
+  message?: string;
+  boss_message?: string;
+  tokens_change?: number;
+  token_change?: number;
   level: number;
 };

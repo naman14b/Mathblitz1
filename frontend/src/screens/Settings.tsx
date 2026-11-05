@@ -10,6 +10,7 @@ import Animated, {
   withRepeat,
   withTiming,
   Easing,
+  cancelAnimation,
 } from "react-native-reanimated";
 import { AGE_GROUPS, AppSettings, AvatarId, AVATARS, LocalProfile } from "@/src/game/types";
 import { IconButton, PrimaryButton, ScreenTitle, SoftButton } from "@/src/components/ui";
@@ -411,7 +412,11 @@ function AvatarPickerItem({ avatar, selected, onPress }: { avatar: (typeof AVATA
       -1,
       true
     );
-  }, []);
+    return () => {
+      cancelAnimation(floatY);
+      cancelAnimation(scale);
+    };
+  }, [floatY, scale]);
 
   const handlePress = useCallback(() => {
     scale.value = withSequence(
@@ -419,7 +424,7 @@ function AvatarPickerItem({ avatar, selected, onPress }: { avatar: (typeof AVATA
       withSpring(1.0, { damping: 10, stiffness: 200 })
     );
     onPress();
-  }, [onPress]);
+  }, [onPress, scale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }, { translateY: floatY.value }],

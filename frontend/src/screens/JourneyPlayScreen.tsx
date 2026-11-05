@@ -22,7 +22,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { JourneyLevelDef, JourneyQuestion, LevelResultData } from "../game/journey/types";
+import { JourneyLevelDef, JourneyQuestion, LevelResultData, JourneyAnswerRecord } from "../game/journey/types";
 import { getLevelDef, getWorldForLevel } from "../game/journey/worlds";
 import { JourneyQuestionEngine } from "../game/journey/questionEngine";
 import { submitLocalLevelResult } from "../game/journey/storage";
@@ -56,6 +56,7 @@ export function JourneyPlayScreen({
   const [questions, setQuestions] = useState<JourneyQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedChoiceId, setSelectedChoiceId] = useState<string | null>(null);
+  const [answerRecords, setAnswerRecords] = useState<JourneyAnswerRecord[]>([]);
   const [isAnswered, setIsAnswered] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [score, setScore] = useState(0);
@@ -102,6 +103,7 @@ export function JourneyPlayScreen({
     setIsGameOver(false);
     setResultData(null);
     setSelectedChoiceId(null);
+    setAnswerRecords([]);
     setIsAnswered(false);
     setBossHealth(generated.length);
     setShowReviveModal(false);
@@ -248,6 +250,22 @@ export function JourneyPlayScreen({
     setIsAnswered(true);
 
     const isCorrect = String(choiceValue) === String(currentQ.correctAnswer);
+    const chosenChoice = currentQ.choices.find((c) => c.id === choiceId);
+    setAnswerRecords((prev) => [
+      ...prev,
+      {
+        questionId: currentQ.id,
+        prompt: currentQ.prompt,
+        choices: currentQ.choices,
+        correctAnswer: currentQ.correctAnswer,
+        explanation: currentQ.explanation,
+        selectedChoiceId: choiceId,
+        selectedValue: choiceValue,
+        selectedLabel: chosenChoice?.label ?? String(choiceValue),
+        isCorrect,
+      },
+    ]);
+
     let nextCorrect = correctCountRef.current;
     let nextScore = scoreRef.current;
     let nextCombo = comboRef.current;
@@ -525,13 +543,17 @@ export function JourneyPlayScreen({
       </Modal>
 
       {/* Victory / Defeat Modal */}
-      <JourneyLevelCompleteModal
-        visible={isGameOver && resultData !== null}
-        result={resultData}
-        onNextLevel={() => onNavigateToLevel(levelId + 1)}
-        onReplay={handleRestartLevel}
-        onBackToMap={onBackToMap}
-      />
+      {isGameOver && resultData !== null && (
+        <JourneyLevelCompleteModal
+          visible={isGameOver && resultData !== null}
+          result={resultData}
+          questions={questions}
+          answerRecords={answerRecords}
+          onNextLevel={() => onNavigateToLevel(levelId + 1)}
+          onReplay={handleRestartLevel}
+          onBackToMap={onBackToMap}
+        />
+      )}
     </View>
   );
 }

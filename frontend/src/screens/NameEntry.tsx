@@ -9,6 +9,7 @@ import Animated, {
   withRepeat,
   withTiming,
   Easing,
+  cancelAnimation,
 } from "react-native-reanimated";
 import { AvatarId, AVATARS } from "@/src/game/types";
 import { BrandMark, PrimaryButton, ScreenTitle } from "@/src/components/ui";
@@ -198,7 +199,11 @@ function AvatarOption({
       -1,
       true
     );
-  }, []);
+    return () => {
+      cancelAnimation(floatY);
+      cancelAnimation(scale);
+    };
+  }, [floatY, scale]);
 
   const handlePress = useCallback(() => {
     scale.value = withSequence(
@@ -206,7 +211,7 @@ function AvatarOption({
       withSpring(1.0, { damping: 10, stiffness: 200 })
     );
     onPress();
-  }, [onPress]);
+  }, [onPress, scale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }, { translateY: floatY.value }],

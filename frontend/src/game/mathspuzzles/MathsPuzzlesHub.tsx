@@ -20,7 +20,7 @@ export function MathsPuzzlesHub({
     onPlay,
 }: MathsPuzzlesHubProps) {
     const insets = useSafeAreaInsets();
-    const { colors } = useTheme();
+    const { colors, isNight } = useTheme();
     const styles = useStyles();
 
     const gameCount = MATHS_CATALOGUE.length;
@@ -41,23 +41,26 @@ export function MathsPuzzlesHub({
                 <View style={styles.topRow}>
                     <Pressable
                         onPress={onBack}
-                        style={styles.backButton}
+                        style={[
+                            styles.backButton,
+                            !isNight && styles.backButtonDay,
+                        ]}
                         accessibilityRole="button"
                         accessibilityLabel="Back"
                     >
                         <Ionicons
                             name="arrow-back"
                             size={22}
-                            color="#FFFFFF"
+                            color={isNight ? "#FFFFFF" : "#0F172A"}
                         />
                     </Pressable>
 
                     {/* Token balance pill badge */}
-                    <View style={styles.tokenPill}>
-                        <View style={styles.tokenGem}>
-                            <Ionicons name="diamond" size={14} color="#FBBF24" />
+                    <View style={[styles.tokenPill, !isNight && styles.tokenPillDay]}>
+                        <View style={[styles.tokenGem, !isNight && styles.tokenGemDay]}>
+                            <Ionicons name="diamond" size={14} color={isNight ? "#FBBF24" : "#D97706"} />
                         </View>
-                        <Text style={styles.tokenPillText}>{profile.tokens}</Text>
+                        <Text style={[styles.tokenPillText, !isNight && styles.tokenPillTextDay]}>{profile.tokens}</Text>
                     </View>
                 </View>
 
@@ -65,9 +68,9 @@ export function MathsPuzzlesHub({
                     <View style={styles.heroCopy}>
                         <View style={styles.titleRow}>
                             <Text style={styles.crownEmoji}>🧩</Text>
-                            <Text style={styles.title}>Maths Puzzles</Text>
+                            <Text style={[styles.title, !isNight && styles.titleDay]}>Maths Puzzles</Text>
                         </View>
-                        <Text style={styles.subtitle}>{gameCount} puzzles • Speed arithmetic</Text>
+                        <Text style={[styles.subtitle, !isNight && styles.subtitleDay]}>{gameCount} puzzles • Speed arithmetic</Text>
                     </View>
 
                     {/* Mascot illustration */}
@@ -85,12 +88,12 @@ export function MathsPuzzlesHub({
             <View style={styles.progressContainer}>
                 <View style={styles.progressInfoRow}>
                     <Ionicons name="star" size={15} color="#FBBF24" />
-                    <Text style={styles.progressInfoText}>
+                    <Text style={[styles.progressInfoText, !isNight && styles.progressInfoTextDay]}>
                         {completedCount}/{gameCount} completed
                     </Text>
                 </View>
                 <View style={styles.progressTrackWrapper}>
-                    <View style={styles.progressTrack}>
+                    <View style={[styles.progressTrack, !isNight && styles.progressTrackDay]}>
                         <View
                             style={[
                                 styles.progressFill,
@@ -239,6 +242,15 @@ const useStyles = makeStyles((colors) => ({
         borderWidth: 1,
         borderColor: "rgba(255, 255, 255, 0.12)",
     },
+    backButtonDay: {
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        borderColor: "rgba(15, 23, 42, 0.12)",
+        shadowColor: "#000000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.08,
+        shadowRadius: 4,
+        elevation: 2,
+    },
     tokenPill: {
         flexDirection: "row",
         alignItems: "center",
@@ -250,6 +262,15 @@ const useStyles = makeStyles((colors) => ({
         borderWidth: 1,
         borderColor: "rgba(251, 191, 36, 0.35)",
     },
+    tokenPillDay: {
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        borderColor: "rgba(217, 119, 6, 0.3)",
+        shadowColor: "#000000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 4,
+        elevation: 2,
+    },
     tokenGem: {
         width: 20,
         height: 20,
@@ -258,10 +279,16 @@ const useStyles = makeStyles((colors) => ({
         alignItems: "center",
         justifyContent: "center",
     },
+    tokenGemDay: {
+        backgroundColor: "rgba(251, 191, 36, 0.2)",
+    },
     tokenPillText: {
         color: "#FBBF24",
         fontSize: 14,
         fontWeight: "900",
+    },
+    tokenPillTextDay: {
+        color: "#B45309",
     },
     heroRow: {
         flexDirection: "row",
@@ -287,10 +314,20 @@ const useStyles = makeStyles((colors) => ({
         fontWeight: "900",
         letterSpacing: -0.5,
     },
+    titleDay: {
+        color: "#0F172A",
+        textShadowColor: "rgba(255, 255, 255, 0.8)",
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 2,
+    },
     subtitle: {
         color: "rgba(255, 255, 255, 0.65)",
         fontSize: 12,
         fontWeight: "600",
+    },
+    subtitleDay: {
+        color: "#475569",
+        fontWeight: "700",
     },
     mascotWrapper: {
         width: 80,
@@ -327,6 +364,9 @@ const useStyles = makeStyles((colors) => ({
         fontSize: 12,
         fontWeight: "800",
     },
+    progressInfoTextDay: {
+        color: "#0F172A",
+    },
     progressTrackWrapper: {
         flexDirection: "row",
         alignItems: "center",
@@ -340,6 +380,10 @@ const useStyles = makeStyles((colors) => ({
         overflow: "hidden",
         borderWidth: 1,
         borderColor: "rgba(255, 255, 255, 0.08)",
+    },
+    progressTrackDay: {
+        backgroundColor: "rgba(203, 213, 225, 0.8)",
+        borderColor: "rgba(148, 163, 184, 0.4)",
     },
     progressFill: {
         height: "100%",

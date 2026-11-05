@@ -159,7 +159,25 @@ const useStyles = makeStyles((colors) => ({
   },
 }));
 
-function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; isNight: boolean }) {
+const GAME_SCREENS = new Set<Screen>([
+  "game",
+  "challenge",
+  "daily-challenge",
+  "sudoku-game",
+  "puzzle-game",
+  "math-boss",
+  "journey-play",
+]);
+
+function PhoneScreenWrapper({
+  children,
+  isNight,
+  paused = false,
+}: {
+  children: React.ReactNode;
+  isNight: boolean;
+  paused?: boolean;
+}) {
   const { width: windowWidth } = useWindowDimensions();
   const isWidescreen = Platform.OS === "web" && windowWidth > 640;
 
@@ -173,7 +191,7 @@ function PhoneScreenWrapper({ children, isNight }: { children: React.ReactNode; 
         overflow: "hidden",
       }}
     >
-      <SurrealBackground />
+      <SurrealBackground paused={paused} />
       <View
         style={{
           flex: 1,
@@ -299,11 +317,16 @@ export default function Index() {
     let active = true;
     initAdMob().catch(() => {});
     loadJourneyState().catch(() => {});
+    let splashTimer: ReturnType<typeof setTimeout> | null = null;
     loadProfile().then((saved) => {
       if (!active) return;
       setProfile({
         ...DEFAULT_PROFILE,
         ...saved,
+        settings: {
+          ...DEFAULT_PROFILE.settings,
+          ...(saved.settings || {}),
+        },
         totalWins: saved.totalWins ?? 0,
         mathBossLevel: saved.mathBossLevel ?? 1,
         mathBossDefeated: saved.mathBossDefeated ?? 0,
@@ -324,7 +347,8 @@ export default function Index() {
       if (saved.ageGroup) {
         updateAdMobAudienceForAge(saved.ageGroup).catch(() => {});
       }
-      setTimeout(() => {
+      splashTimer = setTimeout(() => {
+        if (!active) return;
         if (!saved.playerName) {
           setScreen("name");
         } else {
@@ -333,7 +357,10 @@ export default function Index() {
       }, 3000);
 
     });
-    return () => { active = false; };
+    return () => {
+      active = false;
+      if (splashTimer) clearTimeout(splashTimer);
+    };
   }, []);
 
   const saveName = async (name: string, avatar: AvatarId) => {
@@ -541,7 +568,7 @@ export default function Index() {
   // All themed screens are wrapped in ThemeContext.Provider
   return (
     <ThemeContext.Provider value={themeContextValue}>
-      <PhoneScreenWrapper isNight={isNight}>
+      <PhoneScreenWrapper isNight={isNight} paused={GAME_SCREENS.has(screen)}>
         <AppShell
           screen={screen}
           profile={profile}
@@ -1082,7 +1109,7 @@ function AppShell({
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: isNight ? "#090A14" : "#F0F8FF" }}>
+    <PhoneScreenWrapper isNight={isNight} paused={GAME_SCREENS.has(screen)}>
       {renderHubTabs()}
       {!isHubScreen && renderModalOrGame()}
       {showNavBar && (
@@ -1098,9 +1125,9 @@ function AppShell({
               setScreen(tab);
             }
           }}
-          vibrationEnabled={profile.settings.vibration}
+          vibrationEnabled={profile?.settings?.vibration ?? true}
         />
       )}
-    </View>
+    </PhoneScreenWrapper>
   );
 }

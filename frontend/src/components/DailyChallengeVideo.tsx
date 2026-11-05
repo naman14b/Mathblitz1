@@ -119,132 +119,157 @@ function resolveWebVideoSrc(moduleSource: any, fallbackPath: string): string {
   return fallbackPath;
 }
 
-export function DailyChallengeVideo({ state, onAnimationEnd }: Props) {
+class VideoErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error: any) {
+    console.warn("DailyChallenge video encountered an error, falling back to static backdrop:", error);
+  }
+  render() {
+    if (this.state.hasError) {
+      return <View style={styles.container} />;
+    }
+    return this.props.children;
+  }
+}
+
+function WebDailyChallengeVideo({ state, onAnimationEnd }: Props) {
   const chaseRef = useRef<HTMLVideoElement | null>(null);
   const winRef = useRef<HTMLVideoElement | null>(null);
   const jailRef = useRef<HTMLVideoElement | null>(null);
 
-  // Web Implementation using HTML5 Video elements for seamless instant playback
+  const chaseSrc = resolveWebVideoSrc(CHASE_VIDEO, "/assets/videos/snake_chase.mp4");
+  const winSrc = resolveWebVideoSrc(WIN_VIDEO, "/assets/videos/snake_win.mp4");
+  const jailSrc = resolveWebVideoSrc(JAIL_VIDEO, "/assets/videos/snake_jail.mp4");
+
+  useEffect(() => {
+    if (state === "chase") {
+      if (chaseRef.current) {
+        chaseRef.current.currentTime = 0;
+        chaseRef.current.play().catch(() => {});
+      }
+      if (winRef.current) winRef.current.pause();
+      if (jailRef.current) jailRef.current.pause();
+    } else if (state === "win") {
+      if (winRef.current) {
+        winRef.current.currentTime = 0;
+        winRef.current.play().catch(() => {});
+      }
+      if (chaseRef.current) {
+        setTimeout(() => {
+          chaseRef.current?.pause();
+        }, 300);
+      }
+      if (jailRef.current) jailRef.current.pause();
+    } else if (state === "jail") {
+      if (jailRef.current) {
+        jailRef.current.currentTime = 0;
+        jailRef.current.play().catch(() => {});
+      }
+      if (chaseRef.current) {
+        setTimeout(() => {
+          chaseRef.current?.pause();
+        }, 300);
+      }
+      if (winRef.current) winRef.current.pause();
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (!onAnimationEnd) return;
+    if (state === "win" || state === "jail") {
+      const timer = setTimeout(() => {
+        onAnimationEnd();
+      }, 5200);
+      return () => clearTimeout(timer);
+    }
+  }, [state, onAnimationEnd]);
+
+  return (
+    <View style={styles.container} pointerEvents="none">
+      <video
+        ref={chaseRef}
+        src={chaseSrc}
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          opacity: state === "chase" ? 1 : 0,
+          transition: "opacity 0.4s ease",
+          zIndex: 1,
+        }}
+      />
+
+      <video
+        ref={winRef}
+        src={winSrc}
+        muted
+        playsInline
+        onEnded={onAnimationEnd}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          opacity: state === "win" ? 1 : 0,
+          transition: "opacity 0.4s ease",
+          zIndex: 2,
+        }}
+      />
+
+      <video
+        ref={jailRef}
+        src={jailSrc}
+        muted
+        playsInline
+        onEnded={onAnimationEnd}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          opacity: state === "jail" ? 1 : 0,
+          transition: "opacity 0.4s ease",
+          zIndex: 3,
+        }}
+      />
+
+      <View
+        style={[
+          styles.overlayScrim,
+          (state === "win" || state === "jail") && { opacity: 0 },
+        ]}
+      />
+    </View>
+  );
+}
+
+export function DailyChallengeVideo(props: Props) {
   if (Platform.OS === "web") {
-    const chaseSrc = resolveWebVideoSrc(CHASE_VIDEO, "/assets/videos/snake_chase.mp4");
-    const winSrc = resolveWebVideoSrc(WIN_VIDEO, "/assets/videos/snake_win.mp4");
-    const jailSrc = resolveWebVideoSrc(JAIL_VIDEO, "/assets/videos/snake_jail.mp4");
-
-    useEffect(() => {
-      if (state === "chase") {
-        if (chaseRef.current) {
-          chaseRef.current.currentTime = 0;
-          chaseRef.current.play().catch(() => {});
-        }
-        if (winRef.current) winRef.current.pause();
-        if (jailRef.current) jailRef.current.pause();
-      } else if (state === "win") {
-        if (winRef.current) {
-          winRef.current.currentTime = 0;
-          winRef.current.play().catch(() => {});
-        }
-        if (chaseRef.current) {
-          setTimeout(() => {
-            chaseRef.current?.pause();
-          }, 300);
-        }
-        if (jailRef.current) jailRef.current.pause();
-      } else if (state === "jail") {
-        if (jailRef.current) {
-          jailRef.current.currentTime = 0;
-          jailRef.current.play().catch(() => {});
-        }
-        if (chaseRef.current) {
-          setTimeout(() => {
-            chaseRef.current?.pause();
-          }, 300);
-        }
-        if (winRef.current) winRef.current.pause();
-      }
-    }, [state]);
-
-    useEffect(() => {
-      if (!onAnimationEnd) return;
-      if (state === "win" || state === "jail") {
-        const timer = setTimeout(() => {
-          onAnimationEnd();
-        }, 5200);
-        return () => clearTimeout(timer);
-      }
-    }, [state, onAnimationEnd]);
-
-    return (
-      <View style={styles.container} pointerEvents="none">
-        <video
-          ref={chaseRef}
-          src={chaseSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: state === "chase" ? 1 : 0,
-            transition: "opacity 0.4s ease",
-            zIndex: 1,
-          }}
-        />
-
-        <video
-          ref={winRef}
-          src={winSrc}
-          muted
-          playsInline
-          onEnded={onAnimationEnd}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: state === "win" ? 1 : 0,
-            transition: "opacity 0.4s ease",
-            zIndex: 2,
-          }}
-        />
-
-        <video
-          ref={jailRef}
-          src={jailSrc}
-          muted
-          playsInline
-          onEnded={onAnimationEnd}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: state === "jail" ? 1 : 0,
-            transition: "opacity 0.4s ease",
-            zIndex: 3,
-          }}
-        />
-
-        <View
-          style={[
-            styles.overlayScrim,
-            (state === "win" || state === "jail") && { opacity: 0 },
-          ]}
-        />
-      </View>
-    );
+    return <WebDailyChallengeVideo {...props} />;
   }
 
-  // Native Android & iOS Implementation using expo-video
-  return <NativeDailyChallengeVideo state={state} onAnimationEnd={onAnimationEnd} />;
+  return (
+    <VideoErrorBoundary>
+      <NativeDailyChallengeVideo {...props} />
+    </VideoErrorBoundary>
+  );
 }
 
 const styles = StyleSheet.create({

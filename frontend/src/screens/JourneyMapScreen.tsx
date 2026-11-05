@@ -3,7 +3,7 @@
  * Enhanced with Sudoku & Puzzles themes and headers.
  */
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Image,
   StyleSheet,
@@ -21,6 +21,7 @@ import { WorldMap } from "../game/journey/components/WorldMap";
 import { DailyJourneyWidget } from "../game/journey/components/DailyJourneyWidget";
 import { LocalProfile } from "@/src/game/types";
 import { ASTRONAUT_HEADER, getLevelImage } from "@/src/game/levelAssets";
+import { KingdomLoadingScreen } from "./KingdomLoadingScreen";
 
 interface JourneyMapScreenProps {
   profile: LocalProfile;
@@ -42,6 +43,8 @@ export function JourneyMapScreen({
   const insets = useSafeAreaInsets();
   const [journeyState, setJourneyState] = useState<PlayerJourneyState | null>(() => getCachedJourneyState());
   const [showQuestDrawer, setShowQuestDrawer] = useState(false);
+  const [showPortalLoader, setShowPortalLoader] = useState(true);
+  const isReturningFromLevelRef = useRef(false);
 
   // Load state on focus/mount
   const refreshState = useCallback(async () => {
@@ -49,25 +52,29 @@ export function JourneyMapScreen({
     setJourneyState(s);
   }, []);
 
+  const prevActiveRef = useRef(isActive);
+  useEffect(() => {
+    if (isActive && !prevActiveRef.current) {
+      if (!isReturningFromLevelRef.current) {
+        setShowPortalLoader(true);
+      }
+      isReturningFromLevelRef.current = false;
+      refreshState();
+    }
+    prevActiveRef.current = isActive;
+  }, [isActive, refreshState]);
+
   useEffect(() => {
     if (isActive) {
       refreshState();
     }
   }, [isActive, refreshState]);
 
-  if (!journeyState) {
-    return (
-      <View style={[styles.loadingContainer, { paddingTop: insets.top }]}>
-        <Text style={styles.loadingText}>Entering FunGanit Kingdom...</Text>
-      </View>
-    );
-  }
-
-  const currentLevelDef = getLevelDef(journeyState.currentLevel);
-  const currentWorld = getWorldForLevel(journeyState.currentLevel);
-  const currentWorldImage = getLevelImage(currentWorld.worldNumber);
+  const currentLevelDef = journeyState ? getLevelDef(journeyState.currentLevel) : null;
+  const currentWorld = journeyState ? getWorldForLevel(journeyState.currentLevel) : null;
 
   const handleSelectLevel = (level: JourneyLevelDef) => {
+    isReturningFromLevelRef.current = true;
     if (level.levelType === "speed_gate") {
       onSpeedGate(level.speedGateId);
     } else if (level.levelType === "daily_node") {
@@ -77,86 +84,100 @@ export function JourneyMapScreen({
     }
   };
 
+  const handleBackHome = () => {
+    isReturningFromLevelRef.current = false;
+    onBackHome();
+  };
+
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Top Realm & Player Stats HUD */}
-      <View style={styles.topHud}>
-        <Pressable onPress={onBackHome} style={styles.iconBtn}>
-          <Ionicons name="home" size={20} color="#F8FAFC" />
-        </Pressable>
+      {journeyState && currentLevelDef && currentWorld && (
+        <>
+          {/* Top Realm & Player Stats HUD */}
+          <View style={styles.topHud}>
+            <Pressable onPress={handleBackHome} style={styles.iconBtn}>
+              <Ionicons name="home" size={20} color="#F8FAFC" />
+            </Pressable>
 
-        <View style={styles.statsGroup}>
-          {/* Total Stars Pill */}
-          <View style={styles.statPill}>
-            <Ionicons name="star" size={14} color="#F59E0B" />
-            <Text style={styles.statPillText}>{journeyState.totalStars}</Text>
+            <View style={styles.statsGroup}>
+              {/* Total Stars Pill */}
+              <View style={styles.statPill}>
+                <Ionicons name="star" size={14} color="#F59E0B" />
+                <Text style={styles.statPillText}>{journeyState.totalStars}</Text>
+              </View>
+
+              {/* Tokens Pill */}
+              <View style={styles.statPill}>
+                <Text style={styles.coinEmoji}>🪙</Text>
+                <Text style={styles.statPillText}>{profile.tokens}</Text>
+              </View>
+
+              {/* Daily Streak Flame */}
+              <View style={[styles.statPill, styles.streakPill]}>
+                <Text style={styles.flameEmoji}>🔥</Text>
+                <Text style={[styles.statPillText, styles.streakText]}>
+                  {journeyState.dailyJourney.currentStreak}
+                </Text>
+              </View>
+            </View>
+
+            {/* Quest Drawer Toggle */}
+            <Pressable
+              onPress={() => setShowQuestDrawer((prev) => !prev)}
+              style={[styles.iconBtn, showQuestDrawer && styles.questBtnActive]}
+            >
+              <Ionicons name="flag" size={18} color={showQuestDrawer ? "#FBBF24" : "#F8FAFC"} />
+            </Pressable>
           </View>
 
-          {/* Tokens Pill */}
-          <View style={styles.statPill}>
-            <Text style={styles.coinEmoji}>🪙</Text>
-            <Text style={styles.statPillText}>{profile.tokens}</Text>
+          {/* Collapsible Daily / Weekly Quest Widget */}
+          {showQuestDrawer && (
+            <DailyJourneyWidget
+              daily={journeyState.dailyJourney}
+              weekly={journeyState.weeklyJourney}
+              onClose={() => setShowQuestDrawer(false)}
+            />
+          )}
+
+          {/* Main World Map Canvas */}
+          <WorldMap
+            journeyState={journeyState}
+            playerAvatar={profile.avatar}
+            playerName={profile.playerName}
+            onSelectLevel={handleSelectLevel}
+          />
+
+          {/* Bottom Floating Quick Continue Dock with Theme Preview */}
+          <View style={[styles.bottomDock, { bottom: Math.max(insets.bottom, 10) + 70 }]}>
+            <View style={styles.dockImageContainer}>
+              <Image
+                source={getLevelImage(currentLevelDef.id)}
+                style={styles.dockThumbnail}
+                resizeMode="cover"
+              />
+            </View>
+            <View style={styles.dockInfo}>
+              <Text style={styles.dockRealmText}>{currentWorld.name.toUpperCase()}</Text>
+              <Text style={styles.dockLevelText} numberOfLines={1}>
+                Level {currentLevelDef.id}: {currentLevelDef.title}
+              </Text>
+            </View>
+
+            <Pressable
+              onPress={() => handleSelectLevel(currentLevelDef)}
+              style={styles.continueBtn}
+            >
+              <Text style={styles.continueBtnText}>PLAY LEVEL {currentLevelDef.id}</Text>
+              <Ionicons name="play" size={16} color="#FFFFFF" />
+            </Pressable>
           </View>
-
-          {/* Daily Streak Flame */}
-          <View style={[styles.statPill, styles.streakPill]}>
-            <Text style={styles.flameEmoji}>🔥</Text>
-            <Text style={[styles.statPillText, styles.streakText]}>
-              {journeyState.dailyJourney.currentStreak}
-            </Text>
-          </View>
-        </View>
-
-        {/* Quest Drawer Toggle */}
-        <Pressable
-          onPress={() => setShowQuestDrawer((prev) => !prev)}
-          style={[styles.iconBtn, showQuestDrawer && styles.questBtnActive]}
-        >
-          <Ionicons name="flag" size={18} color={showQuestDrawer ? "#FBBF24" : "#F8FAFC"} />
-        </Pressable>
-      </View>
-
-      {/* Collapsible Daily / Weekly Quest Widget */}
-      {showQuestDrawer && (
-        <DailyJourneyWidget
-          daily={journeyState.dailyJourney}
-          weekly={journeyState.weeklyJourney}
-          onClose={() => setShowQuestDrawer(false)}
-        />
+        </>
       )}
 
-      {/* Main World Map Canvas */}
-      <WorldMap
-        journeyState={journeyState}
-        playerAvatar={profile.avatar}
-        playerName={profile.playerName}
-        onSelectLevel={handleSelectLevel}
-      />
-
-      {/* Bottom Floating Quick Continue Dock with Theme Preview */}
-      <View style={[styles.bottomDock, { bottom: Math.max(insets.bottom, 10) + 70 }]}>
-        <View style={styles.dockImageContainer}>
-          <Image
-            source={getLevelImage(currentLevelDef.id)}
-            style={styles.dockThumbnail}
-            resizeMode="cover"
-          />
-        </View>
-        <View style={styles.dockInfo}>
-          <Text style={styles.dockRealmText}>{currentWorld.name.toUpperCase()}</Text>
-          <Text style={styles.dockLevelText} numberOfLines={1}>
-            Level {currentLevelDef.id}: {currentLevelDef.title}
-          </Text>
-        </View>
-
-        <Pressable
-          onPress={() => handleSelectLevel(currentLevelDef)}
-          style={styles.continueBtn}
-        >
-          <Text style={styles.continueBtnText}>PLAY LEVEL {currentLevelDef.id}</Text>
-          <Ionicons name="play" size={16} color="#FFFFFF" />
-        </Pressable>
-      </View>
+      {/* Cinematic Portal Loading Screen */}
+      {(showPortalLoader || !journeyState) && (
+        <KingdomLoadingScreen onComplete={() => setShowPortalLoader(false)} />
+      )}
     </View>
   );
 }

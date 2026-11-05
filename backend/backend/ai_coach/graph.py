@@ -18,11 +18,14 @@ from ..taxonomy import CONCEPT_TAXONOMY, ConceptNode
 from .math_verifier import compute_question_fingerprint, format_number, verify_explanation_consistency, verify_math_question
 from .state import CoachingState, PracticeQuestion
 
+from ..ai.cache import ai_cache
+from ..ai.prompts import COACH_LESSON_SYSTEM_PROMPT, build_coach_lesson_prompt
+
 logger = logging.getLogger(__name__)
 
 
-def get_llm(temperature: float = 0.4, max_tokens: int = 700) -> Optional[ChatOpenAI]:
-    """Instantiate LangChain ChatOpenAI configured for OpenRouter."""
+def get_llm(temperature: float = 0.3, max_tokens: int = 450) -> Optional[ChatOpenAI]:
+    """Instantiate LangChain ChatOpenAI configured for OpenRouter with mobile latency guardrails."""
     if not OPENROUTER_API_KEY:
         return None
     try:
@@ -32,7 +35,7 @@ def get_llm(temperature: float = 0.4, max_tokens: int = 700) -> Optional[ChatOpe
             openai_api_base=OPENROUTER_BASE_URL,
             temperature=temperature,
             max_tokens=max_tokens,
-            request_timeout=8,
+            request_timeout=5,
             default_headers={
                 "HTTP-Referer": "https://funganit.app",
                 "X-Title": "FunGanit AI Coach",
@@ -217,40 +220,48 @@ def node_generate_and_verify_lesson(state: CoachingState) -> Dict[str, Any]:
     objective = state.get("learning_objective", "")
     fingerprints_seen: List[str] = list(state.get("fingerprints_seen") or [])
 
+    # ── 1. Check verified lesson cache (instant 0ms response) ────────────────
+    cache_key = f"coach_lesson:{target_cid}"
+    cached_data = ai_cache.get(cache_key)
+    if cached_data:
+        logger.info(f"[AICoach] Cache hit: using verified lesson for {target_cid}")
+        cached_practice: List[PracticeQuestion] = []
+        for idx, item in enumerate(cached_data["verified_practice"]):
+            fp = compute_question_fingerprint(item["prompt"], target_cid)
+            fingerprints_seen.append(fp)
+            cached_practice.append(
+                PracticeQuestion(
+                    id=f"q_{idx+1}_{random.randint(100, 999)}",
+                    difficulty=item.get("difficulty", idx + 1),
+                    prompt=item["prompt"],
+                    options=item["options"],
+                    correct_answer=item["correct_answer"],
+                    solution_method=item.get("solution_method", ""),
+                    concept_tested=target_node.name,
+                    verified=True,
+                    fingerprint=fp,
+                )
+            )
+        return {
+            "concept_explanation": cached_data["concept_explanation"],
+            "formula_breakdown": cached_data["formula_breakdown"],
+            "example_problem": cached_data["example_problem"],
+            "example_solution": cached_data["example_solution"],
+            "verified_practice": cached_practice,
+            "fingerprints_seen": fingerprints_seen,
+            "next_action": "show_step_1",
+        }
+
     llm = get_llm(temperature=0.3)
 
     if llm:
-        system_prompt = (
-            "You are FunGanit AI Coach, a world-class, engaging mathematics coach. "
-            "Generate an interactive, crystal-clear 5-step math lesson in strict JSON format.\n\n"
-            "Format schema:\n"
-            "{\n"
-            '  "concept_explanation": "2-3 intuitive sentences explaining the core concept.",\n'
-            '  "formula_breakdown": "Clear standard formula.",\n'
-            '  "example_problem": "An explicit math question (e.g. Solve for x: 3x + 7 = 22).",\n'
-            '  "example_solution": "Step 1: ... Step 2: ... Final answer: ...",\n'
-            '  "practice_questions": [\n'
-            '    {\n'
-            '      "prompt": "Exact math question string",\n'
-            '      "correct_answer": "Exact numerical or simplified answer",\n'
-            '      "options": ["correct_answer", "distractor1", "distractor2", "distractor3"],\n'
-            '      "solution_method": "1-sentence calculation step"\n'
-            '    }\n'
-            '  ]\n'
-            "}\n"
-            "CRITICAL RULES:\n"
-            "1. practice_questions MUST contain exactly 3 questions.\n"
-            "2. All options MUST be mathematically distinct and contain the exact correct_answer.\n"
-            "3. Calculations MUST be 100% accurate."
-        )
-
-        user_content = (
-            f"Concept: {target_node.name} ({target_cid})\n"
-            f"Formula: {target_node.formula or 'Standard'}\n"
-            f"Target Learning Objective: {objective}\n"
-            f"Student Common Pitfall: {common_mistake}\n"
-            f"Examples for reference: {target_node.examples}\n"
-            "Output JSON only."
+        system_prompt = COACH_LESSON_SYSTEM_PROMPT
+        user_content = build_coach_lesson_prompt(
+            concept_name=target_node.name,
+            concept_id=target_cid,
+            formula=target_node.formula or "Standard",
+            objective=objective,
+            common_mistake=common_mistake,
         )
 
         try:
@@ -309,12 +320,18 @@ def node_generate_and_verify_lesson(state: CoachingState) -> Dict[str, Any]:
                     example_solution=parsed.get("example_solution", ""),
                 )
 
-                return {
+                lesson_data = {
                     "concept_explanation": parsed.get("concept_explanation", target_node.description),
                     "formula_breakdown": parsed.get("formula_breakdown", target_node.formula or "Standard formula"),
                     "example_problem": parsed.get("example_problem", target_node.examples[0] if target_node.examples else ""),
                     "example_solution": parsed.get("example_solution", ""),
                     "verified_practice": verified_practice,
+                }
+                # Cache the verified lesson for 24 hours to eliminate duplicate generation
+                ai_cache.set(cache_key, lesson_data, ttl_seconds=86400)
+
+                return {
+                    **lesson_data,
                     "fingerprints_seen": fingerprints_seen,
                     "next_action": "show_step_1",
                 }

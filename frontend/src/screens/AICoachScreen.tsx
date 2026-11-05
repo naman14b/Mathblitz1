@@ -84,12 +84,11 @@ export function AICoachScreen({
         setLearningProfile(prof);
       }
 
-      // If opened with a specific concept target or has active weakness, initiate coaching session
-      const targetCid = initialConceptId || prof.active_intervention?.concept_id;
-      if (targetCid) {
+      // If opened with a specific concept target, initiate coaching session
+      if (initialConceptId) {
         const session = await aiCoachApi.startSession(
           playerId,
-          targetCid,
+          initialConceptId,
           profile.playerName || "Player"
         );
         if (isMounted) {
@@ -107,20 +106,24 @@ export function AICoachScreen({
   }, [initialConceptId, profile.playerName]);
 
   const handleStartTargetedSession = async (conceptId: string) => {
+    if (loading) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
     setLoading(true);
-    const playerId = profile.playerName || "player_local";
-    const session = await aiCoachApi.startSession(
-      playerId,
-      conceptId,
-      profile.playerName || "Player"
-    );
-    setActiveSession(session);
-    setCurrentStep(1);
-    setSelectedPracticeIndex(0);
-    setSelectedAnswer(null);
-    setFeedbackData(null);
-    setLoading(false);
+    try {
+      const playerId = profile.playerName || "player_local";
+      const session = await aiCoachApi.startSession(
+        playerId,
+        conceptId,
+        profile.playerName || "Player"
+      );
+      setActiveSession(session);
+      setCurrentStep(1);
+      setSelectedPracticeIndex(0);
+      setSelectedAnswer(null);
+      setFeedbackData(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleAnswerOption = (option: string) => {

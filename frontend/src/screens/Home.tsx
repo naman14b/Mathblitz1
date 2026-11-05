@@ -10,14 +10,13 @@ import Animated, {
   withSpring,
   Easing,
 } from "react-native-reanimated";
-import { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { AGE_GROUPS, AVATARS, LocalProfile, ACHIEVEMENTS, PREMIUM_BADGES, STREAK_MILESTONES, CoachingInsight } from "@/src/game/types";
 import { BrandMark, IconButton, ScreenTitle, SoftButton, StatTile } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
 import { AdBanner } from "@/src/components/AdBanner";
 import { ProactiveCoachCard } from "@/src/components/ProactiveCoachCard";
 import { aiCoachApi } from "@/src/api/aiCoach";
-import { SurrealBackground } from "@/src/components/SurrealBackground";
 
 type HomeProps = {
   profile: LocalProfile;
@@ -118,6 +117,57 @@ function HeroParticles() {
   );
 }
 
+// Localized animated counter tile - updates only itself on each frame without re-rendering Home
+const AnimatedStatTile = memo(function AnimatedStatTile({
+  icon,
+  targetValue,
+  label,
+  color,
+}: {
+  icon: keyof typeof Ionicons.glyphMap;
+  targetValue: number;
+  label: string;
+  color?: string;
+}) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    let animFrame: number | null = null;
+    let current = 0;
+    const target = Math.max(0, targetValue || 0);
+
+    if (target === 0) {
+      setDisplayValue(0);
+      return;
+    }
+
+    const step = () => {
+      if (current < target) {
+        current += Math.max(1, Math.ceil((target - current) / 6));
+        setDisplayValue(current);
+        animFrame = requestAnimationFrame(step);
+      } else {
+        setDisplayValue(target);
+      }
+    };
+
+    step();
+
+    return () => {
+      if (animFrame) cancelAnimationFrame(animFrame);
+    };
+  }, [targetValue]);
+
+  return (
+    <StatTile
+      icon={icon}
+      value={String(displayValue)}
+      label={label}
+      color={color}
+    />
+  );
+});
+
 export function Home({
   profile,
   onPlay,
@@ -215,9 +265,6 @@ export function Home({
     transform: [{ scale: tokenScale.value }],
   }));
 
-  // Animated number counters on screen mount
-  const [displayBest, setDisplayBest] = useState(0);
-  const [displayXp, setDisplayXp] = useState(0);
   const [coachInsight, setCoachInsight] = useState<CoachingInsight | null>(null);
 
   useEffect(() => {
@@ -228,48 +275,8 @@ export function Home({
     }).catch(() => {});
   }, [profile.playerName]);
 
-  useEffect(() => {
-    let bestFrame: any;
-    let xpFrame: any;
-
-    const targetBest = profile.personalBest || 0;
-    const targetXp = profile.totalXp || 0;
-
-    let currentBest = 0;
-    let currentXp = 0;
-
-    const stepBest = () => {
-      if (currentBest < targetBest) {
-        currentBest += Math.max(1, Math.ceil((targetBest - currentBest) / 6));
-        setDisplayBest(currentBest);
-        bestFrame = requestAnimationFrame(stepBest);
-      } else {
-        setDisplayBest(targetBest);
-      }
-    };
-
-    const stepXp = () => {
-      if (currentXp < targetXp) {
-        currentXp += Math.max(1, Math.ceil((targetXp - currentXp) / 6));
-        setDisplayXp(currentXp);
-        xpFrame = requestAnimationFrame(stepXp);
-      } else {
-        setDisplayXp(targetXp);
-      }
-    };
-
-    stepBest();
-    stepXp();
-
-    return () => {
-      cancelAnimationFrame(bestFrame);
-      cancelAnimationFrame(xpFrame);
-    };
-  }, [profile.personalBest, profile.totalXp]);
-
   return (
     <View style={styles.root}>
-      <SurrealBackground />
       <ScrollView
         contentContainerStyle={{
           paddingTop: insets.top + 10,
@@ -305,7 +312,7 @@ export function Home({
                 activePremiumFrame && {
                   borderColor: activePremiumFrame.borderColor,
                   borderWidth: 3.5,
-                  backgroundColor: activePremiumFrame.gradient[0],
+                  backgroundColor: activePremiumFrame.gradient?.[0] || "#1E1B4B",
                 },
               ]}
             >
@@ -595,7 +602,7 @@ export function Home({
             <View style={styles.calendarDateBadge}>
               <View style={styles.calendarMonthHeader}>
                 <Text style={styles.calendarMonthText}>
-                  {new Date().toLocaleString("en-US", { month: "short" }).toUpperCase()}
+                  {["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"][new Date().getMonth()]}
                 </Text>
               </View>
               <View style={styles.calendarDayContainer}>
@@ -669,15 +676,15 @@ export function Home({
           </SoftButton>
         </View>
         <View style={styles.stats}>
-          <StatTile
+          <AnimatedStatTile
             icon="trophy"
-            value={String(displayBest)}
+            targetValue={profile.personalBest || 0}
             label="Personal best"
             color={isNight ? "rgba(245, 158, 11, 0.15)" : "#FFFBEB"}
           />
-          <StatTile
+          <AnimatedStatTile
             icon="sparkles"
-            value={String(displayXp)}
+            targetValue={profile.totalXp || 0}
             label="Total XP"
             color={isNight ? "rgba(124, 58, 237, 0.15)" : "#F5F3FF"}
           />

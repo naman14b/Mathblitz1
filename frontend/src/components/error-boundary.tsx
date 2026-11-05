@@ -7,6 +7,7 @@ import { Component, type ErrorInfo, type PropsWithChildren, useState } from "rea
 import { Platform, Pressable, ScrollView, Text, View } from "react-native";
 
 import { makeStyles } from "@/src/theme";
+import { resetProfile } from "@/src/game/storage";
 
 type ErrorBoundaryState = { error: Error | null };
 
@@ -36,6 +37,7 @@ export class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundarySta
 function ErrorFallback({ error, resetError }: { error: Error; resetError: () => void }) {
   const styles = useStyles();
   const [showDetails, setShowDetails] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
 
   const handleReload = async () => {
     try {
@@ -46,27 +48,61 @@ function ErrorFallback({ error, resetError }: { error: Error; resetError: () => 
     }
   };
 
+  const handleResetCache = async () => {
+    setIsResetting(true);
+    try {
+      await resetProfile();
+      await handleReload();
+    } catch {
+      resetError();
+    } finally {
+      setIsResetting(false);
+    }
+  };
+
   return (
     <View style={styles.container} testID="error-fallback">
       <View style={styles.content}>
         <Text style={styles.title}>Something went wrong</Text>
-        <Text style={styles.message}>Please reload the app to continue.</Text>
-        {__DEV__ ? <Text style={styles.devMessage}>{error.message}</Text> : null}
-        <Pressable
-          onPress={handleReload}
-          testID="error-fallback-reload"
-          accessibilityRole="button"
-          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-        >
-          <Text style={styles.buttonText}>Reload app</Text>
-        </Pressable>
-        {__DEV__ ? (
-          <Pressable onPress={() => setShowDetails((v) => !v)} accessibilityRole="button" hitSlop={8}>
-            <Text style={styles.detailsToggle}>{showDetails ? "Hide details" : "Show details"}</Text>
+        <Text style={styles.message}>An unexpected error occurred while rendering the screen.</Text>
+        {error?.message ? <Text style={styles.devMessage}>{error.message}</Text> : null}
+        
+        <View style={styles.actionsContainer}>
+          <Pressable
+            onPress={handleReload}
+            testID="error-fallback-reload"
+            accessibilityRole="button"
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+          >
+            <Text style={styles.buttonText}>Reload App</Text>
           </Pressable>
-        ) : null}
+
+          <Pressable
+            onPress={resetError}
+            accessibilityRole="button"
+            style={({ pressed }) => [styles.secondaryButton, pressed && styles.buttonPressed]}
+          >
+            <Text style={styles.secondaryButtonText}>Try Again</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={handleResetCache}
+            disabled={isResetting}
+            accessibilityRole="button"
+            style={({ pressed }) => [styles.tertiaryButton, pressed && styles.buttonPressed]}
+          >
+            <Text style={styles.tertiaryButtonText}>
+              {isResetting ? "Resetting..." : "Reset Cache & Restart"}
+            </Text>
+          </Pressable>
+        </View>
+
+        <Pressable onPress={() => setShowDetails((v) => !v)} accessibilityRole="button" hitSlop={8}>
+          <Text style={styles.detailsToggle}>{showDetails ? "Hide technical details" : "Show technical details"}</Text>
+        </Pressable>
       </View>
-      {__DEV__ && showDetails ? (
+
+      {showDetails ? (
         <ScrollView style={styles.details} contentContainerStyle={styles.detailsContent}>
           <Text selectable style={styles.detailsText}>
             {error.stack ?? error.message}
@@ -104,13 +140,18 @@ const useStyles = makeStyles((colors) => ({
     fontSize: 13,
     textAlign: "center",
   },
-  button: {
+  actionsContainer: {
+    width: "100%",
+    maxWidth: 280,
+    gap: 10,
     marginTop: 8,
+  },
+  button: {
     backgroundColor: colors.brandPrimary,
     borderRadius: 12,
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     paddingVertical: 14,
-    minWidth: 180,
+    alignItems: "center",
   },
   buttonPressed: {
     opacity: 0.85,
@@ -119,6 +160,32 @@ const useStyles = makeStyles((colors) => ({
     color: colors.onBrandPrimary,
     fontSize: 15,
     fontWeight: "600",
+    textAlign: "center",
+  },
+  secondaryButton: {
+    backgroundColor: colors.surfaceSecondary,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 13,
+    alignItems: "center",
+  },
+  secondaryButtonText: {
+    color: colors.onSurface,
+    fontSize: 15,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  tertiaryButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    alignItems: "center",
+  },
+  tertiaryButtonText: {
+    color: colors.muted,
+    fontSize: 13,
+    textDecorationLine: "underline",
     textAlign: "center",
   },
   detailsToggle: {

@@ -10,7 +10,12 @@ export type WorldId =
   | "percentage_city"
   | "algebra_mountain"
   | "geometry_castle"
-  | string; // Support infinite procedural worlds (world_6, world_7, etc.)
+  | "crystal_matrix"
+  | "proportion_canyon"
+  | "merchant_citadel"
+  | "master_spire"
+  | "infinity_sanctum"
+  | string; // Support infinite procedural worlds (world_11, etc.)
 
 export type LevelType =
   | "normal"
@@ -116,6 +121,18 @@ export interface JourneyQuestion {
   subtopic?: string;
   diagramType?: "shape" | "angle" | "fraction_bar" | "number_line" | "grid";
   diagramData?: any;
+}
+
+export interface JourneyAnswerRecord {
+  questionId: string;
+  prompt: string;
+  choices: JourneyQuestionChoice[];
+  correctAnswer: string | number;
+  explanation?: string;
+  selectedChoiceId: string | null;
+  selectedValue: string | number | null;
+  selectedLabel: string | null;
+  isCorrect: boolean;
 }
 
 export interface LevelResultData {

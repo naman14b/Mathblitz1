@@ -165,7 +165,10 @@ async def submit_journey_level_result(
         # Boss victory unlocks next world
         if level_id % 20 == 0:
             next_world_num = (level_id // 20) + 1
-            next_world_keys = ["number_forest", "fraction_valley", "percentage_city", "algebra_mountain", "geometry_castle"]
+            next_world_keys = [
+                "number_forest", "fraction_valley", "percentage_city", "algebra_mountain", "geometry_castle",
+                "crystal_matrix", "proportion_canyon", "merchant_citadel", "master_spire", "infinity_sanctum"
+            ]
             if next_world_num <= len(next_world_keys):
                 next_key = next_world_keys[next_world_num - 1]
                 if not unlocked_worlds.get(next_key, False):

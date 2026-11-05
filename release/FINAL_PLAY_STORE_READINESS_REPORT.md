@@ -1,8 +1,8 @@
 # FunGanit — Final Play Store Readiness Report
 
 **Application Name:** FunGanit  
-**Application / Package ID:** `com.naman.mathblitz`  
-**Version:** 1.0.0 (Version Code: 1)  
+**Application / Package ID:** `com.funganit.app`  
+**Version:** 1.0.1 (Version Code: 1)  
 **Date:** September 2026  
 
 ---
@@ -81,9 +81,9 @@
 
 ## E. Android Configuration
 
-* **Application ID / Package:** `com.naman.mathblitz`
+* **Application ID / Package:** `com.funganit.app`
 * **Application Name:** `FunGanit`
-* **Version Name:** `1.0.0`
+* **Version Name:** `1.0.1`
 * **Version Code:** `1`
 * **Minimum SDK:** `24` (Android 7.0 Nougat)
 * **Compile SDK:** `36` (Android 16 / 15)
@@ -100,7 +100,13 @@
 | `android.permission.INTERNET` | **Retained** | Synchronizing Journey progress, AI Coach queries, online leaderboards, and AdMob. |
 | `android.permission.ACCESS_NETWORK_STATE` | **Retained** | Network connectivity detection for offline queue and ad loading. |
 | `android.permission.VIBRATE` | **Retained** | Tactile haptic feedback during quiz gameplay. |
-| `android.permission.READ_MEDIA_IMAGES` | **Retained** (maxSdk 32) | Image selection for admin challenge question creation. |
+| `android.permission.MODIFY_AUDIO_SETTINGS` | **Retained** | Game audio sound effect management. |
+| `android.permission.READ_MEDIA_IMAGES` | **REMOVED** | Replaced by Android system Photo Picker (no runtime permission required). Blocked via `tools:node="remove"`. |
+| `android.permission.READ_MEDIA_VIDEO` | **REMOVED** | Blocked via `tools:node="remove"`. |
+| `android.permission.READ_MEDIA_AUDIO` | **REMOVED** | Blocked via `tools:node="remove"`. |
+| `android.permission.READ_MEDIA_VISUAL_USER_SELECTED` | **REMOVED** | Blocked via `tools:node="remove"`. |
+| `android.permission.READ_EXTERNAL_STORAGE` | **REMOVED** | Blocked via `tools:node="remove"`. App uses internal storage and system Photo Picker. |
+| `android.permission.WRITE_EXTERNAL_STORAGE` | **REMOVED** | Blocked via `tools:node="remove"`. |
 | `android.permission.RECORD_AUDIO` | **REMOVED** | Blocked via `tools:node="remove"`. FunGanit does not record audio. |
 | `android.permission.SYSTEM_ALERT_WINDOW` | **REMOVED** | Blocked via `tools:node="remove"`. Development overlay permission. |
 | `android.permission.FOREGROUND_SERVICE` | **REMOVED** | Blocked via `tools:node="remove"`. Unnecessary background service. |

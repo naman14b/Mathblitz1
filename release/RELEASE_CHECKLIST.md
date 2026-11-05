@@ -1,8 +1,8 @@
 # FunGanit — Google Play Release Checklist & Store Assets
 
 **Application Name:** FunGanit  
-**Package / Application ID:** `com.naman.mathblitz`  
-**Target Release:** Production Track (v1.0.0, Version Code: 1)  
+**Package / Application ID:** `com.funganit.app`  
+**Target Release:** Production Track (v1.0.1, Version Code: 1)  
 **Target SDK:** 36 (Android 16 / 15)  
 **Compile SDK:** 36  
 **Min SDK:** 24 (Android 7.0 Nougat)  

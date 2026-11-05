@@ -12,33 +12,76 @@ const SOURCES: Record<SoundKey, number> = {
 
 let players: Partial<Record<SoundKey, AudioPlayer>> = {};
 let ready = false;
+let readyPromise: Promise<void> | null = null;
+const seeking: Partial<Record<SoundKey, boolean>> = {};
 
-async function ensureReady() {
+async function ensureReady(): Promise<void> {
   if (ready) return;
-  ready = true;
-  try {
-    await setAudioModeAsync({ playsInSilentMode: true, shouldPlayInBackground: false });
-  } catch {}
-  (Object.keys(SOURCES) as SoundKey[]).forEach((key) => {
-    if (!players[key]) players[key] = createAudioPlayer(SOURCES[key]);
-  });
+  if (!readyPromise) {
+    readyPromise = (async () => {
+      try {
+        await setAudioModeAsync({ playsInSilentMode: true, shouldPlayInBackground: false });
+      } catch {}
+      (Object.keys(SOURCES) as SoundKey[]).forEach((key) => {
+        if (!players[key]) {
+          try {
+            players[key] = createAudioPlayer(SOURCES[key]);
+          } catch {}
+        }
+      });
+      ready = true;
+    })();
+  }
+  return readyPromise;
 }
 
-export async function playSound(key: SoundKey, enabled: boolean = true) {
+export function playSound(key: SoundKey, enabled: boolean = true): void {
   if (!enabled) return;
-  try {
-    await ensureReady();
-    const player = players[key];
-    if (!player) return;
-    player.seekTo(0);
-    player.play();
-  } catch {}
+  ensureReady()
+    .then(() => {
+      const player = players[key];
+      if (!player) return;
+
+      try {
+        if (player.currentTime > 0) {
+          if (seeking[key]) return; // Seek already in progress for this key
+          seeking[key] = true;
+          player
+            .seekTo(0)
+            .then(() => {
+              seeking[key] = false;
+              try {
+                if (players[key] === player) {
+                  player.play();
+                }
+              } catch {}
+            })
+            .catch(() => {
+              seeking[key] = false;
+              try {
+                if (players[key] === player) {
+                  player.play();
+                }
+              } catch {}
+            });
+          return;
+        }
+        player.play();
+      } catch {
+        // Non-fatal playback error
+      }
+    })
+    .catch(() => {});
 }
 
 export function unloadSounds() {
   (Object.keys(players) as SoundKey[]).forEach((key) => {
-    try { players[key]?.remove(); } catch {}
+    try {
+      players[key]?.remove();
+    } catch {}
   });
   players = {};
+  (Object.keys(seeking) as SoundKey[]).forEach((k) => delete seeking[k]);
   ready = false;
+  readyPromise = null;
 }
