@@ -1,5 +1,18 @@
 # FunGanit Release Notes
 
+## Version 1.0.7 (Version Code: 7)
+* **Application ID / Package Name:** `com.funganit.app`
+* **Bundle:** `FunGanit-v1.0.7-release.aab`
+* **Target Track:** Google Play Closed Testing / Production
+* **Bulletproof Level Complete Hardening:**
+  - Added dedicated `JourneyLevelCompleteModalBoundary` component wrapping `JourneyLevelCompleteModal` in `JourneyPlayScreen` to safeguard against any unexpected runtime render crashes.
+  - Implemented comprehensive null-safety, default fallbacks, and type guards across all `result`, `questions`, and `answerRecords` properties in `JourneyLevelCompleteModal`.
+  - Added safe `try...catch` wrapper in `handleFinishLevel` to ensure level completion never hangs or fails even if storage write operations experience anomalies.
+  - Hardened `onUpdateProfile` state sanitization in `frontend/app/index.tsx` ensuring `totalXp` and `tokens` can never be assigned `NaN`.
+* **Verified Zero Hook Violations:** Verified 100% compliance with React Rules of Hooks across all components and screens (`npm run check-hooks`).
+* **Permissions:** Strictly zero media or photo permissions. Zero broad storage permissions. Camera blocked.
+* **Preserved:** All core maths gameplay, offline storage, AdMob integration, sound effects, and backend API connectivity.
+
 ## Version 1.0.6 (Version Code: 6)
 * **Application ID / Package Name:** `com.funganit.app`
 * **Bundle:** `FunGanit-v1.0.6-release.aab`

@@ -137,24 +137,47 @@ export function JourneyPlayScreen({
       const resolvedScore = typeof finalScore === "number" ? finalScore : scoreRef.current;
       const resolvedTime = typeof finalTime === "number" ? finalTime : timeTakenRef.current;
 
-      const playerId = profile.playerName || "player_local";
-      const { resultData: res, xpDelta, tokensDelta } = await submitLocalLevelResult(playerId, {
-        levelId,
-        score: resolvedScore,
-        correctAnswers: resolvedCorrect,
-        totalQuestions: questions.length,
-        timeTakenSeconds: resolvedTime,
-      });
+      try {
+        const playerId = profile.playerName || "player_local";
+        const { resultData: res, xpDelta, tokensDelta } = await submitLocalLevelResult(playerId, {
+          levelId,
+          score: resolvedScore,
+          correctAnswers: resolvedCorrect,
+          totalQuestions: questions.length,
+          timeTakenSeconds: resolvedTime,
+        });
 
-      setResultData(res);
+        setResultData(res);
 
-      // Apply tokens and XP delta to profile
-      if (xpDelta > 0 || tokensDelta > 0) {
-        onUpdateProfile((prev) => ({
-          ...prev,
-          totalXp: prev.totalXp + xpDelta,
-          tokens: prev.tokens + tokensDelta,
-        }));
+        // Apply tokens and XP delta to profile
+        if (xpDelta > 0 || tokensDelta > 0) {
+          onUpdateProfile((prev) => ({
+            ...prev,
+            totalXp: (Number.isFinite(prev.totalXp) ? prev.totalXp : 0) + (Number.isFinite(xpDelta) ? xpDelta : 0),
+            tokens: (Number.isFinite(prev.tokens) ? prev.tokens : 0) + (Number.isFinite(tokensDelta) ? tokensDelta : 0),
+          }));
+        }
+      } catch (err) {
+        console.error("[JourneyPlayScreen] Error in handleFinishLevel:", err);
+        setResultData({
+          levelId,
+          worldId: world.id,
+          completed: true,
+          score: resolvedScore,
+          stars: 1,
+          correctAnswers: resolvedCorrect,
+          totalQuestions: questions.length || 5,
+          timeTakenSeconds: resolvedTime,
+          accuracy: questions.length > 0 ? resolvedCorrect / questions.length : 1,
+          isReplay: false,
+          isNewBestScore: false,
+          isNewBestTime: false,
+          isFirstCompletion: false,
+          unlockedNextLevel: true,
+          unlockedNextWorld: false,
+          xpEarned: 50,
+          tokensEarned: 5,
+        });
       }
     },
     [profile.playerName, levelId, questions.length, onUpdateProfile]
@@ -542,21 +565,144 @@ export function JourneyPlayScreen({
         </View>
       </Modal>
 
-      {/* Victory / Defeat Modal */}
+      {/* Victory / Defeat Modal with Defensive Boundary */}
       {isGameOver && resultData !== null && (
-        <JourneyLevelCompleteModal
-          visible={isGameOver && resultData !== null}
-          result={resultData}
-          questions={questions}
-          answerRecords={answerRecords}
+        <JourneyLevelCompleteModalBoundary
+          levelId={levelId}
           onNextLevel={() => onNavigateToLevel(levelId + 1)}
           onReplay={handleRestartLevel}
           onBackToMap={onBackToMap}
-        />
+        >
+          <JourneyLevelCompleteModal
+            visible={isGameOver && resultData !== null}
+            result={resultData}
+            questions={questions}
+            answerRecords={answerRecords}
+            onNextLevel={() => onNavigateToLevel(levelId + 1)}
+            onReplay={handleRestartLevel}
+            onBackToMap={onBackToMap}
+          />
+        </JourneyLevelCompleteModalBoundary>
       )}
     </View>
   );
 }
+
+interface ModalBoundaryProps {
+  children: React.ReactNode;
+  levelId: number;
+  onNextLevel: () => void;
+  onReplay: () => void;
+  onBackToMap: () => void;
+}
+
+interface ModalBoundaryState {
+  hasError: boolean;
+}
+
+class JourneyLevelCompleteModalBoundary extends React.Component<ModalBoundaryProps, ModalBoundaryState> {
+  state: ModalBoundaryState = { hasError: false };
+
+  static getDerivedStateFromError(): ModalBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, info: React.ErrorInfo): void {
+    console.error("[JourneyLevelCompleteModalBoundary] Render error caught:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <Modal visible transparent animationType="fade">
+          <View style={fallbackModalStyles.backdrop}>
+            <View style={fallbackModalStyles.card}>
+              <Text style={fallbackModalStyles.emoji}>🏆</Text>
+              <Text style={fallbackModalStyles.title}>LEVEL COMPLETE!</Text>
+              <Text style={fallbackModalStyles.subtitle}>Level {this.props.levelId}</Text>
+              <View style={fallbackModalStyles.actions}>
+                <Pressable onPress={this.props.onBackToMap} style={fallbackModalStyles.secondaryBtn}>
+                  <Text style={fallbackModalStyles.secondaryBtnText}>Map</Text>
+                </Pressable>
+                <Pressable onPress={this.props.onReplay} style={fallbackModalStyles.secondaryBtn}>
+                  <Text style={fallbackModalStyles.secondaryBtnText}>Play Again</Text>
+                </Pressable>
+                <Pressable onPress={this.props.onNextLevel} style={fallbackModalStyles.primaryBtn}>
+                  <Text style={fallbackModalStyles.primaryBtnText}>Next Level</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const fallbackModalStyles = StyleSheet.create({
+  backdrop: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 24,
+  },
+  card: {
+    width: "100%",
+    maxWidth: 340,
+    backgroundColor: "#1E293B",
+    borderColor: "#334155",
+    borderWidth: 2,
+    borderRadius: 20,
+    padding: 24,
+    alignItems: "center",
+    gap: 12,
+  },
+  emoji: {
+    fontSize: 48,
+  },
+  title: {
+    color: "#F8FAFC",
+    fontSize: 20,
+    fontWeight: "800",
+  },
+  subtitle: {
+    color: "#94A3B8",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  actions: {
+    flexDirection: "row",
+    gap: 10,
+    marginTop: 12,
+    width: "100%",
+  },
+  secondaryBtn: {
+    flex: 1,
+    backgroundColor: "#334155",
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+  secondaryBtnText: {
+    color: "#F8FAFC",
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  primaryBtn: {
+    flex: 1.4,
+    backgroundColor: "#F59E0B",
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+  primaryBtnText: {
+    color: "#FFFFFF",
+    fontSize: 13,
+    fontWeight: "800",
+  },
+});
 
 const styles = StyleSheet.create({
   container: {

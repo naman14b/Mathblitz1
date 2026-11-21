@@ -2,7 +2,7 @@
   "expo": {
     "name": "FunGanit",
     "slug": "mathblitz-60s",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/images/funganit-icon-512.png",
     "scheme": "mathblitz",
@@ -16,7 +16,7 @@
     },
     "android": {
       "package": "com.funganit.app",
-      "versionCode": 6,
+      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/funganit-icon-512.png",
         "backgroundColor": "#FF6B35"

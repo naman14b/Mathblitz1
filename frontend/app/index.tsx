@@ -883,8 +883,13 @@ function AppShell({
           profile={profile}
           onUpdateProfile={async (updater) => {
             const next = updater(profile);
-            setProfile(next);
-            await saveProfile(next);
+            const sanitized: LocalProfile = {
+              ...next,
+              totalXp: Number.isFinite(next.totalXp) ? next.totalXp : profile.totalXp || 0,
+              tokens: Number.isFinite(next.tokens) ? next.tokens : profile.tokens || 0,
+            };
+            setProfile(sanitized);
+            await saveProfile(sanitized);
           }}
           onBackToMap={() => setScreen("journey-map")}
           onNavigateToLevel={(nextLvl) => {

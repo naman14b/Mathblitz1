@@ -54,9 +54,10 @@ export function JourneyLevelCompleteModal({
       cardScale.value = withSpring(1, { damping: 12 });
       if (result.completed) {
         playSound("levelup");
-        if (result.stars >= 1) star1Scale.value = withDelay(200, withSpring(1.2, { damping: 8 }));
-        if (result.stars >= 2) star2Scale.value = withDelay(500, withSpring(1.2, { damping: 8 }));
-        if (result.stars >= 3) star3Scale.value = withDelay(800, withSpring(1.2, { damping: 8 }));
+        const stars = typeof result.stars === "number" ? result.stars : 0;
+        if (stars >= 1) star1Scale.value = withDelay(200, withSpring(1.2, { damping: 8 }));
+        if (stars >= 2) star2Scale.value = withDelay(500, withSpring(1.2, { damping: 8 }));
+        if (stars >= 3) star3Scale.value = withDelay(800, withSpring(1.2, { damping: 8 }));
       } else {
         playSound("wrong");
       }
@@ -71,19 +72,44 @@ export function JourneyLevelCompleteModal({
 
   if (!visible || !result) return null;
 
-  const levelDef = getLevelDef(result.levelId);
-  const world = getWorldForLevel(result.levelId);
+  const safeLevelId = typeof result.levelId === "number" ? result.levelId : 1;
+  let levelDef;
+  let world;
+  try {
+    levelDef = getLevelDef(safeLevelId);
+    world = getWorldForLevel(safeLevelId);
+  } catch (err) {
+    console.error("[JourneyLevelCompleteModal] Error resolving level or world:", err);
+    levelDef = { id: safeLevelId, title: `Level ${safeLevelId}`, levelType: "mixed" as const };
+    world = { id: 1, name: "Number Plains" };
+  }
   const isBoss = levelDef.levelType === "boss";
 
+  const safeStars = typeof result.stars === "number" && !isNaN(result.stars) ? result.stars : 0;
+  const safeScore = typeof result.score === "number" && !isNaN(result.score) ? result.score : 0;
+  const safeAccuracy = typeof result.accuracy === "number" && !isNaN(result.accuracy) ? result.accuracy : 0;
+  const safeCompleted = Boolean(result.completed);
+  const safeTimeTaken = typeof result.timeTakenSeconds === "number" && !isNaN(result.timeTakenSeconds) ? result.timeTakenSeconds : 0;
+  const safeXpEarned = typeof result.xpEarned === "number" && !isNaN(result.xpEarned) ? result.xpEarned : 0;
+  const safeTokensEarned = typeof result.tokensEarned === "number" && !isNaN(result.tokensEarned) ? result.tokensEarned : 0;
+  const safeCorrectAnswers = typeof result.correctAnswers === "number" && !isNaN(result.correctAnswers) ? result.correctAnswers : 0;
+  const safeTotalQuestions = typeof result.totalQuestions === "number" && !isNaN(result.totalQuestions) ? result.totalQuestions : 5;
+  const safeUnlockedNextWorld = Boolean(result.unlockedNextWorld);
+
+  const safeQuestions = Array.isArray(questions) ? questions : [];
+  const safeAnswerRecords = Array.isArray(answerRecords) ? answerRecords : [];
+
   // Assemble full question list for review
-  const reviewItems = questions.map((q, idx) => {
-    const record = answerRecords.find((r) => r.questionId === q.id) || answerRecords[idx];
-    return {
-      index: idx + 1,
-      question: q,
-      record,
-    };
-  });
+  const reviewItems = safeQuestions
+    .filter((q) => q && typeof q === "object")
+    .map((q, idx) => {
+      const record = safeAnswerRecords.find((r) => r && r.questionId === q.id) || safeAnswerRecords[idx];
+      return {
+        index: idx + 1,
+        question: q,
+        record,
+      };
+    });
 
   return (
     <Modal visible={visible} transparent animationType="fade">
@@ -94,42 +120,42 @@ export function JourneyLevelCompleteModal({
             {/* Header Trophy / Outcome */}
             <View style={styles.header}>
               <Text style={styles.outcomeEmoji}>
-                {result.completed ? (isBoss ? "👑" : "🏆") : "💔"}
+                {safeCompleted ? (isBoss ? "👑" : "🏆") : "💔"}
               </Text>
               <Text style={styles.title}>
-                {result.completed
+                {safeCompleted
                   ? isBoss
                     ? `${world.name.toUpperCase()} CONQUERED!`
                     : "LEVEL COMPLETE!"
                   : "LEVEL FAILED"}
               </Text>
               <Text style={styles.subtitle}>
-                Level {result.levelId} • {levelDef.title}
+                Level {safeLevelId} • {levelDef.title}
               </Text>
             </View>
 
             {/* Stars Row */}
-            {result.completed ? (
+            {safeCompleted ? (
               <View style={styles.starsContainer}>
                 <Animated.View style={[styles.starBox, animatedStar1]}>
                   <Ionicons
-                    name={result.stars >= 1 ? "star" : "star-outline"}
+                    name={safeStars >= 1 ? "star" : "star-outline"}
                     size={36}
-                    color={result.stars >= 1 ? "#F59E0B" : "#4B5563"}
+                    color={safeStars >= 1 ? "#F59E0B" : "#4B5563"}
                   />
                 </Animated.View>
                 <Animated.View style={[styles.starBox, styles.starCenter, animatedStar2]}>
                   <Ionicons
-                    name={result.stars >= 2 ? "star" : "star-outline"}
+                    name={safeStars >= 2 ? "star" : "star-outline"}
                     size={46}
-                    color={result.stars >= 2 ? "#F59E0B" : "#4B5563"}
+                    color={safeStars >= 2 ? "#F59E0B" : "#4B5563"}
                   />
                 </Animated.View>
                 <Animated.View style={[styles.starBox, animatedStar3]}>
                   <Ionicons
-                    name={result.stars >= 3 ? "star" : "star-outline"}
+                    name={safeStars >= 3 ? "star" : "star-outline"}
                     size={36}
-                    color={result.stars >= 3 ? "#F59E0B" : "#4B5563"}
+                    color={safeStars >= 3 ? "#F59E0B" : "#4B5563"}
                   />
                 </Animated.View>
               </View>
@@ -143,30 +169,30 @@ export function JourneyLevelCompleteModal({
             <View style={styles.statsGrid}>
               <View style={styles.statTile}>
                 <Text style={styles.statLabel}>SCORE</Text>
-                <Text style={styles.statValue}>{result.score}</Text>
+                <Text style={styles.statValue}>{safeScore}</Text>
               </View>
               <View style={styles.statTile}>
                 <Text style={styles.statLabel}>ACCURACY</Text>
-                <Text style={styles.statValue}>{Math.round(result.accuracy * 100)}%</Text>
+                <Text style={styles.statValue}>{Math.round(safeAccuracy * 100)}%</Text>
               </View>
               <View style={styles.statTile}>
                 <Text style={styles.statLabel}>TIME</Text>
-                <Text style={styles.statValue}>{result.timeTakenSeconds}s</Text>
+                <Text style={styles.statValue}>{safeTimeTaken}s</Text>
               </View>
             </View>
 
             {/* Rewards Pill */}
-            {result.completed && (
+            {safeCompleted && (
               <View style={styles.rewardPill}>
-                <Text style={styles.rewardXp}>+{result.xpEarned} XP</Text>
-                {result.tokensEarned > 0 && (
-                  <Text style={styles.rewardTokens}>🪙 +{result.tokensEarned} Tokens</Text>
+                <Text style={styles.rewardXp}>+{safeXpEarned} XP</Text>
+                {safeTokensEarned > 0 && (
+                  <Text style={styles.rewardTokens}>🪙 +{safeTokensEarned} Tokens</Text>
                 )}
               </View>
             )}
 
             {/* Next World Unlocked Banner */}
-            {result.unlockedNextWorld && (
+            {safeUnlockedNextWorld && (
               <View style={styles.worldUnlockedBanner}>
                 <Text style={styles.worldUnlockedTitle}>🎉 NEW WORLD UNLOCKED!</Text>
                 <Text style={styles.worldUnlockedSub}>
@@ -193,7 +219,7 @@ export function JourneyLevelCompleteModal({
               <View style={styles.reviewBtnTextCol}>
                 <Text style={styles.reviewTriggerTitle}>Review Answers</Text>
                 <Text style={styles.reviewTriggerSub}>
-                  {result.correctAnswers}/{result.totalQuestions} Correct • Check what you pressed
+                  {safeCorrectAnswers}/{safeTotalQuestions} Correct • Check what you pressed
                 </Text>
               </View>
               <Ionicons name="chevron-forward" size={18} color="#38BDF8" />
@@ -211,7 +237,7 @@ export function JourneyLevelCompleteModal({
                 <Text style={styles.secondaryBtnText}>Play Again</Text>
               </Pressable>
 
-              {result.completed && (
+              {safeCompleted && (
                 <Pressable onPress={onNextLevel} style={styles.primaryBtn}>
                   <Text style={styles.primaryBtnText}>Next Level</Text>
                   <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
@@ -236,9 +262,9 @@ export function JourneyLevelCompleteModal({
               </Pressable>
 
               <View style={styles.reviewTitleBlock}>
-                <Text style={styles.reviewTitle}>Level {result.levelId} Review</Text>
+                <Text style={styles.reviewTitle}>Level {safeLevelId} Review</Text>
                 <Text style={styles.reviewSubtitle}>
-                  {result.correctAnswers} of {result.totalQuestions} questions correct ({Math.round(result.accuracy * 100)}%)
+                  {safeCorrectAnswers} of {safeTotalQuestions} questions correct ({Math.round(safeAccuracy * 100)}%)
                 </Text>
               </View>
 
@@ -247,20 +273,20 @@ export function JourneyLevelCompleteModal({
                   styles.reviewAccuracyBadge,
                   {
                     backgroundColor:
-                      result.accuracy >= 0.75
+                      safeAccuracy >= 0.75
                         ? "rgba(16, 185, 129, 0.2)"
                         : "rgba(239, 68, 68, 0.2)",
-                    borderColor: result.accuracy >= 0.75 ? "#10B981" : "#EF4444",
+                    borderColor: safeAccuracy >= 0.75 ? "#10B981" : "#EF4444",
                   },
                 ]}
               >
                 <Text
                   style={[
                     styles.reviewAccuracyBadgeText,
-                    { color: result.accuracy >= 0.75 ? "#34D399" : "#F87171" },
+                    { color: safeAccuracy >= 0.75 ? "#34D399" : "#F87171" },
                   ]}
                 >
-                  {result.completed ? "CLEARED" : "FAILED"}
+                  {safeCompleted ? "CLEARED" : "FAILED"}
                 </Text>
               </View>
             </View>
@@ -333,9 +359,9 @@ export function JourneyLevelCompleteModal({
                     {/* Question Prompt */}
                     <Text style={styles.qPromptText}>{item.question.prompt}</Text>
 
-                    {/* 4 Choices Review */}
+                    {/* Choices Review */}
                     <View style={styles.choicesReviewGrid}>
-                      {item.question.choices.map((choice) => {
+                      {(item.question?.choices || []).map((choice) => {
                         const isUserChoice =
                           isAnswered &&
                           (item.record?.selectedChoiceId === choice.id ||
@@ -465,7 +491,7 @@ export function JourneyLevelCompleteModal({
                 <Text style={styles.secondaryBtnText}>Play Again</Text>
               </Pressable>
 
-              {result.completed && (
+              {safeCompleted && (
                 <Pressable
                   onPress={() => {
                     setIsReviewOpen(false);
