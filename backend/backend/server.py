@@ -13,7 +13,7 @@ import uuid
 from typing import List, Literal, Optional
 
 from fastapi import APIRouter, Depends, FastAPI, File, Header, HTTPException, Query, UploadFile, status
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import HTMLResponse, PlainTextResponse, Response
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from sqlalchemy import delete, desc, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -1313,6 +1313,19 @@ async def privacy_policy():
         with open(policy_path, "r", encoding="utf-8") as f:
             return HTMLResponse(content=f.read())
     return HTMLResponse("<h1>FunGanit Privacy Policy</h1>")
+
+
+@app.get("/app-ads.txt", response_class=PlainTextResponse)
+@app.get("/app-ads.txt/", response_class=PlainTextResponse)
+async def app_ads_txt():
+    ads_path = os.path.join(os.path.dirname(__file__), "app-ads.txt")
+    if os.path.exists(ads_path):
+        with open(ads_path, "r", encoding="utf-8") as f:
+            return PlainTextResponse(content=f.read(), media_type="text/plain")
+    return PlainTextResponse(
+        content="google.com, pub-1850810324754301, DIRECT, f08c47fec0942fa0\n",
+        media_type="text/plain",
+    )
 
 
 app.add_middleware(

@@ -12,6 +12,12 @@
     },
     "rewrites": [
         {
+            "source": "/app-ads.txt",
+            "destination": {
+                "service": "backend"
+            }
+        },
+        {
             "source": "/api",
             "destination": {
                 "service": "backend"
